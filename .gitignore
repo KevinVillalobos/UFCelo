@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.env
+venv/
+.venv/
+ENV/
+
+# Large generated data files (re-created by scraper + engine)
+data/*.csv
+data/elo_histories*.json
+data/skill_histories*.json
+data/skill_scores*.json
+data/fighters*.json
+data/fighters.json
+data/events.json
+
+# Generated output files
+data/simulation_*.json
+data/matchmaking_*.json
+data/validation_report.json
+
+# Keep these tracked (small, manually maintained or critical for app)
+!data/rankings_*.json
+!data/retired_overrides.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
