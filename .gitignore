@@ -27,6 +27,12 @@ data/validation_report.json
 !data/rankings_*.json
 !data/retired_overrides.json
 
+# Claude Code internal memory
+.claude/
+
+# Scraper logs
+data/*.log
+
 # IDE
 .vscode/
 .idea/

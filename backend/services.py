@@ -6,6 +6,7 @@ from .data_loader import (
     get_fighter_by_id,
     get_skill_score_by_id,
     get_upcoming_events,
+    load_champions,
     load_elo_histories,
     load_rankings,
     load_retired_overrides,
@@ -20,7 +21,7 @@ def elo_win_probability(elo_a: float, elo_b: float) -> float:
     return 1.0 / denominator
 
 
-def _ranking_entry(item: Dict[str, object], division: str, index: int) -> Dict[str, object]:
+def _ranking_entry(item: Dict[str, object], division: str, index: int, is_champion: bool = False) -> Dict[str, object]:
     return {
         "fighter_id": str(item.get("id") or item.get("fighter_id") or item.get("fighter")),
         "fighter_name": item.get("name") or item.get("fighter_name"),
@@ -34,20 +35,99 @@ def _ranking_entry(item: Dict[str, object], division: str, index: int) -> Dict[s
         "peak_elo_date": item.get("peak_elo_date"),
         "peak_elo_opponent": item.get("peak_elo_opponent"),
         "active": item.get("active"),
+        "streak": item.get("streak", 0),
+        "is_champion": is_champion,
     }
+
+
+_DIVISIONS_ALL = [
+    "heavyweight", "light heavyweight", "middleweight", "welterweight",
+    "lightweight", "featherweight", "bantamweight", "flyweight",
+]
+
+
+def _division_elo_index() -> tuple:
+    """Single pass over all divisions.
+    Returns (primary_div_map, max_elo_map):
+      primary_div_map  — {fighter_id: division with highest ELO}
+      max_elo_map      — {fighter_id: highest ELO across all divisions}
+    """
+    best_elo: Dict[str, float] = {}
+    best_div: Dict[str, str] = {}
+    for div in _DIVISIONS_ALL:
+        try:
+            for item in load_rankings(div):
+                fid = str(item.get("id") or item.get("fighter_id") or "")
+                if not fid:
+                    continue
+                elo = float(item.get("elo", 0))
+                if elo > best_elo.get(fid, 0):
+                    best_elo[fid] = elo
+                    best_div[fid] = div
+        except Exception:
+            continue
+    return best_div, best_elo
 
 
 def build_ranking_response(division: str, alltime: bool = False) -> List[Dict[str, object]]:
     rankings = load_rankings(division, alltime=alltime)
     if alltime:
         return [_ranking_entry(item, division, item.get("alltime_rank", i + 1)) for i, item in enumerate(rankings)]
+
     retired_overrides = load_retired_overrides()
+    primary_map, max_elo_map = _division_elo_index()
+    all_champions = load_champions()
+
+    # fighter_id → their champion division (skip empty IDs for TBD entries)
+    champ_divisions: Dict[str, str] = {
+        info["fighter_id"]: div
+        for div, info in all_champions.items()
+        if isinstance(info, dict) and info.get("fighter_id")
+    }
+    champ_id = (all_champions.get(division.lower()) or {}).get("fighter_id") or ""
+
     sorted_rankings = sorted(rankings, key=lambda item: float(item.get("elo", 0)), reverse=True)
-    active = [
-        item for item in sorted_rankings
-        if not retired_overrides.get(str(item.get("fighter_id", "")), False)
-    ]
-    return [_ranking_entry(item, division, i) for i, item in enumerate(active, start=1)]
+    active = []
+    for item in sorted_rankings:
+        fid = str(item.get("id") or item.get("fighter_id") or "")
+        if not fid:
+            continue
+        if retired_overrides.get(fid, False):
+            continue
+        fighter_champ_div = champ_divisions.get(fid)
+        if fighter_champ_div:
+            # Champion: only include in their designated division
+            if fighter_champ_div != division:
+                continue
+        else:
+            # Non-champion: only include in the division where their ELO is highest
+            if primary_map.get(fid, division) != division:
+                continue
+        # Use the fighter's best ELO across all divisions (carries over on division move)
+        max_e = max_elo_map.get(fid, 0)
+        if max_e > float(item.get("elo", 0)):
+            item = dict(item)
+            item["elo"] = max_e
+        active.append(item)
+
+    # Inject champion at position #1 regardless of ELO rank
+    result = []
+    champion_item = None
+    rest = []
+    for item in active:
+        fid = str(item.get("id") or item.get("fighter_id") or "")
+        if champ_id and fid == champ_id:
+            champion_item = item
+        else:
+            rest.append(item)
+    if champion_item:
+        result.append(_ranking_entry(champion_item, division, 1, is_champion=True))
+        for i, item in enumerate(rest, start=2):
+            result.append(_ranking_entry(item, division, i))
+    else:
+        for i, item in enumerate(active, start=1):
+            result.append(_ranking_entry(item, division, i))
+    return result
 
 
 def _get_current_elo(fighter_id: str, fighter: Dict[str, object], division: str = "heavyweight") -> float:
@@ -79,18 +159,26 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
         return None
 
     elo_histories = load_elo_histories(division).get(str(fighter_id), [])
+    sorted_histories = sorted(elo_histories, key=lambda entry: entry.get("date") or "")
     elo_history_response = []
-    for item in sorted(elo_histories, key=lambda entry: entry.get("date") or ""):
-        elo_history_response.append(
-            {
-                "date": item.get("date"),
-                "elo": float(item.get("elo", 0)),
-                "opponent_id": item.get("opponent_id"),
-                "opponent_name": item.get("opponent_name"),
-                "result": item.get("result"),
-                "event": item.get("event"),
-            }
-        )
+    prev_elo: Optional[float] = None
+    for item in sorted_histories:
+        cur_elo = float(item.get("elo", 0))
+        elo_change = round(cur_elo - prev_elo, 1) if prev_elo is not None else None
+        prev_elo = cur_elo
+        elo_history_response.append({
+            "date": item.get("date"),
+            "elo": cur_elo,
+            "elo_change": elo_change,
+            "opponent_id": item.get("opponent_id"),
+            "opponent_name": item.get("opponent_name"),
+            "result": item.get("result"),
+            "method": item.get("method"),
+            "round": item.get("round"),
+            "time": item.get("time"),
+            "is_title_fight": item.get("is_title_fight", False),
+            "event": item.get("event"),
+        })
 
     skill_item = get_skill_score_by_id(fighter_id, division) or {}
     skill_score = skill_item.get("skill_score", {})
@@ -132,9 +220,14 @@ def _predict_method(favored_skill: Dict[str, float]) -> str:
     striking = favored_skill.get("Striking", 50)
     grappling = favored_skill.get("Grappling", 50)
     finish_rate = favored_skill.get("Finish Rate", 50)
-    if finish_rate >= 65 and striking >= 65:
+    if finish_rate < 55:
+        return "DEC"
+    # When both are elite finishers, prefer the dominant style
+    if striking >= 65 and grappling >= 65:
+        return "SUB" if grappling > striking else "KO/TKO"
+    if striking >= 65:
         return "KO/TKO"
-    if finish_rate >= 65 and grappling >= 65:
+    if grappling >= 65:
         return "SUB"
     return "DEC"
 

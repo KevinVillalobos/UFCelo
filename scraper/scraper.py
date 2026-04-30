@@ -122,22 +122,20 @@ class UFCScraper:
 
     def _normalize_method(self, method_raw: str) -> str:
         """Normaliza el método de finalización de pelea."""
-        method = method_raw.upper()
+        method = method_raw.upper().strip()
         if "KO" in method or "TKO" in method:
             return "KO/TKO"
-        elif "SUB" in method or "SUBMISSION" in method:
+        if "SUB" in method or "SUBMISSION" in method:
             return "SUB"
-        elif "DECISION" in method:
-            if "UNANIMOUS" in method:
+        if "DECISION" in method or "DEC" in method:
+            if "UNANIMOUS" in method or "U-DEC" in method or "U DEC" in method:
                 return "DEC U"
-            elif "SPLIT" in method:
+            if "SPLIT" in method or "S-DEC" in method or "S DEC" in method:
                 return "DEC S"
-            elif "MAJORITY" in method:
+            if "MAJORITY" in method or "M-DEC" in method or "M DEC" in method:
                 return "DEC M"
-            else:
-                return "DEC U"
-        else:
-            return "OTHER"
+            return "DEC U"
+        return "OTHER"
 
     def get_all_events(self) -> list[dict]:
         log.info("Obteniendo lista de todos los eventos...")
@@ -220,7 +218,8 @@ class UFCScraper:
                     full_fight_url = f"{BASE_URL}{fight_url}"
                 else:
                     full_fight_url = f"{BASE_URL}/{fight_url}"
-                fighter_a_stats, fighter_b_stats = self.get_fight_stats(full_fight_url, f_a_id, f_b_id)
+                fighter_a_stats, fighter_b_stats, is_title_detail = self.get_fight_stats(full_fight_url, f_a_id, f_b_id)
+                is_title = is_title or is_title_detail
 
             fights.append(Fight(
                 fight_id=fight_id,
@@ -243,11 +242,18 @@ class UFCScraper:
 
         return fights
 
-    def get_fight_stats(self, fight_url: str, fighter_a_id: str, fighter_b_id: str) -> tuple[Optional[FightStats], Optional[FightStats]]:
+    def get_fight_stats(self, fight_url: str, fighter_a_id: str, fighter_b_id: str) -> tuple[Optional[FightStats], Optional[FightStats], bool]:
         """Extrae estadísticas detalladas de una pelea específica."""
         soup = self._get(fight_url)
         if not soup:
-            return None, None
+            return None, None, False
+
+        # Title fight detection from the fight detail page header
+        is_title_from_page = False
+        fight_head = soup.select_one(".b-fight-details__fight-head, .b-fight-details__fight, .b-fight-details")
+        if fight_head:
+            head_text = fight_head.get_text().lower()[:600]
+            is_title_from_page = "title bout" in head_text or "championship" in head_text
 
         def extract_of(text: str) -> tuple[int, int]:
             """Returns (landed, attempted) from 'X of Y' text."""
@@ -369,7 +375,7 @@ class UFCScraper:
                 leg_strikes_attempted=s["leg_strikes_attempted"] if s else 0,
             )
 
-        return build_stats(fighter_a_id), build_stats(fighter_b_id)
+        return build_stats(fighter_a_id), build_stats(fighter_b_id), is_title_from_page
 
     def get_fighter_details(self, fighter_id: str, name: str) -> Optional[Fighter]:
         url = f"{BASE_URL}/fighter-details/{fighter_id}"

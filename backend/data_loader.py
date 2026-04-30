@@ -108,6 +108,13 @@ def parse_date(value: Optional[str]) -> Optional[datetime]:
     return None
 
 
+def load_champions() -> Dict[str, Dict[str, str]]:
+    data = load_json_file("champions.json")
+    if not isinstance(data, dict):
+        return {}
+    return {k: v for k, v in data.items() if k != "_comment" and isinstance(v, dict)}
+
+
 def load_retired_overrides() -> Dict[str, bool]:
     data = load_json_file("retired_overrides.json")
     return data if isinstance(data, dict) else {}

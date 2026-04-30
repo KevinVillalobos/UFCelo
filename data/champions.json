@@ -1,0 +1,11 @@
+{
+  "_comment": "Current UFC champions per division. Update fighter_id + name when belts change.",
+  "heavyweight":       { "fighter_id": "399afbabc02376b5", "fighter_name": "Tom Aspinall" },
+  "lightweight":       { "fighter_id": "54f64b5e283b0ce7", "fighter_name": "Ilia Topuria" },
+  "welterweight":      { "fighter_id": "275aca31f61ba28c", "fighter_name": "Islam Makhachev" },
+  "featherweight":     { "fighter_id": "e1248941344b3288", "fighter_name": "Alexander Volkanovski" },
+  "middleweight":      { "fighter_id": "767755fd74662dbf", "fighter_name": "Khamzat Chimaev" },
+  "flyweight":         { "fighter_id": "17e97649403ba428", "fighter_name": "Joshua Van" },
+  "light heavyweight": { "fighter_id": "9014c02eff8b3d62", "fighter_name": "Carlos Ulberg" },
+  "bantamweight":      { "fighter_id": "d661ce4da776fc20", "fighter_name": "Petr Yan" }
+}

@@ -48,19 +48,25 @@ def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
 
     parser = argparse.ArgumentParser(description="Validate ELO predictive accuracy")
-    parser.add_argument("--fights", default="data/fights_heavyweight.csv")
-    parser.add_argument("--fighters", default="data/fighters.json")
-    parser.add_argument("--output", default="data/validation_report.json")
+    parser.add_argument("--division", default="heavyweight")
+    parser.add_argument("--fights", default=None)
+    parser.add_argument("--fighters", default=None)
+    parser.add_argument("--output", default=None)
     parser.add_argument("--split", type=float, default=0.80)
     parser.add_argument("--min-fights", type=int, default=3,
                         help="Min prior fights for both fighters to count in 'con info' sample")
     args = parser.parse_args()
 
-    fights = read_fights(Path(args.fights))
-    fighters = load_fighters(Path(args.fighters))
+    slug = args.division.lower().replace(" ", "_")
+    fights_path = Path(args.fights) if args.fights else Path(f"data/fights_{slug}.csv")
+    fighters_path = Path(args.fighters) if args.fighters else Path(f"data/fighters_{slug}.json")
+    output_path = Path(args.output) if args.output else Path(f"data/validation_report_{slug}.json")
+
+    fights = read_fights(fights_path)
+    fighters = load_fighters(fighters_path, division=args.division)
 
     if not fights:
-        log.error("No fights found at %s", args.fights)
+        log.error("No fights found at %s", fights_path)
         return
 
     split_idx = int(len(fights) * args.split)
@@ -70,8 +76,9 @@ def main() -> None:
     log.info("Train: %d fights  |  Test: %d fights", len(train_fights), len(test_fights))
 
     # Train ELO on the training set
-    ranking, _ = EloEngine().process(train_fights, fighters)
+    ranking, _ = EloEngine(division=args.division).process(train_fights, fighters)
     elo_map = {entry["fighter_id"]: entry["elo"] for entry in ranking}
+    streak_map = {entry["fighter_id"]: entry.get("streak", 0) for entry in ranking}
 
     # Count training fights per fighter (used for rookie filter)
     train_counts: Counter = Counter()
@@ -109,12 +116,18 @@ def main() -> None:
         else:
             method_group = "OTHER"
 
+        winner_streak = streak_map.get(winner, 0)
+        loser_id = fight.fighter_b_id if winner == fight.fighter_a_id else fight.fighter_a_id
+        loser_streak = streak_map.get(loser_id, 0)
+
         results.append({
             "correct": correct,
             "elo_diff": elo_diff,
             "is_title": fight.is_title_fight,
             "method": method_group,
             "has_info": has_info,
+            "winner_streak": winner_streak,
+            "loser_streak": loser_streak,
         })
 
     # ── Aggregate stats ──────────────────────────────────────────────────────
@@ -136,16 +149,22 @@ def main() -> None:
     sub_fights = [r for r in results if r["method"] == "SUB"]
     dec_fights = [r for r in results if r["method"] == "DEC/OTHER"]
 
+    streak_pos  = [r for r in results if r["winner_streak"] >= 3]
+    streak_neg  = [r for r in results if r["winner_streak"] <= -2]
+    streak_none = [r for r in results if -2 < r["winner_streak"] < 3]
+
+    title_count = sum(1 for f in test_fights if f.is_title_fight)
+
     baseline = 0.50
     improvement = accuracy_total - baseline
 
     # ── Pretty-print ─────────────────────────────────────────────────────────
     print(_TOP)
-    print(f"║{'REPORTE DE VALIDACIÓN — UFCelo'.center(_I)}║")
+    print(f"║{'REPORTE DE VALIDACIÓN — UFCelo.gg'.center(_I)}║")
     print(_DIV)
+    print(_row("División:", args.division.title()))
     print(_row("Peleas entrenamiento:", str(len(train_fights))))
     print(_row("Peleas test (total):", str(len(test_fights))))
-    print(_row("Empates excluidos:", str(draws_skipped)))
     print(_row(f"Peleas test (con ≥{args.min_fights} peleas previas):", str(len(info))))
     print(_DIV)
     print(_row("Precisión total:", f"{accuracy_total * 100:.1f}%  ({total_correct}/{total})"))
@@ -154,18 +173,21 @@ def main() -> None:
     print(_row("Mejora sobre baseline:", f"+{improvement * 100:.1f}%"))
     print(_DIV)
     print(_hdr("Por diferencia de ELO:"))
-    print(_sub("Favorito claro   (diff > 150):", _pct(clear)))
-    print(_sub("Pelea pareja    (diff 50-150):", _pct(close)))
-    print(_sub("Sin ventaja      (diff < 50):", _pct(tossup)))
+    print(_sub(f"Favorito claro  (>150):", f"{_pct(clear)}  ({len(clear)} peleas)"))
+    print(_sub(f"Pelea pareja  (50-150):", f"{_pct(close)}  ({len(close)} peleas)"))
+    print(_sub(f"Sin ventaja    (<50):", f"{_pct(tossup)}  ({len(tossup)} peleas)"))
     print(_DIV)
-    print(_hdr("Por tipo de pelea:"))
-    print(_sub("Peleas de título:", _pct(titles)))
-    print(_sub("Peleas normales:", _pct(normals)))
+    print(_hdr("Por método de resultado:"))
+    print(_sub("KO/TKO:", f"{_pct(ko_fights)}  ({len(ko_fights)} peleas)"))
+    print(_sub("SUB:", f"{_pct(sub_fights)}  ({len(sub_fights)} peleas)"))
+    print(_sub("Decisión:", f"{_pct(dec_fights)}  ({len(dec_fights)} peleas)"))
     print(_DIV)
-    print(_hdr("Por método de resultado real:"))
-    print(_sub("KO/TKO:", _pct(ko_fights)))
-    print(_sub("SUB:", _pct(sub_fights)))
-    print(_sub("Dec/Otros:", _pct(dec_fights)))
+    print(_hdr("Por contexto de racha del ganador:"))
+    print(_sub("Ganador en racha +3:", f"{_pct(streak_pos)}  ({len(streak_pos)} peleas)"))
+    print(_sub("Ganador en racha -2:", f"{_pct(streak_neg)}  ({len(streak_neg)} peleas)"))
+    print(_sub("Sin racha clara:", f"{_pct(streak_none)}  ({len(streak_none)} peleas)"))
+    print(_DIV)
+    print(_row("Peleas de título detectadas:", str(title_count)))
     print(_BOT)
 
     # ── Save JSON report ─────────────────────────────────────────────────────
@@ -176,6 +198,7 @@ def main() -> None:
         return {"fights": len(lst), "correct": c, "accuracy": round(c / len(lst), 4)}
 
     report = {
+        "division": args.division,
         "train_fights": len(train_fights),
         "test_fights_total": len(test_fights),
         "draws_skipped": draws_skipped,
@@ -187,24 +210,26 @@ def main() -> None:
         "accuracy_with_info_pct": f"{accuracy_info * 100:.1f}%",
         "baseline": "50.0%",
         "improvement_over_baseline": f"+{improvement * 100:.1f}%",
+        "title_fights_in_test": title_count,
         "by_elo_diff": {
             "clear_favorite_gt150": _breakdown(clear),
             "close_fight_50_150": _breakdown(close),
             "tossup_lt50": _breakdown(tossup),
-        },
-        "by_fight_type": {
-            "title": _breakdown(titles),
-            "normal": _breakdown(normals),
         },
         "by_method": {
             "KO_TKO": _breakdown(ko_fights),
             "SUB": _breakdown(sub_fights),
             "DEC_OTHER": _breakdown(dec_fights),
         },
+        "by_streak_context": {
+            "winner_on_winstreak_3plus": _breakdown(streak_pos),
+            "winner_on_losestreak_2plus": _breakdown(streak_neg),
+            "no_clear_streak": _breakdown(streak_none),
+        },
     }
 
-    write_json(Path(args.output), report)
-    log.info("Report saved → %s", args.output)
+    write_json(output_path, report)
+    log.info("Report saved → %s", output_path)
 
 
 if __name__ == "__main__":

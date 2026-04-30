@@ -1,0 +1,66 @@
+{
+  "division": "welterweight",
+  "train_fights": 1110,
+  "test_fights_total": 278,
+  "draws_skipped": 1,
+  "test_fights_validated": 277,
+  "test_fights_with_info": 60,
+  "accuracy_total": 0.6282,
+  "accuracy_total_pct": "62.8%",
+  "accuracy_with_info": 0.5,
+  "accuracy_with_info_pct": "50.0%",
+  "baseline": "50.0%",
+  "improvement_over_baseline": "+12.8%",
+  "title_fights_in_test": 8,
+  "by_elo_diff": {
+    "clear_favorite_gt150": {
+      "fights": 7,
+      "correct": 5,
+      "accuracy": 0.7143
+    },
+    "close_fight_50_150": {
+      "fights": 131,
+      "correct": 97,
+      "accuracy": 0.7405
+    },
+    "tossup_lt50": {
+      "fights": 139,
+      "correct": 72,
+      "accuracy": 0.518
+    }
+  },
+  "by_method": {
+    "KO_TKO": {
+      "fights": 98,
+      "correct": 56,
+      "accuracy": 0.5714
+    },
+    "SUB": {
+      "fights": 48,
+      "correct": 36,
+      "accuracy": 0.75
+    },
+    "DEC_OTHER": {
+      "fights": 131,
+      "correct": 82,
+      "accuracy": 0.626
+    }
+  },
+  "by_streak_context": {
+    "winner_on_winstreak_3plus": {
+      "fights": 17,
+      "correct": 12,
+      "accuracy": 0.7059
+    },
+    "winner_on_losestreak_2plus": {
+      "fights": 9,
+      "correct": 5,
+      "accuracy": 0.5556
+    },
+    "no_clear_streak": {
+      "fights": 251,
+      "correct": 157,
+      "accuracy": 0.6255
+    }
+  }
+}

@@ -25,6 +25,17 @@ METHOD_WEIGHTS = {
     "OTHER": 0.80,
 }
 
+_DIVISION_K_MULT: Dict[str, float] = {
+    "heavyweight":      1.00,
+    "light heavyweight": 0.95,
+    "middleweight":     0.90,
+    "welterweight":     0.75,
+    "lightweight":      0.85,
+    "featherweight":    0.85,
+    "bantamweight":     0.90,
+    "flyweight":        0.90,
+}
+
 SKILL_DIMENSIONS = [
     "Striking",
     "Grappling",
@@ -108,37 +119,37 @@ class SkillHistoryPoint:
 
 
 class EloEngine:
-    def __init__(self, base_elo: float = BASE_ELO, k_factor: float = K_FACTOR):
+    def __init__(self, base_elo: float = BASE_ELO, k_factor: float = K_FACTOR, division: str = "heavyweight"):
         self.base_elo = base_elo
         self.k_factor = k_factor
+        self.division = division.lower()
 
     def process(
         self,
         fights: List[FightRecord],
         fighters: Dict[str, Dict[str, Optional[str]]],
     ) -> (List[Dict[str, object]], Dict[str, List[Dict[str, object]]]):
-        ratings: Dict[str, float] = {fighter_id: self.base_elo for fighter_id in fighters.keys()}
+        ratings: Dict[str, float] = {fid: self._initial_elo(fid, fighters) for fid in fighters.keys()}
         histories: Dict[str, List[Dict[str, object]]] = {fighter_id: [] for fighter_id in fighters.keys()}
         streaks: Dict[str, int] = {fighter_id: 0 for fighter_id in fighters.keys()}
         fight_counts: Dict[str, int] = {fighter_id: 0 for fighter_id in fighters.keys()}
         last_fight_dates: Dict[str, "datetime"] = {}
-        peak_elos: Dict[str, float] = {fighter_id: self.base_elo for fighter_id in fighters.keys()}
+        peak_elos: Dict[str, float] = {fid: ratings[fid] for fid in fighters.keys()}
         peak_elo_dates: Dict[str, str] = {}
         peak_elo_opponents: Dict[str, str] = {}
+        pair_history: Dict[frozenset, List[str]] = {}
 
         for fight in fights:
             for fid in (fight.fighter_a_id, fight.fighter_b_id):
                 if fid not in ratings:
-                    ratings[fid] = self.base_elo
+                    ratings[fid] = self._initial_elo(fid, fighters)
                     histories[fid] = []
                     streaks[fid] = 0
                     fight_counts[fid] = 0
+                    peak_elos[fid] = ratings[fid]
 
             elo_a = ratings[fight.fighter_a_id]
             elo_b = ratings[fight.fighter_b_id]
-
-            expected_a = self._expected_score(elo_a, elo_b)
-            expected_b = 1.0 - expected_a
 
             score_a, score_b = self._result_score(fight)
 
@@ -148,11 +159,33 @@ class EloEngine:
             streak_b = self._streak_multiplier(streaks[fight.fighter_b_id])
 
             weight = self._fight_weight(fight.method, fight.is_title_fight, fight.round)
-            # Variable K: newcomers (<5 fights) learn faster; veterans (>15) are more stable
             k_var_a = self._variable_k(fight_counts[fight.fighter_a_id])
             k_var_b = self._variable_k(fight_counts[fight.fighter_b_id])
-            k_a = self.k_factor * weight * quality_a * streak_a * k_var_a
-            k_b = self.k_factor * weight * quality_b * streak_b * k_var_b
+
+            # Rematch multiplier
+            pair_key = frozenset([fight.fighter_a_id, fight.fighter_b_id])
+            prev = pair_history.get(pair_key, [])
+            if len(prev) >= 2:
+                rematch_mult = 0.50
+            elif len(prev) == 1:
+                rematch_mult = 0.70 if prev[0] == fight.winner_id else 1.20
+            else:
+                rematch_mult = 1.0
+
+            # Opponent momentum and fight time proxy
+            opp_mom_a = self._opponent_momentum_mult(streaks[fight.fighter_b_id])
+            opp_mom_b = self._opponent_momentum_mult(streaks[fight.fighter_a_id])
+            time_mult_a = self._time_pct_mult(fight, score_a)
+            time_mult_b = self._time_pct_mult(fight, score_b)
+
+            k_a = self.k_factor * weight * quality_a * streak_a * k_var_a * rematch_mult * opp_mom_a * time_mult_a
+            k_b = self.k_factor * weight * quality_b * streak_b * k_var_b * rematch_mult * opp_mom_b * time_mult_b
+
+            # Division change: adjust expected score only (not ELO storage)
+            elo_a_eff = self._division_change_elo(fight.fighter_a_id, fight.weight_class, fighters, elo_a)
+            elo_b_eff = self._division_change_elo(fight.fighter_b_id, fight.weight_class, fighters, elo_b)
+            expected_a = self._expected_score(elo_a_eff, elo_b_eff)
+            expected_b = 1.0 - expected_a
 
             delta_a = k_a * (score_a - expected_a)
             delta_b = k_b * (score_b - expected_b)
@@ -166,6 +199,12 @@ class EloEngine:
                 delta_b = min(delta_b, 8.0)
             elif score_b == 0.0 and elo_a > 1700:
                 delta_b = max(delta_b, -12.0)
+
+            # Peak ELO penalty: sustained decline far below career high
+            if score_a == 0.0 and streaks[fight.fighter_a_id] <= -3 and elo_a < peak_elos.get(fight.fighter_a_id, elo_a) * 0.85:
+                delta_a *= 1.20
+            if score_b == 0.0 and streaks[fight.fighter_b_id] <= -3 and elo_b < peak_elos.get(fight.fighter_b_id, elo_b) * 0.85:
+                delta_b *= 1.20
 
             new_a = elo_a + delta_a
             new_b = elo_b + delta_b
@@ -190,6 +229,7 @@ class EloEngine:
             fight_counts[fight.fighter_b_id] += 1
             last_fight_dates[fight.fighter_a_id] = fight.event_date
             last_fight_dates[fight.fighter_b_id] = fight.event_date
+            pair_history.setdefault(pair_key, []).append(fight.winner_id)
 
             result_a = "Win" if score_a == 1.0 else "Loss" if score_a == 0.0 else "Draw"
             result_b = "Win" if score_b == 1.0 else "Loss" if score_b == 0.0 else "Draw"
@@ -238,13 +278,15 @@ class EloEngine:
                 if months_inactive > 0:
                     capped = min(24.0, months_inactive)
                     decay_delta = (raw_elo - self.base_elo) * 0.005 * capped
+                    if streaks.get(fighter_id, 0) <= -3:
+                        decay_delta *= 1.30
                     displayed_elo = raw_elo - decay_delta
 
             active = last_date is not None and (today - last_date).days <= 730
             ranking.append({
                 "fighter_id": fighter_id,
                 "fighter_name": fighter_info.get("name") or "Unknown",
-                "division": fighter_info.get("division") or "Heavyweight",
+                "division": fighter_info.get("division") or "Unknown",
                 "elo": round(displayed_elo, 2),
                 "peak_elo": round(peak_elos.get(fighter_id, self.base_elo), 2),
                 "peak_elo_date": peak_elo_dates.get(fighter_id),
@@ -253,13 +295,15 @@ class EloEngine:
                 "fight_count": fight_counts.get(fighter_id, 0),
                 "last_fight_date": last_date.strftime("%Y-%m-%d") if last_date else None,
                 "active": active,
+                "streak": streaks.get(fighter_id, 0),
             })
 
         ranking.sort(key=lambda x: x["elo"], reverse=True)
         return ranking, histories
 
     def _expected_score(self, elo_a: float, elo_b: float) -> float:
-        return 1.0 / (1.0 + 10 ** ((elo_b - elo_a) / 400.0))
+        diff = max(-250.0, min(250.0, elo_a - elo_b))
+        return 1.0 / (1.0 + 10 ** (-diff / 400.0))
 
     def _result_score(self, fight: FightRecord) -> (float, float):
         if fight.winner_id == fight.fighter_a_id:
@@ -269,11 +313,23 @@ class EloEngine:
         return 0.5, 0.5
 
     def _fight_weight(self, method: str, is_title: bool, round_num: int) -> float:
-        weight = METHOD_WEIGHTS.get(method, METHOD_WEIGHTS["OTHER"])
+        if method in {"KO/TKO", "SUB"}:
+            if round_num == 1:
+                weight = 1.40
+            elif round_num == 2:
+                weight = 1.25
+            else:
+                weight = 1.10
+        elif method == "DEC U":
+            weight = 1.05
+        elif method == "DEC M":
+            weight = 0.90
+        elif method in {"DEC S", "OTHER"}:
+            weight = 0.80
+        else:
+            weight = 0.80
         if is_title:
-            weight *= 1.2
-        if method in {"KO/TKO", "SUB"} and 1 <= round_num <= 2:
-            weight *= 1.1
+            weight *= 1.20
         return weight
 
     def _quality_multiplier(self, opponent_id: str, ratings: Dict[str, float], score: float) -> float:
@@ -292,10 +348,12 @@ class EloEngine:
         return max(0.7, multiplier)
 
     def _streak_multiplier(self, streak: int) -> float:
-        if streak >= 3:
-            return 1.0 + min(0.15, 0.05 * (streak - 2))
-        if streak <= -3:
-            return 1.0 + min(0.20, 0.05 * (-streak - 2))
+        if streak >= 8:   return 1.35
+        if streak >= 5:   return 1.25
+        if streak >= 3:   return 1.15
+        if streak <= -8:  return 1.55
+        if streak <= -5:  return 1.40
+        if streak <= -3:  return 1.25
         return 1.0
 
     def _update_streak(self, current_streak: int, score: float) -> int:
@@ -306,12 +364,55 @@ class EloEngine:
         return 0
 
     def _variable_k(self, fight_count: int) -> float:
-        """K multiplier targeting absolute K values: 64 / 32 / 20."""
         if fight_count < 5:
-            return 2.0    # K=64: high uncertainty, learn fast
-        if fight_count < 15:
-            return 1.0    # K=32: standard
-        return 0.625      # K=20: veteran, stable
+            base = 2.0
+        elif fight_count < 15:
+            base = 1.0
+        else:
+            base = 0.625
+        return base * _DIVISION_K_MULT.get(self.division, 0.90)
+
+    def _time_pct_mult(self, fight: "FightRecord", score: float) -> float:
+        try:
+            m, s = map(int, fight.time.split(":"))
+            elapsed = (fight.round - 1) * 300 + m * 60 + s
+        except (ValueError, AttributeError):
+            return 1.0
+        total = fight.round * 300
+        pct = elapsed / max(total, 1)
+        if pct < 0.30:
+            return 1.15 if score == 1.0 else 0.90
+        if pct > 0.80:
+            return 0.90 if score == 1.0 else 0.85
+        return 1.0
+
+    def _opponent_momentum_mult(self, opponent_streak: int) -> float:
+        if opponent_streak >= 3:  return 1.15
+        if opponent_streak <= -3: return 0.90
+        return 1.0
+
+    def _division_change_elo(
+        self, fighter_id: str, fight_weight_class: str,
+        fighters: Dict[str, Dict], raw_elo: float,
+    ) -> float:
+        fighter_division = (fighters.get(fighter_id) or {}).get("division", "").lower()
+        fight_div = fight_weight_class.lower()
+        if fighter_division and fight_div and fighter_division not in fight_div and fight_div not in fighter_division:
+            return raw_elo - (raw_elo - self.base_elo) * 0.15
+        return raw_elo
+
+    def _initial_elo(self, fighter_id: str, fighters: Dict[str, Dict]) -> float:
+        record = (fighters.get(fighter_id) or {}).get("record")
+        if record:
+            try:
+                parts = record.split("-")
+                wins, losses = int(parts[0]), int(parts[1])
+                total = wins + losses
+                if total > 0:
+                    return max(1300.0, min(1700.0, 1500.0 + (wins / total - 0.5) * 400.0))
+            except (ValueError, IndexError):
+                pass
+        return self.base_elo
 
 
 class SkillScoreEngine:
@@ -373,7 +474,7 @@ class SkillScoreEngine:
             current_scores.append({
                 "fighter_id": fighter_id,
                 "fighter_name": fighter_info.get("name") or "Unknown",
-                "division": fighter_info.get("division") or "Heavyweight",
+                "division": fighter_info.get("division") or "Unknown",
                 "skill_score": score,
                 "skill_composite": round(composite, 2),
             })
@@ -617,18 +718,19 @@ def read_fights(csv_path: Path) -> List[FightRecord]:
     return fights
 
 
-def load_fighters(fighters_path: Path) -> Dict[str, Dict[str, Optional[str]]]:
+def load_fighters(fighters_path: Path, division: str = "heavyweight") -> Dict[str, Dict[str, Optional[str]]]:
     if not fighters_path.exists():
         return {}
     with fighters_path.open("r", encoding="utf-8") as f:
         data = json.load(f)
+    division_label = division.title()
     fighters: Dict[str, Dict[str, Optional[str]]] = {}
     if isinstance(data, dict):
         for fighter_id, details in data.items():
             fighters[fighter_id] = {
                 "name": details.get("name") if isinstance(details, dict) else None,
                 "record": _extract_record(details) if isinstance(details, dict) else None,
-                "division": "Heavyweight",
+                "division": division_label,
             }
     elif isinstance(data, list):
         for item in data:
@@ -638,7 +740,7 @@ def load_fighters(fighters_path: Path) -> Dict[str, Dict[str, Optional[str]]]:
             fighters[fighter_id] = {
                 "name": item.get("name") or item.get("full_name"),
                 "record": _extract_record(item),
-                "division": item.get("division") or "Heavyweight",
+                "division": item.get("division") or division_label,
             }
     return fighters
 
@@ -684,7 +786,7 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     fights = read_fights(fights_path)
-    fighters = load_fighters(fighters_path)
+    fighters = load_fighters(fighters_path, division=args.division)
 
     if not fights:
         log.error("No se encontraron peleas para procesar.")
@@ -693,7 +795,7 @@ def main():
         log.error("No se encontraron peleadores para procesar.")
         return
 
-    elo_engine = EloEngine()
+    elo_engine = EloEngine(division=args.division)
     skill_engine = SkillScoreEngine()
 
     ranking, elo_histories = elo_engine.process(fights, fighters)
