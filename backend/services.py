@@ -218,7 +218,16 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
     prev_elo: Optional[float] = None
     for item in sorted_histories:
         cur_elo = float(item.get("elo", 0))
-        elo_change = round(cur_elo - prev_elo, 1) if prev_elo is not None else None
+        bd = item.get("breakdown") or {}
+        # Use the breakdown delta (computed within the division, sign-safe) so that
+        # cross-division fighters don't show false sign flips when ELO scales differ
+        # between weight classes. Fall back to sequential diff only for legacy entries.
+        if bd.get("delta") is not None:
+            elo_change = round(float(bd["delta"]), 1)
+        elif prev_elo is not None:
+            elo_change = round(cur_elo - prev_elo, 1)
+        else:
+            elo_change = None
         prev_elo = cur_elo
         elo_history_response.append({
             "date": item.get("date"),
@@ -232,7 +241,7 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
             "time": item.get("time"),
             "is_title_fight": item.get("is_title_fight", False),
             "event": item.get("event"),
-            "breakdown": item.get("breakdown"),
+            "breakdown": bd if bd else None,
         })
 
     skill_item = get_skill_score_by_id(fighter_id, division) or {}
