@@ -59,7 +59,12 @@ for i, f in enumerate(display_rankings, 1):
     else:
         streak_str = str(streak) if streak != 0 else "—"
 
-    name_display = f"[C] {f.get('fighter_name', '—')}" if is_champ else f.get("fighter_name", "—")
+    visitor_label = f.get("visitor_label")
+    name_display = (
+        f"[C] {f.get('fighter_name', '—')}" if is_champ
+        else f"{f.get('fighter_name', '—')}  [{visitor_label}]" if visitor_label
+        else f.get("fighter_name", "—")
+    )
     rank_display = f.get("rank", i) if alltime else i
 
     rows.append({

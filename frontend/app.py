@@ -15,12 +15,14 @@ st.set_page_config(
 
 DIVISIONS = ["heavyweight", "light heavyweight", "middleweight", "welterweight", "lightweight", "featherweight", "bantamweight", "flyweight"]
 DIVISION_LABELS = {
-    "heavyweight": "Heavyweight  265 lbs",
-    "lightweight": "Lightweight  155 lbs",
-    "welterweight": "Welterweight  170 lbs",
-    "featherweight": "Featherweight  145 lbs",
-    "middleweight": "Middleweight  185 lbs",
-    "flyweight": "Flyweight  125 lbs",
+    "heavyweight":       "Heavyweight  265 lbs",
+    "light heavyweight": "Light Heavyweight  205 lbs",
+    "middleweight":      "Middleweight  185 lbs",
+    "welterweight":      "Welterweight  170 lbs",
+    "lightweight":       "Lightweight  155 lbs",
+    "featherweight":     "Featherweight  145 lbs",
+    "bantamweight":      "Bantamweight  135 lbs",
+    "flyweight":         "Flyweight  125 lbs",
 }
 
 st.markdown("""

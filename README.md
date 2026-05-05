@@ -40,7 +40,7 @@ models/elo_engine.py
      │  (per division)
      ├─► data/rankings_{division}.json          ← active ELO rankings
      ├─► data/rankings_{division}_alltime.json  ← all-time by peak ELO
-     ├─► data/elo_histories_{division}.json     ← per-fight ELO history
+     ├─► data/elo_histories_{division}.json     ← per-fight ELO history + K breakdown
      ├─► data/skill_scores_{division}.json      ← current 7D skill scores
      └─► data/skill_histories_{division}.json   ← skill evolution over time
      │
@@ -57,10 +57,12 @@ scripts/generate_simulations.py
      ▼
 backend/
   data_loader.py   ← JSON/CSV file access layer
-  services.py      ← rankings, prediction, simulation, matchmaking logic
+  services.py      ← rankings, prediction, simulation, matchmaking, simulator-data logic
+  stats.py         ← per-fighter fight statistics aggregation
      │
      ▼
 frontend/
+  silhouette.py    ← SVG proportional figure generator (solo + comparison)
   app.py           ← Streamlit home page
   pages/
     1_Rankings.py
@@ -416,13 +418,31 @@ The engine tracks per-fighter:
 
 Recorded before inactivity decay is applied so it represents the true career-best rating.
 
+### Per-Fight ELO Breakdown
+
+Every entry in `elo_histories_{division}.json` now includes a `breakdown` dict with 18 fields covering every multiplier that produced the final ELO delta:
+
+```json
+"breakdown": {
+  "elo_before": 1594.27,  "elo_after": 1542.77,  "delta": -51.49,
+  "k_base": 32.0,          "k_var": 2.0,           "div_mult": 1.0,
+  "streak_before": -1,     "streak_mult": 1.0,     "method_weight": 1.44,
+  "consec_loss_mult": 1.2, "quality_mult": 1.0,    "rematch_mult": 1.0,
+  "opp_mom_mult": 1.0,     "time_mult": 1.0,       "k_effective": 92.16,
+  "expected_prob": 0.5587, "surprise": -0.5587,
+  "cap_applied": false,    "peak_penalty": false
+}
+```
+
+This powers the per-fight expandable breakdown in the Fighter Profile page and the ELO Simulator on the Predictor page.
+
 ### Engine Output
 
 Per division, 5 JSON files:
 
 - **`rankings_{division}.json`** — active fighters (fought within 2 years), sorted by displayed ELO
 - **`rankings_{division}_alltime.json`** — all fighters ever, sorted by peak ELO
-- **`elo_histories_{division}.json`** — `{fighter_id: [EloHistoryPoint, ...]}`
+- **`elo_histories_{division}.json`** — `{fighter_id: [EloHistoryPoint, ...]}` with per-fight `breakdown`
 - **`skill_scores_{division}.json`** — current 7D skill scores per fighter
 - **`skill_histories_{division}.json`** — skill score state after each fight
 
@@ -642,6 +662,10 @@ p_final = max(0.05, min(0.95, p_elo + skill_adj))
 
 **Step 5 — Key advantage:** dimension with the largest absolute difference between fighters.
 
+#### `build_fight_simulator_data(fighter_a_id, fighter_b_id, division)`
+
+Returns the current ELO state and all K-factor parameters for both fighters so the frontend can compute exact ELO deltas for any hypothetical fight outcome without re-running the engine. Includes: current ELOs, fight counts, streaks, variable-K values, streak multipliers, division multiplier, win probability, and the method weight tables.
+
 #### `build_fight_simulation(fighter_a_id, fighter_b_id, division, n_trials)`
 
 Monte Carlo simulation. Default: 1000 independent trials, max championship rounds (5).
@@ -708,20 +732,33 @@ Top-N matchups returned sorted by `matchup_score` descending.
 
 ### Fighter Profile (`pages/2_Fighter.py`)
 
-- Current ELO, peak ELO, career record
-- ELO history line chart with W/L/D color-coded fight markers (Plotly)
-- Full fight log (reversible sort)
-- Skill radar chart (7 dimensions, 0–100 scale, Plotly)
-- Skill breakdown table with tier labels (Elite / Great / Good / Average / Below Average)
+- Current ELO, peak ELO, career record, division rank, streak delta
+- Proportional SVG silhouette (height, reach, weight) + skill radar side-by-side
+- ELO history line chart with W/L/D color-coded fight markers
+- Full fight summary table (all fights at a glance: date, result, opponent, method, ELO, Δ ELO)
+- Per-fight expandable rows with:
+  - ELO before/after/delta metrics
+  - Complete K-factor breakdown table (base × variable K × division × method × streak × quality × rematch × momentum × time = K effective)
+  - Natural language insight (upset detection, streak bonuses, early-finish bonus, cap/peak-penalty flags)
+- Projected ELO vs 5 nearest rivals (estimated win/loss delta for each potential matchup)
+- Fight statistics panel: win/loss method chart, striking bars + head/body/leg target breakdown, grappling bars, career striking trend
+- Skill radar + composite score breakdown table with tier labels (Elite / Above avg / Average / Below avg)
+- Fully responsive layout (mobile-optimized CSS)
 
 ### Predictor (`pages/3_Predict.py`)
 
-- Fighter A vs Fighter B selector
-- Horizontal probability bar
-- Win probability %, ELO difference, predicted method, key advantage
-- Overlaid skill radar (both fighters on same chart)
-- Per-dimension advantage table
+- Fighter A vs Fighter B selector with ELO display
+- Horizontal probability bar (ELO + skill blended)
+- Win probability %, ELO edge, predicted method, key advantage
+- Proportional SVG silhouette comparison (height diff badge, reach advantage badge)
+- Overlaid dual skill radar + per-dimension advantage table
+- Fight statistics comparison panel (methods %, striking, grappling, target breakdown)
+- **ELO Simulator** — pick method, round, and title-fight toggle to see:
+  - Exact ELO delta for both fighters under any outcome (mirrors the engine formula)
+  - K breakdown expander with all multipliers, current streaks, and fight counts
+  - Natural language insight per scenario
 - Model explanation expander
+- Fully responsive layout (mobile-optimized CSS)
 
 ### Simulator (`pages/4_Simulate.py`)
 
@@ -777,13 +814,22 @@ Top-N matchups returned sorted by `matchup_score` descending.
       "opponent_name": "Curtis Blaydes",
       "result": "Win",
       "elo": 1712.4,
-      "elo_change": 18.7,
       "event": "UFC 307",
       "method": "KO/TKO",
       "round": 1,
       "time": "0:53",
       "weight_class": "Heavyweight",
-      "is_title_fight": true
+      "is_title_fight": true,
+      "breakdown": {
+        "elo_before": 1693.7, "elo_after": 1712.4, "delta": 18.7,
+        "k_base": 32.0, "k_var": 0.625, "div_mult": 1.0,
+        "streak_before": 6, "streak_mult": 1.25,
+        "method_weight": 1.68, "consec_loss_mult": 1.0,
+        "quality_mult": 1.1, "rematch_mult": 1.0,
+        "opp_mom_mult": 1.0, "time_mult": 1.15,
+        "k_effective": 47.3, "expected_prob": 0.6451, "surprise": 0.3549,
+        "cap_applied": false, "peak_penalty": false
+      }
     }
   ]
 }

@@ -13,6 +13,19 @@ from .data_loader import (
     load_skill_histories,
     load_skill_scores,
 )
+from .stats import compute_fighter_stats, parse_physical
+
+_K_BASE = 32.0
+_DIVISION_K_MULT: Dict[str, float] = {
+    "heavyweight":       1.00,
+    "light heavyweight": 0.95,
+    "middleweight":      0.90,
+    "welterweight":      0.75,
+    "lightweight":       0.85,
+    "featherweight":     0.85,
+    "bantamweight":      0.90,
+    "flyweight":         0.90,
+}
 
 
 def elo_win_probability(elo_a: float, elo_b: float) -> float:
@@ -21,7 +34,14 @@ def elo_win_probability(elo_a: float, elo_b: float) -> float:
     return 1.0 / denominator
 
 
-def _ranking_entry(item: Dict[str, object], division: str, index: int, is_champion: bool = False) -> Dict[str, object]:
+def _ranking_entry(
+    item: Dict[str, object],
+    division: str,
+    index: int,
+    is_champion: bool = False,
+    visitor: bool = False,
+    visitor_label: Optional[str] = None,
+) -> Dict[str, object]:
     return {
         "fighter_id": str(item.get("id") or item.get("fighter_id") or item.get("fighter")),
         "fighter_name": item.get("name") or item.get("fighter_name"),
@@ -37,6 +57,10 @@ def _ranking_entry(item: Dict[str, object], division: str, index: int, is_champi
         "active": item.get("active"),
         "streak": item.get("streak", 0),
         "is_champion": is_champion,
+        # visitor=True means the fighter's active division is elsewhere;
+        # shown here with a frozen ELO from their last fight in this division.
+        "visitor": visitor,
+        "visitor_label": visitor_label,
     }
 
 
@@ -44,6 +68,7 @@ _DIVISIONS_ALL = [
     "heavyweight", "light heavyweight", "middleweight", "welterweight",
     "lightweight", "featherweight", "bantamweight", "flyweight",
 ]
+
 
 
 def _division_elo_index() -> tuple:
@@ -87,46 +112,59 @@ def build_ranking_response(division: str, alltime: bool = False) -> List[Dict[st
     champ_id = (all_champions.get(division.lower()) or {}).get("fighter_id") or ""
 
     sorted_rankings = sorted(rankings, key=lambda item: float(item.get("elo", 0)), reverse=True)
-    active = []
+
+    current_fighters = []   # primary division or champion-locked here
+    visitor_fighters = []   # fought here before but now compete elsewhere
+
     for item in sorted_rankings:
         fid = str(item.get("id") or item.get("fighter_id") or "")
         if not fid:
             continue
         if retired_overrides.get(fid, False):
             continue
+
         fighter_champ_div = champ_divisions.get(fid)
         if fighter_champ_div:
-            # Champion: only include in their designated division
+            # Champion: locked to their designated division only
             if fighter_champ_div != division:
                 continue
+            current_fighters.append((item, False, None))
         else:
-            # Non-champion: only include in the division where their ELO is highest
-            if primary_map.get(fid, division) != division:
-                continue
-        # Use the fighter's best ELO across all divisions (carries over on division move)
-        max_e = max_elo_map.get(fid, 0)
-        if max_e > float(item.get("elo", 0)):
-            item = dict(item)
-            item["elo"] = max_e
-        active.append(item)
+            primary = primary_map.get(fid, division)
+            if primary == division:
+                # This is the fighter's primary division — boost ELO if they carry over
+                max_e = max_elo_map.get(fid, 0)
+                if max_e > float(item.get("elo", 0)):
+                    item = dict(item)
+                    item["elo"] = max_e
+                current_fighters.append((item, False, None))
+            else:
+                # Fighter's primary division is elsewhere — show as visitor with frozen ELO
+                label = f"ex-{division.title()}"
+                visitor_fighters.append((item, True, label))
 
-    # Inject champion at position #1 regardless of ELO rank
+    # Inject champion at position #1, then active fighters, then visitors at the bottom
     result = []
     champion_item = None
-    rest = []
-    for item in active:
+    rest_current = []
+    for item, is_v, v_label in current_fighters:
         fid = str(item.get("id") or item.get("fighter_id") or "")
         if champ_id and fid == champ_id:
-            champion_item = item
+            champion_item = (item, is_v, v_label)
         else:
-            rest.append(item)
+            rest_current.append((item, is_v, v_label))
+
+    rank = 1
     if champion_item:
-        result.append(_ranking_entry(champion_item, division, 1, is_champion=True))
-        for i, item in enumerate(rest, start=2):
-            result.append(_ranking_entry(item, division, i))
-    else:
-        for i, item in enumerate(active, start=1):
-            result.append(_ranking_entry(item, division, i))
+        result.append(_ranking_entry(champion_item[0], division, rank, is_champion=True))
+        rank += 1
+    for item, is_v, v_label in rest_current:
+        result.append(_ranking_entry(item, division, rank))
+        rank += 1
+    for item, is_v, v_label in visitor_fighters:
+        result.append(_ranking_entry(item, division, rank, visitor=True, visitor_label=v_label))
+        rank += 1
+
     return result
 
 
@@ -158,8 +196,24 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
     if not fighter:
         return None
 
-    elo_histories = load_elo_histories(division).get(str(fighter_id), [])
-    sorted_histories = sorted(elo_histories, key=lambda entry: entry.get("date") or "")
+    # Merge ELO history from all divisions so the chart shows the full career arc.
+    # Each history point already carries a weight_class field for frontend coloring.
+    all_elo_entries = []
+    for div in _DIVISIONS_ALL:
+        try:
+            entries = load_elo_histories(div).get(str(fighter_id), [])
+            all_elo_entries.extend(entries)
+        except Exception:
+            continue
+    # De-duplicate by fight_id in case the same fight appears in multiple division files
+    seen_fights: set = set()
+    unique_entries = []
+    for entry in all_elo_entries:
+        fid_key = entry.get("fight_id") or entry.get("date", "") + entry.get("opponent_id", "")
+        if fid_key not in seen_fights:
+            seen_fights.add(fid_key)
+            unique_entries.append(entry)
+    sorted_histories = sorted(unique_entries, key=lambda entry: entry.get("date") or "")
     elo_history_response = []
     prev_elo: Optional[float] = None
     for item in sorted_histories:
@@ -178,6 +232,7 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
             "time": item.get("time"),
             "is_title_fight": item.get("is_title_fight", False),
             "event": item.get("event"),
+            "breakdown": item.get("breakdown"),
         })
 
     skill_item = get_skill_score_by_id(fighter_id, division) or {}
@@ -198,21 +253,31 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
             }
         )
 
+    physical = parse_physical(fighter)
+    fight_stats = compute_fighter_stats(fighter_id, division)
+
     return {
         "fighter_id": str(fighter.get("id") or fighter.get("fighter_id") or fighter_id),
         "fighter_name": fighter.get("name") or fighter.get("full_name"),
         "division": fighter.get("division") or division.title(),
         "elo": _get_current_elo(fighter_id, fighter, division),
-        "record": fighter.get("record"),
+        "record": (
+            fighter.get("record")
+            or f"{fighter.get('wins', 0) or 0}-{fighter.get('losses', 0) or 0}-{fighter.get('draws', 0) or 0}"
+        ),
         "country": fighter.get("country"),
         "height": fighter.get("height"),
         "weight": fighter.get("weight"),
         "reach": fighter.get("reach"),
         "stance": fighter.get("stance"),
+        "height_inches": physical["height_inches"],
+        "reach_inches": physical["reach_inches"],
+        "weight_lbs": physical["weight_lbs"],
         "elo_history": elo_history_response,
         "skill_score": skill_score,
         "skill_composite": skill_composite,
         "skill_history": skill_history_response,
+        "fight_stats": fight_stats,
     }
 
 
@@ -300,6 +365,7 @@ def build_prediction(fighter_a_id: str, fighter_b_id: str, division: str = "heav
         "skill_composite_a": round(comp_a, 2),
         "skill_composite_b": round(comp_b, 2),
         "skill_advantages": skill_advantages,
+        "skill_comparison": {"fighter_a": skill_a, "fighter_b": skill_b},
         "method_prediction": method_prediction,
         "key_advantage": key_advantage,
     }
@@ -513,6 +579,107 @@ def build_fight_simulation(
         "round_distribution": round_distribution,
         "most_likely_outcome": most_likely,
         "skill_comparison": {"fighter_a": skill_a, "fighter_b": skill_b},
+    }
+
+
+def _variable_k(fight_count: int, division: str) -> float:
+    if fight_count < 5:
+        base = 2.0
+    elif fight_count < 15:
+        base = 1.0
+    else:
+        base = 0.625
+    return base * _DIVISION_K_MULT.get(division.lower(), 0.90)
+
+
+def _streak_mult(streak: int) -> float:
+    if streak >= 8:  return 1.35
+    if streak >= 5:  return 1.25
+    if streak >= 3:  return 1.15
+    if streak <= -8: return 1.55
+    if streak <= -5: return 1.40
+    if streak <= -3: return 1.25
+    return 1.0
+
+
+# Method weight tables — mirrors elo_engine._fight_weight / _loss_method_mult
+_METHOD_WIN_WEIGHTS: Dict[str, Dict[int, float]] = {
+    "KO/TKO": {1: 1.40, 2: 1.25, 3: 1.10, 4: 1.10, 5: 1.10},
+    "SUB":    {1: 1.25, 2: 1.25, 3: 1.10, 4: 1.10, 5: 1.10},
+    "DEC U":  {3: 1.05, 5: 1.05},
+    "DEC M":  {3: 0.90, 5: 0.90},
+    "DEC S":  {3: 0.80, 5: 0.80},
+}
+_METHOD_LOSS_WEIGHTS: Dict[str, Dict[int, float]] = {
+    "KO/TKO": {1: 1.40, 2: 1.25, 3: 1.10, 4: 1.10, 5: 1.10},
+    "SUB":    {1: 1.20, 2: 1.20, 3: 1.20, 4: 1.20, 5: 1.20},
+    "DEC U":  {3: 1.05, 5: 1.05},
+    "DEC M":  {3: 0.90, 5: 0.90},
+    "DEC S":  {3: 0.80, 5: 0.80},
+}
+
+
+def build_fight_simulator_data(
+    fighter_a_id: str,
+    fighter_b_id: str,
+    division: str = "heavyweight",
+) -> Optional[Dict[str, object]]:
+    fighter_a = get_fighter_by_id(fighter_a_id, division)
+    fighter_b = get_fighter_by_id(fighter_b_id, division)
+    if not fighter_a or not fighter_b:
+        return None
+
+    elo_a = _get_current_elo(fighter_a_id, fighter_a, division)
+    elo_b = _get_current_elo(fighter_b_id, fighter_b, division)
+
+    # Pull fight_count and streak from rankings JSON (authoritative post-engine run)
+    rankings = load_rankings(division)
+    rank_lookup: Dict[str, Dict] = {
+        str(r.get("id") or r.get("fighter_id") or ""): r for r in rankings
+    }
+    ra = rank_lookup.get(str(fighter_a_id), {})
+    rb = rank_lookup.get(str(fighter_b_id), {})
+
+    fight_count_a = int(ra.get("fight_count") or 0)
+    fight_count_b = int(rb.get("fight_count") or 0)
+    streak_a = int(ra.get("streak") or 0)
+    streak_b = int(rb.get("streak") or 0)
+
+    div_lower = division.lower()
+    div_mult = _DIVISION_K_MULT.get(div_lower, 0.90)
+
+    k_var_a = _variable_k(fight_count_a, division)
+    k_var_b = _variable_k(fight_count_b, division)
+    streak_mult_a = _streak_mult(streak_a)
+    streak_mult_b = _streak_mult(streak_b)
+
+    prob_a = elo_win_probability(elo_a, elo_b)
+
+    name_a = fighter_a.get("name") or fighter_a.get("full_name")
+    name_b = fighter_b.get("name") or fighter_b.get("full_name")
+
+    return {
+        "fighter_a_id": str(fighter_a_id),
+        "fighter_b_id": str(fighter_b_id),
+        "fighter_a_name": name_a,
+        "fighter_b_name": name_b,
+        "elo_a": round(elo_a, 2),
+        "elo_b": round(elo_b, 2),
+        "k_base": _K_BASE,
+        "div_mult": round(div_mult, 3),
+        "k_var_a": round(k_var_a, 4),
+        "k_var_b": round(k_var_b, 4),
+        "streak_a": streak_a,
+        "streak_b": streak_b,
+        "streak_mult_a": round(streak_mult_a, 3),
+        "streak_mult_b": round(streak_mult_b, 3),
+        "fight_count_a": fight_count_a,
+        "fight_count_b": fight_count_b,
+        "prob_a": round(prob_a, 4),
+        "prob_b": round(1.0 - prob_a, 4),
+        "division": division,
+        "method_win_weights": _METHOD_WIN_WEIGHTS,
+        "method_loss_weights": _METHOD_LOSS_WEIGHTS,
     }
 
 
