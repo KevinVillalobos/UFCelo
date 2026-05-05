@@ -77,20 +77,29 @@ def parse_physical(fighter: Dict) -> Dict:
     }
 
 
-def compute_fighter_stats(fighter_id: str, division: str) -> Optional[Dict]:
-    slug = division.lower().replace(" ", "_")
-    path = DATA_DIR / f"fights_{slug}.csv"
-    if not path.exists():
-        return None
-
+def compute_fighter_stats(fighter_id: str, division: str = "") -> Optional[Dict]:
+    # Collect fights from every division CSV so cross-division fighters (e.g. a
+    # champion who moved up) show their full career stats, not just one weight class.
+    # Deduplicate by fight_id in case the same fight was scraped into multiple files.
     rows_a: List[Dict] = []
     rows_b: List[Dict] = []
-    with path.open("r", encoding="utf-8") as f:
-        for row in csv.DictReader(f):
-            if row.get("fighter_a_id") == fighter_id:
-                rows_a.append(row)
-            elif row.get("fighter_b_id") == fighter_id:
-                rows_b.append(row)
+    seen_fights: set = set()
+
+    for slug in _ALL_SLUGS:
+        path = DATA_DIR / f"fights_{slug}.csv"
+        if not path.exists():
+            continue
+        with path.open("r", encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                fid = row.get("fight_id", "")
+                if fid in seen_fights:
+                    continue
+                if row.get("fighter_a_id") == fighter_id:
+                    rows_a.append(row)
+                    seen_fights.add(fid)
+                elif row.get("fighter_b_id") == fighter_id:
+                    rows_b.append(row)
+                    seen_fights.add(fid)
 
     if not rows_a and not rows_b:
         return None

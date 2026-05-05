@@ -263,7 +263,7 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
         )
 
     physical = parse_physical(fighter)
-    fight_stats = compute_fighter_stats(fighter_id, division)
+    fight_stats = compute_fighter_stats(fighter_id)
 
     return {
         "fighter_id": str(fighter.get("id") or fighter.get("fighter_id") or fighter_id),
