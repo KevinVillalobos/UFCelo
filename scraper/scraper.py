@@ -4,8 +4,11 @@ import json
 import logging
 import time
 from dataclasses import asdict, dataclass
+from datetime import date, datetime
 from pathlib import Path
 from typing import Optional
+
+CHECKPOINT_FILE = "scrape_checkpoint.json"
 
 import requests
 from bs4 import BeautifulSoup
@@ -441,63 +444,136 @@ class UFCScraper:
         return fighters
 
 
-def scrape_division(division: str, output_dir: str, max_events: Optional[int] = None):
+def _parse_event_date(date_str: str) -> Optional[date]:
+    for fmt in ("%B %d %Y", "%b %d %Y", "%m/%d/%Y"):
+        try:
+            return datetime.strptime(date_str.strip(), fmt).date()
+        except ValueError:
+            continue
+    return None
+
+
+def _load_checkpoint(output_dir: Path) -> dict:
+    path = output_dir / CHECKPOINT_FILE
+    if path.exists():
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+
+def _save_checkpoint(output_dir: Path, division: str, last_event_date: date) -> None:
+    data = _load_checkpoint(output_dir)
+    data[division] = {
+        "last_event_date": last_event_date.isoformat(),
+        "last_run": datetime.now().isoformat(timespec="seconds"),
+    }
+    with open(output_dir / CHECKPOINT_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+
+def scrape_division(division: str, output_dir: str, max_events: Optional[int] = None, deep: bool = False):
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
 
+    division_slug = division.lower().replace(" ", "_")
+    fights_path   = output / f"fights_{division_slug}.csv"
+    fighters_path = output / f"fighters_{division_slug}.json"
+
+    # ── Checkpoint / modo auto-detect ────────────────────────────────────────
+    checkpoint    = _load_checkpoint(output)
+    div_cp        = checkpoint.get(division)
+    incremental   = (
+        not deep
+        and div_cp is not None
+        and fights_path.exists()
+        and fighters_path.exists()
+    )
+
+    if incremental:
+        since_date = date.fromisoformat(div_cp["last_event_date"])
+        log.info(f"Modo incremental — eventos después de {since_date} (usa --deep para scrape completo)")
+    else:
+        since_date = None
+        log.info("Modo completo (deep scrape)")
+
     scraper = UFCScraper(delay=1.5, target_division=division)
 
+    # ── Eventos ──────────────────────────────────────────────────────────────
     events = scraper.get_all_events()
     with open(output / "events.json", "w", encoding="utf-8") as f:
         json.dump(events, f, indent=2, ensure_ascii=False)
     log.info(f"Guardados {len(events)} eventos en events.json")
 
+    if incremental:
+        events = [e for e in events if (d := _parse_event_date(e["date"])) and d > since_date]
+        log.info(f"{len(events)} eventos nuevos desde {since_date}")
+        if not events:
+            log.info("No hay eventos nuevos. ¡Todo al día!")
+            return [], []
+
     if max_events:
         events = events[:max_events]
 
-    all_fights: list[Fight] = []
-    fighter_ids: set[str] = set()
+    # ── Cargar datos existentes (solo en modo incremental) ───────────────────
+    existing_fight_ids: set[str]    = set()
+    existing_fighters:  dict[str, dict] = {}
+
+    if incremental:
+        with open(fights_path, encoding="utf-8") as f:
+            existing_fight_ids = {row["fight_id"] for row in csv.DictReader(f)}
+        with open(fighters_path, encoding="utf-8") as f:
+            for fighter in json.load(f):
+                existing_fighters[fighter["fighter_id"]] = fighter
+        log.info(
+            f"Cargadas {len(existing_fight_ids)} peleas y "
+            f"{len(existing_fighters)} peleadores existentes"
+        )
+
+    # ── Scrapear eventos nuevos ──────────────────────────────────────────────
+    new_fights:  list[Fight] = []
+    fighter_ids: set[str]   = set()
 
     for i, event in enumerate(events, 1):
         log.info(f"[{i}/{len(events)}] Scrapeando: {event['name']} ({event['date']})")
         fights = scraper.get_fights_from_event(event)
         for fight in fights:
             if _matches_division(fight.weight_class, division):
-                all_fights.append(fight)
-                fighter_ids.add(fight.fighter_a_id)
-                fighter_ids.add(fight.fighter_b_id)
+                if fight.fight_id not in existing_fight_ids:
+                    new_fights.append(fight)
+                    fighter_ids.add(fight.fighter_a_id)
+                    fighter_ids.add(fight.fighter_b_id)
 
-    all_fights.sort(key=lambda f: f.event_date)
+    new_fights.sort(key=lambda f: f.event_date)
 
-    fights_path = output / f"fights_{division.lower().replace(' ', '_')}.csv"
-    if all_fights:
-        fieldnames = [
-            "fight_id", "event_id", "event_name", "event_date",
-            "fighter_a_id", "fighter_a_name", "fighter_b_id", "fighter_b_name",
-            "winner_id", "method", "round", "time", "weight_class", "is_title_fight",
-            # Estadísticas fighter_a
-            "fighter_a_strikes_landed", "fighter_a_strikes_attempted",
-            "fighter_a_takedowns_landed", "fighter_a_takedowns_attempted",
-            "fighter_a_knockdowns", "fighter_a_control_time",
-            "fighter_a_submission_attempts", "fighter_a_reversals",
-            "fighter_a_head_strikes_landed", "fighter_a_head_strikes_attempted",
-            "fighter_a_body_strikes_landed", "fighter_a_body_strikes_attempted",
-            "fighter_a_leg_strikes_landed", "fighter_a_leg_strikes_attempted",
-            # Estadísticas fighter_b
-            "fighter_b_strikes_landed", "fighter_b_strikes_attempted",
-            "fighter_b_takedowns_landed", "fighter_b_takedowns_attempted",
-            "fighter_b_knockdowns", "fighter_b_control_time",
-            "fighter_b_submission_attempts", "fighter_b_reversals",
-            "fighter_b_head_strikes_landed", "fighter_b_head_strikes_attempted",
-            "fighter_b_body_strikes_landed", "fighter_b_body_strikes_attempted",
-            "fighter_b_leg_strikes_landed", "fighter_b_leg_strikes_attempted",
-        ]
+    # ── Escribir peleas al CSV ───────────────────────────────────────────────
+    fieldnames = [
+        "fight_id", "event_id", "event_name", "event_date",
+        "fighter_a_id", "fighter_a_name", "fighter_b_id", "fighter_b_name",
+        "winner_id", "method", "round", "time", "weight_class", "is_title_fight",
+        "fighter_a_strikes_landed", "fighter_a_strikes_attempted",
+        "fighter_a_takedowns_landed", "fighter_a_takedowns_attempted",
+        "fighter_a_knockdowns", "fighter_a_control_time",
+        "fighter_a_submission_attempts", "fighter_a_reversals",
+        "fighter_a_head_strikes_landed", "fighter_a_head_strikes_attempted",
+        "fighter_a_body_strikes_landed", "fighter_a_body_strikes_attempted",
+        "fighter_a_leg_strikes_landed", "fighter_a_leg_strikes_attempted",
+        "fighter_b_strikes_landed", "fighter_b_strikes_attempted",
+        "fighter_b_takedowns_landed", "fighter_b_takedowns_attempted",
+        "fighter_b_knockdowns", "fighter_b_control_time",
+        "fighter_b_submission_attempts", "fighter_b_reversals",
+        "fighter_b_head_strikes_landed", "fighter_b_head_strikes_attempted",
+        "fighter_b_body_strikes_landed", "fighter_b_body_strikes_attempted",
+        "fighter_b_leg_strikes_landed", "fighter_b_leg_strikes_attempted",
+    ]
 
-        with open(fights_path, "w", newline="", encoding="utf-8") as f:
+    if new_fights:
+        write_mode = "a" if incremental else "w"
+        with open(fights_path, write_mode, newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames)
-            writer.writeheader()
+            if not incremental:
+                writer.writeheader()
 
-            for fight in all_fights:
+            for fight in new_fights:
                 row = {
                     "fight_id": fight.fight_id,
                     "event_id": fight.event_id,
@@ -514,8 +590,6 @@ def scrape_division(division: str, output_dir: str, max_events: Optional[int] = 
                     "weight_class": fight.weight_class,
                     "is_title_fight": fight.is_title_fight,
                 }
-
-                # Agregar estadísticas de fighter_a
                 if fight.fighter_a_stats:
                     stats = fight.fighter_a_stats
                     row.update({
@@ -534,8 +608,6 @@ def scrape_division(division: str, output_dir: str, max_events: Optional[int] = 
                         "fighter_a_leg_strikes_landed": stats.leg_strikes_landed,
                         "fighter_a_leg_strikes_attempted": stats.leg_strikes_attempted,
                     })
-
-                # Agregar estadísticas de fighter_b
                 if fight.fighter_b_stats:
                     stats = fight.fighter_b_stats
                     row.update({
@@ -554,27 +626,38 @@ def scrape_division(division: str, output_dir: str, max_events: Optional[int] = 
                         "fighter_b_leg_strikes_landed": stats.leg_strikes_landed,
                         "fighter_b_leg_strikes_attempted": stats.leg_strikes_attempted,
                     })
-
                 writer.writerow(row)
-    log.info(f"Guardadas {len(all_fights)} peleas Heavyweight en fights_heavyweight.csv")
 
-    fighters = []
-    for fid in fighter_ids:
+        action = "Añadidas" if incremental else "Guardadas"
+        log.info(f"{action} {len(new_fights)} peleas en {fights_path.name}")
+
+    # ── Perfiles de peleadores (solo los nuevos en modo incremental) ─────────
+    new_fighter_ids = fighter_ids - set(existing_fighters.keys())
+    for fid in new_fighter_ids:
         name = next(
-            (f.fighter_a_name for f in all_fights if f.fighter_a_id == fid),
-            next((f.fighter_b_name for f in all_fights if f.fighter_b_id == fid), "Unknown"),
+            (f.fighter_a_name for f in new_fights if f.fighter_a_id == fid),
+            next((f.fighter_b_name for f in new_fights if f.fighter_b_id == fid), "Unknown"),
         )
         log.info(f"  Perfil: {name}")
         fighter = scraper.get_fighter_details(fid, name)
         if fighter:
-            fighters.append(asdict(fighter))
+            existing_fighters[fid] = asdict(fighter)
 
-    fighters_filename = f"fighters_{division.lower().replace(' ', '_')}.json"
-    with open(output / fighters_filename, "w", encoding="utf-8") as f:
-        json.dump(fighters, f, indent=2, ensure_ascii=False)
-    log.info(f"Guardados {len(fighters)} perfiles de peleadores en {fighters_filename}")
+    all_fighters = list(existing_fighters.values())
+    with open(fighters_path, "w", encoding="utf-8") as f:
+        json.dump(all_fighters, f, indent=2, ensure_ascii=False)
+    log.info(f"Guardados {len(all_fighters)} perfiles en {fighters_path.name}")
 
-    return all_fights, fighters
+    # ── Actualizar checkpoint ────────────────────────────────────────────────
+    latest = max(
+        (d for e in events if (d := _parse_event_date(e["date"]))),
+        default=None,
+    )
+    if latest:
+        _save_checkpoint(output, division, latest)
+        log.info(f"Checkpoint actualizado: {division} → {latest}")
+
+    return new_fights, all_fighters
 
 
 def refresh_fight_stats(csv_path: str, delay: float = 1.5) -> None:
@@ -657,6 +740,7 @@ if __name__ == "__main__":
                         help="División a scrapear (ej: heavyweight, lightweight, welterweight)")
     parser.add_argument("--max-events", type=int, default=None, help="Limitar número de eventos (para testing)")
     parser.add_argument("--test", action="store_true", help="Modo test: solo 10 eventos")
+    parser.add_argument("--deep", action="store_true", help="Forzar scrape completo ignorando checkpoint")
     parser.add_argument("--refresh-stats", action="store_true", help="Re-fetch fight stats for existing CSV")
     args = parser.parse_args()
 
@@ -669,5 +753,5 @@ if __name__ == "__main__":
     else:
         if args.test:
             args.max_events = 10
-        scrape_division(args.division, args.output, max_events=args.max_events)
+        scrape_division(args.division, args.output, max_events=args.max_events, deep=args.deep)
         log.info("¡Scraping completado!")

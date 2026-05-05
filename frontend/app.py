@@ -45,13 +45,13 @@ if not available:
     st.warning("No data available. Run the ELO engine first.")
     st.stop()
 
-cols = st.columns(min(len(available), 3))
+cols = st.columns(4)
 for idx, (div, rankings) in enumerate(available):
-    col = cols[idx % 3]
-    top3 = rankings[:3]
+    col = cols[idx % 4]
+    top15 = rankings[:15]
     with col:
         st.markdown(f"### {DIVISION_LABELS.get(div, div.title())}")
-        for i, f in enumerate(top3, 1):
+        for i, f in enumerate(top15, 1):
             streak = f.get("streak", 0)
             is_champ = f.get("is_champion", False)
             streak_icon = f"+{streak}W" if streak >= 3 else (f"{streak}L" if streak <= -3 else "")
@@ -62,8 +62,8 @@ for idx, (div, rankings) in enumerate(available):
                 f"{streak_icon}",
                 unsafe_allow_html=True,
             )
-        if len(rankings) > 3:
-            st.caption(f"+{len(rankings)-3} more fighters")
+        if len(rankings) > 15:
+            st.caption(f"+{len(rankings)-15} more fighters")
         st.markdown("")
 
 st.divider()
