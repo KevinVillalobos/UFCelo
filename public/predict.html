@@ -35,6 +35,9 @@
   <!-- Section 3: Fighter cards -->
   <div id="cards-section"></div>
 
+  <!-- Section 3b: Physical silhouettes -->
+  <div id="sil-section"></div>
+
   <!-- Section 4: Skill comparison -->
   <div id="skill-section"></div>
 
@@ -164,7 +167,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function clearAll() {
-    ['prob-section','cards-section','skill-section','stats-section','simulator-section','how-it-works']
+    ['prob-section','cards-section','sil-section','skill-section','stats-section','simulator-section','how-it-works']
       .forEach(id => { document.getElementById(id).innerHTML = ''; });
   }
 
@@ -313,15 +316,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function renderSilhouetteSection(profA, profB, faName, fbName) {
-    if (!profA && !profB) return;
+    const el = document.getElementById('sil-section');
+    if (!profA && !profB) { el.innerHTML = ''; return; }
     const hA = profA?.height_inches, rA = profA?.reach_inches, wA = profA?.weight_lbs;
     const hB = profB?.height_inches, rB = profB?.reach_inches, wB = profB?.weight_lbs;
-    // Only render if at least one fighter has physical data
-    if (!hA && !hB) return;
+    if (!hA && !hB) { el.innerHTML = ''; return; }
     const svg = buildComparisonSVG(hA, rA, wA, faName, hB, rB, wB, fbName);
-    document.getElementById('cards-section').insertAdjacentHTML('afterend',
-      `<div class="chart-box" style="margin-bottom:1rem;padding:1rem;">${svg}</div>`
-    );
+    el.innerHTML = `<div class="chart-box" style="margin-bottom:1rem;padding:1rem;">${svg}</div>`;
   }
 
   // ── Section 2: Probability bar + summary ───────────────────────────────────
