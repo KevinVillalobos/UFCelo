@@ -89,17 +89,13 @@ function divSlug(d) { return d.replace(/ /g, '%20'); }
 </nav>`;
   document.body.insertAdjacentHTML('afterbegin', html);
 
-  // Count this visit once per browser session, then display total everywhere
-  const isFirstVisit = !sessionStorage.getItem('_v');
-  fetch(API + '/visits', { method: isFirstVisit ? 'POST' : 'GET' })
+  // Count every page load as a visit and display running total
+  fetch(API + '/visits', { method: 'POST' })
     .then(r => r.json())
     .then(d => {
-      sessionStorage.setItem('_v', '1');
       const n = (d.total || 0).toLocaleString();
-      // Navbar counter (all pages)
       const navEl = document.getElementById('visit-counter');
       if (navEl) navEl.textContent = `👁 ${n}`;
-      // Home page prominent counter
       const homeEl = document.getElementById('home-visit-num');
       if (homeEl) homeEl.textContent = n;
     })
