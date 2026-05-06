@@ -89,22 +89,16 @@ function divSlug(d) { return d.replace(/ /g, '%20'); }
 </nav>`;
   document.body.insertAdjacentHTML('afterbegin', html);
 
-  // Visit counter: increment localStorage on every page load, display immediately
-  const _vKey = 'ufcelo_visits';
-  const _vCount = (parseInt(localStorage.getItem(_vKey) || '0', 10)) + 1;
-  localStorage.setItem(_vKey, String(_vCount));
-
   function _showVisits(n) {
     const navEl = document.getElementById('visit-counter');
     if (navEl) navEl.textContent = `👁 ${n.toLocaleString()}`;
     const homeEl = document.getElementById('home-visit-num');
     if (homeEl) homeEl.textContent = n.toLocaleString();
   }
-  _showVisits(_vCount);
 
-  // Also ping backend — if it has a higher number (shared across browsers), use that
-  fetch(API + '/visits', { method: 'POST' })
+  // Global visit counter via CountAPI — shared across all users/devices
+  fetch('https://api.countapi.xyz/hit/ufcelo-gg/pagevisits')
     .then(r => r.ok ? r.json() : null)
-    .then(d => { if (d && d.total > _vCount) _showVisits(d.total); })
+    .then(d => { if (d && d.value) _showVisits(d.value); })
     .catch(() => {});
 })();
