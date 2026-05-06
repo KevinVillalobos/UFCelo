@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date as _Date
 from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel
@@ -27,7 +27,7 @@ class EloBreakdown(BaseModel):
 
 
 class EloHistoryPoint(BaseModel):
-    date:           Optional[date]         = None
+    date:           Optional[_Date]         = None
     elo:            float
     elo_change:     Optional[float]        = None
     opponent_id:    Optional[str]          = None
@@ -42,7 +42,7 @@ class EloHistoryPoint(BaseModel):
 
 
 class SkillHistoryPoint(BaseModel):
-    date:          Optional[date]    = None
+    date:          Optional[_Date]    = None
     fight_id:      str
     opponent_id:   Optional[str]     = None
     opponent_name: Optional[str]     = None
@@ -191,6 +191,6 @@ class UpcomingFight(BaseModel):
 class UpcomingEvent(BaseModel):
     event_id: str
     name:     str
-    date:     Optional[date]        = None
+    date:     Optional[_Date]        = None
     venue:    Optional[str]         = None
     fights:   List[UpcomingFight]
