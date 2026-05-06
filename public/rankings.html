@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rankings — UFCelo.gg</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main class="container">
+  <div class="page-header">
+    <h1>ELO Rankings</h1>
+    <p>Active fighters ranked by ELO with inactivity decay. [C] = current UFC champion, always shown at #1.</p>
+  </div>
+
+  <div class="form-row" style="align-items:center;">
+    <div class="form-group" style="max-width:280px;">
+      <label>Division</label>
+      <select id="div-sel"></select>
+    </div>
+    <div class="form-group" style="max-width:200px;">
+      <label>&nbsp;</label>
+      <div class="toggle-row">
+        <button class="toggle-btn active" id="btn-active">Active</button>
+        <button class="toggle-btn"        id="btn-alltime">All-time peak</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="stats-row" class="metrics-row" style="display:none;"></div>
+  <div id="table-wrap"></div>
+</main>
+
+<script src="/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  let alltime = false;
+  const divSel   = document.getElementById('div-sel');
+  const btnAct   = document.getElementById('btn-active');
+  const btnAll   = document.getElementById('btn-alltime');
+  populateDivSelect(divSel);
+
+  async function load() {
+    const div = divSel.value;
+    const path = alltime ? `/rankings/${divSlug(div)}/alltime` : `/rankings/${divSlug(div)}`;
+    document.getElementById('table-wrap').innerHTML = '<div class="loading">Loading…</div>';
+    try {
+      const data = await apiFetch(path);
+      renderTable(data);
+      renderStats(data);
+    } catch(e) {
+      document.getElementById('table-wrap').innerHTML = `<div class="alert-error">Failed to load rankings.</div>`;
+    }
+  }
+
+  function renderStats(data) {
+    const row = document.getElementById('stats-row');
+    const elos = data.map(f => f.elo);
+    if (elos.length < 2) { row.style.display = 'none'; return; }
+    const mean = elos.reduce((a,b)=>a+b,0)/elos.length;
+    const std  = Math.sqrt(elos.map(e=>(e-mean)**2).reduce((a,b)=>a+b,0)/elos.length);
+    const spread = Math.max(...elos) - Math.min(...elos);
+    row.style.display = 'flex';
+    row.innerHTML = `
+      <div class="metric"><div class="metric-label">Fighters</div><div class="metric-value">${data.length}</div></div>
+      <div class="metric"><div class="metric-label">Mean ELO</div><div class="metric-value">${mean.toFixed(0)}</div></div>
+      <div class="metric"><div class="metric-label">Std Dev</div><div class="metric-value">${std.toFixed(0)}</div></div>
+      <div class="metric"><div class="metric-label">ELO Spread</div><div class="metric-value">${spread.toFixed(0)}</div></div>`;
+  }
+
+  function renderTable(data) {
+    const rows = data.map((f, i) => {
+      const rank = alltime ? (f.rank ?? i+1) : i+1;
+      const champ = f.is_champion ? champBadge() : '';
+      const visitor = f.visitor_label ? ` <span style="color:var(--muted);font-size:0.75rem;">[${f.visitor_label}]</span>` : '';
+      const streak = streakBadge(f.streak || 0);
+      const peakElo = f.peak_elo ? f.peak_elo.toFixed(1) : '—';
+      const peakOpp = f.peak_elo_opponent || '—';
+      return `<tr>
+        <td style="color:var(--muted);width:40px;">${rank}</td>
+        <td>${champ}${f.fighter_name}${visitor} ${streak}</td>
+        <td style="color:var(--red);font-weight:700;">${f.elo.toFixed(1)}</td>
+        <td>${peakElo}</td>
+        <td style="color:var(--muted);font-size:0.8rem;">${peakOpp}</td>
+        <td>${f.record || '—'}</td>
+        <td style="color:var(--muted);">${f.fight_count ?? '—'}</td>
+        <td style="color:var(--muted);font-size:0.8rem;">${f.last_fight_date || '—'}</td>
+      </tr>`;
+    }).join('');
+    document.getElementById('table-wrap').innerHTML = `
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>#</th><th>Fighter</th><th>ELO</th><th>Peak ELO</th>
+            <th>Peak vs</th><th>Record</th><th>Fights</th><th>Last Fight</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  }
+
+  btnAct.addEventListener('click', () => {
+    alltime = false; btnAct.classList.add('active'); btnAll.classList.remove('active'); load();
+  });
+  btnAll.addEventListener('click', () => {
+    alltime = true; btnAll.classList.add('active'); btnAct.classList.remove('active'); load();
+  });
+  divSel.addEventListener('change', load);
+  await load();
+});
+</script>
+</body>
+</html>

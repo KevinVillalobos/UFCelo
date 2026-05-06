@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UFCelo.gg — Independent ELO Rankings</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main class="container">
+  <div style="text-align:center; padding:1.5rem 0 1rem">
+    <h1 style="font-size:2.6rem; font-weight:800; letter-spacing:-1px;">UFCelo.gg</h1>
+    <p style="color:var(--muted); font-size:1rem; margin-top:0.3rem;">Independent ELO rankings for UFC/MMA</p>
+  </div>
+  <hr class="divider">
+
+  <div id="div-grid" class="grid-4" style="margin-bottom:2rem;">
+    <div class="skeleton" style="height:200px;border-radius:8px;"></div>
+    <div class="skeleton" style="height:200px;border-radius:8px;"></div>
+    <div class="skeleton" style="height:200px;border-radius:8px;"></div>
+    <div class="skeleton" style="height:200px;border-radius:8px;"></div>
+  </div>
+
+  <hr class="divider">
+  <h2 style="margin-bottom:1rem;">Quick Prediction</h2>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Division</label>
+      <select id="pred-div"></select>
+    </div>
+    <div class="form-group">
+      <label>Fighter A</label>
+      <select id="pred-fa"></select>
+    </div>
+    <div class="form-group">
+      <label>Fighter B</label>
+      <select id="pred-fb"></select>
+    </div>
+  </div>
+  <div id="pred-chart"></div>
+  <div id="pred-result"></div>
+</main>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  // ── Division overview cards ──────────────────────────────────────────────
+  const grid = document.getElementById('div-grid');
+  const results = await Promise.allSettled(
+    DIVISIONS.map(d => apiFetch(`/rankings/${divSlug(d)}`).then(r => ({ div: d, rankings: r })))
+  );
+  grid.innerHTML = '';
+  results.forEach(res => {
+    if (res.status !== 'fulfilled') return;
+    const { div, rankings } = res.value;
+    const top = rankings.slice(0, 15);
+    const rows = top.map((f, i) => {
+      const champ = f.is_champion ? champBadge() : '';
+      const streak = streakBadge(f.streak || 0);
+      return `<div class="fighter-row">
+        <span class="rank">${i + 1}</span>
+        <span class="name">${champ}${f.fighter_name} ${streak}</span>
+        <span class="elo">${f.elo.toFixed(0)}</span>
+      </div>`;
+    }).join('');
+    const more = rankings.length > 15 ? `<div style="color:var(--muted);font-size:0.75rem;margin-top:0.4rem;">+${rankings.length - 15} more</div>` : '';
+    grid.insertAdjacentHTML('beforeend', `
+      <div class="div-card">
+        <div class="div-card-title">${DIV_LABELS[div]}</div>
+        ${rows}${more}
+      </div>`);
+  });
+
+  // ── Quick predictor ──────────────────────────────────────────────────────
+  let rankingsCache = {};
+  const divSel = document.getElementById('pred-div');
+  const faSel  = document.getElementById('pred-fa');
+  const fbSel  = document.getElementById('pred-fb');
+  populateDivSelect(divSel);
+
+  async function loadDivFighters() {
+    const div = divSel.value;
+    if (!rankingsCache[div]) rankingsCache[div] = await apiFetch(`/rankings/${divSlug(div)}`);
+    populateFighterSelect(faSel, rankingsCache[div]);
+    populateFighterSelect(fbSel, rankingsCache[div]);
+    if (fbSel.options.length > 1) fbSel.selectedIndex = 1;
+    await runPrediction();
+  }
+
+  async function runPrediction() {
+    const fa = faSel.value, fb = fbSel.value, div = divSel.value;
+    if (!fa || !fb || fa === fb) {
+      document.getElementById('pred-chart').innerHTML = '';
+      document.getElementById('pred-result').innerHTML = '';
+      return;
+    }
+    try {
+      const pred = await apiFetch(`/predict?fighter_a=${fa}&fighter_b=${fb}&division=${divSlug(div)}`);
+      const pa = pred.probability_a, pb = pred.probability_b;
+      const faName = faSel.options[faSel.selectedIndex].text.replace(/ \(\d+\)$/, '');
+      const fbName = fbSel.options[fbSel.selectedIndex].text.replace(/ \(\d+\)$/, '');
+      Plotly.react('pred-chart', [{
+        x: [pa * 100, pb * 100],
+        y: [faName, fbName],
+        type: 'bar', orientation: 'h',
+        marker: { color: [pa >= pb ? '#E8281E' : '#555', pb > pa ? '#E8281E' : '#555'] },
+        text: [`${(pa*100).toFixed(1)}%`, `${(pb*100).toFixed(1)}%`],
+        textposition: 'inside', textfont: { color: '#fff', size: 13 },
+      }], {
+        ...PLOTLY_LAYOUT,
+        height: 120,
+        xaxis: { range: [0,100], showticklabels: false, showgrid: false },
+        yaxis: { showgrid: false },
+        margin: { l: 0, r: 0, t: 10, b: 0 },
+      }, { displayModeBar: false, responsive: true });
+      const winner = pa >= pb ? faName : fbName;
+      const prob   = Math.max(pa, pb);
+      const method = pred.method_prediction || '—';
+      document.getElementById('pred-result').innerHTML =
+        `<div class="alert-success"><strong>${winner}</strong> wins with <strong>${(prob*100).toFixed(1)}%</strong> probability — predicted method: ${method}</div>`;
+    } catch(e) {
+      document.getElementById('pred-result').innerHTML = `<div class="alert-error">Prediction unavailable.</div>`;
+    }
+  }
+
+  divSel.addEventListener('change', loadDivFighters);
+  faSel.addEventListener('change', runPrediction);
+  fbSel.addEventListener('change', runPrediction);
+  await loadDivFighters();
+});
+</script>
+</body>
+</html>

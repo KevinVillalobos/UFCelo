@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 
 from .data_loader import set_fighter_retired
 from .schemas import (  # noqa: F401
@@ -24,6 +25,13 @@ app = FastAPI(
     title="UFCelo.gg API",
     description="Backend API para rankings Elo de peleadores de UFC/MMA.",
     version="0.1.0",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 

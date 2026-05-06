@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fighter — UFCelo.gg</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main class="container">
+  <div class="page-header">
+    <h1>Fighter Profile</h1>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group" style="max-width:240px;">
+      <label>Division</label>
+      <select id="div-sel"></select>
+    </div>
+    <div class="form-group" style="max-width:340px;">
+      <label>Fighter</label>
+      <select id="fighter-sel"></select>
+    </div>
+  </div>
+
+  <div id="profile"></div>
+</main>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="/app.js"></script>
+<script>
+const SKILL_DIMS   = ['Striking','Grappling','Defensa','Consistencia','Finish Rate','Cardio/Durabilidad','Presión'];
+const SKILL_LABELS = ['Striking','Grappling','Defense','Consistency','Finish Rate','Cardio/Durability','Pressure'];
+const ORANGE = '#D85A30';
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const divSel     = document.getElementById('div-sel');
+  const fighterSel = document.getElementById('fighter-sel');
+  let rankingsCache = {};
+
+  populateDivSelect(divSel);
+
+  async function loadDiv() {
+    const div = divSel.value;
+    if (!rankingsCache[div]) rankingsCache[div] = await apiFetch(`/rankings/${divSlug(div)}`);
+    populateFighterSelect(fighterSel, rankingsCache[div]);
+    await loadFighter();
+  }
+
+  async function loadFighter() {
+    const fid = fighterSel.value;
+    const div = divSel.value;
+    if (!fid) return;
+    document.getElementById('profile').innerHTML = '<div class="loading">Loading profile…</div>';
+    try {
+      const p = await apiFetch(`/fighter/${fid}?division=${divSlug(div)}`);
+      renderProfile(p, div);
+    } catch(e) {
+      document.getElementById('profile').innerHTML = `<div class="alert-error">Fighter not found.</div>`;
+    }
+  }
+
+  function renderProfile(p, div) {
+    const rankings   = rankingsCache[div] || [];
+    const rankEntry  = rankings.find(f => f.fighter_id === p.fighter_id);
+    const rankNum    = rankEntry ? rankings.indexOf(rankEntry) + 1 : '—';
+    const streak     = rankEntry ? (rankEntry.streak || 0) : 0;
+    const isChamp    = rankEntry ? rankEntry.is_champion : false;
+    const history    = p.elo_history || [];
+    const peakElo    = history.length ? Math.max(...history.map(h => h.elo)) : p.elo;
+    const streakStr  = streak >= 3 ? `+${streak} W streak` : (streak <= -3 ? `${streak} L streak` : '');
+
+    let champBanner = isChamp ? `<div style="margin-bottom:0.75rem;"><span class="badge-champ" style="font-size:0.75rem;padding:3px 10px;">UFC CHAMPION</span></div>` : '';
+
+    document.getElementById('profile').innerHTML = `
+      ${champBanner}
+      <div class="metrics-row">
+        <div class="metric"><div class="metric-label">Current ELO</div><div class="metric-value" style="color:var(--red);">${p.elo.toFixed(1)}</div></div>
+        <div class="metric"><div class="metric-label">Peak ELO</div><div class="metric-value">${peakElo.toFixed(0)}</div></div>
+        <div class="metric"><div class="metric-label">Record</div><div class="metric-value">${p.record || '—'}</div></div>
+        <div class="metric"><div class="metric-label">Division Rank</div><div class="metric-value">${rankNum !== '—' ? '#' + rankNum : '—'}</div>${streakStr ? `<div class="metric-delta pos">${streakStr}</div>` : ''}</div>
+        <div class="metric"><div class="metric-label">Fights in DB</div><div class="metric-value">${history.length || '—'}</div></div>
+      </div>
+      <hr class="divider">
+      <div class="grid-2" style="margin-bottom:1rem;">
+        <div class="chart-box"><div id="skill-radar" style="height:300px;"></div></div>
+        <div class="chart-box"><div id="elo-chart"   style="height:300px;"></div></div>
+      </div>
+      <div id="fight-table" style="margin-bottom:2rem;"></div>
+      <div id="stats-section"></div>`;
+
+    // Skill radar
+    const skill = p.skill_score || {};
+    if (Object.keys(skill).length) {
+      const vals = SKILL_DIMS.map(d => skill[d] ?? 50);
+      Plotly.newPlot('skill-radar', [{
+        type: 'scatterpolar',
+        r: [...vals, vals[0]],
+        theta: [...SKILL_LABELS, SKILL_LABELS[0]],
+        fill: 'toself',
+        fillcolor: 'rgba(216,90,48,0.2)',
+        line: { color: ORANGE, width: 2 },
+      }], {
+        ...PLOTLY_LAYOUT,
+        polar: {
+          bgcolor: 'rgba(0,0,0,0)',
+          radialaxis: { range: [0,100], showticklabels: true, tickfont: { size: 8 }, gridcolor: '#333' },
+          angularaxis: { gridcolor: '#333' },
+        },
+        height: 280, margin: { l: 50, r: 50, t: 20, b: 20 },
+        showlegend: false,
+      }, { displayModeBar: false, responsive: true });
+    }
+
+    // ELO history chart
+    if (history.length) {
+      const dates  = history.map(h => h.date);
+      const elos   = history.map(h => h.elo);
+      const colors = history.map(h => h.result === 'Win' ? '#22c55e' : h.result === 'Loss' ? '#E8281E' : '#888');
+      const hover  = history.map(h => {
+        const d = (h.elo_change !== undefined && h.elo_change !== null) ? ` (${h.elo_change >= 0 ? '+' : ''}${h.elo_change.toFixed(1)})` : '';
+        return `<b>${h.result}</b> vs ${h.opponent_name || '?'}<br>${h.method || ''}${h.is_title_fight ? ' [T]' : ''}<br>ELO ${h.elo.toFixed(1)}${d}<br>${h.event || ''}`;
+      });
+      Plotly.newPlot('elo-chart', [{
+        x: dates, y: elos,
+        type: 'scatter', mode: 'lines+markers',
+        line: { color: ORANGE, width: 2 },
+        marker: { color: colors, size: 8, line: { color: '#fff', width: 1 } },
+        text: hover, hovertemplate: '%{text}<extra></extra>',
+      }], {
+        ...PLOTLY_LAYOUT,
+        title: { text: 'ELO History', font: { color: '#F0F2F6', size: 13 } },
+        height: 280,
+        xaxis: { showgrid: false },
+        yaxis: { gridcolor: '#2d3250', title: 'ELO' },
+        hovermode: 'closest',
+        shapes: [{ type:'line', x0:dates[0], x1:dates[dates.length-1], y0:1500, y1:1500,
+          line: { color:'#555', dash:'dot', width:1 } }],
+      }, { displayModeBar: false, responsive: true });
+    }
+
+    // Fight history table
+    if (history.length) {
+      const rows = [...history].reverse().map(h => {
+        const result   = h.result || '—';
+        const resultCl = result === 'Win' ? 'color:var(--green);' : result === 'Loss' ? 'color:var(--red);' : '';
+        const delta    = (h.elo_change !== undefined && h.elo_change !== null) ?
+          `<span style="color:${h.elo_change >= 0 ? 'var(--green)' : 'var(--red)'};">${h.elo_change >= 0 ? '+' : ''}${h.elo_change.toFixed(1)}</span>` : '—';
+        const title = h.is_title_fight ? ' <span style="color:var(--red);font-size:0.7rem;">[T]</span>' : '';
+        return `<tr>
+          <td style="color:var(--muted);font-size:0.8rem;">${h.date || '—'}</td>
+          <td style="${resultCl}font-weight:600;">${result}</td>
+          <td>${h.opponent_name || '—'}</td>
+          <td>${(h.method || '—')}${title}</td>
+          <td style="color:var(--muted);">${h.round || '—'}</td>
+          <td style="color:var(--red);font-weight:600;">${h.elo ? h.elo.toFixed(1) : '—'}</td>
+          <td>${delta}</td>
+        </tr>`;
+      }).join('');
+      document.getElementById('fight-table').innerHTML = `
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Date</th><th>Result</th><th>Opponent</th><th>Method</th><th>Rd</th><th>ELO</th><th>Δ ELO</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>`;
+    }
+
+    // Fight stats section
+    const fs = p.fight_stats;
+    if (fs) {
+      const methods = ['KO/TKO','SUB','DEC'];
+      const totalW = Object.values(fs.wins || {}).reduce((a,b)=>a+b,0) || 1;
+      const totalL = Object.values(fs.losses || {}).reduce((a,b)=>a+b,0) || 1;
+      document.getElementById('stats-section').innerHTML = `
+        <hr class="divider">
+        <h2 style="margin-bottom:1rem;">Fight Statistics</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3 style="margin-bottom:0.75rem;">Striking</h3>
+            ${statBar('Sig. strikes / min', fs.sig_strikes_per_min, 8, ORANGE, true)}
+            ${statBar('Accuracy',           fs.strike_accuracy,     1, ORANGE)}
+            ${statBar('Defense',            fs.strike_defense,      1, ORANGE)}
+            <div style="margin-top:0.5rem;font-size:0.85rem;color:var(--muted);">KD / fight: <strong style="color:var(--text);">${fs.knockdowns_per_fight?.toFixed(2) ?? '—'}</strong></div>
+          </div>
+          <div class="card">
+            <h3 style="margin-bottom:0.75rem;">Grappling</h3>
+            ${statBar('TD / min',      fs.td_per_min,    2,   '#378ADD', true)}
+            ${statBar('TD accuracy',   fs.td_accuracy,   1,   '#378ADD')}
+            ${statBar('TD defense',    fs.td_defense,    1,   '#378ADD')}
+            ${statBar('Control time',  fs.ctrl_pct,      1,   '#378ADD')}
+            <div style="margin-top:0.5rem;font-size:0.85rem;color:var(--muted);">Sub att / fight: <strong style="color:var(--text);">${fs.sub_attempts_per_fight?.toFixed(2) ?? '—'}</strong></div>
+          </div>
+        </div>`;
+    }
+  }
+
+  function statBar(label, value, max, color, raw = false) {
+    if (value === undefined || value === null) return '';
+    const pct = Math.min(value / max, 1) * 100;
+    const display = raw ? value.toFixed(2) : (value * 100).toFixed(0) + '%';
+    return `<div style="margin-bottom:0.6rem;">
+      <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:2px;">
+        <span style="color:var(--muted);">${label}</span>
+        <span style="color:${color};font-weight:700;">${display}</span>
+      </div>
+      <div style="background:var(--surface2);border-radius:3px;height:5px;">
+        <div style="background:${color};width:${pct.toFixed(1)}%;height:5px;border-radius:3px;"></div>
+      </div>
+    </div>`;
+  }
+
+  divSel.addEventListener('change', loadDiv);
+  fighterSel.addEventListener('change', loadFighter);
+  await loadDiv();
+});
+</script>
+</body>
+</html>

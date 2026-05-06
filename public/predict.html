@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Predict — UFCelo.gg</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main class="container">
+  <div class="page-header">
+    <h1>Fight Prediction</h1>
+    <p>Blended ELO + skill composite score for win probability.</p>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group" style="max-width:240px;">
+      <label>Division</label>
+      <select id="div-sel"></select>
+    </div>
+    <div class="form-group">
+      <label>Fighter A</label>
+      <select id="fa-sel"></select>
+    </div>
+    <div class="form-group">
+      <label>Fighter B</label>
+      <select id="fb-sel"></select>
+    </div>
+  </div>
+
+  <div id="result-chart"></div>
+  <div id="result-box"></div>
+  <div id="detail-box"></div>
+</main>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const divSel = document.getElementById('div-sel');
+  const faSel  = document.getElementById('fa-sel');
+  const fbSel  = document.getElementById('fb-sel');
+  let rankingsCache = {};
+
+  populateDivSelect(divSel);
+
+  async function loadDiv() {
+    const div = divSel.value;
+    if (!rankingsCache[div]) rankingsCache[div] = await apiFetch(`/rankings/${divSlug(div)}`);
+    populateFighterSelect(faSel, rankingsCache[div]);
+    populateFighterSelect(fbSel, rankingsCache[div]);
+    if (fbSel.options.length > 1) fbSel.selectedIndex = 1;
+    await predict();
+  }
+
+  async function predict() {
+    const fa = faSel.value, fb = fbSel.value, div = divSel.value;
+    if (!fa || !fb || fa === fb) {
+      document.getElementById('result-chart').innerHTML = '';
+      document.getElementById('result-box').innerHTML   = '';
+      document.getElementById('detail-box').innerHTML   = '';
+      return;
+    }
+    try {
+      const pred = await apiFetch(`/predict?fighter_a=${fa}&fighter_b=${fb}&division=${divSlug(div)}`);
+      const pa = pred.probability_a, pb = pred.probability_b;
+      const faName = rankingsCache[div]?.find(f=>f.fighter_id===fa)?.fighter_name ?? fa;
+      const fbName = rankingsCache[div]?.find(f=>f.fighter_id===fb)?.fighter_name ?? fb;
+      const winner = pa >= pb ? faName : fbName;
+
+      Plotly.react('result-chart', [{
+        x: [pa*100, pb*100], y: [faName, fbName],
+        type: 'bar', orientation: 'h',
+        marker: { color: [pa>=pb?'#E8281E':'#444', pb>pa?'#E8281E':'#444'] },
+        text: [`${(pa*100).toFixed(1)}%`, `${(pb*100).toFixed(1)}%`],
+        textposition: 'inside', textfont: { color: '#fff', size: 14 },
+      }], {
+        ...PLOTLY_LAYOUT,
+        height: 130,
+        xaxis: { range:[0,100], showticklabels:false, showgrid:false },
+        yaxis: { showgrid:false, tickfont: { size:13 } },
+        margin: { l:10, r:10, t:10, b:10 },
+      }, { displayModeBar:false, responsive:true });
+
+      document.getElementById('result-box').innerHTML = `
+        <div class="alert-success" style="font-size:1rem;">
+          <strong>${winner}</strong> wins with <strong>${(Math.max(pa,pb)*100).toFixed(1)}%</strong> probability
+          — predicted method: <strong>${pred.method_prediction || '—'}</strong>
+        </div>`;
+
+      const eloA = rankingsCache[div]?.find(f=>f.fighter_id===fa)?.elo ?? 0;
+      const eloB = rankingsCache[div]?.find(f=>f.fighter_id===fb)?.elo ?? 0;
+      document.getElementById('detail-box').innerHTML = `
+        <div class="grid-2" style="margin-top:1rem;">
+          <div class="card">
+            <div style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;">${faName}</div>
+            <div style="color:var(--muted);font-size:0.85rem;">ELO</div>
+            <div style="font-size:1.3rem;font-weight:700;color:var(--red);">${eloA.toFixed(1)}</div>
+            <div style="margin-top:0.5rem;color:var(--muted);font-size:0.85rem;">Win probability</div>
+            <div style="font-size:1.3rem;font-weight:700;">${(pa*100).toFixed(1)}%</div>
+          </div>
+          <div class="card">
+            <div style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;">${fbName}</div>
+            <div style="color:var(--muted);font-size:0.85rem;">ELO</div>
+            <div style="font-size:1.3rem;font-weight:700;color:var(--red);">${eloB.toFixed(1)}</div>
+            <div style="margin-top:0.5rem;color:var(--muted);font-size:0.85rem;">Win probability</div>
+            <div style="font-size:1.3rem;font-weight:700;">${(pb*100).toFixed(1)}%</div>
+          </div>
+        </div>`;
+    } catch(e) {
+      document.getElementById('result-box').innerHTML = `<div class="alert-error">Prediction unavailable.</div>`;
+    }
+  }
+
+  divSel.addEventListener('change', loadDiv);
+  faSel.addEventListener('change', predict);
+  fbSel.addEventListener('change', predict);
+  await loadDiv();
+});
+</script>
+</body>
+</html>

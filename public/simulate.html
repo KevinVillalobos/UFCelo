@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulate — UFCelo.gg</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main class="container">
+  <div class="page-header">
+    <h1>Monte Carlo Simulator</h1>
+    <p>Runs thousands of simulated fight outcomes and shows the distribution of results.</p>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group" style="max-width:220px;">
+      <label>Division</label>
+      <select id="div-sel"></select>
+    </div>
+    <div class="form-group">
+      <label>Fighter A</label>
+      <select id="fa-sel"></select>
+    </div>
+    <div class="form-group">
+      <label>Fighter B</label>
+      <select id="fb-sel"></select>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group" style="max-width:260px;">
+      <label>Simulations: <span id="sim-val">1000</span></label>
+      <input type="range" id="sim-count" min="100" max="10000" step="100" value="1000">
+    </div>
+    <div class="form-group" style="max-width:140px;">
+      <label>Rounds</label>
+      <select id="rounds-sel">
+        <option value="3">3 rounds</option>
+        <option value="5">5 rounds</option>
+      </select>
+    </div>
+    <div class="form-group" style="max-width:160px;">
+      <label>Seed (optional)</label>
+      <input type="number" id="seed-inp" min="0" placeholder="random">
+    </div>
+    <div class="form-group" style="max-width:140px; justify-content:flex-end;">
+      <button class="btn-primary" id="run-btn">▶ Run Simulation</button>
+    </div>
+  </div>
+
+  <div id="results"></div>
+</main>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const divSel   = document.getElementById('div-sel');
+  const faSel    = document.getElementById('fa-sel');
+  const fbSel    = document.getElementById('fb-sel');
+  const simSlider= document.getElementById('sim-count');
+  const simVal   = document.getElementById('sim-val');
+  const runBtn   = document.getElementById('run-btn');
+  let rankingsCache = {};
+
+  simSlider.addEventListener('input', () => { simVal.textContent = simSlider.value; });
+  populateDivSelect(divSel);
+
+  async function loadDiv() {
+    const div = divSel.value;
+    if (!rankingsCache[div]) rankingsCache[div] = await apiFetch(`/rankings/${divSlug(div)}`);
+    populateFighterSelect(faSel, rankingsCache[div]);
+    populateFighterSelect(fbSel, rankingsCache[div]);
+    if (fbSel.options.length > 1) fbSel.selectedIndex = 1;
+  }
+
+  async function runSim() {
+    const fa = faSel.value, fb = fbSel.value;
+    const div = divSel.value;
+    const n = parseInt(simSlider.value);
+    const rounds = parseInt(document.getElementById('rounds-sel').value);
+    const seedRaw = document.getElementById('seed-inp').value;
+    const seed = seedRaw ? `&seed=${seedRaw}` : '';
+
+    if (!fa || !fb || fa === fb) {
+      document.getElementById('results').innerHTML = `<div class="alert-error">Select two different fighters.</div>`;
+      return;
+    }
+
+    runBtn.disabled = true; runBtn.textContent = 'Simulating…';
+    document.getElementById('results').innerHTML = '<div class="loading">Running simulation…</div>';
+
+    try {
+      const r = await apiFetch(`/simulate?fighter_a=${fa}&fighter_b=${fb}&division=${divSlug(div)}&simulations=${n}&rounds=${rounds}${seed}`);
+      renderResults(r, rankingsCache[div]);
+    } catch(e) {
+      document.getElementById('results').innerHTML = `<div class="alert-error">Simulation failed: ${e.message}</div>`;
+    } finally {
+      runBtn.disabled = false; runBtn.textContent = '▶ Run Simulation';
+    }
+  }
+
+  function renderResults(r, rankings) {
+    const faName = rankings?.find(f=>f.fighter_id===faSel.value)?.fighter_name ?? 'Fighter A';
+    const fbName = rankings?.find(f=>f.fighter_id===fbSel.value)?.fighter_name ?? 'Fighter B';
+    const faElo  = rankings?.find(f=>f.fighter_id===faSel.value)?.elo ?? 0;
+    const fbElo  = rankings?.find(f=>f.fighter_id===fbSel.value)?.elo ?? 0;
+    const pa = r.probability_a, pb = r.probability_b;
+    const aWins = r.fighter_a_wins, bWins = r.fighter_b_wins;
+
+    document.getElementById('results').innerHTML = `
+      <hr class="divider">
+      <div style="margin-bottom:1rem;font-size:1.1rem;font-weight:700;">Result: ${r.most_likely_outcome || '—'}</div>
+      <div class="metrics-row">
+        <div class="metric"><div class="metric-label">${faName} wins</div><div class="metric-value">${aWins.toLocaleString()}</div><div class="metric-delta pos">${(pa*100).toFixed(1)}%</div></div>
+        <div class="metric"><div class="metric-label">${fbName} wins</div><div class="metric-value">${bWins.toLocaleString()}</div><div class="metric-delta pos">${(pb*100).toFixed(1)}%</div></div>
+        <div class="metric"><div class="metric-label">Simulations</div><div class="metric-value">${r.fighter_a_wins + r.fighter_b_wins}</div></div>
+        <div class="metric"><div class="metric-label">ELO edge (A−B)</div><div class="metric-value">${(faElo-fbElo >= 0?'+':'') + (faElo-fbElo).toFixed(0)}</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="chart-box"><div id="sim-donut" style="height:280px;"></div></div>
+        <div class="chart-box"><div id="sim-method" style="height:280px;"></div></div>
+      </div>
+      <div id="sim-rounds" class="grid-2" style="margin-top:1rem;"></div>`;
+
+    // Donut
+    Plotly.newPlot('sim-donut', [{
+      labels: [faName, fbName], values: [aWins, bWins],
+      type: 'pie', hole: 0.55,
+      marker: { colors: ['#E8281E','#4455FF'] },
+      textinfo: 'label+percent', textfont: { size: 12 },
+    }], { ...PLOTLY_LAYOUT, height:260, margin:{l:0,r:0,t:20,b:0}, showlegend:false,
+      title:{text:'Win distribution',font:{color:'#F0F2F6',size:12}} }, { displayModeBar:false, responsive:true });
+
+    // Method breakdown
+    const mb = r.method_breakdown || {};
+    const methods = ['KO/TKO','SUB','DEC'];
+    const vA = methods.map(m => (mb.fighter_a?.[m] ?? 0) * aWins);
+    const vB = methods.map(m => (mb.fighter_b?.[m] ?? 0) * bWins);
+    Plotly.newPlot('sim-method', [
+      { name: faName, x: methods, y: vA, type:'bar', marker:{color:'#E8281E'}, text:vA.map(v=>v.toFixed(0)), textposition:'auto' },
+      { name: fbName, x: methods, y: vB, type:'bar', marker:{color:'#4455FF'}, text:vB.map(v=>v.toFixed(0)), textposition:'auto' },
+    ], { ...PLOTLY_LAYOUT, barmode:'group', height:260,
+      title:{text:'By method',font:{color:'#F0F2F6',size:12}},
+      yaxis:{showgrid:true,gridcolor:'#2d3250',title:'wins'},
+      xaxis:{showgrid:false},
+      legend:{orientation:'h',y:-0.2,x:0.5,xanchor:'center'},
+      margin:{l:40,r:10,t:40,b:60} }, { displayModeBar:false, responsive:true });
+
+    // Round distribution
+    const rd = r.round_distribution || {};
+    const rdEntries = Object.entries(rd);
+    if (rdEntries.length) {
+      const container = document.getElementById('sim-rounds');
+      container.innerHTML = '';
+      rdEntries.forEach(([method, rndData]) => {
+        const divId = `rd-${method.replace('/','_')}`;
+        container.insertAdjacentHTML('beforeend', `<div class="chart-box"><div id="${divId}" style="height:200px;"></div></div>`);
+        const sortedRounds = Object.keys(rndData).sort((a,b)=>+a-+b);
+        Plotly.newPlot(divId, [{
+          x: sortedRounds.map(r=>'R'+r),
+          y: sortedRounds.map(r=>rndData[r]*100),
+          type:'bar', marker:{color: method==='KO/TKO'?'#E8281E':'#44AA88'},
+          text: sortedRounds.map(r=>`${(rndData[r]*100).toFixed(0)}%`), textposition:'auto',
+        }], { ...PLOTLY_LAYOUT, height:180,
+          title:{text:method,font:{color:'#F0F2F6',size:12}},
+          yaxis:{showgrid:false,showticklabels:false},
+          xaxis:{showgrid:false},
+          margin:{l:10,r:10,t:40,b:30} }, { displayModeBar:false, responsive:true });
+      });
+    }
+  }
+
+  divSel.addEventListener('change', loadDiv);
+  runBtn.addEventListener('click', runSim);
+  await loadDiv();
+});
+</script>
+</body>
+</html>

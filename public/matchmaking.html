@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matchmaking — UFCelo.gg</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main class="container">
+  <div class="page-header">
+    <h1>Matchmaking Engine</h1>
+    <p>Best matchups scored by 70% ELO parity + 30% skill contrast.</p>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group" style="max-width:240px;">
+      <label>Division</label>
+      <select id="div-sel"></select>
+    </div>
+    <div class="form-group" style="max-width:180px;">
+      <label>Top N fighters</label>
+      <select id="topn-sel">
+        <option value="20">Top 20</option>
+        <option value="50" selected>Top 50</option>
+        <option value="100">Top 100</option>
+      </select>
+    </div>
+    <div class="form-group" style="max-width:120px; justify-content:flex-end;">
+      <button class="btn-primary" id="load-btn">Load</button>
+    </div>
+  </div>
+
+  <div id="table-wrap"></div>
+</main>
+
+<script src="/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const divSel   = document.getElementById('div-sel');
+  const topnSel  = document.getElementById('topn-sel');
+  const loadBtn  = document.getElementById('load-btn');
+  populateDivSelect(divSel);
+
+  async function load() {
+    const div  = divSel.value;
+    const topn = topnSel.value;
+    document.getElementById('table-wrap').innerHTML = '<div class="loading">Loading matchups…</div>';
+    try {
+      const data = await apiFetch(`/matchmaking/${divSlug(div)}?top_n=${topn}`);
+      renderTable(data);
+    } catch(e) {
+      document.getElementById('table-wrap').innerHTML = `<div class="alert-error">Failed to load matchups: ${e.message}</div>`;
+    }
+  }
+
+  function renderTable(data) {
+    if (!data.length) {
+      document.getElementById('table-wrap').innerHTML = '<div class="loading">No matchups available.</div>';
+      return;
+    }
+    const rows = data.map((m, i) => {
+      const scoreBar = `<div style="background:var(--surface2);border-radius:3px;height:4px;margin-top:2px;">
+        <div style="background:var(--red);width:${(m.score*100).toFixed(1)}%;height:4px;border-radius:3px;"></div>
+      </div>`;
+      const eloDiff = Math.abs((m.fighter_a_elo ?? 0) - (m.fighter_b_elo ?? 0));
+      return `<tr>
+        <td style="color:var(--muted);width:36px;">${i+1}</td>
+        <td><strong>${m.fighter_a_name ?? '—'}</strong></td>
+        <td><strong>${m.fighter_b_name ?? '—'}</strong></td>
+        <td style="color:var(--red);font-weight:700;">${m.fighter_a_elo ? m.fighter_a_elo.toFixed(0) : '—'}</td>
+        <td style="color:var(--red);font-weight:700;">${m.fighter_b_elo ? m.fighter_b_elo.toFixed(0) : '—'}</td>
+        <td style="color:var(--muted);">${eloDiff.toFixed(0)}</td>
+        <td style="min-width:100px;">
+          <div style="font-size:0.8rem;font-weight:700;">${(m.score*100).toFixed(1)}%</div>
+          ${scoreBar}
+        </td>
+        <td style="color:var(--muted);font-size:0.8rem;">${m.predict_a_pct ? (m.predict_a_pct*100).toFixed(0)+'%' : '—'} / ${m.predict_b_pct ? (m.predict_b_pct*100).toFixed(0)+'%' : '—'}</td>
+      </tr>`;
+    }).join('');
+    document.getElementById('table-wrap').innerHTML = `
+      <div style="color:var(--muted);font-size:0.85rem;margin-bottom:0.75rem;">${data.length} matchups</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>#</th><th>Fighter A</th><th>Fighter B</th>
+            <th>ELO A</th><th>ELO B</th><th>ELO Δ</th>
+            <th>Score</th><th>Win odds A/B</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  }
+
+  loadBtn.addEventListener('click', load);
+  divSel.addEventListener('change', load);
+  await load();
+});
+</script>
+</body>
+</html>

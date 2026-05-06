@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P4P — UFCelo.gg</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main class="container">
+  <div class="page-header">
+    <h1>Pound-for-Pound ELO</h1>
+    <p>Cross-division comparison: <strong>Raw ELO</strong> (direct) or <strong>Normalized</strong> (z-score within division, removes inflation).</p>
+  </div>
+
+  <div class="form-row" style="align-items:center;">
+    <div class="form-group" style="max-width:fit-content;">
+      <label>Ranking method</label>
+      <div class="toggle-row">
+        <button class="toggle-btn active" id="btn-raw">Raw ELO</button>
+        <button class="toggle-btn"        id="btn-norm">Normalized (z-score)</button>
+      </div>
+    </div>
+    <div class="form-group" style="max-width:160px;">
+      <label>Show top N: <span id="topn-val">50</span></label>
+      <input type="range" id="topn-range" min="10" max="150" step="5" value="50">
+    </div>
+  </div>
+
+  <div id="loading" class="loading">Loading all divisions…</div>
+  <div id="bar-chart" style="margin-bottom:1rem;"></div>
+  <div id="table-wrap" style="margin-bottom:2rem;"></div>
+  <div id="box-chart"  style="margin-bottom:2rem;"></div>
+  <div id="stats-table"></div>
+</main>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  let allFighters = [];
+  let divStats    = {};
+  let mode        = 'raw'; // 'raw' | 'norm'
+  let topN        = 50;
+
+  const btnRaw  = document.getElementById('btn-raw');
+  const btnNorm = document.getElementById('btn-norm');
+  const topnRange = document.getElementById('topn-range');
+  const topnVal   = document.getElementById('topn-val');
+
+  topnRange.addEventListener('input', () => { topN = +topnRange.value; topnVal.textContent = topN; render(); });
+  btnRaw.addEventListener('click', () => { mode='raw'; btnRaw.classList.add('active'); btnNorm.classList.remove('active'); render(); });
+  btnNorm.addEventListener('click', () => { mode='norm'; btnNorm.classList.add('active'); btnRaw.classList.remove('active'); render(); });
+
+  // Load all divisions in parallel
+  const results = await Promise.allSettled(
+    DIVISIONS.map(d => apiFetch(`/rankings/${divSlug(d)}`).then(r => ({ div: d, rankings: r })))
+  );
+
+  results.forEach(res => {
+    if (res.status !== 'fulfilled') return;
+    const { div, rankings } = res.value;
+    if (rankings.length < 2) return;
+    const elos = rankings.map(f => f.elo);
+    const mean = elos.reduce((a,b)=>a+b,0) / elos.length;
+    const std  = Math.sqrt(elos.map(e=>(e-mean)**2).reduce((a,b)=>a+b,0) / elos.length);
+    divStats[div] = { mean, std, count: rankings.length };
+    rankings.forEach(f => allFighters.push({
+      ...f,
+      division: div,
+      z_score: std > 0 ? (f.elo - mean) / std : 0,
+    }));
+  });
+
+  document.getElementById('loading').style.display = 'none';
+  render();
+  renderBoxPlot();
+  renderDivStats();
+
+  function render() {
+    const sortKey = mode === 'raw' ? 'elo' : 'z_score';
+    const sorted  = [...allFighters].sort((a,b) => b[sortKey] - a[sortKey]);
+    const display = sorted.slice(0, topN);
+    renderTable(display, sortKey);
+    renderBarChart(sorted.slice(0, 10), sortKey);
+  }
+
+  function renderTable(data, sortKey) {
+    const rows = data.map((f, i) => {
+      const streak = streakBadge(f.streak || 0);
+      const champ  = f.is_champion ? champBadge() : '';
+      const color  = DIV_COLORS[f.division] || '#888';
+      const zStr   = f.z_score.toFixed(2);
+      return `<tr>
+        <td style="color:var(--muted);">${i+1}</td>
+        <td>${champ}${f.fighter_name} ${streak}</td>
+        <td><span style="border-left:3px solid ${color};padding-left:6px;">${DIV_SHORT[f.division]}</span></td>
+        <td style="color:var(--red);font-weight:700;">${f.elo.toFixed(1)}</td>
+        <td style="color:var(--muted);">${zStr}</td>
+        <td>${f.peak_elo ? f.peak_elo.toFixed(1) : '—'}</td>
+        <td>${f.record || '—'}</td>
+      </tr>`;
+    }).join('');
+    document.getElementById('table-wrap').innerHTML = `
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>P4P</th><th>Fighter</th><th>Division</th><th>ELO</th><th>Z-score</th><th>Peak ELO</th><th>Record</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  }
+
+  function renderBarChart(top10, sortKey) {
+    const vals  = top10.map(f => f[sortKey]);
+    const names = top10.map(f => (f.is_champion?'[C] ':'')+f.fighter_name+' ['+DIV_SHORT[f.division]+']');
+    const colors= top10.map(f => DIV_COLORS[f.division] || '#888');
+    Plotly.react('bar-chart', [{
+      x: vals.slice().reverse(), y: names.slice().reverse(),
+      type: 'bar', orientation: 'h',
+      marker: { color: colors.slice().reverse() },
+      text: vals.slice().reverse().map(v=>v.toFixed(1)),
+      textposition: 'inside', textfont: { color:'#fff', size:11 },
+    }], {
+      ...PLOTLY_LAYOUT,
+      title: { text:`Top 10 P4P — ${mode==='raw'?'Raw ELO':'Normalized (z-score)'}`, font:{color:'#F0F2F6',size:13} },
+      height: 340,
+      xaxis: { showgrid:true, gridcolor:'#2d3250', title: mode==='raw'?'ELO':'Z-score' },
+      yaxis: { showgrid:false },
+      margin: { l:20, r:20, t:50, b:50 },
+    }, { displayModeBar:false, responsive:true });
+  }
+
+  function renderBoxPlot() {
+    const traces = DIVISIONS.map(div => {
+      const elos = allFighters.filter(f=>f.division===div).map(f=>f.elo);
+      return {
+        y: elos, name: DIV_SHORT[div], type:'box',
+        marker: { color: DIV_COLORS[div] },
+        line:   { color: DIV_COLORS[div] },
+        boxmean: true,
+      };
+    }).filter(t=>t.y.length);
+    Plotly.newPlot('box-chart', traces, {
+      ...PLOTLY_LAYOUT,
+      title: { text:'ELO distribution by division', font:{color:'#F0F2F6',size:13} },
+      height: 380,
+      yaxis: { gridcolor:'#2d3250', title:'ELO' },
+      xaxis: { showgrid:false },
+      showlegend: false,
+      margin: { l:50, r:20, t:50, b:50 },
+    }, { displayModeBar:false, responsive:true });
+  }
+
+  function renderDivStats() {
+    const rows = DIVISIONS.filter(d=>divStats[d]).map(d => {
+      const s = divStats[d];
+      const cv = s.mean > 0 ? (s.std/s.mean*100).toFixed(2) : '—';
+      return `<tr>
+        <td><span style="border-left:3px solid ${DIV_COLORS[d]};padding-left:6px;">${DIV_SHORT[d]}</span></td>
+        <td>${s.count}</td>
+        <td style="color:var(--red);">${s.mean.toFixed(1)}</td>
+        <td>${s.std.toFixed(1)}</td>
+        <td style="color:var(--muted);">${cv}%</td>
+      </tr>`;
+    }).join('');
+    document.getElementById('stats-table').innerHTML = `
+      <h2 style="margin-bottom:0.75rem;">Divisional ELO Stats</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Division</th><th>Active</th><th>Mean ELO</th><th>Std Dev</th><th>CV (%)</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  }
+});
+</script>
+</body>
+</html>

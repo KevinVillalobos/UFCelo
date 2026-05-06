@@ -11,20 +11,21 @@ ENV/
 
 # Large generated data files (re-created by scraper + engine)
 data/*.csv
-data/elo_histories*.json
-data/skill_histories*.json
-data/skill_scores*.json
-data/fighters*.json
-data/fighters.json
-data/events.json
 
-# Generated output files
+# Cache/simulation output (regeneratable)
 data/simulation_*.json
 data/matchmaking_*.json
-data/validation_report.json
+data/validation_report*.json
 
-# Keep these tracked (small, manually maintained or critical for app)
+# Keep all JSON files the API needs at runtime
 !data/rankings_*.json
+!data/fighters_*.json
+!data/fighters.json
+!data/elo_histories_*.json
+!data/skill_scores_*.json
+!data/skill_histories_*.json
+!data/events.json
+!data/champions.json
 !data/retired_overrides.json
 
 # Claude Code internal memory
