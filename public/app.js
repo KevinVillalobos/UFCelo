@@ -96,9 +96,9 @@ function divSlug(d) { return d.replace(/ /g, '%20'); }
     if (homeEl) homeEl.textContent = n.toLocaleString();
   }
 
-  // Global visit counter via CountAPI — shared across all users/devices
-  fetch('https://api.countapi.xyz/hit/ufcelo-gg/pagevisits')
+  // Global visit counter — backed by Vercel KV (Redis) on the server
+  fetch(API + '/visits', { method: 'POST' })
     .then(r => r.ok ? r.json() : null)
-    .then(d => { if (d && d.value) _showVisits(d.value); })
+    .then(d => { if (d && d.total) _showVisits(d.total); })
     .catch(() => {});
 })();

@@ -1,4 +1,6 @@
 import json
+import os
+import urllib.request
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Query
@@ -7,11 +9,35 @@ from fastapi.middleware.cors import CORSMiddleware
 from .data_loader import set_fighter_retired
 
 # ── Visit counter ─────────────────────────────────────────────────────────────
-_DATA_DIR   = Path(__file__).parent.parent / "data"
+# Uses Vercel KV (Upstash Redis) when env vars are present; falls back to file.
+_KV_URL   = os.environ.get("KV_REST_API_URL", "")
+_KV_TOKEN = os.environ.get("KV_REST_API_TOKEN", "")
+_KV_KEY   = "ufcelo_visits"
+
+_DATA_DIR       = Path(__file__).parent.parent / "data"
 _VISITS_PRIMARY = _DATA_DIR / "visits.json"
 _VISITS_TMP     = Path("/tmp/visits.json")
 
+
+def _kv_request(path: str) -> int | None:
+    if not (_KV_URL and _KV_TOKEN):
+        return None
+    try:
+        req = urllib.request.Request(
+            f"{_KV_URL.rstrip('/')}/{path}",
+            headers={"Authorization": f"Bearer {_KV_TOKEN}"},
+        )
+        with urllib.request.urlopen(req, timeout=3) as resp:
+            result = json.loads(resp.read()).get("result")
+            return int(result) if result is not None else 0
+    except Exception:
+        return None
+
+
 def _load_visits() -> int:
+    kv = _kv_request(f"get/{_KV_KEY}")
+    if kv is not None:
+        return kv
     for p in (_VISITS_PRIMARY, _VISITS_TMP):
         if p.exists():
             try:
@@ -19,6 +45,7 @@ def _load_visits() -> int:
             except Exception:
                 pass
     return 0
+
 
 def _save_visits(total: int) -> None:
     data = json.dumps({"total": total})
@@ -151,6 +178,9 @@ def get_visits():
 
 @app.post("/visits")
 def record_visit():
+    kv = _kv_request(f"incr/{_KV_KEY}")
+    if kv is not None:
+        return {"total": kv}
     total = _load_visits() + 1
     _save_visits(total)
     return {"total": total}
