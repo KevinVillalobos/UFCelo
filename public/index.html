@@ -39,6 +39,39 @@
   </div>
   <div id="pred-chart"></div>
   <div id="pred-result"></div>
+
+  <hr class="divider">
+  <details style="margin-bottom:2rem;">
+    <summary style="cursor:pointer;font-size:1rem;font-weight:700;padding:0.4rem 0;list-style:none;display:flex;align-items:center;gap:0.5rem;">
+      <span id="elo-toggle">▶</span> How ELO rankings work
+    </summary>
+    <div style="padding:1.25rem;background:var(--surface);border-radius:8px;margin-top:0.5rem;font-size:0.875rem;line-height:1.7;color:var(--muted);">
+      <p style="margin-bottom:0.75rem;"><strong style="color:var(--text);">What is ELO?</strong><br>
+      ELO is a relative rating system originally created for chess. Every fighter starts at 1500. Each fight transfers ELO points between the two fighters — the winner gains points, the loser loses them. The amount transferred depends on how surprising the result was: beating a much higher-rated opponent earns more than beating a lower-rated one.</p>
+
+      <p style="margin-bottom:0.75rem;"><strong style="color:var(--text);">Win probability formula</strong><br>
+      P(A wins) = 1 / (1 + 10<sup>(ELO_B − ELO_A)/400</sup>)<br>
+      A 200-point gap gives ~76% win probability; a 400-point gap gives ~91%.</p>
+
+      <p style="margin-bottom:0.75rem;"><strong style="color:var(--text);">Variable K-factor</strong><br>
+      K controls how many points change hands. This system uses a variable K:
+      <br>• New fighters (&lt;5 fights): K is highest — ratings settle quickly
+      <br>• Experienced fighters (15+ fights): K is lower — stable, hard-earned ratings
+      <br>Each division also has a multiplier (Heavyweight = 1.0×, Welterweight = 0.75×, etc.)</p>
+
+      <p style="margin-bottom:0.75rem;"><strong style="color:var(--text);">Method &amp; round weights</strong><br>
+      Not all wins are equal. A first-round KO earns more than a split decision:
+      <br>• KO/TKO Rd 1: 1.40× · KO/TKO Rd 2: 1.25× · KO/TKO Rd 3+: 1.10×
+      <br>• Submission: 1.20–1.25× · Unanimous decision: 1.05× · Majority: 0.90× · Split: 0.80×
+      <br>Title fights add an additional 1.20× multiplier.</p>
+
+      <p style="margin-bottom:0.75rem;"><strong style="color:var(--text);">Streak multipliers</strong><br>
+      Win streaks and loss streaks amplify K: a 3-win streak adds 1.15×, a 3-loss streak adds 1.25× to the loser's drop.</p>
+
+      <p style="margin-bottom:0"><strong style="color:var(--text);">Inactivity decay</strong><br>
+      Fighters inactive for more than a few months slowly drift back toward 1500 — preventing retired fighters from holding top spots indefinitely.</p>
+    </div>
+  </details>
 </main>
 
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -128,6 +161,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   faSel.addEventListener('change', runPrediction);
   fbSel.addEventListener('change', runPrediction);
   await loadDivFighters();
+
+  document.querySelector('details summary').addEventListener('click', function() {
+    const span = document.getElementById('elo-toggle');
+    setTimeout(() => { span.textContent = this.parentElement.open ? '▼' : '▶'; }, 0);
+  });
 });
 </script>
 </body>

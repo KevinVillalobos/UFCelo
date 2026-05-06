@@ -30,17 +30,102 @@
 
   <div id="result-chart"></div>
   <div id="result-box"></div>
-  <div id="detail-box"></div>
+  <div id="detail-section"></div>
 </main>
 
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="/app.js"></script>
 <script>
+const SKILL_DIMS   = ['Striking','Grappling','Defensa','Consistencia','Finish Rate','Cardio/Durabilidad','Presión'];
+const SKILL_LABELS = ['Striking','Grappling','Defense','Consistency','Finish Rate','Cardio/Durability','Pressure'];
+const SKILL_MAP    = Object.fromEntries(SKILL_DIMS.map((d,i) => [d, SKILL_LABELS[i]]));
+const COLOR_A = '#E8281E';
+const COLOR_B = '#378ADD';
+
+// ── ELO Simulator helpers (mirrors Python elo_engine) ────────────────────────
+const METHOD_WIN_WEIGHTS = {
+  'KO/TKO': {1:1.40, 2:1.25, 3:1.10, 4:1.10, 5:1.10},
+  'SUB':    {1:1.25, 2:1.25, 3:1.10, 4:1.10, 5:1.10},
+  'DEC U':  {3:1.05, 5:1.05},
+  'DEC M':  {3:0.90, 5:0.90},
+  'DEC S':  {3:0.80, 5:0.80},
+};
+const METHOD_LOSS_WEIGHTS = {
+  'KO/TKO': {1:1.40, 2:1.25, 3:1.10, 4:1.10, 5:1.10},
+  'SUB':    {1:1.20, 2:1.20, 3:1.20, 4:1.20, 5:1.20},
+  'DEC U':  {3:1.05, 5:1.05},
+  'DEC M':  {3:0.90, 5:0.90},
+  'DEC S':  {3:0.80, 5:0.80},
+};
+
+function fightWeight(method, isTitle, rnd) {
+  const w = (METHOD_WIN_WEIGHTS[method] || {})[rnd] ?? 1.0;
+  return isTitle ? w * 1.20 : w;
+}
+function lossWeight(method, isTitle, rnd, wasFavorite) {
+  const w = (METHOD_LOSS_WEIGHTS[method] || {})[rnd] ?? 1.0;
+  const r = (isTitle && wasFavorite) ? w * 1.20 : w;
+  return r;
+}
+function clm(streak) {
+  const consec = Math.max(0, -streak) + 1;
+  if (consec >= 5) return 1.80;
+  if (consec >= 4) return 1.60;
+  if (consec >= 3) return 1.40;
+  if (consec >= 2) return 1.20;
+  return 1.00;
+}
+function simScenario(sim, winner, method, rnd, isTitle) {
+  const eloA = sim.elo_a, eloB = sim.elo_b;
+  const expA = 1.0 / (1.0 + Math.pow(10, (eloB - eloA) / 400));
+  const expB = 1.0 - expA;
+
+  let eloW, eloL, kvarW, kvarL, smW, smL, streakL, expW, expL, favL;
+  if (winner === 'a') {
+    [eloW,eloL,kvarW,kvarL,smW,smL,streakL,expW,expL,favL] =
+      [eloA,eloB,sim.k_var_a,sim.k_var_b,sim.streak_mult_a,sim.streak_mult_b,sim.streak_b,expA,expB,eloB>=eloA];
+  } else {
+    [eloW,eloL,kvarW,kvarL,smW,smL,streakL,expW,expL,favL] =
+      [eloB,eloA,sim.k_var_b,sim.k_var_a,sim.streak_mult_b,sim.streak_mult_a,sim.streak_a,expB,expA,eloA>=eloB];
+  }
+
+  const fw = fightWeight(method, isTitle, rnd);
+  const lw = lossWeight(method, isTitle, rnd, favL);
+  const cm = clm(streakL);
+
+  const kW = sim.k_base * fw * smW * kvarW;
+  const kL = sim.k_base * lw * cm * smL * kvarL;
+
+  let dw = kW * (1.0 - expW);
+  let dl = kL * (0.0 - expL);
+
+  if (eloL < 1300 && dw > 8.0) dw = 8.0;
+  dw = Math.max(dw, 1.0);
+  dl = Math.max(-80.0, Math.min(dl, -1.0));
+
+  return {
+    delta_winner:      +dw.toFixed(1),
+    delta_loser:       +dl.toFixed(1),
+    k_winner:          +kW.toFixed(2),
+    k_loser:           +kL.toFixed(2),
+    elo_winner_before: +eloW.toFixed(1),
+    elo_loser_before:  +eloL.toFixed(1),
+    elo_winner_after:  +Math.max(1000, eloW + dw).toFixed(1),
+    elo_loser_after:   +Math.max(1000, eloL + dl).toFixed(1),
+    expected_winner:   +expW.toFixed(4),
+    fight_weight:      +fw.toFixed(4),
+    loss_weight:       +lw.toFixed(4),
+    consec_loss_mult:  +cm.toFixed(2),
+  };
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   const divSel = document.getElementById('div-sel');
   const faSel  = document.getElementById('fa-sel');
   const fbSel  = document.getElementById('fb-sel');
   let rankingsCache = {};
+  let simData = null;
+  let currentFaName = '', currentFbName = '';
 
   populateDivSelect(divSel);
 
@@ -58,58 +143,367 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!fa || !fb || fa === fb) {
       document.getElementById('result-chart').innerHTML = '';
       document.getElementById('result-box').innerHTML   = '';
-      document.getElementById('detail-box').innerHTML   = '';
+      document.getElementById('detail-section').innerHTML = '';
       return;
     }
     try {
-      const pred = await apiFetch(`/predict?fighter_a=${fa}&fighter_b=${fb}&division=${divSlug(div)}`);
-      const pa = pred.probability_a, pb = pred.probability_b;
-      const faName = rankingsCache[div]?.find(f=>f.fighter_id===fa)?.fighter_name ?? fa;
-      const fbName = rankingsCache[div]?.find(f=>f.fighter_id===fb)?.fighter_name ?? fb;
-      const winner = pa >= pb ? faName : fbName;
+      const [pred, profA, profB, simD] = await Promise.all([
+        apiFetch(`/predict?fighter_a=${fa}&fighter_b=${fb}&division=${divSlug(div)}`),
+        apiFetch(`/fighter/${fa}?division=${divSlug(div)}`),
+        apiFetch(`/fighter/${fb}?division=${divSlug(div)}`),
+        apiFetch(`/simulator-data?fighter_a=${fa}&fighter_b=${fb}&division=${divSlug(div)}`),
+      ]);
+      simData = simD;
 
-      Plotly.react('result-chart', [{
-        x: [pa*100, pb*100], y: [faName, fbName],
-        type: 'bar', orientation: 'h',
-        marker: { color: [pa>=pb?'#E8281E':'#444', pb>pa?'#E8281E':'#444'] },
-        text: [`${(pa*100).toFixed(1)}%`, `${(pb*100).toFixed(1)}%`],
-        textposition: 'inside', textfont: { color: '#fff', size: 14 },
-      }], {
-        ...PLOTLY_LAYOUT,
-        height: 130,
-        xaxis: { range:[0,100], showticklabels:false, showgrid:false },
-        yaxis: { showgrid:false, tickfont: { size:13 } },
-        margin: { l:10, r:10, t:10, b:10 },
-      }, { displayModeBar:false, responsive:true });
+      const rankings = rankingsCache[div] || [];
+      const rankA = rankings.find(f => f.fighter_id === fa);
+      const rankB = rankings.find(f => f.fighter_id === fb);
+      const faName = rankA?.fighter_name ?? fa;
+      const fbName = rankB?.fighter_name ?? fb;
+      currentFaName = faName;
+      currentFbName = fbName;
+      const eloA = rankA?.elo ?? 0;
+      const eloB = rankB?.elo ?? 0;
 
-      document.getElementById('result-box').innerHTML = `
-        <div class="alert-success" style="font-size:1rem;">
-          <strong>${winner}</strong> wins with <strong>${(Math.max(pa,pb)*100).toFixed(1)}%</strong> probability
-          — predicted method: <strong>${pred.method_prediction || '—'}</strong>
-        </div>`;
-
-      const eloA = rankingsCache[div]?.find(f=>f.fighter_id===fa)?.elo ?? 0;
-      const eloB = rankingsCache[div]?.find(f=>f.fighter_id===fb)?.elo ?? 0;
-      document.getElementById('detail-box').innerHTML = `
-        <div class="grid-2" style="margin-top:1rem;">
-          <div class="card">
-            <div style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;">${faName}</div>
-            <div style="color:var(--muted);font-size:0.85rem;">ELO</div>
-            <div style="font-size:1.3rem;font-weight:700;color:var(--red);">${eloA.toFixed(1)}</div>
-            <div style="margin-top:0.5rem;color:var(--muted);font-size:0.85rem;">Win probability</div>
-            <div style="font-size:1.3rem;font-weight:700;">${(pa*100).toFixed(1)}%</div>
-          </div>
-          <div class="card">
-            <div style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;">${fbName}</div>
-            <div style="color:var(--muted);font-size:0.85rem;">ELO</div>
-            <div style="font-size:1.3rem;font-weight:700;color:var(--red);">${eloB.toFixed(1)}</div>
-            <div style="margin-top:0.5rem;color:var(--muted);font-size:0.85rem;">Win probability</div>
-            <div style="font-size:1.3rem;font-weight:700;">${(pb*100).toFixed(1)}%</div>
-          </div>
-        </div>`;
+      renderProbBar(pred, faName, fbName);
+      renderResultBox(pred, faName, fbName);
+      renderDetailSection(pred, profA, profB, faName, fbName, eloA, eloB);
     } catch(e) {
-      document.getElementById('result-box').innerHTML = `<div class="alert-error">Prediction unavailable.</div>`;
+      document.getElementById('result-box').innerHTML = `<div class="alert-error">Prediction unavailable: ${e.message}</div>`;
     }
+  }
+
+  function renderProbBar(pred, faName, fbName) {
+    const pa = pred.probability_a, pb = pred.probability_b;
+    Plotly.react('result-chart', [{
+      x: [pa*100, pb*100], y: [faName, fbName],
+      type: 'bar', orientation: 'h',
+      marker: { color: [pa>=pb ? COLOR_A : '#444', pb>pa ? COLOR_A : '#444'] },
+      text: [`${(pa*100).toFixed(1)}%`, `${(pb*100).toFixed(1)}%`],
+      textposition: 'inside', textfont: { color: '#fff', size: 14 },
+    }], {
+      ...PLOTLY_LAYOUT,
+      height: 130,
+      xaxis: { range:[0,100], showticklabels:false, showgrid:false },
+      yaxis: { showgrid:false, tickfont:{ size:13 } },
+      margin: { l:10, r:10, t:10, b:10 },
+    }, { displayModeBar:false, responsive:true });
+  }
+
+  function renderResultBox(pred, faName, fbName) {
+    const pa = pred.probability_a, pb = pred.probability_b;
+    const winner = pa >= pb ? faName : fbName;
+    const keyAdv = SKILL_MAP[pred.key_advantage] || pred.key_advantage || '—';
+    document.getElementById('result-box').innerHTML = `
+      <div class="alert-success" style="font-size:1rem;margin-bottom:1rem;">
+        <strong>${winner}</strong> wins with <strong>${(Math.max(pa,pb)*100).toFixed(1)}%</strong> probability
+        — predicted method: <strong>${pred.method_prediction || '—'}</strong>
+      </div>
+      <div class="metrics-row" style="margin-bottom:1rem;">
+        <div class="metric"><div class="metric-label">Predicted winner</div><div class="metric-value">${winner}</div></div>
+        <div class="metric"><div class="metric-label">Win probability</div><div class="metric-value">${(Math.max(pa,pb)*100).toFixed(1)}%</div></div>
+        <div class="metric"><div class="metric-label">Predicted method</div><div class="metric-value">${pred.method_prediction || '—'}</div></div>
+        <div class="metric"><div class="metric-label">ELO edge (A−B)</div><div class="metric-value">${pred.elo_difference >= 0 ? '+' : ''}${pred.elo_difference?.toFixed(0) ?? '—'}</div></div>
+      </div>
+      <div style="color:var(--muted);font-size:0.85rem;margin-bottom:1.5rem;">
+        Key advantage: <strong style="color:var(--text);">${keyAdv}</strong>
+        &nbsp;·&nbsp; Pure ELO prob: <strong style="color:var(--text);">${(pred.elo_probability_a*100).toFixed(1)}%</strong>
+        → with skill adjustment: <strong style="color:var(--text);">${(pa*100).toFixed(1)}%</strong>
+        &nbsp;·&nbsp; Skill composite A: <strong style="color:${COLOR_A};">${pred.skill_composite_a?.toFixed(1) ?? '—'}</strong>
+        vs B: <strong style="color:${COLOR_B};">${pred.skill_composite_b?.toFixed(1) ?? '—'}</strong>
+      </div>`;
+  }
+
+  function renderDetailSection(pred, profA, profB, faName, fbName, eloA, eloB) {
+    document.getElementById('detail-section').innerHTML = `
+      <hr class="divider">
+      <div class="grid-2" style="margin-bottom:1rem;">
+        <div class="card">
+          <div style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:${COLOR_A};">${faName}</div>
+          <div style="color:var(--muted);font-size:0.85rem;">ELO</div>
+          <div style="font-size:1.3rem;font-weight:700;color:var(--red);">${eloA.toFixed(1)}</div>
+          <div style="margin-top:0.5rem;color:var(--muted);font-size:0.85rem;">Win probability</div>
+          <div style="font-size:1.3rem;font-weight:700;">${(pred.probability_a*100).toFixed(1)}%</div>
+          <div style="margin-top:0.5rem;color:var(--muted);font-size:0.85rem;">Skill composite</div>
+          <div style="font-size:1.1rem;font-weight:700;">${pred.skill_composite_a?.toFixed(1) ?? '—'}</div>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:${COLOR_B};">${fbName}</div>
+          <div style="color:var(--muted);font-size:0.85rem;">ELO</div>
+          <div style="font-size:1.3rem;font-weight:700;color:var(--red);">${eloB.toFixed(1)}</div>
+          <div style="margin-top:0.5rem;color:var(--muted);font-size:0.85rem;">Win probability</div>
+          <div style="font-size:1.3rem;font-weight:700;">${(pred.probability_b*100).toFixed(1)}%</div>
+          <div style="margin-top:0.5rem;color:var(--muted);font-size:0.85rem;">Skill composite</div>
+          <div style="font-size:1.1rem;font-weight:700;">${pred.skill_composite_b?.toFixed(1) ?? '—'}</div>
+        </div>
+      </div>
+      <div id="skill-section"></div>
+      <div id="stats-section"></div>
+      <div id="simulator-section"></div>
+      <div id="how-it-works"></div>`;
+
+    renderSkillSection(pred, faName, fbName);
+    renderStatsSection(profA, profB, faName, fbName);
+    renderSimulatorSection(faName, fbName);
+    renderHowItWorks();
+  }
+
+  function renderSkillSection(pred, faName, fbName) {
+    const skillA = pred.skill_comparison?.fighter_a || {};
+    const skillB = pred.skill_comparison?.fighter_b || {};
+    if (!Object.keys(skillA).length && !Object.keys(skillB).length) return;
+
+    const valsA = SKILL_DIMS.map(d => skillA[d] ?? 50);
+    const valsB = SKILL_DIMS.map(d => skillB[d] ?? 50);
+
+    document.getElementById('skill-section').innerHTML = `
+      <h2 style="margin-bottom:0.75rem;">Skill Comparison</h2>
+      <div class="grid-2" style="margin-bottom:1rem;">
+        <div class="chart-box"><div id="skill-radar" style="height:320px;"></div></div>
+        <div class="card" style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+            <thead><tr>
+              <th style="text-align:left;padding:4px 8px;color:var(--muted);">Dimension</th>
+              <th style="text-align:right;padding:4px 8px;color:${COLOR_A};">${faName}</th>
+              <th style="text-align:right;padding:4px 8px;color:${COLOR_B};">${fbName}</th>
+              <th style="text-align:right;padding:4px 8px;color:var(--muted);">Δ</th>
+              <th style="text-align:left;padding:4px 8px;color:var(--muted);">Edge</th>
+            </tr></thead>
+            <tbody id="skill-table-body"></tbody>
+          </table>
+        </div>
+      </div>`;
+
+    Plotly.newPlot('skill-radar', [
+      { type:'scatterpolar', r:[...valsA,valsA[0]], theta:[...SKILL_LABELS,SKILL_LABELS[0]],
+        fill:'toself', fillcolor:'rgba(232,40,30,0.18)', line:{color:COLOR_A,width:2}, name:faName },
+      { type:'scatterpolar', r:[...valsB,valsB[0]], theta:[...SKILL_LABELS,SKILL_LABELS[0]],
+        fill:'toself', fillcolor:'rgba(55,138,221,0.18)', line:{color:COLOR_B,width:2}, name:fbName },
+    ], {
+      ...PLOTLY_LAYOUT,
+      polar: {
+        bgcolor:'rgba(0,0,0,0)',
+        radialaxis:{ range:[0,100], showticklabels:true, tickfont:{size:8}, gridcolor:'#333' },
+        angularaxis:{ gridcolor:'#333' },
+      },
+      height:300, margin:{l:50,r:50,t:20,b:20},
+      legend:{ orientation:'h', y:-0.05, x:0.5, xanchor:'center', font:{size:11} },
+      showlegend:true,
+    }, { displayModeBar:false, responsive:true });
+
+    const advRows = SKILL_DIMS.map((d,i) => {
+      const a = skillA[d] ?? 50, b = skillB[d] ?? 50, diff = a - b;
+      const edge = diff > 0 ? faName : diff < 0 ? fbName : '—';
+      const color = diff > 0 ? COLOR_A : diff < 0 ? COLOR_B : 'var(--muted)';
+      return `<tr style="border-top:1px solid var(--border);">
+        <td style="padding:5px 8px;">${SKILL_LABELS[i]}</td>
+        <td style="text-align:right;padding:5px 8px;color:${COLOR_A};">${a.toFixed(1)}</td>
+        <td style="text-align:right;padding:5px 8px;color:${COLOR_B};">${b.toFixed(1)}</td>
+        <td style="text-align:right;padding:5px 8px;color:${color};font-weight:700;">${diff >= 0 ? '+' : ''}${diff.toFixed(1)}</td>
+        <td style="padding:5px 8px;color:${color};">${edge}</td>
+      </tr>`;
+    }).sort((a,b) => {
+      const da = parseFloat(a.match(/([+-]?\d+\.\d)/)?.[1]??'0');
+      const db = parseFloat(b.match(/([+-]?\d+\.\d)/)?.[1]??'0');
+      return da - db;
+    }).join('');
+    document.getElementById('skill-table-body').innerHTML = advRows;
+  }
+
+  function renderStatsSection(profA, profB, faName, fbName) {
+    const fsA = profA?.fight_stats, fsB = profB?.fight_stats;
+    if (!fsA || !fsB) return;
+
+    document.getElementById('stats-section').innerHTML = `
+      <hr class="divider">
+      <h2 style="margin-bottom:0.75rem;">Fight Statistics Comparison</h2>
+      <div class="grid-2" style="margin-bottom:1rem;">
+        <div class="chart-box"><div id="method-chart" style="height:220px;"></div></div>
+        <div class="chart-box"><div id="target-chart" style="height:220px;"></div></div>
+      </div>
+      <div class="grid-2" style="margin-bottom:1rem;">
+        <div class="chart-box"><div id="striking-chart" style="height:220px;"></div></div>
+        <div class="chart-box"><div id="grappling-chart" style="height:220px;"></div></div>
+      </div>
+      <div class="grid-2" style="margin-bottom:1rem;">
+        <div class="card">
+          <h3 style="margin-bottom:0.5rem;font-size:0.95rem;">Striking extras</h3>
+          <div style="display:flex;gap:2rem;font-size:0.85rem;">
+            <div><span style="color:var(--muted);">KD/fight</span><br><strong style="color:${COLOR_A};">${fsA.knockdowns_per_fight?.toFixed(2)??'—'}</strong> / <strong style="color:${COLOR_B};">${fsB.knockdowns_per_fight?.toFixed(2)??'—'}</strong></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:0.5rem;font-size:0.95rem;">Grappling extras</h3>
+          <div style="display:flex;gap:2rem;font-size:0.85rem;">
+            <div><span style="color:var(--muted);">Sub att/fight</span><br><strong style="color:${COLOR_A};">${fsA.sub_attempts_per_fight?.toFixed(2)??'—'}</strong> / <strong style="color:${COLOR_B};">${fsB.sub_attempts_per_fight?.toFixed(2)??'—'}</strong></div>
+          </div>
+        </div>
+      </div>`;
+
+    const layout = (title) => ({
+      ...PLOTLY_LAYOUT, barmode:'group', height:200,
+      title:{text:title, font:{color:'#F0F2F6',size:12}},
+      xaxis:{showgrid:false, showticklabels:false},
+      yaxis:{showgrid:false},
+      legend:{orientation:'h', y:-0.15, x:0.5, xanchor:'center', font:{size:10}},
+      margin:{l:10,r:60,t:40,b:30},
+    });
+
+    const methods = ['KO/TKO','SUB','DEC'];
+    const twA = Object.values(fsA.wins||{}).reduce((a,b)=>a+b,0)||1;
+    const twB = Object.values(fsB.wins||{}).reduce((a,b)=>a+b,0)||1;
+    Plotly.newPlot('method-chart', [
+      {name:faName, x:methods, y:methods.map(m=>(fsA.wins?.[m]??0)/twA*100), type:'bar',
+       marker:{color:COLOR_A}, text:methods.map(m=>`${((fsA.wins?.[m]??0)/twA*100).toFixed(0)}%`), textposition:'outside'},
+      {name:fbName, x:methods, y:methods.map(m=>(fsB.wins?.[m]??0)/twB*100), type:'bar',
+       marker:{color:COLOR_B}, text:methods.map(m=>`${((fsB.wins?.[m]??0)/twB*100).toFixed(0)}%`), textposition:'outside'},
+    ], layout('Win methods (%)'), {displayModeBar:false,responsive:true});
+
+    Plotly.newPlot('target-chart', [
+      {name:'Head', y:[faName,fbName], x:[(fsA.head_pct??0)*100,(fsB.head_pct??0)*100], type:'bar', orientation:'h', marker:{color:'#c04030'}, text:[`${((fsA.head_pct??0)*100).toFixed(0)}%`,`${((fsB.head_pct??0)*100).toFixed(0)}%`], textposition:'outside'},
+      {name:'Body', y:[faName,fbName], x:[(fsA.body_pct??0)*100,(fsB.body_pct??0)*100], type:'bar', orientation:'h', marker:{color:'#409040'}, text:[`${((fsA.body_pct??0)*100).toFixed(0)}%`,`${((fsB.body_pct??0)*100).toFixed(0)}%`], textposition:'outside'},
+      {name:'Leg',  y:[faName,fbName], x:[(fsA.leg_pct??0)*100,(fsB.leg_pct??0)*100],  type:'bar', orientation:'h', marker:{color:'#6060c0'}, text:[`${((fsA.leg_pct??0)*100).toFixed(0)}%`,`${((fsB.leg_pct??0)*100).toFixed(0)}%`], textposition:'outside'},
+    ], {...layout('Target breakdown (%)'), barmode:'group', xaxis:{range:[0,100],showticklabels:false,showgrid:false}, yaxis:{showgrid:false}, margin:{l:10,r:55,t:40,b:30}},
+    {displayModeBar:false,responsive:true});
+
+    Plotly.newPlot('striking-chart', [
+      {name:faName, y:['Sig.str/min','Accuracy','Defense'],
+       x:[fsA.sig_strikes_per_min??0, fsA.strike_accuracy??0, fsA.strike_defense??0],
+       type:'bar', orientation:'h', marker:{color:COLOR_A},
+       text:[`${(fsA.sig_strikes_per_min??0).toFixed(2)}`,`${((fsA.strike_accuracy??0)*100).toFixed(0)}%`,`${((fsA.strike_defense??0)*100).toFixed(0)}%`], textposition:'outside'},
+      {name:fbName, y:['Sig.str/min','Accuracy','Defense'],
+       x:[fsB.sig_strikes_per_min??0, fsB.strike_accuracy??0, fsB.strike_defense??0],
+       type:'bar', orientation:'h', marker:{color:COLOR_B},
+       text:[`${(fsB.sig_strikes_per_min??0).toFixed(2)}`,`${((fsB.strike_accuracy??0)*100).toFixed(0)}%`,`${((fsB.strike_defense??0)*100).toFixed(0)}%`], textposition:'outside'},
+    ], layout('Striking'), {displayModeBar:false,responsive:true});
+
+    Plotly.newPlot('grappling-chart', [
+      {name:faName, y:['TD/min','TD accuracy','TD defense','Ctrl %'],
+       x:[fsA.td_per_min??0, fsA.td_accuracy??0, fsA.td_defense??0, fsA.ctrl_pct??0],
+       type:'bar', orientation:'h', marker:{color:COLOR_A},
+       text:[(fsA.td_per_min??0).toFixed(2),`${((fsA.td_accuracy??0)*100).toFixed(0)}%`,`${((fsA.td_defense??0)*100).toFixed(0)}%`,`${((fsA.ctrl_pct??0)*100).toFixed(0)}%`], textposition:'outside'},
+      {name:fbName, y:['TD/min','TD accuracy','TD defense','Ctrl %'],
+       x:[fsB.td_per_min??0, fsB.td_accuracy??0, fsB.td_defense??0, fsB.ctrl_pct??0],
+       type:'bar', orientation:'h', marker:{color:COLOR_B},
+       text:[(fsB.td_per_min??0).toFixed(2),`${((fsB.td_accuracy??0)*100).toFixed(0)}%`,`${((fsB.td_defense??0)*100).toFixed(0)}%`,`${((fsB.ctrl_pct??0)*100).toFixed(0)}%`], textposition:'outside'},
+    ], layout('Grappling'), {displayModeBar:false,responsive:true});
+  }
+
+  function renderSimulatorSection(faName, fbName) {
+    document.getElementById('simulator-section').innerHTML = `
+      <hr class="divider">
+      <h2 style="margin-bottom:0.25rem;">ELO Simulator</h2>
+      <p style="color:var(--muted);font-size:0.85rem;margin-bottom:1rem;">
+        Exact ELO impact for any fight outcome — same formula as the ranking engine.
+      </p>
+      <div class="form-row" style="margin-bottom:1rem;">
+        <div class="form-group" style="max-width:160px;">
+          <label>Method</label>
+          <select id="sim-method">
+            <option>KO/TKO</option><option>SUB</option><option>DEC U</option><option>DEC M</option><option>DEC S</option>
+          </select>
+        </div>
+        <div class="form-group" style="max-width:120px;">
+          <label>Round</label>
+          <select id="sim-round">
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+        <div class="form-group" style="max-width:140px;justify-content:flex-end;padding-top:1.4rem;">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+            <input type="checkbox" id="sim-title" style="accent-color:var(--red);width:16px;height:16px;">
+            Title fight
+          </label>
+        </div>
+      </div>
+      <div id="sim-results" class="grid-2"></div>`;
+
+    function updateSim() {
+      if (!simData) return;
+      const method  = document.getElementById('sim-method').value;
+      const rnd     = parseInt(document.getElementById('sim-round').value);
+      const isTitle = document.getElementById('sim-title').checked;
+
+      const scA = simScenario(simData, 'a', method, rnd, isTitle);
+      const scB = simScenario(simData, 'b', method, rnd, isTitle);
+
+      function simCard(sc, winnerName, loserName, color) {
+        const exp = sc.expected_winner;
+        let insight = '';
+        if (exp < 0.45) insight = `Upset — ${winnerName} was the underdog (${(exp*100).toFixed(0)}% win chance).`;
+        else if (exp > 0.70) insight = `Expected result — ${winnerName} was heavily favored (${(exp*100).toFixed(0)}%).`;
+        if (method !== 'DEC U' && method !== 'DEC M' && method !== 'DEC S' && rnd === 1)
+          insight += (insight?' ':'') + `First-round finish: highest method weight.`;
+        const clmNote = sc.consec_loss_mult > 1.0 ? ` CLM: ${sc.consec_loss_mult}×` : '';
+        return `
+          <div class="card">
+            <div style="color:${color};font-size:1rem;font-weight:700;margin-bottom:0.75rem;">${winnerName} wins</div>
+            <div style="display:flex;gap:1.5rem;margin-bottom:0.75rem;">
+              <div>
+                <div style="font-size:0.75rem;color:var(--muted);">${winnerName} ELO</div>
+                <div style="font-size:1.1rem;font-weight:700;">${sc.elo_winner_after}
+                  <span style="color:var(--green);font-size:0.85rem;">+${sc.delta_winner}</span>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:0.75rem;color:var(--muted);">${loserName} ELO</div>
+                <div style="font-size:1.1rem;font-weight:700;">${sc.elo_loser_after}
+                  <span style="color:var(--red);font-size:0.85rem;">${sc.delta_loser}</span>
+                </div>
+              </div>
+            </div>
+            <div style="font-size:0.78rem;color:var(--muted);">
+              Win prob: <strong style="color:var(--text);">${(exp*100).toFixed(1)}%</strong>
+              &nbsp;·&nbsp; K win: <strong style="color:var(--text);">${sc.k_winner.toFixed(1)}</strong>
+              &nbsp;·&nbsp; K lose: <strong style="color:var(--text);">${sc.k_loser.toFixed(1)}</strong>
+              &nbsp;·&nbsp; Wt: <strong style="color:var(--text);">${sc.fight_weight.toFixed(3)}</strong>${clmNote}
+            </div>
+            ${insight ? `<div style="margin-top:0.5rem;font-size:0.8rem;color:var(--muted);font-style:italic;">${insight}</div>` : ''}
+          </div>`;
+      }
+
+      document.getElementById('sim-results').innerHTML =
+        simCard(scA, faName, fbName, COLOR_A) +
+        simCard(scB, fbName, faName, COLOR_B);
+    }
+
+    ['sim-method','sim-round','sim-title'].forEach(id =>
+      document.getElementById(id).addEventListener('change', updateSim)
+    );
+    updateSim();
+  }
+
+  function renderHowItWorks() {
+    document.getElementById('how-it-works').innerHTML = `
+      <hr class="divider">
+      <details style="margin-bottom:2rem;">
+        <summary style="cursor:pointer;font-size:1rem;font-weight:700;padding:0.5rem 0;list-style:none;display:flex;align-items:center;gap:0.5rem;">
+          <span>▶</span> How the prediction works
+        </summary>
+        <div style="padding:1rem;background:var(--surface);border-radius:8px;margin-top:0.5rem;font-size:0.875rem;line-height:1.6;color:var(--muted);">
+          <p><strong style="color:var(--text);">1. ELO win probability</strong><br>
+          P(A wins) = 1 / (1 + 10^((ELO_B − ELO_A) / 400))<br>
+          A 200-point ELO gap gives ~76% win probability to the higher-rated fighter.</p>
+          <p><strong style="color:var(--text);">2. Skill composite</strong><br>
+          Each fighter has 7 dimensions (Striking, Grappling, Defense, Consistency, Finish Rate, Cardio, Pressure)
+          scored 0–100. A weighted composite is computed:<br>
+          Composite = 0.20×Striking + 0.15×Grappling + 0.20×Defense + 0.15×Consistency + 0.10×Finish Rate + 0.10×Cardio + 0.10×Pressure</p>
+          <p><strong style="color:var(--text);">3. Blended probability</strong><br>
+          skill_diff = (composite_A − composite_B) / 100<br>
+          P_final = P_elo + skill_diff × 0.10 (capped at [0.05, 0.95])<br>
+          The skill adjustment can shift the pure ELO probability by up to ±10%.</p>
+          <p><strong style="color:var(--text);">4. Method prediction</strong><br>
+          Based on the favored fighter's Striking, Grappling, and Finish Rate dimensions:
+          high finish rate + high striking → KO/TKO; high grappling → SUB; otherwise → DEC.</p>
+        </div>
+      </details>`;
+
+    document.querySelector('#how-it-works details summary').addEventListener('click', function() {
+      const span = this.querySelector('span');
+      setTimeout(() => {
+        span.textContent = this.parentElement.open ? '▼' : '▶';
+      }, 0);
+    });
   }
 
   divSel.addEventListener('change', loadDiv);

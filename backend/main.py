@@ -15,6 +15,7 @@ from .schemas import (  # noqa: F401
 from .services import (
     build_fighter_profile,
     build_fight_simulation,
+    build_fight_simulator_data,
     build_matchmaking,
     build_prediction,
     build_ranking_response,
@@ -103,6 +104,18 @@ def retire_fighter(
         raise HTTPException(status_code=404, detail=f"Fighter '{fighter_id}' no encontrado en {division}.")
     set_fighter_retired(fighter_id, body.retired)
     return {"fighter_id": fighter_id, "retired": body.retired}
+
+
+@app.get("/simulator-data")
+def get_simulator_data(
+    fighter_a: str = Query(..., description="ID del primer peleador"),
+    fighter_b: str = Query(..., description="ID del segundo peleador"),
+    division: str = Query(default="heavyweight", description="División"),
+):
+    data = build_fight_simulator_data(fighter_a, fighter_b, division)
+    if not data:
+        raise HTTPException(status_code=404, detail="Uno o ambos peleadores no fueron encontrados.")
+    return data
 
 
 @app.get("/simulate", response_model=FightSimulation)

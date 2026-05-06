@@ -147,6 +147,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         const delta    = (h.elo_change !== undefined && h.elo_change !== null) ?
           `<span style="color:${h.elo_change >= 0 ? 'var(--green)' : 'var(--red)'};">${h.elo_change >= 0 ? '+' : ''}${h.elo_change.toFixed(1)}</span>` : '—';
         const title = h.is_title_fight ? ' <span style="color:var(--red);font-size:0.7rem;">[T]</span>' : '';
+
+        // K-factor breakdown row
+        let kRow = '';
+        const bd = h.breakdown;
+        if (bd && (bd.k_winner !== undefined || bd.k_loser !== undefined)) {
+          const isWin = result === 'Win';
+          const kVal  = isWin ? bd.k_winner : bd.k_loser;
+          const fw    = bd.fight_weight ?? bd.method_weight ?? '—';
+          const sm    = bd.streak_mult ?? '—';
+          const kv    = bd.k_var ?? '—';
+          const clmV  = bd.consec_loss_mult ?? (isWin ? '—' : '—');
+          kRow = `<tr style="background:rgba(0,0,0,0.15);font-size:0.75rem;">
+            <td colspan="7" style="padding:3px 8px 6px 24px;color:var(--muted);">
+              K=${kVal !== undefined ? (+kVal).toFixed(2) : '—'}
+              &nbsp;·&nbsp; method wt: ${fw !== '—' ? (+fw).toFixed(3) : '—'}
+              &nbsp;·&nbsp; streak mult: ${sm !== '—' ? (+sm).toFixed(3) : '—'}
+              &nbsp;·&nbsp; k_var: ${kv !== '—' ? (+kv).toFixed(4) : '—'}
+              ${clmV !== '—' && !isWin ? `&nbsp;·&nbsp; CLM: ${(+clmV).toFixed(2)}` : ''}
+              ${bd.expected !== undefined ? `&nbsp;·&nbsp; expected: ${(+bd.expected*100).toFixed(1)}%` : ''}
+            </td>
+          </tr>`;
+        }
+
         return `<tr>
           <td style="color:var(--muted);font-size:0.8rem;">${h.date || '—'}</td>
           <td style="${resultCl}font-weight:600;">${result}</td>
@@ -155,7 +178,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           <td style="color:var(--muted);">${h.round || '—'}</td>
           <td style="color:var(--red);font-weight:600;">${h.elo ? h.elo.toFixed(1) : '—'}</td>
           <td>${delta}</td>
-        </tr>`;
+        </tr>${kRow}`;
       }).join('');
       document.getElementById('fight-table').innerHTML = `
         <div class="table-wrap">

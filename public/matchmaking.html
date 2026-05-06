@@ -31,65 +31,243 @@
     </div>
   </div>
 
+  <!-- Score explanation -->
+  <details style="margin-bottom:1.25rem;">
+    <summary style="cursor:pointer;font-size:0.9rem;font-weight:600;padding:0.4rem 0;list-style:none;display:flex;align-items:center;gap:0.5rem;color:var(--muted);">
+      <span>▶</span> Matchmaking score explained
+    </summary>
+    <div style="padding:1rem;background:var(--surface);border-radius:8px;margin-top:0.4rem;font-size:0.85rem;line-height:1.6;color:var(--muted);">
+      <table style="width:100%;border-collapse:collapse;">
+        <thead><tr>
+          <th style="text-align:left;padding:4px 8px;color:var(--text);">Component</th>
+          <th style="text-align:left;padding:4px 8px;color:var(--text);">Weight</th>
+          <th style="text-align:left;padding:4px 8px;color:var(--text);">Definition</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding:4px 8px;"><strong>Competitiveness</strong></td><td style="padding:4px 8px;">70%</td><td style="padding:4px 8px;">How even the ELO matchup is. ELO diff 0 = 1.0, diff 200 ≈ 0.0</td></tr>
+          <tr><td style="padding:4px 8px;"><strong>Style contrast</strong></td><td style="padding:4px 8px;">30%</td><td style="padding:4px 8px;">Euclidean distance across 7 skill dimensions. High = striker vs grappler, etc.</td></tr>
+          <tr><td style="padding:4px 8px;"><strong>Matchup score</strong></td><td style="padding:4px 8px;">—</td><td style="padding:4px 8px;font-family:monospace;">0.70 × competitiveness + 0.30 × contrast</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:0.5rem;">Top-right corner of the scatter chart = most competitive <em>and</em> most stylistically interesting.</div>
+    </div>
+  </details>
+
   <div id="table-wrap"></div>
+  <div id="detail-section" style="margin-top:1.5rem;"></div>
+  <div id="scatter-section" style="margin-top:1.5rem;margin-bottom:2rem;"></div>
 </main>
 
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="/app.js"></script>
 <script>
+const SKILL_MAP = {
+  'Striking':'Striking','Grappling':'Grappling','Defensa':'Defense',
+  'Consistencia':'Consistency','Finish Rate':'Finish Rate',
+  'Cardio/Durabilidad':'Cardio / Durability','Presión':'Pressure',
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
-  const divSel   = document.getElementById('div-sel');
-  const topnSel  = document.getElementById('topn-sel');
-  const loadBtn  = document.getElementById('load-btn');
+  const divSel  = document.getElementById('div-sel');
+  const topnSel = document.getElementById('topn-sel');
+  const loadBtn = document.getElementById('load-btn');
   populateDivSelect(divSel);
+
+  let matchupsData = [];
+  let selectedIdx  = 0;
+
+  document.querySelector('details summary').addEventListener('click', function() {
+    const span = this.querySelector('span');
+    setTimeout(() => { span.textContent = this.parentElement.open ? '▼' : '▶'; }, 0);
+  });
 
   async function load() {
     const div  = divSel.value;
     const topn = topnSel.value;
     document.getElementById('table-wrap').innerHTML = '<div class="loading">Loading matchups…</div>';
+    document.getElementById('detail-section').innerHTML = '';
+    document.getElementById('scatter-section').innerHTML = '';
     try {
-      const data = await apiFetch(`/matchmaking/${divSlug(div)}?top_n=${topn}`);
-      renderTable(data);
+      matchupsData = await apiFetch(`/matchmaking/${divSlug(div)}?top_n=${topn}`);
+      selectedIdx = 0;
+      renderAll();
     } catch(e) {
-      document.getElementById('table-wrap').innerHTML = `<div class="alert-error">Failed to load matchups: ${e.message}</div>`;
+      document.getElementById('table-wrap').innerHTML = `<div class="alert-error">Failed to load: ${e.message}</div>`;
     }
   }
 
-  function renderTable(data) {
-    if (!data.length) {
+  function renderAll() {
+    renderTable();
+    renderDetail();
+    renderScatter();
+  }
+
+  function renderTable() {
+    if (!matchupsData.length) {
       document.getElementById('table-wrap').innerHTML = '<div class="loading">No matchups available.</div>';
       return;
     }
-    const rows = data.map((m, i) => {
-      const scoreBar = `<div style="background:var(--surface2);border-radius:3px;height:4px;margin-top:2px;">
-        <div style="background:var(--red);width:${(m.score*100).toFixed(1)}%;height:4px;border-radius:3px;"></div>
-      </div>`;
-      const eloDiff = Math.abs((m.fighter_a_elo ?? 0) - (m.fighter_b_elo ?? 0));
-      return `<tr>
+    const rows = matchupsData.map((m, i) => {
+      const keyDim = SKILL_MAP[m.key_dimension] || m.key_dimension || '—';
+      const compPct = (m.competitiveness_score * 100).toFixed(1);
+      const contPct = (m.skill_contrast_score * 100).toFixed(1);
+      const scorePct = (m.matchup_score * 100).toFixed(1);
+      const eloDiff = Math.abs(m.elo_difference ?? 0);
+      const selected = i === selectedIdx;
+      return `<tr class="${selected ? 'row-selected' : ''}" data-idx="${i}" style="cursor:pointer;${selected ? 'background:rgba(232,40,30,0.08);' : ''}">
         <td style="color:var(--muted);width:36px;">${i+1}</td>
         <td><strong>${m.fighter_a_name ?? '—'}</strong></td>
         <td><strong>${m.fighter_b_name ?? '—'}</strong></td>
-        <td style="color:var(--red);font-weight:700;">${m.fighter_a_elo ? m.fighter_a_elo.toFixed(0) : '—'}</td>
-        <td style="color:var(--red);font-weight:700;">${m.fighter_b_elo ? m.fighter_b_elo.toFixed(0) : '—'}</td>
+        <td style="color:var(--red);font-weight:700;">${m.elo_a ? m.elo_a.toFixed(0) : '—'}</td>
+        <td style="color:var(--red);font-weight:700;">${m.elo_b ? m.elo_b.toFixed(0) : '—'}</td>
         <td style="color:var(--muted);">${eloDiff.toFixed(0)}</td>
-        <td style="min-width:100px;">
-          <div style="font-size:0.8rem;font-weight:700;">${(m.score*100).toFixed(1)}%</div>
-          ${scoreBar}
+        <td style="min-width:90px;">
+          <div style="font-size:0.78rem;font-weight:700;">${compPct}%</div>
+          <div style="background:var(--surface2);border-radius:3px;height:4px;margin-top:2px;">
+            <div style="background:#4CAF50;width:${compPct}%;height:4px;border-radius:3px;"></div>
+          </div>
         </td>
-        <td style="color:var(--muted);font-size:0.8rem;">${m.predict_a_pct ? (m.predict_a_pct*100).toFixed(0)+'%' : '—'} / ${m.predict_b_pct ? (m.predict_b_pct*100).toFixed(0)+'%' : '—'}</td>
+        <td style="color:var(--muted);font-size:0.85rem;">${contPct}%</td>
+        <td style="min-width:90px;">
+          <div style="font-size:0.78rem;font-weight:700;">${scorePct}%</div>
+          <div style="background:var(--surface2);border-radius:3px;height:4px;margin-top:2px;">
+            <div style="background:var(--red);width:${scorePct}%;height:4px;border-radius:3px;"></div>
+          </div>
+        </td>
+        <td style="color:var(--muted);font-size:0.8rem;">${keyDim}</td>
+        <td style="color:var(--muted);font-size:0.8rem;">${m.probability_a ? (m.probability_a*100).toFixed(0)+'%' : '—'} / ${m.probability_b ? (m.probability_b*100).toFixed(0)+'%' : '—'}</td>
       </tr>`;
     }).join('');
+
     document.getElementById('table-wrap').innerHTML = `
-      <div style="color:var(--muted);font-size:0.85rem;margin-bottom:0.75rem;">${data.length} matchups</div>
+      <div style="color:var(--muted);font-size:0.85rem;margin-bottom:0.75rem;">${matchupsData.length} matchups — click a row to see detail</div>
       <div class="table-wrap">
         <table>
           <thead><tr>
             <th>#</th><th>Fighter A</th><th>Fighter B</th>
             <th>ELO A</th><th>ELO B</th><th>ELO Δ</th>
-            <th>Score</th><th>Win odds A/B</th>
+            <th>Competitiveness</th><th>Contrast</th><th>Score</th>
+            <th>Key dim.</th><th>Win odds A/B</th>
           </tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>`;
+
+    document.querySelectorAll('#table-wrap tbody tr').forEach(tr => {
+      tr.addEventListener('click', () => {
+        selectedIdx = parseInt(tr.dataset.idx);
+        renderAll();
+      });
+    });
+  }
+
+  function renderDetail() {
+    if (!matchupsData.length) return;
+    const m = matchupsData[selectedIdx];
+    const faName = m.fighter_a_name;
+    const fbName = m.fighter_b_name;
+    const pa = m.probability_a;
+    const pb = m.probability_b;
+    const keyDim = SKILL_MAP[m.key_dimension] || m.key_dimension || '—';
+
+    document.getElementById('detail-section').innerHTML = `
+      <hr class="divider">
+      <h2 style="margin-bottom:0.75rem;">Matchup Detail — #${selectedIdx+1} ${faName} vs ${fbName}</h2>
+      <div class="metrics-row" style="margin-bottom:1rem;">
+        <div class="metric"><div class="metric-label">Matchup Score</div><div class="metric-value">${(m.matchup_score*100).toFixed(1)}</div></div>
+        <div class="metric"><div class="metric-label">ELO Δ</div><div class="metric-value">${Math.abs(m.elo_difference).toFixed(1)}</div></div>
+        <div class="metric"><div class="metric-label">Key dimension</div><div class="metric-value" style="font-size:1rem;">${keyDim}</div></div>
+        <div class="metric"><div class="metric-label">Dim. gap</div><div class="metric-value">${(m.key_dimension_diff??0).toFixed(1)} pts</div></div>
+      </div>
+      <div id="detail-prob-bar" style="margin-bottom:1rem;"></div>
+      <div class="grid-2" style="margin-bottom:1rem;">
+        <div class="chart-box"><div id="gauge-comp" style="height:200px;"></div></div>
+        <div class="chart-box"><div id="gauge-contrast" style="height:200px;"></div></div>
+      </div>
+      <div class="chart-box" style="margin-bottom:1rem;max-width:340px;"><div id="gauge-score" style="height:200px;"></div></div>`;
+
+    Plotly.newPlot('detail-prob-bar', [{
+      x:[pa*100, pb*100], y:[faName, fbName], type:'bar', orientation:'h',
+      marker:{color:[pa>=pb?'#E8281E':'#444', pb>pa?'#E8281E':'#444']},
+      text:[`${(pa*100).toFixed(1)}%`,`${(pb*100).toFixed(1)}%`],
+      textposition:'inside', textfont:{color:'#fff',size:14},
+    }], {
+      ...PLOTLY_LAYOUT, height:120,
+      xaxis:{range:[0,100],showticklabels:false,showgrid:false},
+      yaxis:{showgrid:false},
+      margin:{l:10,r:10,t:10,b:10},
+    }, {displayModeBar:false,responsive:true});
+
+    function gauge(divId, value, label, color) {
+      Plotly.newPlot(divId, [{
+        type:'indicator', mode:'gauge+number',
+        value: +value.toFixed(1),
+        title:{text:label, font:{color:'#F0F2F6',size:13}},
+        gauge:{
+          axis:{range:[0,100], tickfont:{color:'#aaa',size:9}},
+          bar:{color},
+          bgcolor:'#1a1a1a',
+          bordercolor:'#333',
+        },
+        number:{font:{color:'#F0F2F6',size:18}},
+      }], {
+        height:190, paper_bgcolor:'rgba(0,0,0,0)',
+        margin:{l:20,r:20,t:40,b:10},
+      }, {displayModeBar:false,responsive:true});
+    }
+
+    gauge('gauge-comp',    m.competitiveness_score*100, 'Competitiveness', '#4CAF50');
+    gauge('gauge-contrast',m.skill_contrast_score*100,  'Style Contrast',  '#378ADD');
+    gauge('gauge-score',   m.matchup_score*100,         'Total Score',     '#E8281E');
+  }
+
+  function renderScatter() {
+    if (!matchupsData.length) return;
+    document.getElementById('scatter-section').innerHTML = `
+      <hr class="divider">
+      <h2 style="margin-bottom:0.25rem;">Matchup Landscape</h2>
+      <p style="color:var(--muted);font-size:0.85rem;margin-bottom:0.5rem;">X = competitiveness · Y = style contrast · Top-right = ideal matchup</p>
+      <div class="chart-box"><div id="scatter-chart" style="height:380px;"></div></div>`;
+
+    const traces = matchupsData.map((mu, i) => {
+      const label = `${mu.fighter_a_name} vs ${mu.fighter_b_name}`;
+      const selected = (i === selectedIdx);
+      return {
+        x:[mu.competitiveness_score*100],
+        y:[mu.skill_contrast_score*100],
+        type:'scatter', mode: selected ? 'markers+text' : 'markers',
+        marker:{
+          size: selected ? 14 : 9,
+          color: selected ? '#E8281E' : '#378ADD',
+          line:{color:'#fff', width: selected ? 2 : 0},
+        },
+        text: selected ? [`#${i+1}`] : [''],
+        textposition:'top center',
+        textfont:{color:'#FAFAFA',size:11},
+        hovertext:label,
+        hovertemplate:`<b>${label}</b><br>Comp: %{x:.1f}%  Contrast: %{y:.1f}%<extra></extra>`,
+        showlegend:false,
+      };
+    });
+
+    Plotly.newPlot('scatter-chart', traces, {
+      ...PLOTLY_LAYOUT, height:360,
+      xaxis:{title:'Competitiveness (%)', showgrid:true, gridcolor:'#222', range:[0,105]},
+      yaxis:{title:'Style Contrast (%)',  showgrid:true, gridcolor:'#222', range:[0,105]},
+      margin:{l:50,r:20,t:20,b:50},
+    }, {displayModeBar:false,responsive:true});
+
+    document.getElementById('scatter-chart').on('plotly_click', data => {
+      if (data.points.length) {
+        const xVal = data.points[0].x;
+        const yVal = data.points[0].y;
+        const idx = matchupsData.findIndex(m =>
+          Math.abs(m.competitiveness_score*100 - xVal) < 0.1 &&
+          Math.abs(m.skill_contrast_score*100 - yVal) < 0.1
+        );
+        if (idx >= 0) { selectedIdx = idx; renderAll(); }
+      }
+    });
   }
 
   loadBtn.addEventListener('click', load);
