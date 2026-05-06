@@ -213,10 +213,115 @@ document.addEventListener('DOMContentLoaded', async () => {
     const profB = profBRes.status === 'fulfilled' ? profBRes.value : null;
     simData     = simRes.status  === 'fulfilled' ? simRes.value  : null;
 
-    try { renderSkillSection(pred, faName, fbName); }          catch(e) { console.error('skill:', e); }
-    try { renderStatsSection(profA, profB, faName, fbName); }  catch(e) { console.error('stats:', e); }
-    try { renderSimulatorSection(faName, fbName); }            catch(e) { console.error('sim:', e); }
-    try { renderHowItWorks(); }                                catch(e) { console.error('how:', e); }
+    try { renderSilhouetteSection(profA, profB, faName, fbName); } catch(e) { console.error('sil:', e); }
+    try { renderSkillSection(pred, faName, fbName); }              catch(e) { console.error('skill:', e); }
+    try { renderStatsSection(profA, profB, faName, fbName); }      catch(e) { console.error('stats:', e); }
+    try { renderSimulatorSection(faName, fbName); }                catch(e) { console.error('sim:', e); }
+    try { renderHowItWorks(); }                                    catch(e) { console.error('how:', e); }
+  }
+
+  // ── Silhouette SVG (ported from frontend/silhouette.py) ─────────────────────
+  function makeFigureSVG(cx, feetY, H, R, color, name) {
+    const fill  = color + '28';
+    const sw    = Math.max(1.2, H * 0.007);
+    const hr    = H * 0.075;
+    const hcy   = feetY - H + hr;
+    const shY   = feetY - H * 0.860,  shX  = H * 0.115;
+    const wstY  = feetY - H * 0.470,  wstX = H * 0.078;
+    const hipY  = feetY - H * 0.400,  hipX = H * 0.095;
+    const knY   = feetY - H * 0.240,  knX  = H * 0.070;
+    const anY   = feetY - H * 0.055,  anX  = H * 0.054;
+    const ftX   = H * 0.088;
+    const armH  = R / 2;
+    const f = n => n.toFixed(1);
+    const path = [
+      `M ${f(cx)},${f(shY)}`,
+      `L ${f(cx-shX)},${f(shY)}`,
+      `Q ${f(cx-shX*1.10)},${f(wstY)} ${f(cx-wstX)},${f(wstY)}`,
+      `Q ${f(cx-hipX*1.05)},${f(hipY)} ${f(cx-hipX)},${f(hipY)}`,
+      `L ${f(cx-knX)},${f(knY)} L ${f(cx-anX)},${f(anY)}`,
+      `L ${f(cx-ftX)},${f(feetY)} L ${f(cx+ftX)},${f(feetY)}`,
+      `L ${f(cx+anX)},${f(anY)} L ${f(cx+knX)},${f(knY)}`,
+      `L ${f(cx+hipX)},${f(hipY)}`,
+      `Q ${f(cx+hipX*1.05)},${f(hipY)} ${f(cx+wstX)},${f(wstY)}`,
+      `Q ${f(cx+shX*1.10)},${f(wstY)} ${f(cx+shX)},${f(shY)} Z`,
+    ].join(' ');
+    const nw = H * 0.035;
+    return [
+      `<line x1="${f(cx)}" y1="${f(hcy+hr)}" x2="${f(cx)}" y2="${f(shY)}" stroke="${color}" stroke-width="${f(nw)}" stroke-linecap="round"/>`,
+      `<circle cx="${f(cx)}" cy="${f(hcy)}" r="${f(hr)}" fill="${fill}" stroke="${color}" stroke-width="${f(sw)}"/>`,
+      `<path d="${path}" fill="${fill}" stroke="${color}" stroke-width="${f(sw)}" stroke-linejoin="round"/>`,
+      `<line x1="${f(cx-shX)}" y1="${f(shY)}" x2="${f(cx-armH)}" y2="${f(shY)}" stroke="${color}" stroke-width="${f(H*0.026)}" stroke-linecap="round"/>`,
+      `<line x1="${f(cx+shX)}" y1="${f(shY)}" x2="${f(cx+armH)}" y2="${f(shY)}" stroke="${color}" stroke-width="${f(H*0.026)}" stroke-linecap="round"/>`,
+      name ? `<text x="${f(cx)}" y="${f(feetY+18)}" text-anchor="middle" font-size="12" fill="${color}" font-family="sans-serif" font-weight="700">${name}</text>` : '',
+    ].join('\n  ');
+  }
+
+  function fmtHt(inches) {
+    if (!inches) return '??';
+    return `${Math.floor(inches/12)}'${Math.round(inches%12)}"`;
+  }
+
+  function buildComparisonSVG(hA, rA, wA, nameA, hB, rB, wB, nameB) {
+    const BODY_H = 240;
+    const HA = hA || 70, HB = hB || 70;
+    const RA = rA || HA, RB = rB || HB;
+    const scale = BODY_H / Math.max(HA, HB);
+    const HpxA = HA * scale, HpxB = HB * scale;
+    const RpxA = RA * scale, RpxB = RB * scale;
+    const padX = 16, padTop = 28, padBot = 56, gap = 48;
+    const cxA = padX + RpxA / 2;
+    const cxB = cxA + RpxA / 2 + gap + RpxB / 2;
+    const svgW = cxB + RpxB / 2 + padX;
+    const feetY = padTop + BODY_H;
+    const svgH = feetY + padBot;
+    const f = n => n.toFixed(1);
+
+    const bodyA = makeFigureSVG(cxA, feetY, HpxA, RpxA, COLOR_A, nameA);
+    const bodyB = makeFigureSVG(cxB, feetY, HpxB, RpxB, COLOR_B, nameB);
+
+    const extras = [];
+    // Height dashes
+    extras.push(`<line x1="${f(cxA-RpxA*0.18)}" y1="${f(feetY-HpxA)}" x2="${f(cxA+RpxA*0.18)}" y2="${f(feetY-HpxA)}" stroke="${COLOR_A}" stroke-width="1" stroke-dasharray="4,3" opacity="0.55"/>`);
+    extras.push(`<line x1="${f(cxB-RpxB*0.18)}" y1="${f(feetY-HpxB)}" x2="${f(cxB+RpxB*0.18)}" y2="${f(feetY-HpxB)}" stroke="${COLOR_B}" stroke-width="1" stroke-dasharray="4,3" opacity="0.55"/>`);
+    // Height diff badge
+    const hDiff = Math.abs(HA - HB);
+    if (hDiff >= 0.5) {
+      const taller = HA > HB ? nameA : nameB;
+      const badgeColor = HA > HB ? COLOR_A : COLOR_B;
+      const midX = (cxA + cxB) / 2;
+      const badgeY = Math.min(feetY - HpxA, feetY - HpxB) - 6;
+      extras.push(`<text x="${f(midX)}" y="${f(badgeY)}" text-anchor="middle" font-size="10" fill="${badgeColor}" font-family="sans-serif" font-weight="600">+${Math.round(hDiff)}" height (${taller})</text>`);
+    }
+    // Reach diff badge
+    const rDiff = RA - RB;
+    if (Math.abs(rDiff) >= 0.5) {
+      const advName  = rDiff > 0 ? nameA : nameB;
+      const advColor = rDiff > 0 ? COLOR_A : COLOR_B;
+      const midX = (cxA + cxB) / 2;
+      extras.push(`<text x="${f(midX)}" y="${f(feetY+36)}" text-anchor="middle" font-size="10" fill="${advColor}" font-family="sans-serif" font-weight="600">+${Math.abs(rDiff).toFixed(0)}" reach (${advName})</text>`);
+    }
+    // Measurements
+    extras.push(`<text x="${f(cxA)}" y="${f(svgH-5)}" text-anchor="middle" font-size="9" fill="#777" font-family="monospace">${fmtHt(hA)} · ${RA.toFixed(0)}" reach${wA ? ' · '+wA+' lbs' : ''}</text>`);
+    extras.push(`<text x="${f(cxB)}" y="${f(svgH-5)}" text-anchor="middle" font-size="9" fill="#777" font-family="monospace">${fmtHt(hB)} · ${RB.toFixed(0)}" reach${wB ? ' · '+wB+' lbs' : ''}</text>`);
+
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${f(svgW)} ${f(svgH)}" width="100%" style="max-height:340px;display:block;">
+  ${bodyA}
+  ${bodyB}
+  ${extras.join('\n  ')}
+</svg>`;
+  }
+
+  function renderSilhouetteSection(profA, profB, faName, fbName) {
+    if (!profA && !profB) return;
+    const hA = profA?.height_inches, rA = profA?.reach_inches, wA = profA?.weight_lbs;
+    const hB = profB?.height_inches, rB = profB?.reach_inches, wB = profB?.weight_lbs;
+    // Only render if at least one fighter has physical data
+    if (!hA && !hB) return;
+    const svg = buildComparisonSVG(hA, rA, wA, faName, hB, rB, wB, fbName);
+    document.getElementById('cards-section').insertAdjacentHTML('afterend',
+      `<div class="chart-box" style="margin-bottom:1rem;padding:1rem;">${svg}</div>`
+    );
   }
 
   // ── Section 2: Probability bar + summary ───────────────────────────────────
