@@ -139,7 +139,7 @@ def get_upcoming_events(
 
 
 @app.get("/matchmaking/{division}", response_model=list[MatchupEntry])
-def get_matchmaking(division: str, top_n: int = Query(default=50, ge=1, le=200)):
+def get_matchmaking(division: str, top_n: int = Query(default=15, ge=1, le=200)):
     matchups = build_matchmaking(division, top_n=top_n)
     if not matchups:
         raise HTTPException(status_code=404, detail=f"No se encontraron matchups para division '{division}'.")

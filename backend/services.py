@@ -380,10 +380,13 @@ def build_prediction(fighter_a_id: str, fighter_b_id: str, division: str = "heav
     }
 
 
-def build_matchmaking(division: str, top_n: int = 50) -> List[Dict[str, object]]:
+def build_matchmaking(division: str, top_n: int = 15) -> List[Dict[str, object]]:
     rankings = build_ranking_response(division)  # active + non-retired only
     if not rankings:
         return []
+
+    # Only consider the top N ranked fighters — matchmaking is for the elite pool
+    pool = rankings[:top_n]
 
     # Build recent-opponent sets from elo_histories (last 2 years)
     histories = load_elo_histories(division)
@@ -404,16 +407,14 @@ def build_matchmaking(division: str, top_n: int = 50) -> List[Dict[str, object]]
     }
 
     matchups = []
-    for i in range(len(rankings)):
-        for j in range(i + 1, len(rankings)):
-            a = rankings[i]
-            b = rankings[j]
+    for i in range(len(pool)):
+        for j in range(i + 1, len(pool)):
+            a = pool[i]
+            b = pool[j]
             fid_a = a["fighter_id"]
             fid_b = b["fighter_id"]
 
             elo_diff = abs(a["elo"] - b["elo"])
-            if elo_diff > 300:
-                continue
             if fid_b in recent_opponents.get(fid_a, set()):
                 continue
 
@@ -454,7 +455,7 @@ def build_matchmaking(division: str, top_n: int = 50) -> List[Dict[str, object]]
             })
 
     matchups.sort(key=lambda m: m["matchup_score"], reverse=True)
-    return matchups[:top_n]
+    return matchups
 
 
 # ── Fight simulation ──────────────────────────────────────────────────────────
