@@ -1,7 +1,33 @@
+import json
+from pathlib import Path
+
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 from .data_loader import set_fighter_retired
+
+# ── Visit counter ─────────────────────────────────────────────────────────────
+_DATA_DIR   = Path(__file__).parent.parent / "data"
+_VISITS_PRIMARY = _DATA_DIR / "visits.json"
+_VISITS_TMP     = Path("/tmp/visits.json")
+
+def _load_visits() -> int:
+    for p in (_VISITS_PRIMARY, _VISITS_TMP):
+        if p.exists():
+            try:
+                return int(json.loads(p.read_text()).get("total", 0))
+            except Exception:
+                pass
+    return 0
+
+def _save_visits(total: int) -> None:
+    data = json.dumps({"total": total})
+    for p in (_VISITS_PRIMARY, _VISITS_TMP):
+        try:
+            p.write_text(data)
+            return
+        except (PermissionError, OSError):
+            continue
 from .schemas import (  # noqa: F401
     EventFightPrediction,
     FightSimulation,
@@ -116,6 +142,18 @@ def get_simulator_data(
     if not data:
         raise HTTPException(status_code=404, detail="Uno o ambos peleadores no fueron encontrados.")
     return data
+
+
+@app.get("/visits")
+def get_visits():
+    return {"total": _load_visits()}
+
+
+@app.post("/visits")
+def record_visit():
+    total = _load_visits() + 1
+    _save_visits(total)
+    return {"total": total}
 
 
 @app.get("/simulate", response_model=FightSimulation)

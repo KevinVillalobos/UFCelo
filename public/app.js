@@ -71,20 +71,33 @@ function divSlug(d) { return d.replace(/ /g, '%20'); }
 (function () {
   const page = window.location.pathname.split('/').pop() || 'index.html';
   const links = [
-    ['index.html', 'Home',        '/'],
-    ['rankings.html',   'Rankings',   '/rankings.html'],
-    ['fighter.html',    'Fighter',    '/fighter.html'],
-    ['predict.html',    'Predict',    '/predict.html'],
-    ['simulate.html',   'Simulate',   '/simulate.html'],
-    ['matchmaking.html','Matchmaking','/matchmaking.html'],
-    ['p4p.html',        'P4P',        '/p4p.html'],
+    ['index.html',      'Home',        '/'],
+    ['rankings.html',   'Rankings',    '/rankings.html'],
+    ['fighter.html',    'Fighter',     '/fighter.html'],
+    ['predict.html',    'Predict',     '/predict.html'],
+    ['simulate.html',   'Simulate',    '/simulate.html'],
+    ['matchmaking.html','Matchmaking', '/matchmaking.html'],
+    ['p4p.html',        'P4P',         '/p4p.html'],
   ];
   const isActive = f => (page === '' || page === '/') ? f === 'index.html' : page === f;
   const html = `<nav class="navbar">
   <a href="/" class="nav-brand">UFC<span>elo</span>.gg</a>
   <div class="nav-links">
     ${links.map(([f,l,h]) => `<a href="${h}"${isActive(f)?' class="active"':''}>${l}</a>`).join('')}
+    <span id="visit-counter" style="color:var(--muted);font-size:0.78rem;padding:4px 8px;opacity:0.7;" title="Total page visits"></span>
   </div>
 </nav>`;
   document.body.insertAdjacentHTML('afterbegin', html);
+
+  // Count this visit once per browser session, then display total
+  fetch(API + '/visits', {
+    method: sessionStorage.getItem('_v') ? 'GET' : 'POST',
+  })
+    .then(r => r.json())
+    .then(d => {
+      sessionStorage.setItem('_v', '1');
+      const el = document.getElementById('visit-counter');
+      if (el && d.total > 0) el.textContent = `👁 ${d.total.toLocaleString()}`;
+    })
+    .catch(() => {});
 })();
