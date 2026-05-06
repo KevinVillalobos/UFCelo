@@ -89,18 +89,22 @@ function divSlug(d) { return d.replace(/ /g, '%20'); }
 </nav>`;
   document.body.insertAdjacentHTML('afterbegin', html);
 
-  // Count every page load as a visit and display running total
+  // Visit counter: increment localStorage on every page load, display immediately
+  const _vKey = 'ufcelo_visits';
+  const _vCount = (parseInt(localStorage.getItem(_vKey) || '0', 10)) + 1;
+  localStorage.setItem(_vKey, String(_vCount));
+
+  function _showVisits(n) {
+    const navEl = document.getElementById('visit-counter');
+    if (navEl) navEl.textContent = `👁 ${n.toLocaleString()}`;
+    const homeEl = document.getElementById('home-visit-num');
+    if (homeEl) homeEl.textContent = n.toLocaleString();
+  }
+  _showVisits(_vCount);
+
+  // Also ping backend — if it has a higher number (shared across browsers), use that
   fetch(API + '/visits', { method: 'POST' })
-    .then(r => r.json())
-    .then(d => {
-      const n = (d.total || 0).toLocaleString();
-      const navEl = document.getElementById('visit-counter');
-      if (navEl) navEl.textContent = `👁 ${n}`;
-      const homeEl = document.getElementById('home-visit-num');
-      if (homeEl) homeEl.textContent = n;
-    })
-    .catch(() => {
-      const homeEl = document.getElementById('home-visit-num');
-      if (homeEl) homeEl.textContent = '—';
-    });
+    .then(r => r.ok ? r.json() : null)
+    .then(d => { if (d && d.total > _vCount) _showVisits(d.total); })
+    .catch(() => {});
 })();
