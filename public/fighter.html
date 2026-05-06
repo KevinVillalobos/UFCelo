@@ -27,6 +27,14 @@
     .proj-table td:nth-child(2) { color: var(--muted); }
     .g { color: var(--green) !important; font-weight: 600; }
     .r { color: var(--red)   !important; font-weight: 600; }
+    /* Skill breakdown */
+    .skill-breakdown-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .skill-breakdown-row:last-child { border-bottom: none; }
+    .skill-bd-label { min-width: 140px; font-size: 0.82rem; color: var(--muted); }
+    .skill-bd-bar-wrap { flex: 1; background: var(--surface2); border-radius: 4px; height: 8px; overflow: hidden; }
+    .skill-bd-bar { height: 8px; border-radius: 4px; }
+    .skill-bd-score { min-width: 40px; text-align: right; font-size: 0.82rem; font-weight: 700; }
+    .skill-bd-weight { min-width: 36px; text-align: right; font-size: 0.72rem; color: var(--muted); }
   </style>
 </head>
 <body>
@@ -35,7 +43,7 @@
     <h1>Fighter Profile</h1>
   </div>
 
-  <div class="form-row">
+  <div class="form-row" style="align-items:flex-end;">
     <div class="form-group" style="max-width:240px;">
       <label>Division</label>
       <select id="div-sel"></select>
@@ -43,6 +51,12 @@
     <div class="form-group" style="max-width:340px;">
       <label>Fighter</label>
       <select id="fighter-sel"></select>
+    </div>
+    <div class="form-group" style="justify-content:flex-end;padding-bottom:0.15rem;">
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:400;font-size:0.85rem;color:var(--muted);">
+        <input type="checkbox" id="retired-toggle" style="accent-color:var(--red);width:15px;height:15px;">
+        Include retired fighters
+      </label>
     </div>
   </div>
 
@@ -54,10 +68,20 @@
 <script>
 const SKILL_DIMS   = ['Striking','Grappling','Defensa','Consistencia','Finish Rate','Cardio/Durabilidad','Presión'];
 const SKILL_LABELS = ['Striking','Grappling','Defense','Consistency','Finish Rate','Cardio / Durability','Pressure'];
+const SKILL_WEIGHTS = { 'Striking':0.20,'Grappling':0.15,'Defensa':0.20,'Consistencia':0.15,'Finish Rate':0.10,'Cardio/Durabilidad':0.10,'Presión':0.10 };
+const SKILL_DESC = {
+  'Striking':          'Sig. strike rate, accuracy, and knockdown power.',
+  'Grappling':         'Takedown rate, accuracy, defense, and control time.',
+  'Defensa':           'Ability to avoid strikes and deny takedowns.',
+  'Consistencia':      'Performance stability — avoids long losing streaks.',
+  'Finish Rate':       'Proportion of wins by KO/TKO or submission.',
+  'Cardio/Durabilidad':'Typically goes further without finishing (proxy for endurance).',
+  'Presión':           'Frequency of being the finishing fighter (KO/TKO wins).',
+};
 const ORANGE = '#D85A30';
 const BLUE   = '#378ADD';
 
-// ── ELO simulation helpers (mirrors services.py) ─────────────────────────────
+// ── ELO simulation helpers ───────────────────────────────────────────────────
 const DIV_K_MULT = {
   'heavyweight':1.00,'light heavyweight':0.95,'middleweight':0.90,
   'welterweight':0.75,'lightweight':0.80,'featherweight':0.75,
@@ -93,24 +117,19 @@ function streakMult(streak) {
 }
 function clm(streak) {
   const c = Math.max(0, -streak) + 1;
-  if (c >= 5) return 1.80;
-  if (c >= 4) return 1.60;
-  if (c >= 3) return 1.40;
-  if (c >= 2) return 1.20;
+  if (c >= 5) return 1.80; if (c >= 4) return 1.60;
+  if (c >= 3) return 1.40; if (c >= 2) return 1.20;
   return 1.00;
 }
 function simProjection(eloF, eloR, kVarF, kVarR, streakF, streakR, method, rnd) {
-  const smF = streakMult(streakF), smR = streakMult(streakR);
+  const smF = streakMult(streakF);
   const expF = 1.0 / (1.0 + Math.pow(10, (eloR - eloF) / 400));
-  const expR = 1.0 - expF;
   const ww = (METHOD_WIN_W[method] || {})[rnd]  ?? 1.0;
   const lw = (METHOD_LOSS_W[method] || {})[rnd] ?? 1.0;
-  // fighter wins
-  const kWin  = K_BASE * ww * smF * kVarF;
-  let dWin  = kWin  * (1.0 - expF);
+  const kWin = K_BASE * ww * smF * kVarF;
+  let dWin = kWin * (1.0 - expF);
   if (eloR < 1300 && dWin > 8.0) dWin = 8.0;
   dWin = Math.max(dWin, 1.0);
-  // fighter loses
   const cm = clm(streakF);
   const kLose = K_BASE * lw * cm * smF * kVarF;
   let dLose = kLose * (0.0 - expF);
@@ -123,6 +142,53 @@ function simProjection(eloF, eloR, kVarF, kVarR, streakF, streakR, method, rnd) 
   };
 }
 
+// ── Body hit-zone heatmap ─────────────────────────────────────────────────────
+function heatColor(pct) {
+  if (pct < 0.20) return '#22c55e';       // green  — rarely
+  if (pct < 0.40) return '#f59e0b';       // amber  — moderate
+  return '#ef4444';                        // red    — frequently
+}
+function heatLabel(pct) {
+  if (pct < 0.20) return 'low';
+  if (pct < 0.40) return 'mid';
+  return 'high';
+}
+function buildHeatmapSVG(headPct, bodyPct, legPct, name) {
+  const W = 130, padT = 18, padB = 30;
+  const cx  = W / 2;
+  const hR  = 20,  hCY = padT + hR;
+  const trW = 54,  trX = cx - trW/2, trY = hCY + hR + 3, trH = 90;
+  const lW  = 22,  lH  = 100, lY = trY + trH + 2;
+  const svgH = padT + hR*2 + 3 + trH + 2 + lH + padB;
+
+  const hC = heatColor(headPct), bC = heatColor(bodyPct), lC = heatColor(legPct);
+  const f = n => n.toFixed(1);
+
+  return `<svg viewBox="0 0 ${W} ${svgH}" width="100%" style="max-width:130px;display:block;margin:0 auto;">
+    <!-- head -->
+    <circle cx="${f(cx)}" cy="${f(hCY)}" r="${hR}" fill="${hC}" fill-opacity="0.55" stroke="${hC}" stroke-width="2"/>
+    <text x="${f(cx)}" y="${f(hCY+4)}" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">${(headPct*100).toFixed(0)}%</text>
+
+    <!-- torso -->
+    <rect x="${f(trX)}" y="${f(trY)}" width="${trW}" height="${trH}" rx="8" fill="${bC}" fill-opacity="0.55" stroke="${bC}" stroke-width="2"/>
+    <text x="${f(cx)}" y="${f(trY+trH/2+4)}" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">${(bodyPct*100).toFixed(0)}%</text>
+
+    <!-- left leg -->
+    <rect x="${f(cx-26)}" y="${f(lY)}" width="${lW}" height="${lH}" rx="5" fill="${lC}" fill-opacity="0.55" stroke="${lC}" stroke-width="2"/>
+    <!-- right leg -->
+    <rect x="${f(cx+4)}"  y="${f(lY)}" width="${lW}" height="${lH}" rx="5" fill="${lC}" fill-opacity="0.55" stroke="${lC}" stroke-width="2"/>
+    <text x="${f(cx)}" y="${f(lY+lH/2+4)}" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">${(legPct*100).toFixed(0)}%</text>
+
+    <!-- legend -->
+    <text x="${f(cx)}" y="${f(svgH-2)}" text-anchor="middle" font-size="9" fill="#888">${name || ''}</text>
+
+    <!-- zone labels -->
+    <text x="${f(trX-4)}" y="${f(hCY+4)}" text-anchor="end" font-size="8" fill="${hC}">Head</text>
+    <text x="${f(trX-4)}" y="${f(trY+trH/2+3)}" text-anchor="end" font-size="8" fill="${bC}">Body</text>
+    <text x="${f(trX-4)}" y="${f(lY+lH/2+3)}" text-anchor="end" font-size="8" fill="${lC}">Legs</text>
+  </svg>`;
+}
+
 // ── Toggle expand row ────────────────────────────────────────────────────────
 function toggleExpand(rowEl, expandId) {
   const expRow = document.getElementById(expandId);
@@ -133,19 +199,27 @@ function toggleExpand(rowEl, expandId) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const divSel     = document.getElementById('div-sel');
-  const fighterSel = document.getElementById('fighter-sel');
-  let rankingsCache = {};
+  const divSel        = document.getElementById('div-sel');
+  const fighterSel    = document.getElementById('fighter-sel');
+  const retiredToggle = document.getElementById('retired-toggle');
+  let rankingsCache   = {};
 
   populateDivSelect(divSel);
 
   async function loadDiv() {
-    const div = divSel.value;
-    if (!rankingsCache[div]) {
-      try { rankingsCache[div] = await apiFetch(`/rankings/${divSlug(div)}`); }
-      catch(e) { rankingsCache[div] = []; }
+    const div      = divSel.value;
+    const retired  = retiredToggle.checked;
+    const endpoint = retired
+      ? `/rankings/${divSlug(div)}/alltime`
+      : `/rankings/${divSlug(div)}`;
+
+    // Don't use cache if retired mode changes between loads
+    const cacheKey = div + (retired ? '_all' : '');
+    if (!rankingsCache[cacheKey]) {
+      try { rankingsCache[cacheKey] = await apiFetch(endpoint); }
+      catch(e) { rankingsCache[cacheKey] = []; }
     }
-    populateFighterSelect(fighterSel, rankingsCache[div]);
+    populateFighterSelect(fighterSel, rankingsCache[cacheKey]);
     await loadFighter();
   }
 
@@ -163,23 +237,25 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.getElementById('profile').innerHTML = `<div class="alert-error">Fighter not found.</div>`;
       return;
     }
-    try { renderProfile(profRes.value, div); }
-    catch(e) {
+    try {
+      const cacheKey = div + (retiredToggle.checked ? '_all' : '');
+      renderProfile(profRes.value, div, rankingsCache[cacheKey] || []);
+    } catch(e) {
       console.error('renderProfile error:', e);
       document.getElementById('profile').innerHTML =
         `<div class="alert-error">Error rendering profile: ${e.message}</div>`;
     }
   }
 
-  function renderProfile(p, div) {
-    const rankings  = rankingsCache[div] || [];
-    const rankEntry = rankings.find(f => f.fighter_id === p.fighter_id);
-    const rankNum   = rankEntry ? (rankings.indexOf(rankEntry) + 1) : '—';
-    const streak    = rankEntry ? (rankEntry.streak || 0) : 0;
-    const isChamp   = rankEntry ? !!rankEntry.is_champion : false;
-    const history   = p.elo_history || [];
-    const peakElo   = rankEntry?.peak_elo ?? (history.length ? Math.max(...history.map(h => h.elo)) : p.elo);
+  function renderProfile(p, div, rankings) {
+    const rankEntry  = rankings.find(f => f.fighter_id === p.fighter_id);
+    const rankNum    = rankEntry ? (rankings.indexOf(rankEntry) + 1) : '—';
+    const streak     = rankEntry ? (rankEntry.streak || 0) : 0;
+    const isChamp    = rankEntry ? !!rankEntry.is_champion : false;
+    const history    = p.elo_history || [];
+    const peakElo    = rankEntry?.peak_elo ?? (history.length ? Math.max(...history.map(h => h.elo)) : p.elo);
     const fightCount = history.length;
+    const isRetired  = rankEntry && rankEntry.active === false;
 
     const physFields = [
       { label: 'Country', val: p.country },
@@ -201,6 +277,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         ${isChamp ? '&nbsp;' + champBadge() : ''}
         ${streak >= 3 ? '&nbsp;' + streakBadge(streak) : ''}
         ${streak <= -3 ? '&nbsp;' + streakBadge(streak) : ''}
+        ${isRetired ? '&nbsp;<span style="font-size:0.72rem;background:var(--surface2);color:var(--muted);border-radius:12px;padding:2px 8px;font-weight:600;letter-spacing:0.04em;">RETIRED</span>' : ''}
       </div>
 
       <div class="metrics-row" style="margin-bottom:0.75rem;">
@@ -240,18 +317,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       <div class="grid-2" style="margin-bottom:1rem;">
         <div class="chart-box">
           <div style="font-size:0.8rem;color:var(--muted);text-align:center;margin-bottom:0.25rem;">Skill Radar</div>
-          <div id="skill-radar" style="height:300px;"></div>
+          <div id="skill-radar" style="height:280px;"></div>
         </div>
         <div class="chart-box">
           <div style="font-size:0.8rem;color:var(--muted);text-align:center;margin-bottom:0.25rem;">ELO History</div>
-          <div id="elo-chart" style="height:300px;"></div>
+          <div id="elo-chart" style="height:280px;"></div>
         </div>
       </div>
 
+      <div id="skill-breakdown-section" style="margin-bottom:1.5rem;"></div>
       <div id="fight-table" style="margin-bottom:2rem;"></div>
       <div id="stats-section"></div>`;
 
-    // ── Skill radar ────────────────────────────────────────────────────────────
+    // ── Skill radar ──────────────────────────────────────────────────────────
     try {
       const skill = p.skill_score || {};
       if (Object.keys(skill).length > 0) {
@@ -271,8 +349,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             radialaxis: { range:[0,100], showticklabels:true, tickfont:{size:8}, gridcolor:'#333' },
             angularaxis: { gridcolor: '#333' },
           },
-          height: 280,
-          margin: { l:55, r:55, t:20, b:20 },
+          height: 260,
+          margin: { l:55, r:55, t:15, b:15 },
           showlegend: false,
         }, { displayModeBar: false, responsive: true });
       } else {
@@ -281,7 +359,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     } catch(e) { console.error('skill radar:', e); }
 
-    // ── ELO history chart ──────────────────────────────────────────────────────
+    // ── ELO history chart ────────────────────────────────────────────────────
     try {
       if (history.length) {
         const dates  = history.map(h => h.date);
@@ -306,14 +384,13 @@ document.addEventListener('DOMContentLoaded', async () => {
           text: hover, hovertemplate: '%{text}<extra></extra>',
         }], {
           ...PLOTLY_LAYOUT,
-          height: 280,
+          height: 260,
           xaxis: { showgrid: false, tickfont: { size: 10 } },
           yaxis: { gridcolor: '#2d3250', title: { text: 'ELO', font: { size: 11 } } },
           hovermode: 'closest',
           margin: { l:50, r:20, t:10, b:40 },
           shapes: [{
-            type: 'line',
-            x0: dates[0], x1: dates[dates.length-1],
+            type: 'line', x0: dates[0], x1: dates[dates.length-1],
             y0: 1500, y1: 1500,
             line: { color: '#555', dash: 'dot', width: 1 },
           }],
@@ -324,12 +401,59 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     } catch(e) { console.error('elo chart:', e); }
 
-    // ── Fight history table with expandable rows ───────────────────────────────
+    // ── Skill breakdown analysis ─────────────────────────────────────────────
+    try {
+      const skill = p.skill_score || {};
+      if (Object.keys(skill).length > 0) {
+        const composite = p.skill_composite ?? 50;
+        const sorted = SKILL_DIMS
+          .map(d => ({ dim: d, label: SKILL_LABELS[SKILL_DIMS.indexOf(d)], score: skill[d] ?? 50, weight: SKILL_WEIGHTS[d] }))
+          .sort((a, b) => b.score - a.score);
+        const strongest = sorted[0];
+        const weakest   = sorted[sorted.length - 1];
+
+        const rows = sorted.map(s => {
+          const score    = s.score;
+          const color    = score >= 70 ? '#22c55e' : score >= 45 ? '#f59e0b' : '#ef4444';
+          const barWidth = score.toFixed(1);
+          return `<div class="skill-breakdown-row">
+            <div class="skill-bd-label" title="${SKILL_DESC[s.dim]}">${s.label}</div>
+            <div class="skill-bd-bar-wrap">
+              <div class="skill-bd-bar" style="width:${barWidth}%;background:${color};"></div>
+            </div>
+            <div class="skill-bd-score" style="color:${color};">${score.toFixed(1)}</div>
+            <div class="skill-bd-weight">${(s.weight*100).toFixed(0)}%</div>
+          </div>`;
+        }).join('');
+
+        document.getElementById('skill-breakdown-section').innerHTML = `
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+              <h3 style="margin:0;">Skill Breakdown</h3>
+              <div style="font-size:0.8rem;color:var(--muted);">
+                Composite: <strong style="color:${ORANGE};font-size:1rem;">${composite.toFixed(1)}</strong>
+              </div>
+            </div>
+            <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.6;">
+              Strongest: <strong style="color:#22c55e;">${strongest.label} (${strongest.score.toFixed(0)})</strong>
+              &nbsp;&middot;&nbsp;
+              Weakest: <strong style="color:#ef4444;">${weakest.label} (${weakest.score.toFixed(0)})</strong>
+            </div>
+            <div style="margin-bottom:0.5rem;">${rows}</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:0.5rem;line-height:1.5;">
+              Composite = 0.20×Striking + 0.20×Defense + 0.15×Grappling + 0.15×Consistency + 0.10×Finish Rate + 0.10×Cardio + 0.10×Pressure
+              &nbsp;&middot;&nbsp; Bar width shows weight in the <em>right column (weight %)</em>.
+              <br>Hover or tap a label to see what each dimension measures.
+            </div>
+          </div>`;
+      }
+    } catch(e) { console.error('skill breakdown:', e); }
+
+    // ── Fight history table with expandable rows ─────────────────────────────
     try {
       if (history.length) {
-        const kVarF    = varK(fightCount, div);
-        const streakF  = streak;
-        const rivals5  = buildRivals5(p.fighter_id, p.elo, rankings);
+        const kVarF   = varK(fightCount, div);
+        const rivals5 = buildRivals5(p.fighter_id, p.elo, rankings);
 
         const rows = [...history].reverse().map((h, idx) => {
           const result   = h.result || '—';
@@ -345,8 +469,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           const tBadge   = h.is_title_fight
             ? ' <span style="color:var(--red);font-size:0.7rem;font-weight:700;">[T]</span>' : '';
           const expandId = `exp-${idx}`;
-
-          const expandHtml = buildExpandHtml(h, idx, p.elo, kVarF, streakF, div, rivals5);
+          const expandHtml = buildExpandHtml(h, p.elo, kVarF, streak, div, rivals5);
 
           return `<tr class="fight-row" onclick="toggleExpand(this,'${expandId}')">
               <td style="color:var(--muted);font-size:0.8rem;white-space:nowrap;">${h.date || '—'}</td>
@@ -383,19 +506,33 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     } catch(e) { console.error('fight table:', e); }
 
-    // ── Fight statistics ───────────────────────────────────────────────────────
+    // ── Fight statistics ─────────────────────────────────────────────────────
     try {
       const fs = p.fight_stats;
       if (fs) {
+        const hmSvg = (fs.head_pct != null && fs.body_pct != null && fs.leg_pct != null)
+          ? buildHeatmapSVG(fs.head_pct, fs.body_pct, fs.leg_pct, p.fighter_name)
+          : '';
+
+        const legendHtml = `
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:0.75rem;font-size:0.75rem;">
+            <span><span style="display:inline-block;width:10px;height:10px;background:#22c55e;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Low (&lt;20%)</span>
+            <span><span style="display:inline-block;width:10px;height:10px;background:#f59e0b;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Medium (20-40%)</span>
+            <span><span style="display:inline-block;width:10px;height:10px;background:#ef4444;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>High (&gt;40%)</span>
+          </div>`;
+
         document.getElementById('stats-section').innerHTML = `
           <hr class="divider">
           <h2 style="margin-bottom:1rem;">Fight Statistics</h2>
-          <div class="grid-2">
+          <div class="grid-2" style="margin-bottom:1rem;">
             <div class="card">
               <h3 style="margin-bottom:0.75rem;">Striking</h3>
-              ${statBar('Sig. strikes / min', fs.sig_strikes_per_min, 8,   ORANGE, true)}
-              ${statBar('Accuracy',           fs.strike_accuracy,     1,   ORANGE, false)}
-              ${statBar('Defense',            fs.strike_defense,      1,   ORANGE, false)}
+              ${statBar('Sig. strikes / min', fs.sig_strikes_per_min, 10,  ORANGE, true)}
+              ${statBar('Accuracy',           fs.strike_accuracy,      1,  ORANGE, false)}
+              ${statBar('Defense',            fs.strike_defense,       1,  ORANGE, false)}
+              ${statBar('Head %',             fs.head_pct,             1,  ORANGE, false)}
+              ${statBar('Body %',             fs.body_pct,             1,  ORANGE, false)}
+              ${statBar('Leg %',              fs.leg_pct,              1,  ORANGE, false)}
               <div style="margin-top:0.5rem;font-size:0.85rem;color:var(--muted);">
                 KD / fight: <strong style="color:var(--text);">${fs.knockdowns_per_fight != null ? fs.knockdowns_per_fight.toFixed(2) : '—'}</strong>
               </div>
@@ -410,12 +547,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                 Sub att / fight: <strong style="color:var(--text);">${fs.sub_attempts_per_fight != null ? fs.sub_attempts_per_fight.toFixed(2) : '—'}</strong>
               </div>
             </div>
-          </div>`;
+          </div>
+          ${hmSvg ? `
+          <div class="card" style="max-width:260px;">
+            <h3 style="margin-bottom:0.5rem;">Strike zone targeting</h3>
+            <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.75rem;">Where this fighter's significant strikes land.</p>
+            ${hmSvg}
+            ${legendHtml}
+          </div>` : ''}`;
+      } else {
+        document.getElementById('stats-section').innerHTML = `
+          <hr class="divider">
+          <div style="color:var(--muted);font-size:0.85rem;">No detailed fight statistics available for this fighter.</div>`;
       }
     } catch(e) { console.error('stats section:', e); }
   }
 
-  // ── Build 5 closest rivals from rankings ──────────────────────────────────
+  // ── 5 closest rivals ──────────────────────────────────────────────────────
   function buildRivals5(fighterId, fighterElo, rankings) {
     return rankings
       .filter(r => r.fighter_id !== fighterId && r.elo != null)
@@ -425,22 +573,19 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // ── Build expand row HTML ─────────────────────────────────────────────────
-  function buildExpandHtml(h, idx, fighterElo, kVarF, streakF, div, rivals5) {
+  function buildExpandHtml(h, fighterElo, kVarF, streakF, div, rivals5) {
     const bd = h.breakdown;
     let html = '<div class="expand-content">';
 
-    // ─ Section 1: K-factor breakdown ─────────────────────────────────────────
     if (bd && bd.k_effective != null) {
-      const fmt = (v, dec=3) => v != null ? (+v).toFixed(dec) : '—';
+      const fmt    = (v, dec=3) => v != null ? (+v).toFixed(dec) : '—';
       const fmtPct = v => v != null ? (v*100).toFixed(1)+'%' : '—';
       const deltaCalc = (bd.elo_before != null && bd.elo_after != null)
-        ? ((bd.elo_after - bd.elo_before) >= 0 ? '+' : '') +
-          (bd.elo_after - bd.elo_before).toFixed(1)
+        ? ((bd.elo_after - bd.elo_before) >= 0 ? '+' : '') + (bd.elo_after - bd.elo_before).toFixed(1)
         : '—';
       const deltaFinal = h.elo_change != null
         ? (h.elo_change >= 0 ? '+' : '') + h.elo_change.toFixed(1)
         : '—';
-      const titleNote = h.is_title_fight ? 'Sí ×1.20' : 'No';
 
       html += `
         <div class="exp-section-title">Desglose de multiplicadores</div>
@@ -453,33 +598,28 @@ document.addEventListener('DOMContentLoaded', async () => {
           <div class="kd-item">Prob. esperada: <strong>${fmtPct(bd.expected_prob)}</strong></div>
           <div class="kd-item">Sorpresa: <strong>${bd.surprise != null ? (+bd.surprise).toFixed(4) : '—'}</strong></div>
           <div class="kd-item">Mult. método: <strong>${fmt(bd.method_weight)}</strong></div>
-          <div class="kd-item">Mult. título: <strong>${titleNote}</strong></div>
+          <div class="kd-item">Mult. título: <strong>${h.is_title_fight ? 'Sí ×1.20' : 'No'}</strong></div>
           <div class="kd-item">Mult. consecutivo: <strong>${fmt(bd.consec_loss_mult)}</strong></div>
           <div class="kd-item">Delta calculado: <strong>${deltaCalc}</strong></div>
           <div class="kd-item">Delta final: <strong>${deltaFinal}</strong></div>
         </div>`;
     }
 
-    // ─ Section 2: Insight text ───────────────────────────────────────────────
-    let insightText = '';
     const ep = bd?.expected_prob;
     const result = h.result;
     const method = (h.method || '').toUpperCase();
+    let insightText = '';
     if (ep != null && result) {
       if (result === 'Win') {
-        if (ep > 0.60) {
-          insightText = `Victoria esperada — era favorito con ${(ep*100).toFixed(0)}% de probabilidad.`;
-        } else if (ep < 0.40) {
-          insightText = `Upset — ganó siendo el underdog (${(ep*100).toFixed(0)}% esperado), ganó mucho más ELO.`;
-        }
+        if (ep > 0.60)      insightText = `Victoria esperada — era favorito con ${(ep*100).toFixed(0)}% de probabilidad.`;
+        else if (ep < 0.40) insightText = `Upset — ganó siendo el underdog (${(ep*100).toFixed(0)}% esperado), ganó mucho más ELO.`;
       } else if (result === 'Loss') {
-        if (ep > 0.60 && (method.includes('KO') || method.includes('TKO'))) {
+        if (ep > 0.60 && (method.includes('KO') || method.includes('TKO')))
           insightText = `Peor escenario posible — perdió siendo favorito (${(ep*100).toFixed(0)}%) por KO/TKO: triple penalización.`;
-        } else if (ep > 0.60) {
+        else if (ep > 0.60)
           insightText = `Derrota inesperada — era favorito (${(ep*100).toFixed(0)}%), perdió más ELO del esperado.`;
-        } else if (ep < 0.40) {
-          insightText = `Derrota esperada — era el underdog (${(ep*100).toFixed(0)}% exp.), perdió poco ELO.`;
-        }
+        else if (ep < 0.40)
+          insightText = `Derrota esperada — era el underdog (${(ep*100).toFixed(0)}%), perdió poco ELO.`;
       }
     }
     if (insightText) {
@@ -488,13 +628,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         <span class="insight-pill">${insightText}</span>`;
     }
 
-    // ─ Section 3: ELO projection vs 5 nearest rivals ──────────────────────────
     if (rivals5 && rivals5.length > 0) {
       const projRows = rivals5.map(rival => {
-        const kVarR  = varK(rival.fight_count || 10, div);
-        const skR    = rival.streak || 0;
-        const ko  = simProjection(fighterElo, rival.elo, kVarF, kVarR, streakF, skR, 'KO/TKO', 3);
-        const dec = simProjection(fighterElo, rival.elo, kVarF, kVarR, streakF, skR, 'DEC U',  3);
+        const kVarR = varK(rival.fight_count || 10, div);
+        const skR   = rival.streak || 0;
+        const ko    = simProjection(fighterElo, rival.elo, kVarF, kVarR, streakF, skR, 'KO/TKO', 3);
+        const dec   = simProjection(fighterElo, rival.elo, kVarF, kVarR, streakF, skR, 'DEC U',  3);
         return `<tr>
           <td>${rival.fighter_name || rival.fighter_id}</td>
           <td>${rival.elo.toFixed(0)}</td>
@@ -504,21 +643,15 @@ document.addEventListener('DOMContentLoaded', async () => {
           <td class="r">${dec.loseAfter} <span style="font-weight:400;font-size:0.7rem;color:var(--red);">(${dec.dLose})</span></td>
         </tr>`;
       }).join('');
-
       html += `
         <div class="exp-section-title" style="margin-top:0.75rem;">ELO proyectado vs rivales cercanos</div>
         <div style="overflow-x:auto;">
           <table class="proj-table">
-            <thead>
-              <tr>
-                <th style="text-align:left;">Rival</th>
-                <th>ELO</th>
-                <th>Si gana (KO)</th>
-                <th>Si pierde (KO)</th>
-                <th>Si gana (DEC)</th>
-                <th>Si pierde (DEC)</th>
-              </tr>
-            </thead>
+            <thead><tr>
+              <th style="text-align:left;">Rival</th>
+              <th>ELO</th><th>Si gana (KO)</th><th>Si pierde (KO)</th>
+              <th>Si gana (DEC)</th><th>Si pierde (DEC)</th>
+            </tr></thead>
             <tbody>${projRows}</tbody>
           </table>
         </div>`;
@@ -532,7 +665,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (value === undefined || value === null) return '';
     const pct     = Math.min(Math.max(value / max, 0), 1) * 100;
     const display = raw ? value.toFixed(2) : (value * 100).toFixed(0) + '%';
-    return `<div style="margin-bottom:0.65rem;">
+    return `<div style="margin-bottom:0.55rem;">
       <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:3px;">
         <span style="color:var(--muted);">${label}</span>
         <span style="color:${color};font-weight:700;">${display}</span>
@@ -545,6 +678,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   divSel.addEventListener('change', loadDiv);
   fighterSel.addEventListener('change', loadFighter);
+  retiredToggle.addEventListener('change', loadDiv);
   await loadDiv();
 });
 </script>

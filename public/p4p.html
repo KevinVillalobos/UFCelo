@@ -10,11 +10,18 @@
 <main class="container">
   <div class="page-header">
     <h1>Pound-for-Pound ELO</h1>
-    <p>Cross-division comparison: <strong>Raw ELO</strong> (direct) or <strong>Normalized</strong> (z-score within division, removes inflation).</p>
+    <p>Cross-division comparison: <strong>Raw ELO</strong> or <strong>Normalized</strong> (z-score). Historical shows all-time peak ELO across eras.</p>
   </div>
 
-  <div class="form-row" style="align-items:center;">
+  <div class="form-row" style="align-items:center;flex-wrap:wrap;gap:0.75rem;">
     <div class="form-group" style="max-width:fit-content;">
+      <label>View</label>
+      <div class="toggle-row">
+        <button class="toggle-btn active" id="btn-current">Current Rankings</button>
+        <button class="toggle-btn"        id="btn-historical">Historical Peak ELO</button>
+      </div>
+    </div>
+    <div class="form-group" style="max-width:fit-content;" id="method-group">
       <label>Ranking method</label>
       <div class="toggle-row">
         <button class="toggle-btn active" id="btn-raw">Raw ELO</button>
@@ -28,9 +35,9 @@
   </div>
 
   <div id="loading" class="loading">Loading all divisions…</div>
-  <div id="bar-chart" style="margin-bottom:1rem;"></div>
-  <div id="table-wrap" style="margin-bottom:2rem;"></div>
-  <div id="box-chart"  style="margin-bottom:2rem;"></div>
+  <div id="bar-chart"   style="margin-bottom:1rem;"></div>
+  <div id="table-wrap"  style="margin-bottom:2rem;"></div>
+  <div id="box-chart"   style="margin-bottom:2rem;"></div>
   <div id="stats-table"></div>
 </main>
 
@@ -38,26 +45,45 @@
 <script src="/app.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
-  let allFighters = [];
-  let divStats    = {};
-  let mode        = 'raw'; // 'raw' | 'norm'
-  let topN        = 50;
+  let allFighters    = [];    // active fighters (current mode)
+  let histFighters   = [];    // all-time fighters (historical mode)
+  let divStats       = {};
+  let mode           = 'raw';      // 'raw' | 'norm'
+  let view           = 'current';  // 'current' | 'historical'
+  let topN           = 50;
 
-  const btnRaw  = document.getElementById('btn-raw');
-  const btnNorm = document.getElementById('btn-norm');
-  const topnRange = document.getElementById('topn-range');
-  const topnVal   = document.getElementById('topn-val');
+  const btnCurrent    = document.getElementById('btn-current');
+  const btnHistorical = document.getElementById('btn-historical');
+  const btnRaw        = document.getElementById('btn-raw');
+  const btnNorm       = document.getElementById('btn-norm');
+  const methodGroup   = document.getElementById('method-group');
+  const topnRange     = document.getElementById('topn-range');
+  const topnVal       = document.getElementById('topn-val');
 
   topnRange.addEventListener('input', () => { topN = +topnRange.value; topnVal.textContent = topN; render(); });
-  btnRaw.addEventListener('click', () => { mode='raw'; btnRaw.classList.add('active'); btnNorm.classList.remove('active'); render(); });
-  btnNorm.addEventListener('click', () => { mode='norm'; btnNorm.classList.add('active'); btnRaw.classList.remove('active'); render(); });
+  btnRaw.addEventListener('click',  () => { mode='raw';  btnRaw.classList.add('active');  btnNorm.classList.remove('active'); render(); });
+  btnNorm.addEventListener('click', () => { mode='norm'; btnNorm.classList.add('active'); btnRaw.classList.remove('active');  render(); });
 
-  // Load all divisions in parallel
-  const results = await Promise.allSettled(
+  btnCurrent.addEventListener('click', () => {
+    view = 'current';
+    btnCurrent.classList.add('active'); btnHistorical.classList.remove('active');
+    methodGroup.style.display = '';
+    renderBoxPlot(); renderDivStats(); render();
+  });
+  btnHistorical.addEventListener('click', () => {
+    view = 'historical';
+    btnHistorical.classList.add('active'); btnCurrent.classList.remove('active');
+    methodGroup.style.display = 'none';
+    document.getElementById('box-chart').innerHTML  = '';
+    document.getElementById('stats-table').innerHTML = '';
+    render();
+  });
+
+  // ── Load current (active) rankings ────────────────────────────────────────
+  const activeResults = await Promise.allSettled(
     DIVISIONS.map(d => apiFetch(`/rankings/${divSlug(d)}`).then(r => ({ div: d, rankings: r })))
   );
-
-  results.forEach(res => {
+  activeResults.forEach(res => {
     if (res.status !== 'fulfilled') return;
     const { div, rankings } = res.value;
     if (rankings.length < 2) return;
@@ -65,11 +91,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const mean = elos.reduce((a,b)=>a+b,0) / elos.length;
     const std  = Math.sqrt(elos.map(e=>(e-mean)**2).reduce((a,b)=>a+b,0) / elos.length);
     divStats[div] = { mean, std, count: rankings.length };
-    rankings.forEach(f => allFighters.push({
-      ...f,
-      division: div,
-      z_score: std > 0 ? (f.elo - mean) / std : 0,
-    }));
+    rankings.forEach(f => allFighters.push({ ...f, division: div, z_score: std > 0 ? (f.elo - mean) / std : 0 }));
   });
 
   document.getElementById('loading').style.display = 'none';
@@ -77,27 +99,53 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderBoxPlot();
   renderDivStats();
 
+  // ── Load historical (alltime) rankings ─────────────────────────────────────
+  // Load in background; doesn't block initial render
+  Promise.allSettled(
+    DIVISIONS.map(d => apiFetch(`/rankings/${divSlug(d)}/alltime`).then(r => ({ div: d, rankings: r })))
+  ).then(results => {
+    const seen = new Map(); // fighter_id → entry
+    results.forEach(res => {
+      if (res.status !== 'fulfilled') return;
+      const { div, rankings } = res.value;
+      rankings.forEach(f => {
+        const peak = f.peak_elo ?? f.elo;
+        if (!seen.has(f.fighter_id) || seen.get(f.fighter_id).peak_elo < peak) {
+          seen.set(f.fighter_id, { ...f, division: div, peak_elo: peak });
+        }
+      });
+    });
+    histFighters = [...seen.values()].sort((a, b) => b.peak_elo - a.peak_elo);
+    if (view === 'historical') render();
+  });
+
+  // ── Render dispatcher ──────────────────────────────────────────────────────
   function render() {
-    const sortKey = mode === 'raw' ? 'elo' : 'z_score';
-    const sorted  = [...allFighters].sort((a,b) => b[sortKey] - a[sortKey]);
-    const display = sorted.slice(0, topN);
-    renderTable(display, sortKey);
-    renderBarChart(sorted.slice(0, 10), sortKey);
+    if (view === 'historical') {
+      renderHistoricalTable();
+      renderHistoricalBarChart();
+    } else {
+      const sortKey = mode === 'raw' ? 'elo' : 'z_score';
+      const sorted  = [...allFighters].sort((a,b) => b[sortKey] - a[sortKey]);
+      renderTable(sorted.slice(0, topN), sortKey);
+      renderBarChart(sorted.slice(0, 10), sortKey);
+    }
   }
 
+  // ── Current mode ──────────────────────────────────────────────────────────
   function renderTable(data, sortKey) {
     const rows = data.map((f, i) => {
       const streak = streakBadge(f.streak || 0);
       const champ  = f.is_champion ? champBadge() : '';
       const color  = DIV_COLORS[f.division] || '#888';
-      const zStr   = f.z_score.toFixed(2);
+      const zStr   = f.z_score != null ? f.z_score.toFixed(2) : '—';
       return `<tr>
         <td style="color:var(--muted);">${i+1}</td>
         <td>${champ}${f.fighter_name} ${streak}</td>
         <td><span style="border-left:3px solid ${color};padding-left:6px;">${DIV_SHORT[f.division]}</span></td>
         <td style="color:var(--red);font-weight:700;">${f.elo.toFixed(1)}</td>
         <td style="color:var(--muted);">${zStr}</td>
-        <td>${f.peak_elo ? f.peak_elo.toFixed(1) : '—'}</td>
+        <td>${f.peak_elo ? (+f.peak_elo).toFixed(1) : '—'}</td>
         <td>${f.record || '—'}</td>
       </tr>`;
     }).join('');
@@ -133,12 +181,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   function renderBoxPlot() {
     const traces = DIVISIONS.map(div => {
       const elos = allFighters.filter(f=>f.division===div).map(f=>f.elo);
-      return {
-        y: elos, name: DIV_SHORT[div], type:'box',
-        marker: { color: DIV_COLORS[div] },
-        line:   { color: DIV_COLORS[div] },
-        boxmean: true,
-      };
+      return { y:elos, name:DIV_SHORT[div], type:'box', marker:{color:DIV_COLORS[div]}, line:{color:DIV_COLORS[div]}, boxmean:true };
     }).filter(t=>t.y.length);
     Plotly.newPlot('box-chart', traces, {
       ...PLOTLY_LAYOUT,
@@ -171,6 +214,66 @@ document.addEventListener('DOMContentLoaded', async () => {
           <tbody>${rows}</tbody>
         </table>
       </div>`;
+  }
+
+  // ── Historical mode ──────────────────────────────────────────────────────
+  function renderHistoricalTable() {
+    const display = histFighters.slice(0, topN);
+    if (!display.length) {
+      document.getElementById('table-wrap').innerHTML =
+        '<div class="loading">Loading historical data…</div>';
+      return;
+    }
+    const rows = display.map((f, i) => {
+      const color     = DIV_COLORS[f.division] || '#888';
+      const peakDate  = f.peak_elo_date  || '—';
+      const peakOpp   = f.peak_elo_opponent || '—';
+      const curElo    = f.elo != null ? f.elo.toFixed(1) : '—';
+      const champ     = f.is_champion ? champBadge() : '';
+      return `<tr>
+        <td style="color:var(--muted);">${i+1}</td>
+        <td>${champ}${f.fighter_name}</td>
+        <td><span style="border-left:3px solid ${color};padding-left:6px;">${DIV_SHORT[f.division]}</span></td>
+        <td style="color:var(--red);font-weight:700;">${(+f.peak_elo).toFixed(1)}</td>
+        <td style="color:var(--muted);font-size:0.8rem;">${peakDate}</td>
+        <td style="color:var(--muted);font-size:0.8rem;">${peakOpp}</td>
+        <td style="color:var(--muted);">${curElo}</td>
+        <td>${f.record || '—'}</td>
+      </tr>`;
+    }).join('');
+    document.getElementById('table-wrap').innerHTML = `
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>#</th><th>Fighter</th><th>Division</th>
+            <th>Peak ELO</th><th>Peak date</th><th>Opponent at peak</th>
+            <th>Current ELO</th><th>Record</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  }
+
+  function renderHistoricalBarChart() {
+    const top10 = histFighters.slice(0, 10);
+    if (!top10.length) { document.getElementById('bar-chart').innerHTML = ''; return; }
+    const vals  = top10.map(f => +f.peak_elo);
+    const names = top10.map(f => f.fighter_name + ' [' + DIV_SHORT[f.division] + ']');
+    const colors= top10.map(f => DIV_COLORS[f.division] || '#888');
+    Plotly.react('bar-chart', [{
+      x: vals.slice().reverse(), y: names.slice().reverse(),
+      type: 'bar', orientation: 'h',
+      marker: { color: colors.slice().reverse() },
+      text: vals.slice().reverse().map(v=>v.toFixed(1)),
+      textposition: 'inside', textfont: { color:'#fff', size:11 },
+    }], {
+      ...PLOTLY_LAYOUT,
+      title: { text:'Top 10 — All-Time Peak ELO', font:{color:'#F0F2F6',size:13} },
+      height: 340,
+      xaxis: { showgrid:true, gridcolor:'#2d3250', title:'Peak ELO' },
+      yaxis: { showgrid:false },
+      margin: { l:20, r:20, t:50, b:50 },
+    }, { displayModeBar:false, responsive:true });
   }
 });
 </script>
