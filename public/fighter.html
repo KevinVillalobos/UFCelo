@@ -35,6 +35,17 @@
     .skill-bd-bar { height: 8px; border-radius: 4px; }
     .skill-bd-score { min-width: 40px; text-align: right; font-size: 0.82rem; font-weight: 700; }
     .skill-bd-weight { min-width: 36px; text-align: right; font-size: 0.72rem; color: var(--muted); }
+    /* Fight stats comparison table */
+    .fs-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 0.4rem; }
+    .fs-table th { padding: 5px 10px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--border); }
+    .fs-table th:first-child { text-align: left; color: var(--muted); width: 34%; }
+    .fs-table th.fs-me  { text-align: center; color: var(--orange); }
+    .fs-table th.fs-opp { text-align: center; color: var(--muted); }
+    .fs-table td { padding: 4px 10px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+    .fs-table td:first-child { color: var(--muted); font-size: 0.78rem; }
+    .fs-table td.fs-me  { text-align: center; font-weight: 600; color: var(--text); }
+    .fs-table td.fs-opp { text-align: center; color: var(--muted); }
+    .fs-sep { border: none; border-top: 1px solid var(--border); margin: 0.85rem 0 0; }
   </style>
 </head>
 <body>
@@ -523,7 +534,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           const tBadge   = h.is_title_fight
             ? ' <span style="color:var(--red);font-size:0.7rem;font-weight:700;">[T]</span>' : '';
           const expandId = `exp-${idx}`;
-          const expandHtml = buildExpandHtml(h, p.elo, kVarF, streak, div, rivals5);
+          const expandHtml = buildExpandHtml(h, p.elo, kVarF, streak, div, rivals5, p.fighter_name);
 
           return `<tr class="fight-row" onclick="toggleExpand(this,'${expandId}')">
               <td style="color:var(--muted);font-size:0.8rem;white-space:nowrap;">${h.date || '—'}</td>
@@ -644,7 +655,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // ── Build expand row HTML ─────────────────────────────────────────────────
-  function buildExpandHtml(h, fighterElo, kVarF, streakF, div, rivals5) {
+  function buildExpandHtml(h, fighterElo, kVarF, streakF, div, rivals5, fighterName) {
     const bd = h.breakdown;
     let html = '<div class="expand-content">';
 
@@ -676,46 +687,42 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>`;
     }
 
-    // ── Per-fight stats ───────────────────────────────────────────────────────
+    // ── Per-fight stats comparison table ────────────────────────────────────
     const fs = h.fight_stats;
-    if (fs && (fs.strikes_landed != null || fs.td_landed != null)) {
-      const acc  = (fs.strikes_landed != null && fs.strikes_attempted > 0)
-        ? `${fs.strikes_landed}/${fs.strikes_attempted} (${(fs.strikes_landed/fs.strikes_attempted*100).toFixed(0)}%)`
-        : fs.strikes_landed != null ? `${fs.strikes_landed}` : '—';
-      const oAcc = (fs.opp_strikes_landed != null && fs.opp_strikes_attempted > 0)
-        ? `${fs.opp_strikes_landed}/${fs.opp_strikes_attempted} (${(fs.opp_strikes_landed/fs.opp_strikes_attempted*100).toFixed(0)}%)`
-        : fs.opp_strikes_landed != null ? `${fs.opp_strikes_landed}` : '—';
-      const tdAcc = (fs.td_landed != null && fs.td_attempted > 0)
-        ? `${fs.td_landed}/${fs.td_attempted} (${(fs.td_landed/fs.td_attempted*100).toFixed(0)}%)`
-        : fs.td_landed != null ? `${fs.td_landed}` : '—';
+    if (fs && fs.strikes_landed != null) {
+      const fmt = (l, a) => {
+        if (l == null) return '—';
+        if (a != null && a > 0) return `${l}/${a} <span style="font-weight:400;color:var(--muted);font-size:0.72rem;">(${Math.round(l/a*100)}%)</span>`;
+        return String(l);
+      };
       const ctrl = fs.control_seconds != null
         ? `${Math.floor(fs.control_seconds/60)}:${String(fs.control_seconds%60).padStart(2,'0')}`
         : '—';
-      const headL = fs.head_landed != null
-        ? `${fs.head_landed}${fs.head_attempted > 0 ? '/'+fs.head_attempted : ''}`
-        : '—';
-      const bodyL = fs.body_landed != null
-        ? `${fs.body_landed}${fs.body_attempted > 0 ? '/'+fs.body_attempted : ''}`
-        : '—';
-      const legL  = fs.leg_landed != null
-        ? `${fs.leg_landed}${fs.leg_attempted > 0 ? '/'+fs.leg_attempted : ''}`
-        : '—';
+      const meLabel  = fighterName ? fighterName.split(' ').pop() : 'You';
+      const oppLabel = h.opponent_name ? h.opponent_name.split(' ').pop() : 'Opp.';
 
       html += `
-        <div class="exp-section-title" style="margin-top:0.75rem;">Fight Stats</div>
-        <div class="kd-grid">
-          <div class="kd-item">Strikes (L/A): <strong>${acc}</strong></div>
-          <div class="kd-item">Opp. strikes: <strong>${oAcc}</strong></div>
-          <div class="kd-item">Head: <strong>${headL}</strong></div>
-          <div class="kd-item">Body: <strong>${bodyL}</strong></div>
-          <div class="kd-item">Leg: <strong>${legL}</strong></div>
-          <div class="kd-item">Knockdowns: <strong>${fs.knockdowns ?? '—'}</strong></div>
-          <div class="kd-item">Opp. KDs: <strong>${fs.opp_knockdowns ?? '—'}</strong></div>
-          <div class="kd-item">TD (L/A): <strong>${tdAcc}</strong></div>
-          <div class="kd-item">Opp. TDs: <strong>${fs.opp_td_landed ?? '—'}</strong></div>
-          <div class="kd-item">Sub att.: <strong>${fs.sub_attempts ?? '—'}</strong></div>
-          <div class="kd-item">Ctrl. time: <strong>${ctrl}</strong></div>
-        </div>`;
+        <hr class="fs-sep">
+        <div class="exp-section-title" style="margin-top:0.5rem;">Fight Stats</div>
+        <table class="fs-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="fs-me">${meLabel}</th>
+              <th class="fs-opp">${oppLabel}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Sig. Strikes</td><td class="fs-me">${fmt(fs.strikes_landed, fs.strikes_attempted)}</td><td class="fs-opp">${fmt(fs.opp_strikes_landed, fs.opp_strikes_attempted)}</td></tr>
+            <tr><td>Head</td><td class="fs-me">${fmt(fs.head_landed, fs.head_attempted)}</td><td class="fs-opp">—</td></tr>
+            <tr><td>Body</td><td class="fs-me">${fmt(fs.body_landed, fs.body_attempted)}</td><td class="fs-opp">—</td></tr>
+            <tr><td>Leg</td><td class="fs-me">${fmt(fs.leg_landed, fs.leg_attempted)}</td><td class="fs-opp">—</td></tr>
+            <tr><td>Knockdowns</td><td class="fs-me">${fs.knockdowns ?? '—'}</td><td class="fs-opp">${fs.opp_knockdowns ?? '—'}</td></tr>
+            <tr><td>Takedowns</td><td class="fs-me">${fmt(fs.td_landed, fs.td_attempted)}</td><td class="fs-opp">${fs.opp_td_landed ?? '—'}</td></tr>
+            <tr><td>Control</td><td class="fs-me">${ctrl}</td><td class="fs-opp">—</td></tr>
+            <tr><td>Sub attempts</td><td class="fs-me">${fs.sub_attempts ?? '—'}</td><td class="fs-opp">—</td></tr>
+          </tbody>
+        </table>`;
     }
 
     const ep = bd?.expected_prob;
@@ -741,6 +748,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         <span class="insight-pill">${insightText}</span>`;
     }
 
+    if (rivals5 && rivals5.length > 0 && (insightText || (fs && fs.strikes_landed != null) || (h.breakdown && h.breakdown.k_effective != null))) {
+      html += `<hr class="fs-sep">`;
+    }
     if (rivals5 && rivals5.length > 0) {
       const projRows = rivals5.map(rival => {
         const kVarR = varK(rival.fight_count || 10, div);
