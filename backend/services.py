@@ -30,11 +30,13 @@ _DIVISION_K_MULT: Dict[str, float] = {
 
 
 def _extract_per_fight_stats(fighter_id: str, row: dict) -> Optional[dict]:
-    """Extract striking/grappling stats for one fighter from a CSV fight row."""
+    """Extract striking/grappling stats for one fighter from a CSV fight row.
+    CSV columns use full prefix: fighter_a_strikes_landed, fighter_b_takedowns_landed, etc.
+    """
     if not row:
         return None
-    px = "a" if str(row.get("fighter_a_id", "")) == str(fighter_id) else "b"
-    ox = "b" if px == "a" else "a"
+    px = "fighter_a" if str(row.get("fighter_a_id", "")) == str(fighter_id) else "fighter_b"
+    ox = "fighter_b" if px == "fighter_a" else "fighter_a"
 
     def iv(col: str) -> Optional[int]:
         v = row.get(col, "")
@@ -53,23 +55,23 @@ def _extract_per_fight_stats(fighter_id: str, row: dict) -> Optional[dict]:
             return None
 
     return {
-        "strikes_landed":       iv(f"{px}_strikes_landed"),
-        "strikes_attempted":    iv(f"{px}_strikes_attempted"),
-        "head_landed":          iv(f"{px}_head_strikes_landed"),
-        "head_attempted":       iv(f"{px}_head_strikes_attempted"),
-        "body_landed":          iv(f"{px}_body_strikes_landed"),
-        "body_attempted":       iv(f"{px}_body_strikes_attempted"),
-        "leg_landed":           iv(f"{px}_leg_strikes_landed"),
-        "leg_attempted":        iv(f"{px}_leg_strikes_attempted"),
-        "td_landed":            iv(f"{px}_td_landed"),
-        "td_attempted":         iv(f"{px}_td_attempted"),
-        "knockdowns":           iv(f"{px}_knockdowns"),
-        "control_seconds":      ctrl_secs(row.get(f"{px}_control_time", "")),
-        "sub_attempts":         iv(f"{px}_sub_attempts"),
-        "opp_strikes_landed":   iv(f"{ox}_strikes_landed"),
-        "opp_strikes_attempted":iv(f"{ox}_strikes_attempted"),
-        "opp_td_landed":        iv(f"{ox}_td_landed"),
-        "opp_knockdowns":       iv(f"{ox}_knockdowns"),
+        "strikes_landed":        iv(f"{px}_strikes_landed"),
+        "strikes_attempted":     iv(f"{px}_strikes_attempted"),
+        "head_landed":           iv(f"{px}_head_strikes_landed"),
+        "head_attempted":        iv(f"{px}_head_strikes_attempted"),
+        "body_landed":           iv(f"{px}_body_strikes_landed"),
+        "body_attempted":        iv(f"{px}_body_strikes_attempted"),
+        "leg_landed":            iv(f"{px}_leg_strikes_landed"),
+        "leg_attempted":         iv(f"{px}_leg_strikes_attempted"),
+        "td_landed":             iv(f"{px}_takedowns_landed"),
+        "td_attempted":          iv(f"{px}_takedowns_attempted"),
+        "knockdowns":            iv(f"{px}_knockdowns"),
+        "control_seconds":       ctrl_secs(row.get(f"{px}_control_time", "")),
+        "sub_attempts":          iv(f"{px}_submission_attempts"),
+        "opp_strikes_landed":    iv(f"{ox}_strikes_landed"),
+        "opp_strikes_attempted": iv(f"{ox}_strikes_attempted"),
+        "opp_td_landed":         iv(f"{ox}_takedowns_landed"),
+        "opp_knockdowns":        iv(f"{ox}_knockdowns"),
     }
 
 

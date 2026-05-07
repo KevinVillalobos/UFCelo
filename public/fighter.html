@@ -164,7 +164,7 @@ function buildHeatmapSVG(headPct, bodyPct, legPct, name) {
   const hC = heatColor(headPct), bC = heatColor(bodyPct), lC = heatColor(legPct);
   const f = n => n.toFixed(1);
 
-  return `<svg viewBox="0 0 ${W} ${svgH}" width="100%" style="max-width:130px;display:block;margin:0 auto;">
+  return `<svg viewBox="0 0 ${W} ${svgH}" width="100%" style="max-height:280px;display:block;margin:0 auto;">
     <!-- head -->
     <circle cx="${f(cx)}" cy="${f(hCY)}" r="${hR}" fill="${hC}" fill-opacity="0.55" stroke="${hC}" stroke-width="2"/>
     <text x="${f(cx)}" y="${f(hCY+4)}" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">${(headPct*100).toFixed(0)}%</text>
@@ -580,19 +580,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Physique silhouette — always show if data exists, regardless of CSV stats
       if (hasPhysique || hmSvg) {
-        statsHtml += `<div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.25rem;">`;
+        const cols = (hasPhysique && hmSvg) ? '1fr 1fr' : '1fr';
+        statsHtml += `<div style="display:grid;grid-template-columns:${cols};gap:1rem;margin-bottom:1.25rem;">`;
         if (hasPhysique) {
           statsHtml += `
-          <div class="card" style="max-width:200px;flex:0 0 auto;">
-            <h3 style="margin-bottom:0.5rem;">Physique</h3>
+          <div class="card" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+            <h3 style="margin-bottom:0.5rem;width:100%;text-align:left;">Physique</h3>
             ${buildSingleSilhouette(p.height_inches, p.reach_inches, p.weight_lbs)}
           </div>`;
         }
         if (hmSvg) {
           statsHtml += `
-          <div class="card" style="max-width:200px;flex:0 0 auto;">
-            <h3 style="margin-bottom:0.5rem;">Strike zones</h3>
-            <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem;">Where significant strikes land.</p>
+          <div class="card" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+            <h3 style="margin-bottom:0.5rem;width:100%;text-align:left;">Strike zones</h3>
+            <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem;width:100%;text-align:left;">Where significant strikes land.</p>
             ${hmSvg}${legendHtml}
           </div>`;
         }
