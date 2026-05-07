@@ -74,8 +74,7 @@ function divSlug(d) { return d.replace(/ /g, '%20'); }
     ['index.html',      'Home',        '/'],
     ['rankings.html',   'Rankings',    '/rankings.html'],
     ['fighter.html',    'Fighter',     '/fighter.html'],
-    ['predict.html',    'Predict',     '/predict.html'],
-    ['simulate.html',   'Simulate',    '/simulate.html'],
+    ['comparison.html', 'Comparison',  '/comparison.html'],
     ['matchmaking.html','Matchmaking', '/matchmaking.html'],
     ['p4p.html',        'P4P',         '/p4p.html'],
   ];

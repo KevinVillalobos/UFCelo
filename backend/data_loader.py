@@ -1,3 +1,4 @@
+import csv
 import json
 from datetime import datetime
 from pathlib import Path
@@ -126,6 +127,21 @@ def set_fighter_retired(fighter_id: str, retired: bool) -> None:
     path = DATA_DIR / "retired_overrides.json"
     with path.open("w", encoding="utf-8") as handle:
         json.dump(overrides, handle, indent=2)
+
+
+def load_fights_csv(division: str) -> Dict[str, Dict[str, Any]]:
+    """Load fights CSV for a division, keyed by fight_id."""
+    slug = _division_slug(division)
+    path = DATA_DIR / f"fights_{slug}.csv"
+    if not path.exists():
+        return {}
+    result: Dict[str, Dict[str, Any]] = {}
+    with path.open(newline="", encoding="utf-8") as fh:
+        for row in csv.DictReader(fh):
+            fid = row.get("fight_id", "")
+            if fid:
+                result[fid] = row
+    return result
 
 
 def get_upcoming_events() -> List[Dict[str, Any]]:

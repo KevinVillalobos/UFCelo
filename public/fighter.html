@@ -189,6 +189,60 @@ function buildHeatmapSVG(headPct, bodyPct, legPct, name) {
   </svg>`;
 }
 
+// ── Single-fighter silhouette SVG ────────────────────────────────────────────
+function makeFigureSVG(cx, feetY, H, R, color) {
+  const fill = color + '28';
+  const sw   = Math.max(1.2, H * 0.007);
+  const hr   = H * 0.075;
+  const hcy  = feetY - H + hr;
+  const shY = feetY - H * 0.860, shX  = H * 0.115;
+  const wstY= feetY - H * 0.470, wstX = H * 0.078;
+  const hipY= feetY - H * 0.400, hipX = H * 0.095;
+  const knY = feetY - H * 0.240, knX  = H * 0.070;
+  const anY = feetY - H * 0.055, anX  = H * 0.054;
+  const ftX = H * 0.088;
+  const armH= R / 2;
+  const f   = n => n.toFixed(1);
+  const path = [
+    `M ${f(cx)},${f(shY)}`,
+    `L ${f(cx-shX)},${f(shY)}`,
+    `Q ${f(cx-shX*1.10)},${f(wstY)} ${f(cx-wstX)},${f(wstY)}`,
+    `Q ${f(cx-hipX*1.05)},${f(hipY)} ${f(cx-hipX)},${f(hipY)}`,
+    `L ${f(cx-knX)},${f(knY)} L ${f(cx-anX)},${f(anY)}`,
+    `L ${f(cx-ftX)},${f(feetY)} L ${f(cx+ftX)},${f(feetY)}`,
+    `L ${f(cx+anX)},${f(anY)} L ${f(cx+knX)},${f(knY)}`,
+    `L ${f(cx+hipX)},${f(hipY)}`,
+    `Q ${f(cx+hipX*1.05)},${f(hipY)} ${f(cx+wstX)},${f(wstY)}`,
+    `Q ${f(cx+shX*1.10)},${f(wstY)} ${f(cx+shX)},${f(shY)} Z`,
+  ].join(' ');
+  const nw = H * 0.035;
+  return [
+    `<line x1="${f(cx)}" y1="${f(hcy+hr)}" x2="${f(cx)}" y2="${f(shY)}" stroke="${color}" stroke-width="${f(nw)}" stroke-linecap="round"/>`,
+    `<circle cx="${f(cx)}" cy="${f(hcy)}" r="${f(hr)}" fill="${fill}" stroke="${color}" stroke-width="${f(sw)}"/>`,
+    `<path d="${path}" fill="${fill}" stroke="${color}" stroke-width="${f(sw)}" stroke-linejoin="round"/>`,
+    `<line x1="${f(cx-shX)}" y1="${f(shY)}" x2="${f(cx-armH)}" y2="${f(shY)}" stroke="${color}" stroke-width="${f(H*0.026)}" stroke-linecap="round"/>`,
+    `<line x1="${f(cx+shX)}" y1="${f(shY)}" x2="${f(cx+armH)}" y2="${f(shY)}" stroke="${color}" stroke-width="${f(H*0.026)}" stroke-linecap="round"/>`,
+  ].join('\n');
+}
+function buildSingleSilhouette(hInches, rInches, wLbs) {
+  const BODY_H = 200;
+  const H = hInches || 70, R = rInches || H;
+  const scale = BODY_H / H;
+  const Hpx = H * scale, Rpx = R * scale;
+  const padX = 16, padTop = 20, padBot = 30;
+  const cx = padX + Rpx / 2;
+  const svgW = cx + Rpx / 2 + padX;
+  const feetY = padTop + BODY_H;
+  const svgH = feetY + padBot;
+  const f = n => n.toFixed(1);
+  const body = makeFigureSVG(cx, feetY, Hpx, Rpx, ORANGE);
+  const ft = inches => `${Math.floor(inches/12)}'${Math.round(inches%12)}"`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${f(svgW)} ${f(svgH)}" width="100%" style="max-height:280px;display:block;margin:0 auto;">
+  ${body}
+  <text x="${f(cx)}" y="${f(svgH-4)}" text-anchor="middle" font-size="9" fill="#777" font-family="monospace">${ft(H)} · ${R.toFixed(0)}" reach${wLbs ? ' · ' + wLbs + ' lbs' : ''}</text>
+</svg>`;
+}
+
 // ── Toggle expand row ────────────────────────────────────────────────────────
 function toggleExpand(rowEl, expandId) {
   const expRow = document.getElementById(expandId);
@@ -548,13 +602,20 @@ document.addEventListener('DOMContentLoaded', async () => {
               </div>
             </div>
           </div>
-          ${hmSvg ? `
-          <div class="card" style="max-width:260px;">
-            <h3 style="margin-bottom:0.5rem;">Strike zone targeting</h3>
-            <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.75rem;">Where this fighter's significant strikes land.</p>
-            ${hmSvg}
-            ${legendHtml}
-          </div>` : ''}`;
+          <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:0.5rem;">
+            ${p.height_inches || p.reach_inches ? `
+            <div class="card" style="max-width:200px;flex:0 0 auto;">
+              <h3 style="margin-bottom:0.5rem;">Physique</h3>
+              ${buildSingleSilhouette(p.height_inches, p.reach_inches, p.weight_lbs)}
+            </div>` : ''}
+            ${hmSvg ? `
+            <div class="card" style="max-width:200px;flex:0 0 auto;">
+              <h3 style="margin-bottom:0.5rem;">Strike zones</h3>
+              <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem;">Where significant strikes land.</p>
+              ${hmSvg}
+              ${legendHtml}
+            </div>` : ''}
+          </div>`;
       } else {
         document.getElementById('stats-section').innerHTML = `
           <hr class="divider">
@@ -602,6 +663,48 @@ document.addEventListener('DOMContentLoaded', async () => {
           <div class="kd-item">Consec. mult.: <strong>${fmt(bd.consec_loss_mult)}</strong></div>
           <div class="kd-item">Calculated delta: <strong>${deltaCalc}</strong></div>
           <div class="kd-item">Final delta: <strong>${deltaFinal}</strong></div>
+        </div>`;
+    }
+
+    // ── Per-fight stats ───────────────────────────────────────────────────────
+    const fs = h.fight_stats;
+    if (fs && (fs.strikes_landed != null || fs.td_landed != null)) {
+      const acc  = (fs.strikes_landed != null && fs.strikes_attempted > 0)
+        ? `${fs.strikes_landed}/${fs.strikes_attempted} (${(fs.strikes_landed/fs.strikes_attempted*100).toFixed(0)}%)`
+        : fs.strikes_landed != null ? `${fs.strikes_landed}` : '—';
+      const oAcc = (fs.opp_strikes_landed != null && fs.opp_strikes_attempted > 0)
+        ? `${fs.opp_strikes_landed}/${fs.opp_strikes_attempted} (${(fs.opp_strikes_landed/fs.opp_strikes_attempted*100).toFixed(0)}%)`
+        : fs.opp_strikes_landed != null ? `${fs.opp_strikes_landed}` : '—';
+      const tdAcc = (fs.td_landed != null && fs.td_attempted > 0)
+        ? `${fs.td_landed}/${fs.td_attempted} (${(fs.td_landed/fs.td_attempted*100).toFixed(0)}%)`
+        : fs.td_landed != null ? `${fs.td_landed}` : '—';
+      const ctrl = fs.control_seconds != null
+        ? `${Math.floor(fs.control_seconds/60)}:${String(fs.control_seconds%60).padStart(2,'0')}`
+        : '—';
+      const headL = fs.head_landed != null
+        ? `${fs.head_landed}${fs.head_attempted > 0 ? '/'+fs.head_attempted : ''}`
+        : '—';
+      const bodyL = fs.body_landed != null
+        ? `${fs.body_landed}${fs.body_attempted > 0 ? '/'+fs.body_attempted : ''}`
+        : '—';
+      const legL  = fs.leg_landed != null
+        ? `${fs.leg_landed}${fs.leg_attempted > 0 ? '/'+fs.leg_attempted : ''}`
+        : '—';
+
+      html += `
+        <div class="exp-section-title" style="margin-top:0.75rem;">Fight Stats</div>
+        <div class="kd-grid">
+          <div class="kd-item">Strikes (L/A): <strong>${acc}</strong></div>
+          <div class="kd-item">Opp. strikes: <strong>${oAcc}</strong></div>
+          <div class="kd-item">Head: <strong>${headL}</strong></div>
+          <div class="kd-item">Body: <strong>${bodyL}</strong></div>
+          <div class="kd-item">Leg: <strong>${legL}</strong></div>
+          <div class="kd-item">Knockdowns: <strong>${fs.knockdowns ?? '—'}</strong></div>
+          <div class="kd-item">Opp. KDs: <strong>${fs.opp_knockdowns ?? '—'}</strong></div>
+          <div class="kd-item">TD (L/A): <strong>${tdAcc}</strong></div>
+          <div class="kd-item">Opp. TDs: <strong>${fs.opp_td_landed ?? '—'}</strong></div>
+          <div class="kd-item">Sub att.: <strong>${fs.sub_attempts ?? '—'}</strong></div>
+          <div class="kd-item">Ctrl. time: <strong>${ctrl}</strong></div>
         </div>`;
     }
 

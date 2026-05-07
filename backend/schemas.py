@@ -26,19 +26,41 @@ class EloBreakdown(BaseModel):
     peak_penalty:      Optional[bool]  = None
 
 
+class PerFightStats(BaseModel):
+    strikes_landed:    Optional[int]   = None
+    strikes_attempted: Optional[int]   = None
+    head_landed:       Optional[int]   = None
+    head_attempted:    Optional[int]   = None
+    body_landed:       Optional[int]   = None
+    body_attempted:    Optional[int]   = None
+    leg_landed:        Optional[int]   = None
+    leg_attempted:     Optional[int]   = None
+    td_landed:         Optional[int]   = None
+    td_attempted:      Optional[int]   = None
+    knockdowns:        Optional[int]   = None
+    control_seconds:   Optional[int]   = None
+    sub_attempts:      Optional[int]   = None
+    # opponent stats for context
+    opp_strikes_landed:    Optional[int] = None
+    opp_strikes_attempted: Optional[int] = None
+    opp_td_landed:         Optional[int] = None
+    opp_knockdowns:        Optional[int] = None
+
+
 class EloHistoryPoint(BaseModel):
-    date:           Optional[_Date]         = None
+    date:           Optional[_Date]          = None
     elo:            float
-    elo_change:     Optional[float]        = None
-    opponent_id:    Optional[str]          = None
-    opponent_name:  Optional[str]          = None
-    result:         Optional[str]          = None
-    method:         Optional[str]          = None
-    round:          Optional[int]          = None
-    time:           Optional[str]          = None
-    is_title_fight: Optional[bool]         = None
-    event:          Optional[str]          = None
-    breakdown:      Optional[EloBreakdown] = None
+    elo_change:     Optional[float]         = None
+    opponent_id:    Optional[str]           = None
+    opponent_name:  Optional[str]           = None
+    result:         Optional[str]           = None
+    method:         Optional[str]           = None
+    round:          Optional[int]           = None
+    time:           Optional[str]           = None
+    is_title_fight: Optional[bool]          = None
+    event:          Optional[str]           = None
+    breakdown:      Optional[EloBreakdown]  = None
+    fight_stats:    Optional[PerFightStats] = None
 
 
 class SkillHistoryPoint(BaseModel):

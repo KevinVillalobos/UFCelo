@@ -8,6 +8,7 @@ from .data_loader import (
     get_upcoming_events,
     load_champions,
     load_elo_histories,
+    load_fights_csv,
     load_rankings,
     load_retired_overrides,
     load_skill_histories,
@@ -26,6 +27,50 @@ _DIVISION_K_MULT: Dict[str, float] = {
     "bantamweight":      0.90,
     "flyweight":         0.90,
 }
+
+
+def _extract_per_fight_stats(fighter_id: str, row: dict) -> Optional[dict]:
+    """Extract striking/grappling stats for one fighter from a CSV fight row."""
+    if not row:
+        return None
+    px = "a" if str(row.get("fighter_a_id", "")) == str(fighter_id) else "b"
+    ox = "b" if px == "a" else "a"
+
+    def iv(col: str) -> Optional[int]:
+        v = row.get(col, "")
+        try:
+            return int(v) if v not in ("", None) else None
+        except (ValueError, TypeError):
+            return None
+
+    def ctrl_secs(s: str) -> Optional[int]:
+        if not s:
+            return None
+        parts = s.split(":")
+        try:
+            return int(parts[0]) * 60 + int(parts[1])
+        except (IndexError, ValueError):
+            return None
+
+    return {
+        "strikes_landed":       iv(f"{px}_strikes_landed"),
+        "strikes_attempted":    iv(f"{px}_strikes_attempted"),
+        "head_landed":          iv(f"{px}_head_strikes_landed"),
+        "head_attempted":       iv(f"{px}_head_strikes_attempted"),
+        "body_landed":          iv(f"{px}_body_strikes_landed"),
+        "body_attempted":       iv(f"{px}_body_strikes_attempted"),
+        "leg_landed":           iv(f"{px}_leg_strikes_landed"),
+        "leg_attempted":        iv(f"{px}_leg_strikes_attempted"),
+        "td_landed":            iv(f"{px}_td_landed"),
+        "td_attempted":         iv(f"{px}_td_attempted"),
+        "knockdowns":           iv(f"{px}_knockdowns"),
+        "control_seconds":      ctrl_secs(row.get(f"{px}_control_time", "")),
+        "sub_attempts":         iv(f"{px}_sub_attempts"),
+        "opp_strikes_landed":   iv(f"{ox}_strikes_landed"),
+        "opp_strikes_attempted":iv(f"{ox}_strikes_attempted"),
+        "opp_td_landed":        iv(f"{ox}_td_landed"),
+        "opp_knockdowns":       iv(f"{ox}_knockdowns"),
+    }
 
 
 def elo_win_probability(elo_a: float, elo_b: float) -> float:
@@ -196,6 +241,14 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
     if not fighter:
         return None
 
+    # Load per-fight CSV stats across all divisions (keyed by fight_id)
+    all_fights_csv: dict = {}
+    for div in _DIVISIONS_ALL:
+        try:
+            all_fights_csv.update(load_fights_csv(div))
+        except Exception:
+            pass
+
     # Merge ELO history from all divisions so the chart shows the full career arc.
     # Each history point already carries a weight_class field for frontend coloring.
     all_elo_entries = []
@@ -229,6 +282,8 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
         else:
             elo_change = None
         prev_elo = cur_elo
+        csv_row = all_fights_csv.get(str(item.get("fight_id", "")))
+        per_fight = _extract_per_fight_stats(str(fighter_id), csv_row) if csv_row else None
         elo_history_response.append({
             "date": item.get("date"),
             "elo": cur_elo,
@@ -242,6 +297,7 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
             "is_title_fight": item.get("is_title_fight", False),
             "event": item.get("event"),
             "breakdown": bd if bd else None,
+            "fight_stats": per_fight,
         })
 
     skill_item = get_skill_score_by_id(fighter_id, division) or {}

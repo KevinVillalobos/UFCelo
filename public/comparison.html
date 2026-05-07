@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparison — UFCelo.gg</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main class="container">
+  <div class="page-header">
+    <h1>Fighter Comparison</h1>
+    <p>Head-to-head ELO + skill analysis, ELO simulator, and Monte Carlo simulation.</p>
+  </div>
+
+  <!-- Fighter selectors -->
+  <div class="form-row" style="align-items:flex-end;flex-wrap:wrap;gap:0.75rem;">
+    <div class="form-group" style="max-width:240px;">
+      <label>Division</label>
+      <select id="div-sel"></select>
+    </div>
+    <div class="form-group">
+      <label>Fighter A</label>
+      <select id="fa-sel"></select>
+    </div>
+    <div class="form-group">
+      <label>Fighter B</label>
+      <select id="fb-sel"></select>
+    </div>
+    <div class="form-group" style="justify-content:flex-end;padding-bottom:0.2rem;">
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:400;white-space:nowrap;">
+        <input type="checkbox" id="alltime-toggle" style="accent-color:var(--red);width:15px;height:15px;">
+        Include retired fighters
+      </label>
+    </div>
+  </div>
+
+  <div id="prob-section"></div>
+  <div id="cards-section"></div>
+  <div id="sil-section"></div>
+  <div id="skill-section"></div>
+  <div id="stats-section"></div>
+  <div id="simulator-section"></div>
+  <div id="montecarlo-section"></div>
+  <div id="how-it-works"></div>
+</main>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="/app.js"></script>
+<script>
+const SKILL_DIMS   = ['Striking','Grappling','Defensa','Consistencia','Finish Rate','Cardio/Durabilidad','Presión'];
+const SKILL_LABELS = ['Striking','Grappling','Defense','Consistency','Finish Rate','Cardio / Durability','Pressure'];
+const SKILL_MAP    = Object.fromEntries(SKILL_DIMS.map((d, i) => [d, SKILL_LABELS[i]]));
+const COLOR_A = '#E8281E';
+const COLOR_B = '#378ADD';
+
+// ── ELO Simulator helpers ────────────────────────────────────────────────────
+const METHOD_WIN_WEIGHTS = {
+  'KO/TKO': {1:1.40, 2:1.25, 3:1.10, 4:1.10, 5:1.10},
+  'SUB':    {1:1.25, 2:1.25, 3:1.10, 4:1.10, 5:1.10},
+  'DEC U':  {3:1.05, 5:1.05},
+  'DEC M':  {3:0.90, 5:0.90},
+  'DEC S':  {3:0.80, 5:0.80},
+};
+const METHOD_LOSS_WEIGHTS = {
+  'KO/TKO': {1:1.40, 2:1.25, 3:1.10, 4:1.10, 5:1.10},
+  'SUB':    {1:1.20, 2:1.20, 3:1.20, 4:1.20, 5:1.20},
+  'DEC U':  {3:1.05, 5:1.05},
+  'DEC M':  {3:0.90, 5:0.90},
+  'DEC S':  {3:0.80, 5:0.80},
+};
+const DIV_K_MULT_SIM = {
+  'heavyweight':1.00,'light heavyweight':0.95,'middleweight':0.90,
+  'welterweight':0.75,'lightweight':0.85,'featherweight':0.85,
+  'bantamweight':0.90,'flyweight':0.90,
+};
+
+function simScenario(sd, winner, method, rnd, isTitle) {
+  const isA = winner === 'a';
+  const winnerElo = isA ? sd.elo_a : sd.elo_b;
+  const loserElo  = isA ? sd.elo_b : sd.elo_a;
+  const kVarW = isA ? sd.k_var_a  : sd.k_var_b;
+  const kVarL = isA ? sd.k_var_b  : sd.k_var_a;
+  const skW   = isA ? sd.streak_a : sd.streak_b;
+  const skL   = isA ? sd.streak_b : sd.streak_a;
+  const fcW   = isA ? sd.fight_count_a : sd.fight_count_b;
+
+  function streakM(s) {
+    if (s >= 8) return 1.35; if (s >= 5) return 1.25; if (s >= 3) return 1.15;
+    if (s <= -8) return 1.55; if (s <= -5) return 1.40; if (s <= -3) return 1.25;
+    return 1.0;
+  }
+  function clm(s) {
+    const c = Math.max(0, -s) + 1;
+    if (c >= 5) return 1.80; if (c >= 4) return 1.60;
+    if (c >= 3) return 1.40; if (c >= 2) return 1.20;
+    return 1.0;
+  }
+
+  const diffClamped = Math.max(-250, Math.min(250, winnerElo - loserElo));
+  const expW = 1.0 / (1.0 + Math.pow(10, -diffClamped / 400));
+  const sm   = streakM(skW);
+  const ww   = (METHOD_WIN_WEIGHTS[method]  || {})[rnd] ?? 1.0;
+  const lw   = (METHOD_LOSS_WEIGHTS[method] || {})[rnd] ?? 1.0;
+  const titleMult = isTitle ? 1.20 : 1.00;
+  const kWin  = 32 * ww * titleMult * sm * kVarW;
+  const kLose = 32 * lw * titleMult * clm(skL) * streakM(skL) * kVarL;
+  let dW = kWin * (1.0 - expW);
+  if (loserElo < 1300 && dW > 8.0) dW = 8.0;
+  dW = Math.max(dW, 1.0);
+  let dL = kLose * (0.0 - expW);
+  dL = Math.max(-80.0, Math.min(dL, -1.0));
+  return {
+    elo_winner_after: (winnerElo + dW).toFixed(1),
+    elo_loser_after:  (loserElo  + dL).toFixed(1),
+    delta_winner: '+' + dW.toFixed(1),
+    delta_loser:  dL.toFixed(1),
+    k_winner: kWin, k_loser: Math.abs(kLose),
+    fight_weight: ww * titleMult,
+    expected_winner: expW,
+    consec_loss_mult: clm(skL),
+    fight_count_winner: fcW,
+  };
+}
+
+// ── Main ─────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  const divSel     = document.getElementById('div-sel');
+  const faSel      = document.getElementById('fa-sel');
+  const fbSel      = document.getElementById('fb-sel');
+  const alltimeChk = document.getElementById('alltime-toggle');
+  let rankingsCache = {};
+  let eloSimData    = null;
+
+  populateDivSelect(divSel);
+
+  async function loadDiv() {
+    const div      = divSel.value;
+    const alltime  = alltimeChk.checked;
+    const cacheKey = div + (alltime ? ':alltime' : '');
+    if (!rankingsCache[cacheKey]) {
+      const endpoint = alltime
+        ? `/rankings/${divSlug(div)}/alltime`
+        : `/rankings/${divSlug(div)}`;
+      try { rankingsCache[cacheKey] = await apiFetch(endpoint); }
+      catch(e) { rankingsCache[cacheKey] = []; }
+    }
+    populateFighterSelect(faSel, rankingsCache[cacheKey]);
+    populateFighterSelect(fbSel, rankingsCache[cacheKey]);
+    if (fbSel.options.length > 1) fbSel.selectedIndex = 1;
+    await compare();
+  }
+
+  function clearAll() {
+    ['prob-section','cards-section','sil-section','skill-section',
+     'stats-section','simulator-section','montecarlo-section','how-it-works']
+      .forEach(id => { document.getElementById(id).innerHTML = ''; });
+  }
+
+  async function compare() {
+    const fa  = faSel.value;
+    const fb  = fbSel.value;
+    const div = divSel.value;
+    const alltime = alltimeChk.checked;
+    const cacheKey = div + (alltime ? ':alltime' : '');
+    if (!fa || !fb || fa === fb) { clearAll(); return; }
+
+    document.getElementById('prob-section').innerHTML =
+      '<div class="loading" style="margin-bottom:1rem;">Loading…</div>';
+
+    let pred;
+    try {
+      pred = await apiFetch(`/predict?fighter_a=${fa}&fighter_b=${fb}&division=${divSlug(div)}`);
+    } catch(e) {
+      document.getElementById('prob-section').innerHTML =
+        `<div class="alert-error">Prediction unavailable: ${e.message}</div>`;
+      ['cards-section','skill-section','stats-section','simulator-section','montecarlo-section','how-it-works']
+        .forEach(id => { document.getElementById(id).innerHTML = ''; });
+      return;
+    }
+
+    const rankings = rankingsCache[cacheKey] || [];
+    const rankA    = rankings.find(f => f.fighter_id === fa);
+    const rankB    = rankings.find(f => f.fighter_id === fb);
+    const faName   = rankA?.fighter_name ?? pred.fighter_a_name ?? fa;
+    const fbName   = rankB?.fighter_name ?? pred.fighter_b_name ?? fb;
+    const eloA     = rankA?.elo ?? 0;
+    const eloB     = rankB?.elo ?? 0;
+
+    try { renderProbSection(pred, faName, fbName); }  catch(e) { console.error('prob:', e); }
+    try { renderCardsSection(pred, faName, fbName, eloA, eloB); } catch(e) { console.error('cards:', e); }
+
+    const [profARes, profBRes, simRes] = await Promise.allSettled([
+      apiFetch(`/fighter/${fa}?division=${divSlug(div)}`),
+      apiFetch(`/fighter/${fb}?division=${divSlug(div)}`),
+      apiFetch(`/simulator-data?fighter_a=${fa}&fighter_b=${fb}&division=${divSlug(div)}`),
+    ]);
+
+    const profA = profARes.status === 'fulfilled' ? profARes.value : null;
+    const profB = profBRes.status === 'fulfilled' ? profBRes.value : null;
+    eloSimData  = simRes.status  === 'fulfilled' ? simRes.value  : null;
+
+    try { renderSilhouetteSection(profA, profB, faName, fbName); }  catch(e) { console.error('sil:', e); }
+    try { renderSkillSection(pred, faName, fbName); }               catch(e) { console.error('skill:', e); }
+    try { renderStatsSection(profA, profB, faName, fbName); }       catch(e) { console.error('stats:', e); }
+    try { renderSimulatorSection(faName, fbName); }                 catch(e) { console.error('sim:', e); }
+    try { renderMonteCarloSection(fa, fb, div, faName, fbName); }   catch(e) { console.error('mc:', e); }
+    try { renderHowItWorks(); }                                     catch(e) { console.error('how:', e); }
+  }
+
+  // ── Silhouette SVG ──────────────────────────────────────────────────────────
+  function makeFigureSVG(cx, feetY, H, R, color, name) {
+    const fill = color + '28';
+    const sw   = Math.max(1.2, H * 0.007);
+    const hr   = H * 0.075;
+    const hcy  = feetY - H + hr;
+    const shY = feetY - H * 0.860, shX  = H * 0.115;
+    const wstY= feetY - H * 0.470, wstX = H * 0.078;
+    const hipY= feetY - H * 0.400, hipX = H * 0.095;
+    const knY = feetY - H * 0.240, knX  = H * 0.070;
+    const anY = feetY - H * 0.055, anX  = H * 0.054;
+    const ftX = H * 0.088;
+    const armH= R / 2;
+    const f   = n => n.toFixed(1);
+    const path = [
+      `M ${f(cx)},${f(shY)}`,
+      `L ${f(cx-shX)},${f(shY)}`,
+      `Q ${f(cx-shX*1.10)},${f(wstY)} ${f(cx-wstX)},${f(wstY)}`,
+      `Q ${f(cx-hipX*1.05)},${f(hipY)} ${f(cx-hipX)},${f(hipY)}`,
+      `L ${f(cx-knX)},${f(knY)} L ${f(cx-anX)},${f(anY)}`,
+      `L ${f(cx-ftX)},${f(feetY)} L ${f(cx+ftX)},${f(feetY)}`,
+      `L ${f(cx+anX)},${f(anY)} L ${f(cx+knX)},${f(knY)}`,
+      `L ${f(cx+hipX)},${f(hipY)}`,
+      `Q ${f(cx+hipX*1.05)},${f(hipY)} ${f(cx+wstX)},${f(wstY)}`,
+      `Q ${f(cx+shX*1.10)},${f(wstY)} ${f(cx+shX)},${f(shY)} Z`,
+    ].join(' ');
+    const nw = H * 0.035;
+    return [
+      `<line x1="${f(cx)}" y1="${f(hcy+hr)}" x2="${f(cx)}" y2="${f(shY)}" stroke="${color}" stroke-width="${f(nw)}" stroke-linecap="round"/>`,
+      `<circle cx="${f(cx)}" cy="${f(hcy)}" r="${f(hr)}" fill="${fill}" stroke="${color}" stroke-width="${f(sw)}"/>`,
+      `<path d="${path}" fill="${fill}" stroke="${color}" stroke-width="${f(sw)}" stroke-linejoin="round"/>`,
+      `<line x1="${f(cx-shX)}" y1="${f(shY)}" x2="${f(cx-armH)}" y2="${f(shY)}" stroke="${color}" stroke-width="${f(H*0.026)}" stroke-linecap="round"/>`,
+      `<line x1="${f(cx+shX)}" y1="${f(shY)}" x2="${f(cx+armH)}" y2="${f(shY)}" stroke="${color}" stroke-width="${f(H*0.026)}" stroke-linecap="round"/>`,
+      name ? `<text x="${f(cx)}" y="${f(feetY+18)}" text-anchor="middle" font-size="12" fill="${color}" font-family="sans-serif" font-weight="700">${name}</text>` : '',
+    ].join('\n  ');
+  }
+
+  function buildComparisonSVG(hA, rA, wA, nameA, hB, rB, wB, nameB) {
+    const BODY_H = 240;
+    const HA = hA || 70, HB = hB || 70;
+    const RA = rA || HA, RB = rB || HB;
+    const scale = BODY_H / Math.max(HA, HB);
+    const HpxA = HA * scale, HpxB = HB * scale;
+    const RpxA = RA * scale, RpxB = RB * scale;
+    const padX = 16, padTop = 28, padBot = 56, gap = 48;
+    const cxA  = padX + RpxA / 2;
+    const cxB  = cxA + RpxA / 2 + gap + RpxB / 2;
+    const svgW = cxB + RpxB / 2 + padX;
+    const feetY= padTop + BODY_H;
+    const svgH = feetY + padBot;
+    const f    = n => n.toFixed(1);
+    const bodyA = makeFigureSVG(cxA, feetY, HpxA, RpxA, COLOR_A, nameA);
+    const bodyB = makeFigureSVG(cxB, feetY, HpxB, RpxB, COLOR_B, nameB);
+    const extras = [];
+    extras.push(`<line x1="${f(cxA-RpxA*0.18)}" y1="${f(feetY-HpxA)}" x2="${f(cxA+RpxA*0.18)}" y2="${f(feetY-HpxA)}" stroke="${COLOR_A}" stroke-width="1" stroke-dasharray="4,3" opacity="0.55"/>`);
+    extras.push(`<line x1="${f(cxB-RpxB*0.18)}" y1="${f(feetY-HpxB)}" x2="${f(cxB+RpxB*0.18)}" y2="${f(feetY-HpxB)}" stroke="${COLOR_B}" stroke-width="1" stroke-dasharray="4,3" opacity="0.55"/>`);
+    const hDiff = Math.abs(HA - HB);
+    if (hDiff >= 0.5) {
+      const taller = HA > HB ? nameA : nameB;
+      const bc = HA > HB ? COLOR_A : COLOR_B;
+      const midX = (cxA + cxB) / 2;
+      extras.push(`<text x="${f(midX)}" y="${f(Math.min(feetY-HpxA,feetY-HpxB)-6)}" text-anchor="middle" font-size="10" fill="${bc}" font-family="sans-serif" font-weight="600">+${Math.round(hDiff)}" height (${taller})</text>`);
+    }
+    const rDiff = RA - RB;
+    if (Math.abs(rDiff) >= 0.5) {
+      const advName  = rDiff > 0 ? nameA : nameB;
+      const advColor = rDiff > 0 ? COLOR_A : COLOR_B;
+      extras.push(`<text x="${f((cxA+cxB)/2)}" y="${f(feetY+36)}" text-anchor="middle" font-size="10" fill="${advColor}" font-family="sans-serif" font-weight="600">+${Math.abs(rDiff).toFixed(0)}" reach (${advName})</text>`);
+    }
+    const ft = i => i ? `${Math.floor(i/12)}'${Math.round(i%12)}"` : '??';
+    extras.push(`<text x="${f(cxA)}" y="${f(svgH-5)}" text-anchor="middle" font-size="9" fill="#777" font-family="monospace">${ft(hA)} · ${RA.toFixed(0)}" reach${wA ? ' · '+wA+' lbs' : ''}</text>`);
+    extras.push(`<text x="${f(cxB)}" y="${f(svgH-5)}" text-anchor="middle" font-size="9" fill="#777" font-family="monospace">${ft(hB)} · ${RB.toFixed(0)}" reach${wB ? ' · '+wB+' lbs' : ''}</text>`);
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${f(svgW)} ${f(svgH)}" width="100%" style="max-height:340px;display:block;">
+  ${bodyA}
+  ${bodyB}
+  ${extras.join('\n  ')}
+</svg>`;
+  }
+
+  function renderSilhouetteSection(profA, profB, faName, fbName) {
+    const el = document.getElementById('sil-section');
+    if (!profA && !profB) { el.innerHTML = ''; return; }
+    const hA = profA?.height_inches, rA = profA?.reach_inches, wA = profA?.weight_lbs;
+    const hB = profB?.height_inches, rB = profB?.reach_inches, wB = profB?.weight_lbs;
+    if (!hA && !hB) { el.innerHTML = ''; return; }
+    el.innerHTML = `<div class="chart-box" style="margin-bottom:1rem;padding:1rem;">${buildComparisonSVG(hA,rA,wA,faName,hB,rB,wB,fbName)}</div>`;
+  }
+
+  // ── Probability section ─────────────────────────────────────────────────────
+  function renderProbSection(pred, faName, fbName) {
+    const pa  = pred.probability_a, pb = pred.probability_b;
+    const win = pa >= pb ? faName : fbName;
+    const winP= Math.max(pa, pb);
+    const keyAdv = SKILL_MAP[pred.key_advantage] || pred.key_advantage || '—';
+    document.getElementById('prob-section').innerHTML = `
+      <div class="chart-box" style="margin-bottom:0.75rem;">
+        <div id="prob-bar" style="height:120px;"></div>
+      </div>
+      <div class="alert-success" style="font-size:1rem;margin-bottom:0.75rem;">
+        <strong>${win}</strong> wins with <strong>${(winP*100).toFixed(1)}%</strong> probability
+        &mdash; predicted method: <strong>${pred.method_prediction || '—'}</strong>
+      </div>
+      <div class="metrics-row" style="margin-bottom:0.75rem;">
+        <div class="metric"><div class="metric-label">Predicted winner</div><div class="metric-value" style="font-size:1rem;">${win}</div></div>
+        <div class="metric"><div class="metric-label">Win probability</div><div class="metric-value">${(winP*100).toFixed(1)}%</div></div>
+        <div class="metric"><div class="metric-label">Predicted method</div><div class="metric-value" style="font-size:1rem;">${pred.method_prediction || '—'}</div></div>
+        <div class="metric"><div class="metric-label">ELO edge (A&minus;B)</div><div class="metric-value">${pred.elo_difference >= 0 ? '+' : ''}${pred.elo_difference != null ? pred.elo_difference.toFixed(0) : '—'}</div></div>
+      </div>
+      <div style="color:var(--muted);font-size:0.85rem;margin-bottom:1.5rem;">
+        Key advantage: <strong style="color:var(--text);">${keyAdv}</strong>
+        &nbsp;&middot;&nbsp; Pure ELO prob: <strong style="color:var(--text);">${pred.elo_probability_a != null ? (pred.elo_probability_a*100).toFixed(1) : '—'}%</strong>
+        &rarr; with skill: <strong style="color:var(--text);">${(pa*100).toFixed(1)}%</strong>
+        &nbsp;&middot;&nbsp; Skill A: <strong style="color:${COLOR_A};">${pred.skill_composite_a != null ? pred.skill_composite_a.toFixed(1) : '—'}</strong>
+        vs B: <strong style="color:${COLOR_B};">${pred.skill_composite_b != null ? pred.skill_composite_b.toFixed(1) : '—'}</strong>
+      </div>`;
+    Plotly.newPlot('prob-bar', [
+      { type:'bar', orientation:'h', x:[pa*100], y:[faName], marker:{color:COLOR_A}, text:[`${(pa*100).toFixed(1)}%`], textposition:'inside', textfont:{color:'#fff',size:14}, name:faName },
+      { type:'bar', orientation:'h', x:[pb*100], y:[fbName], marker:{color:COLOR_B}, text:[`${(pb*100).toFixed(1)}%`], textposition:'inside', textfont:{color:'#fff',size:14}, name:fbName },
+    ], { ...PLOTLY_LAYOUT, barmode:'stack', height:110, xaxis:{range:[0,100],showticklabels:false,showgrid:false}, yaxis:{showgrid:false,tickfont:{size:13}}, margin:{l:10,r:10,t:8,b:8}, showlegend:false },
+    { displayModeBar:false, responsive:true });
+  }
+
+  // ── Fighter cards ───────────────────────────────────────────────────────────
+  function renderCardsSection(pred, faName, fbName, eloA, eloB) {
+    document.getElementById('cards-section').innerHTML = `
+      <div class="grid-2" style="margin-bottom:1rem;">
+        <div class="card">
+          <div style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:${COLOR_A};">${faName}</div>
+          <div style="color:var(--muted);font-size:0.8rem;">ELO</div>
+          <div style="font-size:1.3rem;font-weight:700;color:var(--red);">${eloA ? eloA.toFixed(1) : '—'}</div>
+          <div style="margin-top:0.5rem;color:var(--muted);font-size:0.8rem;">Win probability</div>
+          <div style="font-size:1.3rem;font-weight:700;color:${COLOR_A};">${(pred.probability_a*100).toFixed(1)}%</div>
+          <div style="margin-top:0.5rem;color:var(--muted);font-size:0.8rem;">Skill composite</div>
+          <div style="font-size:1.1rem;font-weight:700;">${pred.skill_composite_a != null ? pred.skill_composite_a.toFixed(1) : '—'}</div>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:${COLOR_B};">${fbName}</div>
+          <div style="color:var(--muted);font-size:0.8rem;">ELO</div>
+          <div style="font-size:1.3rem;font-weight:700;color:var(--red);">${eloB ? eloB.toFixed(1) : '—'}</div>
+          <div style="margin-top:0.5rem;color:var(--muted);font-size:0.8rem;">Win probability</div>
+          <div style="font-size:1.3rem;font-weight:700;color:${COLOR_B};">${(pred.probability_b*100).toFixed(1)}%</div>
+          <div style="margin-top:0.5rem;color:var(--muted);font-size:0.8rem;">Skill composite</div>
+          <div style="font-size:1.1rem;font-weight:700;">${pred.skill_composite_b != null ? pred.skill_composite_b.toFixed(1) : '—'}</div>
+        </div>
+      </div>`;
+  }
+
+  // ── Skill comparison ────────────────────────────────────────────────────────
+  function renderSkillSection(pred, faName, fbName) {
+    const skillA = pred.skill_comparison?.fighter_a || {};
+    const skillB = pred.skill_comparison?.fighter_b || {};
+    if (!Object.keys(skillA).length && !Object.keys(skillB).length) {
+      document.getElementById('skill-section').innerHTML = ''; return;
+    }
+    const valsA = SKILL_DIMS.map(d => skillA[d] ?? 50);
+    const valsB = SKILL_DIMS.map(d => skillB[d] ?? 50);
+    document.getElementById('skill-section').innerHTML = `
+      <hr class="divider">
+      <h2 style="margin-bottom:0.75rem;">Skill Comparison</h2>
+      <div class="grid-2" style="margin-bottom:1rem;">
+        <div class="chart-box"><div id="skill-radar" style="height:320px;"></div></div>
+        <div class="card" style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+            <thead><tr>
+              <th style="text-align:left;padding:4px 8px;color:var(--muted);font-weight:600;">Dimension</th>
+              <th style="text-align:right;padding:4px 8px;color:${COLOR_A};">${faName}</th>
+              <th style="text-align:right;padding:4px 8px;color:${COLOR_B};">${fbName}</th>
+              <th style="text-align:right;padding:4px 8px;color:var(--muted);">&Delta;</th>
+              <th style="text-align:left;padding:4px 8px;color:var(--muted);">Edge</th>
+            </tr></thead>
+            <tbody id="skill-table-body"></tbody>
+          </table>
+        </div>
+      </div>`;
+    Plotly.newPlot('skill-radar', [
+      { type:'scatterpolar', r:[...valsA,valsA[0]], theta:[...SKILL_LABELS,SKILL_LABELS[0]], fill:'toself', fillcolor:'rgba(232,40,30,0.18)', line:{color:COLOR_A,width:2}, name:faName },
+      { type:'scatterpolar', r:[...valsB,valsB[0]], theta:[...SKILL_LABELS,SKILL_LABELS[0]], fill:'toself', fillcolor:'rgba(55,138,221,0.18)',  line:{color:COLOR_B,width:2}, name:fbName },
+    ], { ...PLOTLY_LAYOUT, polar:{bgcolor:'rgba(0,0,0,0)',radialaxis:{range:[0,100],showticklabels:true,tickfont:{size:8},gridcolor:'#333'},angularaxis:{gridcolor:'#333'}}, height:300, margin:{l:55,r:55,t:20,b:20}, legend:{orientation:'h',y:-0.05,x:0.5,xanchor:'center',font:{size:11},bgcolor:'rgba(0,0,0,0)'}, showlegend:true },
+    { displayModeBar:false, responsive:true });
+    const advData = SKILL_DIMS.map((d,i) => ({ label:SKILL_LABELS[i], a:skillA[d]??50, b:skillB[d]??50, diff:(skillA[d]??50)-(skillB[d]??50) }));
+    advData.sort((x,y) => x.diff - y.diff);
+    document.getElementById('skill-table-body').innerHTML = advData.map(row => {
+      const color = row.diff > 0 ? COLOR_A : row.diff < 0 ? COLOR_B : 'var(--muted)';
+      const edge  = row.diff > 0 ? faName  : row.diff < 0 ? fbName  : '—';
+      return `<tr style="border-top:1px solid var(--border);">
+        <td style="padding:5px 8px;">${row.label}</td>
+        <td style="text-align:right;padding:5px 8px;color:${COLOR_A};">${row.a.toFixed(1)}</td>
+        <td style="text-align:right;padding:5px 8px;color:${COLOR_B};">${row.b.toFixed(1)}</td>
+        <td style="text-align:right;padding:5px 8px;color:${color};font-weight:700;">${row.diff>=0?'+':''}${row.diff.toFixed(1)}</td>
+        <td style="padding:5px 8px;color:${color};font-size:0.8rem;">${edge}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // ── Fight stats comparison ──────────────────────────────────────────────────
+  function renderStatsSection(profA, profB, faName, fbName) {
+    const fsA = profA?.fight_stats, fsB = profB?.fight_stats;
+    if (!fsA || !fsB) { document.getElementById('stats-section').innerHTML = ''; return; }
+    document.getElementById('stats-section').innerHTML = `
+      <hr class="divider">
+      <h2 style="margin-bottom:0.75rem;">Fight Statistics Comparison</h2>
+      <div class="grid-2" style="margin-bottom:1rem;">
+        <div class="chart-box"><div id="method-chart" style="height:220px;"></div></div>
+        <div class="chart-box"><div id="target-chart" style="height:220px;"></div></div>
+      </div>
+      <div class="grid-2" style="margin-bottom:1rem;">
+        <div class="chart-box"><div id="striking-chart" style="height:220px;"></div></div>
+        <div class="chart-box"><div id="grappling-chart" style="height:220px;"></div></div>
+      </div>
+      <div class="grid-2" style="margin-bottom:1rem;">
+        <div class="card"><h3 style="margin-bottom:0.5rem;font-size:0.95rem;">KD / fight</h3>
+          <div style="display:flex;gap:2rem;font-size:0.9rem;align-items:flex-end;">
+            <div><span style="color:${COLOR_A};font-size:0.8rem;">${faName}</span><br><strong style="color:${COLOR_A};font-size:1.4rem;">${fsA.knockdowns_per_fight!=null?fsA.knockdowns_per_fight.toFixed(2):'—'}</strong></div>
+            <div style="color:var(--muted);font-size:1.2rem;padding-bottom:2px;">vs</div>
+            <div><span style="color:${COLOR_B};font-size:0.8rem;">${fbName}</span><br><strong style="color:${COLOR_B};font-size:1.4rem;">${fsB.knockdowns_per_fight!=null?fsB.knockdowns_per_fight.toFixed(2):'—'}</strong></div>
+          </div></div>
+        <div class="card"><h3 style="margin-bottom:0.5rem;font-size:0.95rem;">Sub attempts / fight</h3>
+          <div style="display:flex;gap:2rem;font-size:0.9rem;align-items:flex-end;">
+            <div><span style="color:${COLOR_A};font-size:0.8rem;">${faName}</span><br><strong style="color:${COLOR_A};font-size:1.4rem;">${fsA.sub_attempts_per_fight!=null?fsA.sub_attempts_per_fight.toFixed(2):'—'}</strong></div>
+            <div style="color:var(--muted);font-size:1.2rem;padding-bottom:2px;">vs</div>
+            <div><span style="color:${COLOR_B};font-size:0.8rem;">${fbName}</span><br><strong style="color:${COLOR_B};font-size:1.4rem;">${fsB.sub_attempts_per_fight!=null?fsB.sub_attempts_per_fight.toFixed(2):'—'}</strong></div>
+          </div></div>
+      </div>`;
+    const bl = t => ({ ...PLOTLY_LAYOUT, barmode:'group', height:200, title:{text:t,font:{color:'#F0F2F6',size:12}}, xaxis:{showgrid:false,showticklabels:false}, yaxis:{showgrid:false}, legend:{orientation:'h',y:-0.18,x:0.5,xanchor:'center',font:{size:10},bgcolor:'rgba(0,0,0,0)'}, margin:{l:10,r:65,t:40,b:30} });
+    const methods = ['KO/TKO','SUB','DEC'];
+    const twA = Math.max(Object.values(fsA.wins||{}).reduce((a,b)=>a+b,0),1);
+    const twB = Math.max(Object.values(fsB.wins||{}).reduce((a,b)=>a+b,0),1);
+    Plotly.newPlot('method-chart', [
+      { name:faName, x:methods, y:methods.map(m=>(fsA.wins?.[m]??0)/twA*100), type:'bar', marker:{color:COLOR_A}, text:methods.map(m=>`${((fsA.wins?.[m]??0)/twA*100).toFixed(0)}%`), textposition:'outside', textfont:{size:11} },
+      { name:fbName, x:methods, y:methods.map(m=>(fsB.wins?.[m]??0)/twB*100), type:'bar', marker:{color:COLOR_B}, text:methods.map(m=>`${((fsB.wins?.[m]??0)/twB*100).toFixed(0)}%`), textposition:'outside', textfont:{size:11} },
+    ], bl('Win methods (%)'), { displayModeBar:false, responsive:true });
+    Plotly.newPlot('target-chart',
+      [['Head','head_pct','#c04030'],['Body','body_pct','#409040'],['Leg','leg_pct','#6060c0']].map(([n,k,c]) => ({
+        name:n, y:[faName,fbName], x:[(fsA[k]??0)*100,(fsB[k]??0)*100], type:'bar', orientation:'h', marker:{color:c},
+        text:[`${((fsA[k]??0)*100).toFixed(0)}%`,`${((fsB[k]??0)*100).toFixed(0)}%`], textposition:'outside', textfont:{size:11},
+      })),
+      { ...bl('Strike target (%)'), xaxis:{range:[0,100],showticklabels:false,showgrid:false}, yaxis:{showgrid:false}, margin:{l:10,r:55,t:40,b:30} },
+      { displayModeBar:false, responsive:true }
+    );
+    const sm = [
+      { label:'Sig.str/min', vA:fsA.sig_strikes_per_min??0, vB:fsB.sig_strikes_per_min??0, fmt:v=>v.toFixed(2) },
+      { label:'Accuracy',    vA:fsA.strike_accuracy??0,     vB:fsB.strike_accuracy??0,     fmt:v=>`${(v*100).toFixed(0)}%` },
+      { label:'Defense',     vA:fsA.strike_defense??0,      vB:fsB.strike_defense??0,      fmt:v=>`${(v*100).toFixed(0)}%` },
+    ];
+    const gm = [
+      { label:'TD/min',      vA:fsA.td_per_min??0,   vB:fsB.td_per_min??0,   fmt:v=>v.toFixed(2) },
+      { label:'TD accuracy', vA:fsA.td_accuracy??0,  vB:fsB.td_accuracy??0,  fmt:v=>`${(v*100).toFixed(0)}%` },
+      { label:'TD defense',  vA:fsA.td_defense??0,   vB:fsB.td_defense??0,   fmt:v=>`${(v*100).toFixed(0)}%` },
+      { label:'Ctrl %',      vA:fsA.ctrl_pct??0,     vB:fsB.ctrl_pct??0,     fmt:v=>`${(v*100).toFixed(0)}%` },
+    ];
+    for (const [id, metrics, title] of [['striking-chart',sm,'Striking'],['grappling-chart',gm,'Grappling']]) {
+      Plotly.newPlot(id, [
+        { name:faName, y:metrics.map(m=>m.label), x:metrics.map(m=>m.vA), type:'bar', orientation:'h', marker:{color:COLOR_A}, text:metrics.map(m=>m.fmt(m.vA)), textposition:'outside', textfont:{size:11} },
+        { name:fbName, y:metrics.map(m=>m.label), x:metrics.map(m=>m.vB), type:'bar', orientation:'h', marker:{color:COLOR_B}, text:metrics.map(m=>m.fmt(m.vB)), textposition:'outside', textfont:{size:11} },
+      ], { ...bl(title), xaxis:{showgrid:false,showticklabels:false}, yaxis:{showgrid:false} }, { displayModeBar:false, responsive:true });
+    }
+  }
+
+  // ── ELO Simulator ───────────────────────────────────────────────────────────
+  function renderSimulatorSection(faName, fbName) {
+    document.getElementById('simulator-section').innerHTML = `
+      <hr class="divider">
+      <h2 style="margin-bottom:0.25rem;">ELO Simulator</h2>
+      <p style="color:var(--muted);font-size:0.85rem;margin-bottom:1rem;">Exact ELO delta for any outcome — same formula as the ranking engine.</p>
+      <div class="form-row" style="margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem;">
+        <div class="form-group" style="max-width:160px;"><label>Method</label>
+          <select id="sim-method"><option>KO/TKO</option><option>SUB</option><option>DEC U</option><option>DEC M</option><option>DEC S</option></select></div>
+        <div class="form-group" style="max-width:120px;"><label>Round</label>
+          <select id="sim-round"><option>1</option><option>2</option><option value="3" selected>3</option><option>4</option><option>5</option></select></div>
+        <div class="form-group" style="max-width:140px;justify-content:flex-end;padding-top:1.4rem;">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:400;">
+            <input type="checkbox" id="sim-title" style="accent-color:var(--red);width:16px;height:16px;"> Title fight
+          </label></div>
+      </div>
+      <div id="sim-results" class="grid-2"></div>`;
+
+    function updateSim() {
+      if (!eloSimData) { document.getElementById('sim-results').innerHTML = '<div class="alert-error" style="grid-column:1/-1;">Simulator data unavailable.</div>'; return; }
+      const method  = document.getElementById('sim-method').value;
+      const rnd     = parseInt(document.getElementById('sim-round').value, 10);
+      const isTitle = document.getElementById('sim-title').checked;
+      const scA = simScenario(eloSimData, 'a', method, rnd, isTitle);
+      const scB = simScenario(eloSimData, 'b', method, rnd, isTitle);
+      function card(sc, wName, lName, wColor) {
+        const exp = sc.expected_winner;
+        let note = exp < 0.45 ? `Upset — ${wName} was the underdog (${(exp*100).toFixed(0)}% expected).`
+                 : exp > 0.70 ? `Expected result — ${wName} was heavily favored (${(exp*100).toFixed(0)}%).`
+                 : '';
+        if (!method.startsWith('DEC') && rnd === 1) note += (note?' ':'') + 'First-round finish: maximum method weight.';
+        const clmNote = sc.consec_loss_mult > 1.0 ? `&nbsp;&middot;&nbsp; CLM: <strong>${sc.consec_loss_mult}&times;</strong>` : '';
+        return `<div class="card">
+          <div style="color:${wColor};font-size:1rem;font-weight:700;margin-bottom:0.75rem;">${wName} wins</div>
+          <div style="display:flex;gap:1.5rem;margin-bottom:0.75rem;flex-wrap:wrap;">
+            <div><div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;">${wName} ELO</div>
+              <div style="font-size:1.15rem;font-weight:700;">${sc.elo_winner_after} <span style="color:var(--green);font-size:0.85rem;">${sc.delta_winner}</span></div></div>
+            <div><div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;">${lName} ELO</div>
+              <div style="font-size:1.15rem;font-weight:700;">${sc.elo_loser_after} <span style="color:var(--red);font-size:0.85rem;">${sc.delta_loser}</span></div></div>
+          </div>
+          <div style="font-size:0.78rem;color:var(--muted);line-height:1.7;">Win prob: <strong>${(exp*100).toFixed(1)}%</strong> &middot; K win: <strong>${sc.k_winner.toFixed(1)}</strong> &middot; K lose: <strong>${sc.k_loser.toFixed(1)}</strong> &middot; Method wt: <strong>${sc.fight_weight.toFixed(3)}</strong>${clmNote}</div>
+          ${note ? `<div style="margin-top:0.5rem;font-size:0.8rem;color:var(--muted);font-style:italic;">${note}</div>` : ''}
+        </div>`;
+      }
+      document.getElementById('sim-results').innerHTML = card(scA,faName,fbName,COLOR_A) + card(scB,fbName,faName,COLOR_B);
+    }
+    ['sim-method','sim-round','sim-title'].forEach(id => document.getElementById(id).addEventListener('change', updateSim));
+    updateSim();
+  }
+
+  // ── Monte Carlo Simulation ──────────────────────────────────────────────────
+  function renderMonteCarloSection(fa, fb, div, faName, fbName) {
+    document.getElementById('montecarlo-section').innerHTML = `
+      <hr class="divider">
+      <h2 style="margin-bottom:0.25rem;">Monte Carlo Simulation</h2>
+      <p style="color:var(--muted);font-size:0.85rem;margin-bottom:1rem;">Runs thousands of randomized fight outcomes to show the result distribution.</p>
+      <div class="form-row" style="flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;">
+        <div class="form-group" style="max-width:280px;"><label>Simulations: <span id="mc-val">1000</span></label>
+          <input type="range" id="mc-count" min="100" max="10000" step="100" value="1000"></div>
+        <div class="form-group" style="max-width:140px;"><label>Rounds</label>
+          <select id="mc-rounds"><option value="3">3 rounds</option><option value="5">5 rounds</option></select></div>
+        <div class="form-group" style="max-width:120px;"><label>Seed (opt.)</label>
+          <input type="number" id="mc-seed" min="0" placeholder="random"></div>
+        <div class="form-group" style="max-width:160px;justify-content:flex-end;">
+          <button class="btn-primary" id="mc-run" style="margin-top:1.4rem;">&#9654; Run Simulation</button>
+        </div>
+      </div>
+      <div id="mc-results"></div>`;
+
+    document.getElementById('mc-count').addEventListener('input', () => {
+      document.getElementById('mc-val').textContent = document.getElementById('mc-count').value;
+    });
+
+    async function runMC() {
+      const n      = parseInt(document.getElementById('mc-count').value);
+      const rounds = document.getElementById('mc-rounds').value;
+      const seed   = document.getElementById('mc-seed').value;
+      const runBtn = document.getElementById('mc-run');
+      runBtn.disabled = true; runBtn.textContent = 'Simulating…';
+      document.getElementById('mc-results').innerHTML = '<div class="loading">Running simulation…</div>';
+      try {
+        const seedParam = seed ? `&seed=${seed}` : '';
+        const r = await apiFetch(`/simulate?fighter_a=${fa}&fighter_b=${fb}&division=${divSlug(div)}&simulations=${n}&rounds=${rounds}${seedParam}`);
+        const aWins = r.fighter_a_wins, bWins = r.fighter_b_wins;
+        const pa = r.probability_a, pb = r.probability_b;
+        document.getElementById('mc-results').innerHTML = `
+          <div style="margin-bottom:0.75rem;font-size:1.1rem;font-weight:700;">${r.most_likely_outcome || '—'}</div>
+          <div class="metrics-row" style="margin-bottom:1rem;">
+            <div class="metric"><div class="metric-label">${faName} wins</div><div class="metric-value">${aWins.toLocaleString()}</div><div class="metric-delta pos">${(pa*100).toFixed(1)}%</div></div>
+            <div class="metric"><div class="metric-label">${fbName} wins</div><div class="metric-value">${bWins.toLocaleString()}</div><div class="metric-delta pos">${(pb*100).toFixed(1)}%</div></div>
+            <div class="metric"><div class="metric-label">Total sims</div><div class="metric-value">${(aWins+bWins).toLocaleString()}</div></div>
+          </div>
+          <div class="grid-2" style="margin-bottom:1rem;">
+            <div class="chart-box"><div id="mc-donut" style="height:280px;"></div></div>
+            <div class="chart-box"><div id="mc-method" style="height:280px;"></div></div>
+          </div>
+          <div id="mc-rounds-charts" class="grid-2"></div>`;
+
+        Plotly.newPlot('mc-donut', [{ labels:[faName,fbName], values:[aWins,bWins], type:'pie', hole:0.55, marker:{colors:[COLOR_A,COLOR_B]}, textinfo:'label+percent', textfont:{size:12} }],
+          { ...PLOTLY_LAYOUT, height:260, margin:{l:0,r:0,t:20,b:0}, showlegend:false, title:{text:'Win distribution',font:{color:'#F0F2F6',size:12}} }, { displayModeBar:false, responsive:true });
+
+        const mb = r.method_breakdown || {};
+        const methods = ['KO/TKO','SUB','DEC'];
+        Plotly.newPlot('mc-method', [
+          { name:faName, x:methods, y:methods.map(m=>(mb.fighter_a?.[m]??0)*aWins), type:'bar', marker:{color:COLOR_A}, text:methods.map(m=>((mb.fighter_a?.[m]??0)*aWins).toFixed(0)), textposition:'auto' },
+          { name:fbName, x:methods, y:methods.map(m=>(mb.fighter_b?.[m]??0)*bWins), type:'bar', marker:{color:COLOR_B}, text:methods.map(m=>((mb.fighter_b?.[m]??0)*bWins).toFixed(0)), textposition:'auto' },
+        ], { ...PLOTLY_LAYOUT, barmode:'group', height:260, title:{text:'By method',font:{color:'#F0F2F6',size:12}}, yaxis:{showgrid:true,gridcolor:'#2d3250',title:'wins'}, xaxis:{showgrid:false}, legend:{orientation:'h',y:-0.2,x:0.5,xanchor:'center'}, margin:{l:40,r:10,t:40,b:60} }, { displayModeBar:false, responsive:true });
+
+        const rd = r.round_distribution || {};
+        const rdEntries = Object.entries(rd);
+        if (rdEntries.length) {
+          const container = document.getElementById('mc-rounds-charts');
+          container.innerHTML = '';
+          rdEntries.forEach(([method, rndData]) => {
+            const divId = `rd-${method.replace('/','_')}`;
+            container.insertAdjacentHTML('beforeend', `<div class="chart-box"><div id="${divId}" style="height:200px;"></div></div>`);
+            const sortedRounds = Object.keys(rndData).sort((a,b)=>+a-+b);
+            Plotly.newPlot(divId, [{ x:sortedRounds.map(r=>'R'+r), y:sortedRounds.map(r=>rndData[r]*100), type:'bar', marker:{color:method==='KO/TKO'?COLOR_A:'#44AA88'}, text:sortedRounds.map(r=>`${(rndData[r]*100).toFixed(0)}%`), textposition:'auto' }],
+              { ...PLOTLY_LAYOUT, height:180, title:{text:method,font:{color:'#F0F2F6',size:12}}, yaxis:{showgrid:false,showticklabels:false}, xaxis:{showgrid:false}, margin:{l:10,r:10,t:40,b:30} }, { displayModeBar:false, responsive:true });
+          });
+        }
+      } catch(e) {
+        document.getElementById('mc-results').innerHTML = `<div class="alert-error">Simulation failed: ${e.message}</div>`;
+      } finally {
+        const btn = document.getElementById('mc-run');
+        if (btn) { btn.disabled = false; btn.textContent = '▶ Run Simulation'; }
+      }
+    }
+    document.getElementById('mc-run').addEventListener('click', runMC);
+  }
+
+  // ── How it works ─────────────────────────────────────────────────────────────
+  function renderHowItWorks() {
+    document.getElementById('how-it-works').innerHTML = `
+      <hr class="divider">
+      <details style="margin-bottom:2rem;">
+        <summary style="cursor:pointer;font-size:1rem;font-weight:700;padding:0.5rem 0;list-style:none;display:flex;align-items:center;gap:0.5rem;user-select:none;">
+          <span id="how-arrow">&#9658;</span> How the model works
+        </summary>
+        <div style="padding:1rem;background:var(--surface);border-radius:8px;margin-top:0.5rem;font-size:0.875rem;line-height:1.7;color:var(--muted);">
+          <p><strong style="color:var(--text);">1. ELO probability</strong><br>
+          P(A wins) = 1 / (1 + 10<sup>((ELO_B &minus; ELO_A) / 400)</sup>). A 200-point gap gives ~76% win probability.</p>
+          <p><strong style="color:var(--text);">2. Skill composite</strong><br>
+          7 dimensions scored 0&ndash;100. Composite = 0.20&times;Striking + 0.15&times;Grappling + 0.20&times;Defense + 0.15&times;Consistency + 0.10&times;Finish Rate + 0.10&times;Cardio + 0.10&times;Pressure.</p>
+          <p><strong style="color:var(--text);">3. Blended probability</strong><br>
+          P_final = P_elo + (composite_A &minus; composite_B)/100 &times; 0.10 — skill can shift pure ELO probability by up to &plusmn;10%.</p>
+          <p><strong style="color:var(--text);">4. Monte Carlo</strong><br>
+          Each trial: winner drawn from P_final, method from weighted KO/SUB/DEC draw based on skills, round from method-specific distribution. Run N&times; to get distributions.</p>
+        </div>
+      </details>`;
+    const details = document.querySelector('#how-it-works details');
+    const arrow   = document.getElementById('how-arrow');
+    details.addEventListener('toggle', () => { arrow.innerHTML = details.open ? '&#9660;' : '&#9658;'; });
+  }
+
+  divSel.addEventListener('change', loadDiv);
+  faSel.addEventListener('change', compare);
+  fbSel.addEventListener('change', compare);
+  alltimeChk.addEventListener('change', loadDiv);
+  await loadDiv();
+});
+</script>
+</body>
+</html>
