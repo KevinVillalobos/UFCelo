@@ -563,22 +563,46 @@ document.addEventListener('DOMContentLoaded', async () => {
     // ── Fight statistics ─────────────────────────────────────────────────────
     try {
       const fs = p.fight_stats;
-      if (fs) {
-        const hmSvg = (fs.head_pct != null && fs.body_pct != null && fs.leg_pct != null)
-          ? buildHeatmapSVG(fs.head_pct, fs.body_pct, fs.leg_pct, p.fighter_name)
-          : '';
+      const hasPhysique = p.height_inches || p.reach_inches;
 
-        const legendHtml = `
-          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:0.75rem;font-size:0.75rem;">
-            <span><span style="display:inline-block;width:10px;height:10px;background:#22c55e;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Low (&lt;20%)</span>
-            <span><span style="display:inline-block;width:10px;height:10px;background:#f59e0b;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Medium (20-40%)</span>
-            <span><span style="display:inline-block;width:10px;height:10px;background:#ef4444;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>High (&gt;40%)</span>
+      const hmSvg = (fs && fs.head_pct != null && fs.body_pct != null && fs.leg_pct != null)
+        ? buildHeatmapSVG(fs.head_pct, fs.body_pct, fs.leg_pct, p.fighter_name)
+        : '';
+
+      const legendHtml = `
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:0.75rem;font-size:0.75rem;">
+          <span><span style="display:inline-block;width:10px;height:10px;background:#22c55e;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Low (&lt;20%)</span>
+          <span><span style="display:inline-block;width:10px;height:10px;background:#f59e0b;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Medium (20-40%)</span>
+          <span><span style="display:inline-block;width:10px;height:10px;background:#ef4444;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>High (&gt;40%)</span>
+        </div>`;
+
+      let statsHtml = '<hr class="divider"><h2 style="margin-bottom:1rem;">Fight Statistics</h2>';
+
+      // Physique silhouette — always show if data exists, regardless of CSV stats
+      if (hasPhysique || hmSvg) {
+        statsHtml += `<div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.25rem;">`;
+        if (hasPhysique) {
+          statsHtml += `
+          <div class="card" style="max-width:200px;flex:0 0 auto;">
+            <h3 style="margin-bottom:0.5rem;">Physique</h3>
+            ${buildSingleSilhouette(p.height_inches, p.reach_inches, p.weight_lbs)}
           </div>`;
+        }
+        if (hmSvg) {
+          statsHtml += `
+          <div class="card" style="max-width:200px;flex:0 0 auto;">
+            <h3 style="margin-bottom:0.5rem;">Strike zones</h3>
+            <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem;">Where significant strikes land.</p>
+            ${hmSvg}${legendHtml}
+          </div>`;
+        }
+        statsHtml += `</div>`;
+      }
 
-        document.getElementById('stats-section').innerHTML = `
-          <hr class="divider">
-          <h2 style="margin-bottom:1rem;">Fight Statistics</h2>
-          <div class="grid-2" style="margin-bottom:1rem;">
+      // Detailed stat bars — only when CSV aggregate stats are available
+      if (fs) {
+        statsHtml += `
+          <div class="grid-2">
             <div class="card">
               <h3 style="margin-bottom:0.75rem;">Striking</h3>
               ${statBar('Sig. strikes / min', fs.sig_strikes_per_min, 10,  ORANGE, true)}
@@ -601,25 +625,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 Sub att / fight: <strong style="color:var(--text);">${fs.sub_attempts_per_fight != null ? fs.sub_attempts_per_fight.toFixed(2) : '—'}</strong>
               </div>
             </div>
-          </div>
-          <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:0.5rem;">
-            ${p.height_inches || p.reach_inches ? `
-            <div class="card" style="max-width:200px;flex:0 0 auto;">
-              <h3 style="margin-bottom:0.5rem;">Physique</h3>
-              ${buildSingleSilhouette(p.height_inches, p.reach_inches, p.weight_lbs)}
-            </div>` : ''}
-            ${hmSvg ? `
-            <div class="card" style="max-width:200px;flex:0 0 auto;">
-              <h3 style="margin-bottom:0.5rem;">Strike zones</h3>
-              <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem;">Where significant strikes land.</p>
-              ${hmSvg}
-              ${legendHtml}
-            </div>` : ''}
           </div>`;
-      } else {
-        document.getElementById('stats-section').innerHTML = `
-          <hr class="divider">
-          <div style="color:var(--muted);font-size:0.85rem;">No detailed fight statistics available for this fighter.</div>`;
+      }
+
+      if (hasPhysique || hmSvg || fs) {
+        document.getElementById('stats-section').innerHTML = statsHtml;
       }
     } catch(e) { console.error('stats section:', e); }
   }

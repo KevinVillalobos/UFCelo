@@ -11,6 +11,7 @@ ENV/
 
 # Large generated data files (re-created by scraper + engine)
 data/*.csv
+!data/fights_*.csv
 
 # Cache/simulation output (regeneratable)
 data/simulation_*.json
