@@ -70,8 +70,17 @@ def _extract_per_fight_stats(fighter_id: str, row: dict) -> Optional[dict]:
         "sub_attempts":          iv(f"{px}_submission_attempts"),
         "opp_strikes_landed":    iv(f"{ox}_strikes_landed"),
         "opp_strikes_attempted": iv(f"{ox}_strikes_attempted"),
+        "opp_head_landed":       iv(f"{ox}_head_strikes_landed"),
+        "opp_head_attempted":    iv(f"{ox}_head_strikes_attempted"),
+        "opp_body_landed":       iv(f"{ox}_body_strikes_landed"),
+        "opp_body_attempted":    iv(f"{ox}_body_strikes_attempted"),
+        "opp_leg_landed":        iv(f"{ox}_leg_strikes_landed"),
+        "opp_leg_attempted":     iv(f"{ox}_leg_strikes_attempted"),
         "opp_td_landed":         iv(f"{ox}_takedowns_landed"),
+        "opp_td_attempted":      iv(f"{ox}_takedowns_attempted"),
         "opp_knockdowns":        iv(f"{ox}_knockdowns"),
+        "opp_control_seconds":   ctrl_secs(row.get(f"{ox}_control_time", "")),
+        "opp_sub_attempts":      iv(f"{ox}_submission_attempts"),
     }
 
 

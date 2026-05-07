@@ -35,8 +35,8 @@ ufcstats.com
 scraper/scraper.py
      │  (per division)
      ▼
-data/fights_{division}.csv          ← fight records + per-fight stats
-data/fighters_{division}.json       ← fighter profiles (bio, record)
+data/fights_{division}.csv          ← fight records + per-fight stats (both fighters)
+data/fighters_{division}.json       ← fighter profiles (bio, record, physique)
      │
      ▼
 models/elo_engine.py
@@ -52,17 +52,11 @@ models/validate.py
      └─► data/validation_report_{division}.json
      │
      ▼
-scripts/generate_simulations.py
-     ├─► data/simulation_{division}_top5.json
-     ├─► data/matchmaking_{division}.json
-     └─► data/matchmaking_all_divisions.json
-     │
-     ▼
 backend/                              ← FastAPI application
   main.py          ← REST API endpoints + visit counter (Vercel KV)
   data_loader.py   ← JSON/CSV file access layer
-  services.py      ← rankings, prediction, simulation, matchmaking logic
-  stats.py         ← per-fighter fight statistics aggregation
+  services.py      ← rankings, prediction, simulation, matchmaking, per-fight stats
+  stats.py         ← career aggregate fight statistics (strikes, TDs, control)
   schemas.py       ← Pydantic v2 response models
      │
      ▼
@@ -70,15 +64,14 @@ api/index.py                          ← Vercel serverless entrypoint (ASGI wra
      │
      ▼
 public/                               ← Static HTML/CSS/JS frontend
-  index.html       ← Home: division cards + quick predictor
-  rankings.html    ← Full ELO table per division
-  fighter.html     ← Fighter profile: ELO history, stats, skill breakdown
-  predict.html     ← Head-to-head prediction + ELO simulator
-  simulate.html    ← Monte Carlo fight simulation
-  matchmaking.html ← Best matchups by competitiveness + style contrast
-  p4p.html         ← Pound-for-pound rankings (current + historical)
-  app.js           ← Shared nav, visit counter, API helpers
-  style.css        ← Global dark theme CSS
+  index.html        ← Home: division cards + quick predictor
+  rankings.html     ← Full ELO table per division
+  fighter.html      ← Fighter profile: ELO history, stats, skill breakdown, per-fight stats
+  comparison.html   ← Head-to-head comparison + ELO simulator + Monte Carlo simulation
+  matchmaking.html  ← Best matchups by competitiveness + style contrast
+  p4p.html          ← Pound-for-pound rankings (current + historical)
+  app.js            ← Shared nav (with mobile hamburger), API helpers, visit counter
+  style.css         ← Global dark theme + fully responsive CSS
 ```
 
 ---
@@ -113,29 +106,17 @@ pip install fastapi uvicorn python-dateutil requests beautifulsoup4
 # 1. Scrape
 python scraper/scraper.py --division heavyweight --output data
 python scraper/scraper.py --division "light heavyweight" --output data
-python scraper/scraper.py --division middleweight --output data
-python scraper/scraper.py --division welterweight --output data
-python scraper/scraper.py --division lightweight --output data
-python scraper/scraper.py --division featherweight --output data
-python scraper/scraper.py --division bantamweight --output data
-python scraper/scraper.py --division flyweight --output data
+# ... (all 8 divisions)
 
-# 2. Run ELO engine (repeat for each division)
+# 2. Run ELO engine
 python models/elo_engine.py --division heavyweight --output data
-python models/elo_engine.py --division "light heavyweight" --output data
 # ... (all 8 divisions)
 
 # 3. Validate (optional)
 python -m models.validate --division heavyweight
 
-# 4. Pre-generate simulations and matchmaking
-python scripts/generate_simulations.py
-
-# 5. Run backend locally
+# 4. Run backend locally
 uvicorn backend.main:app --reload
-
-# 6. Open frontend
-# Navigate to http://localhost:8000 or open public/index.html
 ```
 
 Scraper logs: `data/scrape_{division}.log` / `data/scrape_{division}_err.log`.
@@ -213,15 +194,17 @@ Detected from the individual fight detail page via CSS selector `.b-fight-detail
 
 ### CSV Output
 
-`data/fights_{division}.csv` — 35 columns:
+`data/fights_{division}.csv` — 42 columns:
 
 | Column group | Columns |
 |---|---|
 | Event metadata | `fight_id`, `event_id`, `event_name`, `event_date` |
 | Fighters | `fighter_a_id`, `fighter_a_name`, `fighter_b_id`, `fighter_b_name` |
 | Result | `winner_id`, `method`, `round`, `time`, `weight_class`, `is_title_fight` |
-| Fighter A stats | `a_strikes_landed/attempted`, `a_head/body/leg_strikes_landed/attempted`, `a_td_landed/attempted`, `a_knockdowns`, `a_control_time`, `a_sub_attempts`, `a_reversals` |
-| Fighter B stats | (same 14 columns, `b_` prefix) |
+| Fighter A stats | `fighter_a_strikes_landed/attempted`, `fighter_a_head/body/leg_strikes_landed/attempted`, `fighter_a_takedowns_landed/attempted`, `fighter_a_knockdowns`, `fighter_a_control_time`, `fighter_a_submission_attempts`, `fighter_a_reversals` |
+| Fighter B stats | (same 14 columns, `fighter_b_` prefix) |
+
+**Note:** Column prefix is `fighter_a_` / `fighter_b_` (full prefix), not `a_` / `b_`. This matters for the backend's `_extract_per_fight_stats` function which explicitly uses `fighter_a_`/`fighter_b_` when building column names.
 
 ---
 
@@ -576,15 +559,15 @@ All endpoints are prefixed `/api/` in production (e.g., `/api/rankings/heavyweig
 |--------|------|-------------|
 | `GET` | `/rankings/{division}` | Active ELO rankings for a division |
 | `GET` | `/rankings/{division}/alltime` | All-time rankings sorted by peak ELO |
-| `GET` | `/fighter/{fighter_id}` | Full fighter profile |
+| `GET` | `/fighter/{fighter_id}` | Full fighter profile (ELO history, skill scores, career stats, per-fight stats) |
 | `GET` | `/predict` | Head-to-head prediction (`?fighter_a=&fighter_b=&division=`) |
 | `GET` | `/events/upcoming` | Upcoming events with ELO-based predictions |
 | `GET` | `/matchmaking/{division}` | Best matchups (`?top_n=15`) |
-| `GET` | `/simulator-data` | Raw K-factor state for both fighters (for frontend simulator) |
+| `GET` | `/simulator-data` | Raw K-factor state for both fighters (for frontend ELO simulator) |
 | `GET` | `/simulate` | Monte Carlo simulation (`?fighter_a=&fighter_b=&simulations=1000`) |
 | `PATCH` | `/fighter/{fighter_id}/retire` | Toggle retired status |
 | `GET` | `/visits` | Get global visit count |
-| `POST` | `/visits` | Increment and return global visit count |
+| `POST` | `/visits` | Increment and return global visit count (atomic via Vercel KV) |
 
 ### `backend/data_loader.py`
 
@@ -597,6 +580,7 @@ Pure file I/O with caching and legacy fallbacks.
 | `load_fighters(division)` | Standardized fighter list |
 | `load_elo_histories(division)` | `{fighter_id: [HistoryPoint]}` |
 | `load_skill_histories(division)` | Skill evolution per fight |
+| `load_fights_csv(division)` | `{fight_id: row_dict}` from fights CSV |
 | `load_champions()` | `{division: {fighter_id, fighter_name}}` |
 | `get_fighter_by_id(id, division)` | Single fighter dict |
 | `get_skill_score_by_id(id, division)` | Skill dimensions dict |
@@ -606,6 +590,27 @@ Pure file I/O with caching and legacy fallbacks.
 **Division slug normalization:** `"light heavyweight"` → `"light_heavyweight"`.
 
 ### `backend/services.py`
+
+#### `build_fighter_profile(fighter_id, division)`
+
+1. Load fighter bio from `fighters_{division}.json`.
+2. Load ELO history across **all 8 divisions** (cross-division deduplication via `fight_id`).
+3. For each ELO history entry, look up the corresponding fight row from `fights_{division}.csv` and call `_extract_per_fight_stats` to attach per-fight striking/grappling data.
+4. Load skill history and compute physique attributes (`height_inches`, `reach_inches`, `weight_lbs`) via `parse_physical`.
+5. Call `compute_fighter_stats` (from `stats.py`) for career aggregate stats.
+
+#### `_extract_per_fight_stats(fighter_id, row)`
+
+Given a CSV row and a fighter ID, determines if the fighter was `fighter_a` or `fighter_b` and extracts all stats for both fighters using the `fighter_a_`/`fighter_b_` column prefix:
+
+```python
+px = "fighter_a" if row["fighter_a_id"] == fighter_id else "fighter_b"
+ox = "fighter_b" if px == "fighter_a" else "fighter_a"
+# Returns full striking breakdown for both fighters:
+# strikes, head/body/leg breakdown, TDs, KDs, control time, sub attempts
+```
+
+Returns a `PerFightStats`-compatible dict with both the fighter's and opponent's stats.
 
 #### `build_ranking_response(division, alltime)`
 
@@ -635,17 +640,32 @@ p_final = max(0.05, min(0.95, p_elo + skill_adj))
 
 #### `build_matchmaking(division, top_n)`
 
+Pool is **top N by rank** (not just any fighters with data). This ensures matchmaking only surfaces elite-vs-elite fights. The champion (rank 1) is always in the pool.
+
 ```python
+pool = rankings[:top_n]   # top N ranked fighters only
 competitiveness = max(0, 1.0 - elo_diff / 200)
 style_contrast  = mean(|skill_a[dim] - skill_b[dim]| for all dims) / 100
 matchup_score   = 0.70 * competitiveness + 0.30 * style_contrast
 ```
 
-Filters: active within 2 years, ELO diff ≤ 300, no rematches within 2 years. Default pool: top 15 fighters.
+Filters: no rematches within 2 years. Returns all C(n,2) combinations sorted by matchup score.
 
 #### `build_fight_simulation(fighter_a_id, fighter_b_id, n_trials)`
 
-Monte Carlo (default 1000 trials). Per trial: winner via ELO probability, method via weighted KO/SUB/DEC draw from skill scores, round via method-specific distribution. Aggregates win %, method %, round distribution.
+Monte Carlo (default 1000 trials). Per trial: winner via ELO+skill probability, method via weighted KO/SUB/DEC draw from skill scores, round via method-specific distribution. Aggregates win %, method %, round distribution.
+
+### `backend/stats.py`
+
+Computes career aggregate statistics for the Fighter Profile page. Reads all 8 division CSV files and de-duplicates by `fight_id` to handle cross-division fighters.
+
+Returns per-fighter:
+- Striking: sig. strikes/min, accuracy, defense, KD/fight, head/body/leg target %
+- Grappling: TD/min, TD accuracy, TD defense, control %, sub attempts/fight
+- Career wins/losses by method, average finish round (KO and SUB separately)
+- 20-fight timeline for career trend charts
+
+The `head_pct`, `body_pct`, `leg_pct` fields power the SVG body heatmap in the Fighter Profile.
 
 ### Visit Counter
 
@@ -656,9 +676,10 @@ The global visit counter uses Vercel KV (Upstash Redis) when the `KV_REST_API_UR
 Pydantic v2 models define the exact shape of every API response. Key models:
 
 - **`RankingEntry`** — `fighter_id`, `fighter_name`, `elo`, `peak_elo`, `peak_elo_date`, `peak_elo_opponent`, `record`, `fight_count`, `last_fight_date`, `streak`, `is_champion`
-- **`FighterProfile`** — full profile including `elo_history`, `skill_score`, `fight_stats`, physical attributes (`height_inches`, `reach_inches`, `weight_lbs`)
-- **`EloHistoryPoint`** — `date`, `opponent_name`, `result`, `elo`, `elo_change`, `method`, `round`, `is_title_fight`, `event`, `breakdown`
+- **`FighterProfile`** — full profile including `elo_history`, `skill_score`, `fight_stats` (career aggregate), physical attributes (`height_inches`, `reach_inches`, `weight_lbs`)
+- **`EloHistoryPoint`** — `date`, `opponent_name`, `result`, `elo`, `elo_change`, `method`, `round`, `is_title_fight`, `event`, `breakdown`, **`fight_stats` (per-fight `PerFightStats`)**
 - **`EloBreakdown`** — all 18 K-factor fields
+- **`PerFightStats`** — per-fight stats for both fighter and opponent: strikes landed/attempted, head/body/leg breakdown, TDs, KDs, control seconds, sub attempts (for both sides)
 - **`FightStats`** — aggregated career striking/grappling stats including `head_pct`, `body_pct`, `leg_pct` for the body heatmap
 - **`PredictionResult`** — `probability_a/b`, `method_prediction`, `key_advantage`, `skill_comparison`
 - **`MatchupEntry`** — `matchup_score`, `competitiveness_score`, `skill_contrast_score`, `key_dimension`, `probability_a/b`
@@ -670,8 +691,8 @@ Pydantic v2 models define the exact shape of every API response. Key models:
 ## Frontend Pages
 
 The frontend is plain HTML/CSS/JS with no framework. All pages share:
-- `app.js` — navbar injection, API helpers, visit counter
-- `style.css` — global dark theme
+- `app.js` — navbar injection (with mobile hamburger toggle), API helpers, visit counter
+- `style.css` — global dark theme, fully responsive
 - `Plotly.js` (CDN) — all charts
 
 ### Home (`index.html`)
@@ -696,49 +717,52 @@ The frontend is plain HTML/CSS/JS with no framework. All pages share:
 - Current ELO, peak ELO, career record, division rank, current streak
 - ELO history line chart (color-coded W/L/D fight markers) with Plotly
 - Skill radar chart (7 dimensions) + composite score badge
-- **Skill breakdown panel** — sorted bar chart with strongest/weakest highlights, weight %, tier labels (Elite / Above avg / Average / Below avg), and per-dimension tooltips
-- **Body hit-zone heatmap** — SVG silhouette with head/torso/leg colored by target percentage:
-  - Green: < 20% of strikes to that zone
+- **Skill breakdown panel** — sorted bar chart with strongest/weakest highlights, weight %, tier labels, and per-dimension tooltips
+- **Physique silhouette** — proportional SVG body figure scaled to the fighter's actual height and reach, always shown when physique data is available
+- **Body hit-zone heatmap** — SVG silhouette with head/torso/leg zones colored by target percentage:
+  - Green: < 20% of significant strikes to that zone
   - Amber: 20–40%
   - Red: > 40%
-- **Fight statistics panel** — striking (sig. strikes/min, accuracy, defense) and grappling (TD/min, accuracy, defense, control %, sub attempts)
-- **Full fight history table** — all fights at a glance: date, event, opponent, method, round, ELO before/after, delta
+- **Career fight statistics** — striking (sig. strikes/min, accuracy, defense, zone breakdown) and grappling (TD/min, accuracy, defense, control %, sub attempts), sourced from `stats.py` career aggregation
+- **Full fight history table** — all fights: date, opponent, method, round, ELO, delta
 - **Expandable fight rows** — click any fight to reveal:
-  1. **Multiplier Breakdown** — full K-factor grid (K base, K division, K experience, K streak, K effective, expected probability, surprise factor, method mult, title mult, consecutive mult, calculated delta, final delta)
-  2. **Insight** — natural language summary of the result (e.g., "Upset — won as underdog (32% expected), earned much more ELO.")
-  3. **ELO projection vs nearby rivals** — table showing projected ELO after Win (KO), Lose (KO), Win (DEC), Lose (DEC) against the 5 nearest-ranked opponents
+  1. **Multiplier Breakdown** — full K-factor grid (all 12 fields)
+  2. **Fight Stats** — two-column fighter vs opponent comparison table:
+     - Sig. Strikes (landed/attempted with accuracy %)
+     - Head / Body / Leg breakdown (both sides)
+     - Knockdowns (both sides)
+     - Takedowns (landed/attempted with accuracy %, both sides)
+     - Control time (both sides, MM:SS format)
+     - Submission attempts (both sides)
+  3. **Insight** — natural language summary (upset detection, favorite loss, etc.)
+  4. **ELO projection vs nearby rivals** — projected ELO after Win/Lose by KO or DEC against the 5 nearest-ranked opponents
 
-### Predictor (`predict.html`)
+### Comparison (`comparison.html`)
+
+Merged replacement for the former `predict.html` and `simulate.html` pages.
 
 - Fighter A vs Fighter B selector per division
-- Horizontal probability bar (ELO + skill blended)
-- Win probability %, ELO edge, predicted method, key skill advantage
+- **All-time toggle** — loads `alltime` endpoint to include retired fighters in selection
+- Win probability bar (ELO + skill blended), ELO edge, predicted method, key skill advantage
 - Proportional SVG silhouette comparison with height/reach difference badges
 - Overlaid dual skill radar + per-dimension advantage table
-- Fight statistics comparison (methods %, striking, grappling, body target heatmaps)
-- **ELO Simulator** — pick outcome method, round, and title-fight toggle to compute exact ELO deltas mirroring the engine formula:
+- Fight statistics comparison: methods %, striking, grappling, body target heatmaps side by side
+- **ELO Simulator** — pick outcome method, round, and title-fight toggle to compute exact ELO deltas:
   - Shows ELO before/after for both fighters
   - Expandable K-factor breakdown for the selected scenario
   - Insight text (upset detection, streaks, early finish, peak penalty)
-- Model explanation expander
-
-### Simulator (`simulate.html`)
-
-- Configurable trial count (100–10,000)
-- Win distribution donut chart
-- Method breakdown bar chart (KO/TKO / SUB / DEC)
-- Finishing round distribution (separate series per method)
-- Most likely outcome headline
-- Methodology explanation expander
+- **Monte Carlo Simulation** — inline runner with configurable trial count (100–10,000), rounds (3 or 5), optional seed:
+  - Win distribution donut chart
+  - Method breakdown (KO/TKO, SUB, DEC) per fighter
+  - Finishing round distribution chart
+  - Most likely single outcome headline
 
 ### Matchmaking (`matchmaking.html`)
 
-- Pool size: Top 10 / Top 15 (default) / Top 20
-- Sortable matchup table: Fighter A, Fighter B, ELO A/B, ELO diff, Competitiveness %, Style Contrast %, Score, Key dimension, Win odds
-- Click any row to see detail:
-  - Win probability bar for selected matchup
-  - Three gauge charts: Competitiveness, Style Contrast, Total Score
-- **Matchup Landscape scatter chart** — X = Competitiveness, Y = Style Contrast; top-right corner = ideal matchup; click any point to select it
+- Pool size: Top 10 / Top 15 (default) / Top 20 **by rank** — only elite fighters, champion always included
+- Sortable matchup table: Fighter A/B, ELO A/B, ELO diff, Competitiveness, Style Contrast, Score, Key dimension, Win odds
+- Click any row to see detail with win probability bar and three gauge charts
+- **Matchup Landscape scatter chart** — X = Competitiveness, Y = Style Contrast; click any point to select it
 - Matchmaking score formula explainer (collapsible)
 
 ### Pound-for-Pound (`p4p.html`)
@@ -748,9 +772,17 @@ The frontend is plain HTML/CSS/JS with no framework. All pages share:
   - Table: rank, fighter, division, ELO, z-score, peak ELO, record
   - ELO distribution box plot per division
   - Divisional stats table: active fighter count, mean ELO, std dev, coefficient of variation
-- **Historical Peak ELO mode** — loads all-time rankings for all 8 divisions simultaneously, deduplicates by fighter (keeping highest peak across all divisions they competed in), and ranks across eras
+- **Historical Peak ELO mode** — loads all-time rankings for all 8 divisions, deduplicates by fighter (keeping highest peak across all divisions), ranks across eras
   - Bar chart: top 10 all-time peak ELO
   - Table: rank, fighter, division, peak ELO, peak date, opponent at peak, current ELO
+
+### Mobile Responsiveness
+
+All pages are fully responsive:
+- **Hamburger menu** — nav links collapse to a full-width dropdown at ≤768px; tap button or outside to toggle
+- **Grid collapse** — `grid-2` (chart pairs, stat cards) stacks to single column at ≤768px; `grid-3`/`grid-4` collapse at ≤768px and ≤500px respectively
+- **Physique/heatmap grid** — uses `repeat(auto-fit, minmax(180px, 1fr))` so cards auto-stack on narrow screens without JS
+- **Tables** — all wrapped in `overflow-x: auto` scroll containers
 
 ---
 
@@ -796,6 +828,7 @@ The counter is globally shared across all users, persists indefinitely, and uses
 - `data/` and all committed files are **read-only** on the serverless runtime
 - `/tmp/` is writable but resets on cold starts — not suitable for persistent state
 - All ranking/history data is pre-generated and committed; the backend only reads it
+- The fight CSVs (`data/fights_*.csv`) are committed to the repo so `stats.py` and `_extract_per_fight_stats` work on the serverless runtime
 - Only the visit counter requires write access — handled by Vercel KV
 
 ---
@@ -843,18 +876,8 @@ The counter is globally shared across all users, persists indefinitely, and uses
       "method": "KO/TKO",
       "round": 1,
       "time": "0:53",
-      "weight_class": "Heavyweight",
       "is_title_fight": true,
-      "breakdown": {
-        "elo_before": 1693.7, "elo_after": 1712.4, "delta": 18.7,
-        "k_base": 32.0, "k_var": 0.625, "div_mult": 1.0,
-        "streak_before": 6, "streak_mult": 1.25,
-        "method_weight": 1.68, "consec_loss_mult": 1.0,
-        "quality_mult": 1.1, "rematch_mult": 1.0,
-        "opp_mom_mult": 1.0, "time_mult": 1.15,
-        "k_effective": 47.3, "expected_prob": 0.6451, "surprise": 0.3549,
-        "cap_applied": false, "peak_penalty": false
-      }
+      "breakdown": { "...18 fields..." }
     }
   ]
 }
@@ -867,15 +890,10 @@ The counter is globally shared across all users, persists indefinitely, and uses
   {
     "fighter_id": "...",
     "fighter_name": "Tom Aspinall",
-    "division": "Heavyweight",
     "skill_score": {
-      "Striking": 82.4,
-      "Grappling": 74.1,
-      "Defensa": 78.9,
-      "Consistencia": 71.3,
-      "Finish Rate": 91.0,
-      "Cardio/Durabilidad": 68.5,
-      "Presión": 83.2
+      "Striking": 82.4, "Grappling": 74.1, "Defensa": 78.9,
+      "Consistencia": 71.3, "Finish Rate": 91.0,
+      "Cardio/Durabilidad": 68.5, "Presión": 83.2
     },
     "skill_composite": 78.6
   }
@@ -970,9 +988,6 @@ python models/elo_engine.py --division heavyweight --output data
 
 # Validate (optional)
 python -m models.validate --division heavyweight
-
-# Regenerate simulations and matchmaking
-python scripts/generate_simulations.py
 
 # Commit and push — Vercel auto-deploys
 git add data/ && git commit -m "Update heavyweight data" && git push

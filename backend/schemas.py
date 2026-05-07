@@ -40,11 +40,20 @@ class PerFightStats(BaseModel):
     knockdowns:        Optional[int]   = None
     control_seconds:   Optional[int]   = None
     sub_attempts:      Optional[int]   = None
-    # opponent stats for context
+    # opponent stats
     opp_strikes_landed:    Optional[int] = None
     opp_strikes_attempted: Optional[int] = None
+    opp_head_landed:       Optional[int] = None
+    opp_head_attempted:    Optional[int] = None
+    opp_body_landed:       Optional[int] = None
+    opp_body_attempted:    Optional[int] = None
+    opp_leg_landed:        Optional[int] = None
+    opp_leg_attempted:     Optional[int] = None
     opp_td_landed:         Optional[int] = None
+    opp_td_attempted:      Optional[int] = None
     opp_knockdowns:        Optional[int] = None
+    opp_control_seconds:   Optional[int] = None
+    opp_sub_attempts:      Optional[int] = None
 
 
 class EloHistoryPoint(BaseModel):

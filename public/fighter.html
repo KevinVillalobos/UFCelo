@@ -695,9 +695,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (a != null && a > 0) return `${l}/${a} <span style="font-weight:400;color:var(--muted);font-size:0.72rem;">(${Math.round(l/a*100)}%)</span>`;
         return String(l);
       };
-      const ctrl = fs.control_seconds != null
-        ? `${Math.floor(fs.control_seconds/60)}:${String(fs.control_seconds%60).padStart(2,'0')}`
-        : '—';
+      const toCtrl = s => s != null ? `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}` : '—';
+      const ctrl    = toCtrl(fs.control_seconds);
+      const oppCtrl = toCtrl(fs.opp_control_seconds);
       const meLabel  = fighterName ? fighterName.split(' ').pop() : 'You';
       const oppLabel = h.opponent_name ? h.opponent_name.split(' ').pop() : 'Opp.';
 
@@ -714,13 +714,13 @@ document.addEventListener('DOMContentLoaded', async () => {
           </thead>
           <tbody>
             <tr><td>Sig. Strikes</td><td class="fs-me">${fmt(fs.strikes_landed, fs.strikes_attempted)}</td><td class="fs-opp">${fmt(fs.opp_strikes_landed, fs.opp_strikes_attempted)}</td></tr>
-            <tr><td>Head</td><td class="fs-me">${fmt(fs.head_landed, fs.head_attempted)}</td><td class="fs-opp">—</td></tr>
-            <tr><td>Body</td><td class="fs-me">${fmt(fs.body_landed, fs.body_attempted)}</td><td class="fs-opp">—</td></tr>
-            <tr><td>Leg</td><td class="fs-me">${fmt(fs.leg_landed, fs.leg_attempted)}</td><td class="fs-opp">—</td></tr>
+            <tr><td>Head</td><td class="fs-me">${fmt(fs.head_landed, fs.head_attempted)}</td><td class="fs-opp">${fmt(fs.opp_head_landed, fs.opp_head_attempted)}</td></tr>
+            <tr><td>Body</td><td class="fs-me">${fmt(fs.body_landed, fs.body_attempted)}</td><td class="fs-opp">${fmt(fs.opp_body_landed, fs.opp_body_attempted)}</td></tr>
+            <tr><td>Leg</td><td class="fs-me">${fmt(fs.leg_landed, fs.leg_attempted)}</td><td class="fs-opp">${fmt(fs.opp_leg_landed, fs.opp_leg_attempted)}</td></tr>
             <tr><td>Knockdowns</td><td class="fs-me">${fs.knockdowns ?? '—'}</td><td class="fs-opp">${fs.opp_knockdowns ?? '—'}</td></tr>
-            <tr><td>Takedowns</td><td class="fs-me">${fmt(fs.td_landed, fs.td_attempted)}</td><td class="fs-opp">${fs.opp_td_landed ?? '—'}</td></tr>
-            <tr><td>Control</td><td class="fs-me">${ctrl}</td><td class="fs-opp">—</td></tr>
-            <tr><td>Sub attempts</td><td class="fs-me">${fs.sub_attempts ?? '—'}</td><td class="fs-opp">—</td></tr>
+            <tr><td>Takedowns</td><td class="fs-me">${fmt(fs.td_landed, fs.td_attempted)}</td><td class="fs-opp">${fmt(fs.opp_td_landed, fs.opp_td_attempted)}</td></tr>
+            <tr><td>Control</td><td class="fs-me">${ctrl}</td><td class="fs-opp">${oppCtrl}</td></tr>
+            <tr><td>Sub attempts</td><td class="fs-me">${fs.sub_attempts ?? '—'}</td><td class="fs-opp">${fs.opp_sub_attempts ?? '—'}</td></tr>
           </tbody>
         </table>`;
     }
