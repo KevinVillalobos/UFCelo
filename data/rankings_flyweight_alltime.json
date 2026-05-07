@@ -32,22 +32,6 @@
     "alltime_rank": 2
   },
   {
-    "fighter_id": "c849740a3ff51931",
-    "fighter_name": "TJ Dillashaw",
-    "division": "Flyweight",
-    "elo": 1721.9,
-    "peak_elo": 1816.08,
-    "peak_elo_date": null,
-    "peak_elo_opponent": null,
-    "record": "18-5-0",
-    "fight_count": 1,
-    "last_fight_date": "2019-01-19",
-    "active": false,
-    "streak": -1,
-    "division_elo_entry": 1816.08,
-    "alltime_rank": 3
-  },
-  {
     "fighter_id": "75353550928a7921",
     "fighter_name": "Muhammad Mokaev",
     "division": "Flyweight",
@@ -61,6 +45,22 @@
     "active": true,
     "streak": 7,
     "division_elo_entry": 1700.0,
+    "alltime_rank": 3
+  },
+  {
+    "fighter_id": "c849740a3ff51931",
+    "fighter_name": "TJ Dillashaw",
+    "division": "Flyweight",
+    "elo": 1721.84,
+    "peak_elo": 1816.01,
+    "peak_elo_date": null,
+    "peak_elo_opponent": null,
+    "record": "18-5-0",
+    "fight_count": 1,
+    "last_fight_date": "2019-01-19",
+    "active": false,
+    "streak": -1,
+    "division_elo_entry": 1816.01,
     "alltime_rank": 4
   },
   {
@@ -163,8 +163,8 @@
     "fighter_id": "056c493bbd76a918",
     "fighter_name": "Henry Cejudo",
     "division": "Flyweight",
-    "elo": 1730.87,
-    "peak_elo": 1762.35,
+    "elo": 1730.86,
+    "peak_elo": 1762.34,
     "peak_elo_date": "2019-01-19",
     "peak_elo_opponent": "TJ Dillashaw",
     "record": "16-6-0",
@@ -172,7 +172,7 @@
     "last_fight_date": "2019-01-19",
     "active": false,
     "streak": 4,
-    "division_elo_entry": 1619.67,
+    "division_elo_entry": 1619.66,
     "alltime_rank": 11
   },
   {
@@ -307,8 +307,8 @@
     "fighter_id": "d8c7c61b176e3994",
     "fighter_name": "Cody Garbrandt",
     "division": "Flyweight",
-    "elo": 1652.74,
-    "peak_elo": 1724.22,
+    "elo": 1652.73,
+    "peak_elo": 1724.21,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
     "record": "15-7-0",
@@ -316,7 +316,7 @@
     "last_fight_date": "2021-12-11",
     "active": false,
     "streak": -1,
-    "division_elo_entry": 1724.22,
+    "division_elo_entry": 1724.21,
     "alltime_rank": 20
   },
   {
@@ -1235,8 +1235,8 @@
     "fighter_id": "c945adc22c2bfe8f",
     "fighter_name": "Brad Pickett",
     "division": "Flyweight",
-    "elo": 1562.55,
-    "peak_elo": 1625.71,
+    "elo": 1562.54,
+    "peak_elo": 1625.7,
     "peak_elo_date": "2014-03-08",
     "peak_elo_opponent": "Neil Seery",
     "record": "25-14-0",
@@ -1244,7 +1244,7 @@
     "last_fight_date": "2014-11-22",
     "active": false,
     "streak": -2,
-    "division_elo_entry": 1604.97,
+    "division_elo_entry": 1604.96,
     "alltime_rank": 78
   },
   {
@@ -2096,22 +2096,6 @@
     "alltime_rank": 131
   },
   {
-    "fighter_id": "4a043165cf47cab2",
-    "fighter_name": "Juancamilo Ronderos",
-    "division": "Flyweight",
-    "elo": 1507.16,
-    "peak_elo": 1566.67,
-    "peak_elo_date": null,
-    "peak_elo_opponent": null,
-    "record": "4-2-0",
-    "fight_count": 2,
-    "last_fight_date": "2023-02-18",
-    "active": false,
-    "streak": -2,
-    "division_elo_entry": 1566.67,
-    "alltime_rank": 132
-  },
-  {
     "fighter_id": "34b96d52db1d26e6",
     "fighter_name": "Kevin Borjas",
     "division": "Flyweight",
@@ -2123,6 +2107,22 @@
     "fight_count": 5,
     "last_fight_date": "2026-02-28",
     "active": true,
+    "streak": -2,
+    "division_elo_entry": 1566.67,
+    "alltime_rank": 132
+  },
+  {
+    "fighter_id": "4a043165cf47cab2",
+    "fighter_name": "Juancamilo Ronderos",
+    "division": "Flyweight",
+    "elo": 1507.16,
+    "peak_elo": 1566.67,
+    "peak_elo_date": null,
+    "peak_elo_opponent": null,
+    "record": "4-2-0",
+    "fight_count": 2,
+    "last_fight_date": "2023-02-18",
+    "active": false,
     "streak": -2,
     "division_elo_entry": 1566.67,
     "alltime_rank": 133
@@ -2467,8 +2467,8 @@
     "fighter_id": "8bb6f4479685bbcc",
     "fighter_name": "Vaughan Lee",
     "division": "Flyweight",
-    "elo": 1495.5,
-    "peak_elo": 1510.1,
+    "elo": 1495.49,
+    "peak_elo": 1510.09,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
     "record": "14-13-1",
@@ -2476,7 +2476,7 @@
     "last_fight_date": "2015-07-18",
     "active": false,
     "streak": -1,
-    "division_elo_entry": 1510.1,
+    "division_elo_entry": 1510.09,
     "alltime_rank": 155
   },
   {
