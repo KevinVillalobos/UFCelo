@@ -357,20 +357,56 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
     }
 
 
-def _predict_method(favored_skill: Dict[str, float]) -> str:
-    striking = favored_skill.get("Striking", 50)
-    grappling = favored_skill.get("Grappling", 50)
-    finish_rate = favored_skill.get("Finish Rate", 50)
-    if finish_rate < 55:
+_ALL_DIVISIONS = [
+    "heavyweight", "light heavyweight", "middleweight", "welterweight",
+    "lightweight", "featherweight", "bantamweight", "flyweight",
+]
+
+
+def _fighter_method_distribution(fighter_id: str) -> Dict[str, float]:
+    """Return real win-method proportions from ELO history across all divisions.
+    Returns {"KO/TKO": 0.x, "SUB": 0.x, "DEC": 0.x} summing to 1.0.
+    Falls back to equal distribution if no wins found.
+    """
+    counts = {"KO/TKO": 0, "SUB": 0, "DEC": 0}
+    for div in _ALL_DIVISIONS:
+        history = load_elo_histories(div).get(fighter_id, [])
+        for pt in history:
+            if (pt.get("result") or "").lower() != "win":
+                continue
+            raw = (pt.get("method") or "").upper()
+            if "KO" in raw or "TKO" in raw:
+                counts["KO/TKO"] += 1
+            elif "SUB" in raw:
+                counts["SUB"] += 1
+            else:
+                counts["DEC"] += 1
+    total = sum(counts.values())
+    if total == 0:
+        return {"KO/TKO": 0.33, "SUB": 0.33, "DEC": 0.34}
+    return {m: c / total for m, c in counts.items()}
+
+
+def _predict_method(method_dist: Dict[str, float], favored_skill: Dict[str, float]) -> str:
+    """Pick most likely method, blending actual win history with skill-score signal."""
+    ko_real  = method_dist.get("KO/TKO", 0.33)
+    sub_real = method_dist.get("SUB",    0.33)
+    dec_real = method_dist.get("DEC",    0.34)
+
+    # Skill scores give a directional nudge (max ±15 pp) on top of real rates
+    striking  = favored_skill.get("Striking",     50) / 100
+    grappling = favored_skill.get("Grappling",    50) / 100
+    finish    = favored_skill.get("Finish Rate",  50) / 100
+
+    ko_w  = ko_real  + (striking  - 0.5) * 0.15 * finish
+    sub_w = sub_real + (grappling - 0.5) * 0.15 * finish
+    dec_w = max(0.05, dec_real - (ko_w - ko_real) - (sub_w - sub_real))
+
+    if dec_w >= ko_w and dec_w >= sub_w:
         return "DEC"
-    # When both are elite finishers, prefer the dominant style
-    if striking >= 65 and grappling >= 65:
-        return "SUB" if grappling > striking else "KO/TKO"
-    if striking >= 65:
+    if ko_w >= sub_w:
         return "KO/TKO"
-    if grappling >= 65:
-        return "SUB"
-    return "DEC"
+    return "SUB"
 
 
 def _skill_composite(skill: Dict[str, float]) -> float:
@@ -423,8 +459,10 @@ def build_prediction(fighter_a_id: str, fighter_b_id: str, division: str = "heav
         for dim in dims
     }
 
-    favored_skill = skill_a if prob_a >= 0.5 else skill_b
-    method_prediction = _predict_method(favored_skill)
+    favored_id    = fighter_a_id if prob_a >= 0.5 else fighter_b_id
+    favored_skill = skill_a      if prob_a >= 0.5 else skill_b
+    method_dist   = _fighter_method_distribution(favored_id)
+    method_prediction = _predict_method(method_dist, favored_skill)
 
     dim_diffs = {dim: abs(skill_a.get(dim, 50.0) - skill_b.get(dim, 50.0)) for dim in dims}
     key_advantage = max(dim_diffs, key=dim_diffs.get) if dim_diffs else None
@@ -527,13 +565,15 @@ def build_matchmaking(division: str, top_n: int = 15) -> List[Dict[str, object]]
 
 # ── Fight simulation ──────────────────────────────────────────────────────────
 
-def _sim_method(skill: Dict[str, float], rng: _random.Random) -> str:
-    striking = skill.get("Striking", 50) / 100
-    grappling = skill.get("Grappling", 50) / 100
-    finish_rate = skill.get("Finish Rate", 50) / 100
-    ko_w = striking * finish_rate
-    sub_w = grappling * finish_rate
-    dec_w = max(0.10, 1.0 - (ko_w + sub_w))
+def _sim_method(fighter_id: str, skill: Dict[str, float], rng: _random.Random) -> str:
+    dist = _fighter_method_distribution(fighter_id)
+    # Nudge weights by skill scores (same logic as _predict_method)
+    striking  = skill.get("Striking",    50) / 100
+    grappling = skill.get("Grappling",   50) / 100
+    finish    = skill.get("Finish Rate", 50) / 100
+    ko_w  = max(0.01, dist["KO/TKO"] + (striking  - 0.5) * 0.15 * finish)
+    sub_w = max(0.01, dist["SUB"]    + (grappling - 0.5) * 0.15 * finish)
+    dec_w = max(0.01, dist["DEC"]    - (ko_w - dist["KO/TKO"]) - (sub_w - dist["SUB"]))
     total = ko_w + sub_w + dec_w
     r = rng.random() * total
     if r < ko_w:
@@ -604,14 +644,16 @@ def build_fight_simulation(
     for _ in range(n):
         if rng.random() < prob_a:
             winner_key = "fighter_a"
+            winner_id_sim = fighter_a_id
             winner_skill = skill_a
             a_wins += 1
         else:
             winner_key = "fighter_b"
+            winner_id_sim = fighter_b_id
             winner_skill = skill_b
             b_wins += 1
 
-        method = _sim_method(winner_skill, rng)
+        method = _sim_method(winner_id_sim, winner_skill, rng)
         method_counts[winner_key][method] += 1
         if method in ("KO/TKO", "SUB"):
             round_counts[method][str(_sim_round(method, winner_skill, rounds, rng))] += 1
