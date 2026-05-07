@@ -279,10 +279,21 @@ class UFCScraper:
         # 2. "Significant Strikes by Position" — columns: Fighter, Sig.Str., Sig.Str.%,
         #                                                  Head(X of Y), Body(X of Y), Leg(X of Y), ...
         # Each section has one "overall" table followed by per-round breakdown tables.
-        # We only want the first (overall) table from each section, identified by thead header text.
+        # We SUM all rows (all rounds) per fighter to get correct cumulative totals.
 
-        totals_data: dict = {}    # {fighter_id: dict of totals fields}
-        sig_data: dict = {}       # {fighter_id: dict of sig-strike fields}
+        def ctrl_to_secs(text: str) -> int:
+            try:
+                parts = text.strip().split(":")
+                return int(parts[0]) * 60 + int(parts[1])
+            except (ValueError, IndexError):
+                return 0
+
+        def secs_to_ctrl(secs: int) -> str:
+            return f"{secs // 60}:{secs % 60:02d}"
+
+        # Accumulators: {fighter_id: {field: value}}
+        totals_data: dict = {}
+        sig_data: dict = {}
 
         for table in soup.select("table.b-fight-details__table"):
             thead = table.select_one("thead tr")
@@ -327,33 +338,51 @@ class UFCScraper:
                             return ps[_idx].get_text(strip=True)
                         return cols[col_n].get_text(strip=True)
 
-                    # Only store first occurrence per fighter per table type (= overall, not per-round)
-                    if is_totals and fid not in totals_data:
+                    if is_totals:
                         l, a = extract_of(get_val(4))
                         td_l, td_a = extract_of(get_val(5))
-                        totals_data[fid] = {
-                            "knockdowns":          extract_int(get_val(1)),
-                            "strikes_landed":      l,
-                            "strikes_attempted":   a,
-                            "takedowns_landed":    td_l,
-                            "takedowns_attempted": td_a,
-                            "submission_attempts": extract_int(get_val(7)),
-                            "reversals":           extract_int(get_val(8)),
-                            "control_time":        get_val(9),
-                        }
+                        ctrl_s = ctrl_to_secs(get_val(9))
+                        if fid not in totals_data:
+                            totals_data[fid] = {
+                                "knockdowns":          0,
+                                "strikes_landed":      0,
+                                "strikes_attempted":   0,
+                                "takedowns_landed":    0,
+                                "takedowns_attempted": 0,
+                                "submission_attempts": 0,
+                                "reversals":           0,
+                                "control_secs":        0,
+                            }
+                        d = totals_data[fid]
+                        d["knockdowns"]          += extract_int(get_val(1))
+                        d["strikes_landed"]      += l
+                        d["strikes_attempted"]   += a
+                        d["takedowns_landed"]    += td_l
+                        d["takedowns_attempted"] += td_a
+                        d["submission_attempts"] += extract_int(get_val(7))
+                        d["reversals"]           += extract_int(get_val(8))
+                        d["control_secs"]        += ctrl_s
 
-                    elif is_sig and fid not in sig_data:
+                    elif is_sig:
                         h_l, h_a = extract_of(get_val(3))
                         b_l, b_a = extract_of(get_val(4))
                         lg_l, lg_a = extract_of(get_val(5))
-                        sig_data[fid] = {
-                            "head_strikes_landed":    h_l,
-                            "head_strikes_attempted": h_a,
-                            "body_strikes_landed":    b_l,
-                            "body_strikes_attempted": b_a,
-                            "leg_strikes_landed":     lg_l,
-                            "leg_strikes_attempted":  lg_a,
-                        }
+                        if fid not in sig_data:
+                            sig_data[fid] = {
+                                "head_strikes_landed":    0,
+                                "head_strikes_attempted": 0,
+                                "body_strikes_landed":    0,
+                                "body_strikes_attempted": 0,
+                                "leg_strikes_landed":     0,
+                                "leg_strikes_attempted":  0,
+                            }
+                        s = sig_data[fid]
+                        s["head_strikes_landed"]    += h_l
+                        s["head_strikes_attempted"] += h_a
+                        s["body_strikes_landed"]    += b_l
+                        s["body_strikes_attempted"] += b_a
+                        s["leg_strikes_landed"]     += lg_l
+                        s["leg_strikes_attempted"]  += lg_a
 
         def build_stats(fid: str) -> Optional[FightStats]:
             t = totals_data.get(fid)
@@ -367,7 +396,7 @@ class UFCScraper:
                 takedowns_landed=t["takedowns_landed"],
                 takedowns_attempted=t["takedowns_attempted"],
                 knockdowns=t["knockdowns"],
-                control_time=t["control_time"],
+                control_time=secs_to_ctrl(t["control_secs"]),
                 submission_attempts=t["submission_attempts"],
                 reversals=t["reversals"],
                 head_strikes_landed=s["head_strikes_landed"] if s else 0,
