@@ -580,20 +580,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Physique silhouette — always show if data exists, regardless of CSV stats
       if (hasPhysique || hmSvg) {
-        const cols = (hasPhysique && hmSvg) ? '1fr 1fr' : '1fr';
-        statsHtml += `<div style="display:grid;grid-template-columns:${cols};gap:1rem;margin-bottom:1.25rem;">`;
+        statsHtml += `<div class="physique-grid">`;
         if (hasPhysique) {
           statsHtml += `
-          <div class="card" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+          <div class="card" style="display:flex;flex-direction:column;align-items:center;">
             <h3 style="margin-bottom:0.5rem;width:100%;text-align:left;">Physique</h3>
             ${buildSingleSilhouette(p.height_inches, p.reach_inches, p.weight_lbs)}
           </div>`;
         }
         if (hmSvg) {
           statsHtml += `
-          <div class="card" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+          <div class="card" style="display:flex;flex-direction:column;align-items:center;">
             <h3 style="margin-bottom:0.5rem;width:100%;text-align:left;">Strike zones</h3>
-            <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem;width:100%;text-align:left;">Where significant strikes land.</p>
+            <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem;width:100%;">Where significant strikes land.</p>
             ${hmSvg}${legendHtml}
           </div>`;
         }

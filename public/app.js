@@ -81,12 +81,30 @@ function divSlug(d) { return d.replace(/ /g, '%20'); }
   const isActive = f => (page === '' || page === '/') ? f === 'index.html' : page === f;
   const html = `<nav class="navbar">
   <a href="/" class="nav-brand">UFC<span>elo</span>.gg</a>
-  <div class="nav-links">
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="3" y1="6" x2="19" y2="6"/>
+      <line x1="3" y1="11" x2="19" y2="11"/>
+      <line x1="3" y1="16" x2="19" y2="16"/>
+    </svg>
+  </button>
+  <div class="nav-links" id="nav-links">
     ${links.map(([f,l,h]) => `<a href="${h}"${isActive(f)?' class="active"':''}>${l}</a>`).join('')}
     <span id="visit-counter" style="color:var(--muted);font-size:0.78rem;padding:4px 8px;opacity:0.7;" title="Total page visits"></span>
   </div>
 </nav>`;
   document.body.insertAdjacentHTML('afterbegin', html);
+
+  // Hamburger toggle
+  const navBtn = document.getElementById('nav-hamburger');
+  const navLinks = document.getElementById('nav-links');
+  if (navBtn && navLinks) {
+    navBtn.addEventListener('click', e => { e.stopPropagation(); navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+    document.addEventListener('click', e => {
+      if (!navBtn.contains(e.target) && !navLinks.contains(e.target)) navLinks.classList.remove('open');
+    });
+  }
 
   function _showVisits(n) {
     const navEl = document.getElementById('visit-counter');
