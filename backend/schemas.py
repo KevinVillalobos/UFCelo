@@ -141,6 +141,14 @@ class FighterProfile(BaseModel):
     skill_composite: Optional[float]   = None
     skill_history:  List[SkillHistoryPoint]
     fight_stats:    Optional[FightStats] = None
+    tags:           Optional[List[str]] = None
+
+
+class FighterTagsResult(BaseModel):
+    fighter_id:   str
+    tags:         List[str]
+    tag_groups:   Dict[str, str]
+    tag_tooltips: Dict[str, str]
 
 
 class PredictionResult(BaseModel):

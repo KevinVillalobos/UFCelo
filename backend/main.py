@@ -59,6 +59,7 @@ from .schemas import (  # noqa: F401
     EventFightPrediction,
     FightSimulation,
     FighterProfile,
+    FighterTagsResult,
     MatchupEntry,
     PredictionResult,
     RankingEntry,
@@ -73,6 +74,7 @@ from .services import (
     build_prediction,
     build_ranking_response,
     build_upcoming_events,
+    get_fighter_tags,
 )
 
 app = FastAPI(
@@ -114,6 +116,14 @@ def get_fighter(
     if not profile:
         raise HTTPException(status_code=404, detail=f"Fighter '{fighter_id}' no encontrado en {division}.")
     return profile
+
+
+@app.get("/fighter/{fighter_id}/tags", response_model=FighterTagsResult)
+def get_fighter_tags_endpoint(
+    fighter_id: str,
+    division: str = Query(default="heavyweight", description="División del peleador"),
+):
+    return get_fighter_tags(fighter_id, division)
 
 
 @app.get("/predict", response_model=PredictionResult)

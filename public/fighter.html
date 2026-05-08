@@ -46,6 +46,16 @@
     .fs-table td.fs-me  { text-align: center; font-weight: 600; color: var(--text); }
     .fs-table td.fs-opp { text-align: center; color: var(--muted); }
     .fs-sep { border: none; border-top: 1px solid var(--border); margin: 0.85rem 0 0; }
+    /* Fighter tags */
+    .tags-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.85rem; }
+    .tag-badge { display: inline-block; border-radius: 20px; padding: 3px 11px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.03em; cursor: default; position: relative; }
+    .tag-striking    { background: rgba(216,90,48,0.18); color: #e8784a; border: 1px solid rgba(216,90,48,0.35); }
+    .tag-grappling   { background: rgba(55,138,221,0.18); color: #5ba8e8; border: 1px solid rgba(55,138,221,0.35); }
+    .tag-resistance  { background: rgba(59,109,17,0.22); color: #7ec94a; border: 1px solid rgba(59,109,17,0.4); }
+    .tag-performance { background: rgba(239,159,39,0.18); color: #f0b84a; border: 1px solid rgba(239,159,39,0.35); }
+    .tag-achievement { background: rgba(133,79,11,0.22); color: #e8b84a; border: 1px solid rgba(133,79,11,0.45); }
+    .tag-badge .tag-tip { display: none; position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 0.7rem; font-weight: 400; color: var(--text); white-space: nowrap; max-width: 260px; white-space: normal; text-align: center; z-index: 99; pointer-events: none; }
+    .tag-badge:hover .tag-tip { display: block; }
   </style>
 </head>
 <body>
@@ -151,6 +161,64 @@ function simProjection(eloF, eloR, kVarF, kVarR, streakF, streakR, method, rnd) 
     dWin:  +dWin.toFixed(1),
     dLose: +dLose.toFixed(1),
   };
+}
+
+// ── Fighter tag badges ────────────────────────────────────────────────────────
+const TAG_GROUPS = {
+  "Glass Jaw":"resistance","Iron Chin":"resistance","Resilient":"resistance","Survivor":"resistance","Fragile Chin":"resistance",
+  "Stone Fists":"striking","High Volume":"striking","Sniper":"striking","Bombshell":"striking","Body Hunter":"striking","Artistic KO":"striking","No Second Round":"striking",
+  "Grappler":"grappling","Wall":"grappling","Submission Artist":"grappling","Octopus":"grappling","Ground Magnet":"grappling","Never Grounded":"grappling",
+  "Finisher":"performance","Decision Master":"performance","Controller":"performance","Consistent":"performance","Unpredictable":"performance",
+  "Explosive":"performance","Marathon Man":"performance","Chameleon":"performance",
+  "Specialist KO":"performance","Specialist SUB":"performance","Specialist DEC":"performance",
+  "Undefeated in UFC":"achievement","Giant Slayer":"achievement","Streak Killer":"achievement","Champion Destroyer":"achievement",
+  "Big Fight Performer":"achievement","War Veteran":"achievement",
+};
+const TAG_TIPS = {
+  "Glass Jaw":"2+ KO losses or 3+ knockdowns received in UFC career",
+  "Iron Chin":"Zero KOs and zero knockdowns received in entire UFC career",
+  "Resilient":"Has been knocked down and still won that fight",
+  "Survivor":"Survived near-finish (KD or 2+ sub attempts) and won",
+  "Fragile Chin":"0 knockdowns in first 5 UFC fights, 2+ in last 5 — chin deteriorating over time",
+  "Stone Fists":"KO rate >40% with low strike volume — few punches, devastating damage",
+  "High Volume":"Sig. strikes/min top 30% of division, KO rate <30% — volume without power",
+  "Sniper":"Strike accuracy >60% with below-average volume — picks shots precisely",
+  "Bombshell":"Top 30% volume AND KO rate >40% — most dangerous striker in division",
+  "Body Hunter":"Body strikes >30% of total strikes thrown",
+  "Artistic KO":">50% of KO/TKO finishes end in Round 1",
+  "No Second Round":">65% of all finishes occur in Round 1",
+  "Grappler":"TD accuracy >45%, TD defense >70%, control time above average",
+  "Wall":"TD defense >85% — nearly impossible to take down",
+  "Submission Artist":">35% of wins by submission",
+  "Octopus":"Submission attempts/fight above 70th percentile in division",
+  "Ground Magnet":"TD accuracy >55% AND control time top 25% of division",
+  "Never Grounded":"TD defense >80% AND opponent control time <10% of total fight time",
+  "Finisher":"Finish rate >70% — wins by KO or submission the vast majority",
+  "Decision Master":">60% of wins by decision",
+  "Controller":"Averages >55% of fight time in control in wins",
+  "Consistent":"Low variance in skill score across last 8 fights — no bad nights",
+  "Unpredictable":"Has won by KO, SUB, and DEC with at least 20% each",
+  "Explosive":">60% of finishes occur in R1 or R2 combined",
+  "Marathon Man":">60% of fights go to decision regardless of result",
+  "Chameleon":"Has won by KO, SUB, and DEC with at least 20% each (min. 10 fights)",
+  "Specialist KO":">80% of wins by KO/TKO",
+  "Specialist SUB":">80% of wins by submission",
+  "Specialist DEC":">80% of wins by decision",
+  "Undefeated in UFC":"Has never lost inside the UFC",
+  "Giant Slayer":"2+ wins against opponents with ELO 150+ points higher at fight time",
+  "Streak Killer":"2+ wins against opponents who were on 3+ win streaks",
+  "Champion Destroyer":"Has defeated 2+ former UFC champions",
+  "Big Fight Performer":"Win rate in title fights is 15+ points above regular fight win rate",
+  "War Veteran":"5+ fights that reached Round 3 or beyond",
+};
+function buildTagsRow(tags) {
+  if (!tags || !tags.length) return '';
+  const badges = tags.map(t => {
+    const group = TAG_GROUPS[t] || 'performance';
+    const tip = TAG_TIPS[t] || '';
+    return `<span class="tag-badge tag-${group}">${t}${tip ? `<span class="tag-tip">${tip}</span>` : ''}</span>`;
+  }).join('');
+  return `<div class="tags-row">${badges}</div>`;
 }
 
 // ── Body hit-zone heatmap ─────────────────────────────────────────────────────
@@ -376,6 +444,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>
 
       ${physCards ? `<div class="metrics-row" style="margin-bottom:1rem;">${physCards}</div>` : ''}
+
+      ${buildTagsRow(p.tags || [])}
 
       <hr class="divider">
 

@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comparison — UFCelo.gg</title>
   <link rel="stylesheet" href="/style.css">
+  <style>
+    .tags-row { display:flex; flex-wrap:wrap; gap:0.4rem; }
+    .tag-badge { display:inline-block; border-radius:20px; padding:3px 11px; font-size:0.72rem; font-weight:700; letter-spacing:0.03em; cursor:default; position:relative; }
+    .tag-striking    { background:rgba(216,90,48,0.18);  color:#e8784a; border:1px solid rgba(216,90,48,0.35); }
+    .tag-grappling   { background:rgba(55,138,221,0.18); color:#5ba8e8; border:1px solid rgba(55,138,221,0.35); }
+    .tag-resistance  { background:rgba(59,109,17,0.22);  color:#7ec94a; border:1px solid rgba(59,109,17,0.4); }
+    .tag-performance { background:rgba(239,159,39,0.18); color:#f0b84a; border:1px solid rgba(239,159,39,0.35); }
+    .tag-achievement { background:rgba(133,79,11,0.22);  color:#e8b84a; border:1px solid rgba(133,79,11,0.45); }
+    .tag-badge.tag-unique { outline:2px solid currentColor; outline-offset:1px; }
+    .tag-badge .tag-tip { display:none; position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:6px 10px; font-size:0.7rem; font-weight:400; color:var(--text); white-space:normal; max-width:240px; text-align:center; z-index:99; pointer-events:none; }
+    .tag-badge:hover .tag-tip { display:block; }
+  </style>
 </head>
 <body>
 <main class="container">
@@ -40,6 +52,7 @@
   <div id="sil-section"></div>
   <div id="skill-section"></div>
   <div id="stats-section"></div>
+  <div id="tags-section"></div>
   <div id="simulator-section"></div>
   <div id="montecarlo-section"></div>
   <div id="how-it-works"></div>
@@ -153,7 +166,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function clearAll() {
     ['prob-section','cards-section','sil-section','skill-section',
-     'stats-section','simulator-section','montecarlo-section','how-it-works']
+     'stats-section','tags-section','simulator-section','montecarlo-section','how-it-works']
       .forEach(id => { document.getElementById(id).innerHTML = ''; });
   }
 
@@ -174,7 +187,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch(e) {
       document.getElementById('prob-section').innerHTML =
         `<div class="alert-error">Prediction unavailable: ${e.message}</div>`;
-      ['cards-section','skill-section','stats-section','simulator-section','montecarlo-section','how-it-works']
+      ['cards-section','skill-section','stats-section','tags-section','simulator-section','montecarlo-section','how-it-works']
         .forEach(id => { document.getElementById(id).innerHTML = ''; });
       return;
     }
@@ -203,6 +216,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try { renderSilhouetteSection(profA, profB, faName, fbName); }  catch(e) { console.error('sil:', e); }
     try { renderSkillSection(pred, faName, fbName); }               catch(e) { console.error('skill:', e); }
     try { renderStatsSection(profA, profB, faName, fbName); }       catch(e) { console.error('stats:', e); }
+    try { renderTagsSection(profA, profB, faName, fbName); }        catch(e) { console.error('tags:', e); }
     try { renderSimulatorSection(faName, fbName); }                 catch(e) { console.error('sim:', e); }
     try { renderMonteCarloSection(fa, fb, div, faName, fbName); }   catch(e) { console.error('mc:', e); }
     try { renderHowItWorks(); }                                     catch(e) { console.error('how:', e); }
@@ -467,6 +481,65 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // ── ELO Simulator ───────────────────────────────────────────────────────────
+  // ── Tags comparison ──────────────────────────────────────────────────────────
+  const _TAG_GROUPS = {
+    "Glass Jaw":"resistance","Iron Chin":"resistance","Resilient":"resistance","Survivor":"resistance","Fragile Chin":"resistance",
+    "Stone Fists":"striking","High Volume":"striking","Sniper":"striking","Bombshell":"striking","Body Hunter":"striking","Artistic KO":"striking","No Second Round":"striking",
+    "Grappler":"grappling","Wall":"grappling","Submission Artist":"grappling","Octopus":"grappling","Ground Magnet":"grappling","Never Grounded":"grappling",
+    "Finisher":"performance","Decision Master":"performance","Controller":"performance","Consistent":"performance","Unpredictable":"performance",
+    "Explosive":"performance","Marathon Man":"performance","Chameleon":"performance",
+    "Specialist KO":"performance","Specialist SUB":"performance","Specialist DEC":"performance",
+    "Undefeated in UFC":"achievement","Giant Slayer":"achievement","Streak Killer":"achievement","Champion Destroyer":"achievement",
+    "Big Fight Performer":"achievement","War Veteran":"achievement",
+  };
+  const _TAG_TIPS = {
+    "Glass Jaw":"2+ KO losses or 3+ knockdowns received","Iron Chin":"Zero KOs and zero KDs received in UFC career",
+    "Resilient":"Has been knocked down and still won","Survivor":"Survived KD or 2+ sub attempts against and won",
+    "Fragile Chin":"0 KDs in first 5 fights, 2+ in last 5","Stone Fists":"KO rate >40% with low volume",
+    "High Volume":"Top 30% sig strikes/min, KO rate <30%","Sniper":"Accuracy >60% with below-average volume",
+    "Bombshell":"Top 30% volume AND KO rate >40%","Body Hunter":"Body strikes >30% of total",
+    "Artistic KO":">50% of KOs end in R1","No Second Round":">65% of all finishes in R1",
+    "Grappler":"TD accuracy >45%, TD defense >70%, above-avg control","Wall":"TD defense >85%",
+    "Submission Artist":">35% of wins by submission","Octopus":"Sub attempts/fight above 70th percentile",
+    "Ground Magnet":"TD accuracy >55% AND control time top 25%","Never Grounded":"TD defense >80% AND opp control <10%",
+    "Finisher":"Finish rate >70%","Decision Master":">60% of wins by decision",
+    "Controller":"Avg control >55% of fight time in wins","Consistent":"Low skill score variance across last 8 fights",
+    "Unpredictable":"≥20% wins by KO, SUB, and DEC each","Explosive":">60% of finishes in R1 or R2",
+    "Marathon Man":">60% of fights go to decision","Chameleon":"≥20% wins by each method (min 10 fights)",
+    "Specialist KO":">80% of wins by KO/TKO","Specialist SUB":">80% by submission","Specialist DEC":">80% by decision",
+    "Undefeated in UFC":"Never lost in the UFC","Giant Slayer":"2+ wins vs opponents with ELO 150+ higher",
+    "Streak Killer":"2+ wins vs opponents on 3+ win streaks","Champion Destroyer":"Beaten 2+ UFC champions",
+    "Big Fight Performer":"Title fight win rate 15+ pts above regular","War Veteran":"5+ fights reaching Round 3+",
+  };
+  function _tagBadge(t, unique) {
+    const g = _TAG_GROUPS[t] || 'performance';
+    const tip = _TAG_TIPS[t] || '';
+    return `<span class="tag-badge tag-${g}${unique?' tag-unique':''}">${t}${tip?`<span class="tag-tip">${tip}</span>`:''}</span>`;
+  }
+  function renderTagsSection(profA, profB, faName, fbName) {
+    const tagsA = profA?.tags || [];
+    const tagsB = profB?.tags || [];
+    if (!tagsA.length && !tagsB.length) { document.getElementById('tags-section').innerHTML = ''; return; }
+    const setA = new Set(tagsA), setB = new Set(tagsB);
+    const allTags = [...new Set([...tagsA, ...tagsB])].sort();
+    const rowsA = tagsA.map(t => _tagBadge(t, !setB.has(t))).join('');
+    const rowsB = tagsB.map(t => _tagBadge(t, !setA.has(t))).join('');
+    document.getElementById('tags-section').innerHTML = `
+      <hr class="divider">
+      <h2 style="margin-bottom:0.25rem;">Fighter Tags</h2>
+      <p style="color:var(--muted);font-size:0.82rem;margin-bottom:0.9rem;">Highlighted tags are unique to that fighter — advantages the other doesn't share.</p>
+      <div class="grid-2">
+        <div class="card">
+          <div style="font-size:0.78rem;font-weight:700;color:${COLOR_A};margin-bottom:0.5rem;">${faName}</div>
+          <div class="tags-row">${rowsA || '<span style="color:var(--muted);font-size:0.8rem;">No tags yet (need 5+ fights)</span>'}</div>
+        </div>
+        <div class="card">
+          <div style="font-size:0.78rem;font-weight:700;color:${COLOR_B};margin-bottom:0.5rem;">${fbName}</div>
+          <div class="tags-row">${rowsB || '<span style="color:var(--muted);font-size:0.8rem;">No tags yet (need 5+ fights)</span>'}</div>
+        </div>
+      </div>`;
+  }
+
   function renderSimulatorSection(faName, fbName) {
     document.getElementById('simulator-section').innerHTML = `
       <hr class="divider">

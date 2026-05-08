@@ -1,6 +1,11 @@
 import random as _random
+import sys as _sys
 from datetime import datetime, timedelta
+from pathlib import Path as _Path
 from typing import Dict, List, Optional
+
+_sys.path.insert(0, str(_Path(__file__).parent.parent))
+from models.tag_engine import TAG_GROUPS, TAG_TOOLTIPS, calculate_tags as _calculate_tags
 
 from .data_loader import (
     get_fighter_by_id,
@@ -354,6 +359,17 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
         "skill_composite": skill_composite,
         "skill_history": skill_history_response,
         "fight_stats": fight_stats,
+        "tags": _calculate_tags(fighter_id, division),
+    }
+
+
+def get_fighter_tags(fighter_id: str, division: str) -> Dict:
+    tags = _calculate_tags(fighter_id, division)
+    return {
+        "fighter_id": fighter_id,
+        "tags": tags,
+        "tag_groups": {t: TAG_GROUPS.get(t, "performance") for t in tags},
+        "tag_tooltips": {t: TAG_TOOLTIPS.get(t, "") for t in tags},
     }
 
 
