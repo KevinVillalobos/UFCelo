@@ -1,0 +1,13 @@
+.git
+.claude
+logs/
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.env.*
+frontend/
+public/
+node_modules/
