@@ -13,7 +13,8 @@
     "active": true,
     "streak": 7,
     "division_elo_entry": 1657.89,
-    "alltime_rank": 5
+    "alltime_rank": 5,
+    "rank": 1
   },
   {
     "fighter_id": "4461d7e47375a895",
@@ -29,7 +30,8 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1660.0,
-    "alltime_rank": 7
+    "alltime_rank": 7,
+    "rank": 2
   },
   {
     "fighter_id": "75353550928a7921",
@@ -45,7 +47,8 @@
     "active": true,
     "streak": 7,
     "division_elo_entry": 1700.0,
-    "alltime_rank": 4
+    "alltime_rank": 3,
+    "rank": 3
   },
   {
     "fighter_id": "a0f0004aadf10b71",
@@ -61,14 +64,15 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1633.33,
-    "alltime_rank": 6
+    "alltime_rank": 6,
+    "rank": 4
   },
   {
     "fighter_id": "98aa60cf58071fd6",
     "fighter_name": "Kyoji Horiguchi",
     "division": "Flyweight",
-    "elo": 1745.63,
-    "peak_elo": 1767.97,
+    "elo": 1745.59,
+    "peak_elo": 1767.93,
     "peak_elo_date": "2026-02-07",
     "peak_elo_opponent": "Amir Albazi",
     "record": "36-5-0",
@@ -77,14 +81,15 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1665.67,
-    "alltime_rank": 10
+    "alltime_rank": 10,
+    "rank": 5
   },
   {
     "fighter_id": "5d1b7e3dd9e11074",
     "fighter_name": "Manel Kape",
     "division": "Flyweight",
-    "elo": 1738.76,
-    "peak_elo": 1738.88,
+    "elo": 1738.77,
+    "peak_elo": 1738.89,
     "peak_elo_date": "2026-06-20",
     "peak_elo_opponent": "Kyoji Horiguchi",
     "record": "22-7-0",
@@ -93,23 +98,8 @@
     "active": true,
     "streak": 4,
     "division_elo_entry": 1603.45,
-    "alltime_rank": 14
-  },
-  {
-    "fighter_id": "83455a9d17f57dae",
-    "fighter_name": "Rafael Estevam",
-    "division": "Flyweight",
-    "elo": 1726.21,
-    "peak_elo": 1738.96,
-    "peak_elo_date": "2025-08-02",
-    "peak_elo_opponent": "Felipe Bunes",
-    "record": "14-1-0",
-    "fight_count": 3,
-    "last_fight_date": "2025-08-02",
-    "active": true,
-    "streak": 3,
-    "division_elo_entry": 1673.33,
-    "alltime_rank": 13
+    "alltime_rank": 14,
+    "rank": 6
   },
   {
     "fighter_id": "b1f21ce050035d58",
@@ -125,7 +115,8 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1700.0,
-    "alltime_rank": 9
+    "alltime_rank": 9,
+    "rank": 7
   },
   {
     "fighter_id": "8d3273573b85be09",
@@ -141,7 +132,8 @@
     "active": true,
     "streak": 2,
     "division_elo_entry": 1653.85,
-    "alltime_rank": 15
+    "alltime_rank": 15,
+    "rank": 8
   },
   {
     "fighter_id": "6e8349a0a0476d60",
@@ -157,7 +149,8 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1700.0,
-    "alltime_rank": 22
+    "alltime_rank": 22,
+    "rank": 9
   },
   {
     "fighter_id": "f00ac08ab056af5d",
@@ -173,7 +166,8 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1640.0,
-    "alltime_rank": 16
+    "alltime_rank": 16,
+    "rank": 10
   },
   {
     "fighter_id": "3be16d817b36098b",
@@ -189,7 +183,8 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1700.0,
-    "alltime_rank": 18
+    "alltime_rank": 18,
+    "rank": 11
   },
   {
     "fighter_id": "792be9a24df82ed6",
@@ -205,14 +200,15 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1578.79,
-    "alltime_rank": 20
+    "alltime_rank": 20,
+    "rank": 12
   },
   {
     "fighter_id": "6d35bf94f7d30241",
     "fighter_name": "Amir Albazi",
     "division": "Flyweight",
-    "elo": 1698.62,
-    "peak_elo": 1752.43,
+    "elo": 1698.61,
+    "peak_elo": 1752.42,
     "peak_elo_date": "2023-06-03",
     "peak_elo_opponent": "Kai Kara-France",
     "record": "17-3-0",
@@ -221,7 +217,8 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1667.54,
-    "alltime_rank": 12
+    "alltime_rank": 12,
+    "rank": 13
   },
   {
     "fighter_id": "bb2c3c3a466224af",
@@ -237,13 +234,14 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1663.64,
-    "alltime_rank": 26
+    "alltime_rank": 26,
+    "rank": 14
   },
   {
     "fighter_id": "2fe9032955c2e013",
     "fighter_name": "Joseph Morales",
     "division": "Flyweight",
-    "elo": 1691.51,
+    "elo": 1691.52,
     "peak_elo": 1698.93,
     "peak_elo_date": "2025-11-08",
     "peak_elo_opponent": "Matt Schnell",
@@ -253,7 +251,8 @@
     "active": true,
     "streak": 2,
     "division_elo_entry": 1652.94,
-    "alltime_rank": 30
+    "alltime_rank": 30,
+    "rank": 15
   },
   {
     "fighter_id": "7d0a1968b38ca439",
@@ -269,7 +268,8 @@
     "active": true,
     "streak": 2,
     "division_elo_entry": 1645.45,
-    "alltime_rank": 27
+    "alltime_rank": 27,
+    "rank": 16
   },
   {
     "fighter_id": "17cb6d8e8187f304",
@@ -285,13 +285,14 @@
     "active": true,
     "streak": 2,
     "division_elo_entry": 1663.64,
-    "alltime_rank": 34
+    "alltime_rank": 34,
+    "rank": 17
   },
   {
     "fighter_id": "ab2b4ff41d6ebe0f",
     "fighter_name": "Alex Perez",
     "division": "Flyweight",
-    "elo": 1679.77,
+    "elo": 1679.76,
     "peak_elo": 1728.45,
     "peak_elo_date": "2020-06-06",
     "peak_elo_opponent": "Jussier Formiga",
@@ -301,13 +302,14 @@
     "active": true,
     "streak": 0,
     "division_elo_entry": 1623.88,
-    "alltime_rank": 19
+    "alltime_rank": 19,
+    "rank": 18
   },
   {
     "fighter_id": "5e9ca8dd7d783a75",
     "fighter_name": "Alden Coria",
     "division": "Flyweight",
-    "elo": 1667.3,
+    "elo": 1667.31,
     "peak_elo": 1670.73,
     "peak_elo_date": "2026-02-21",
     "peak_elo_opponent": "Luis Gurule",
@@ -317,23 +319,8 @@
     "active": true,
     "streak": 2,
     "division_elo_entry": 1620.0,
-    "alltime_rank": 48
-  },
-  {
-    "fighter_id": "65adf3856c4d9256",
-    "fighter_name": "Jafel Filho",
-    "division": "Flyweight",
-    "elo": 1659.86,
-    "peak_elo": 1666.84,
-    "peak_elo_date": "2025-10-11",
-    "peak_elo_opponent": "Clayton Carpenter",
-    "record": "17-5-0",
-    "fight_count": 5,
-    "last_fight_date": "2025-10-11",
-    "active": true,
-    "streak": 1,
-    "division_elo_entry": 1609.09,
-    "alltime_rank": 52
+    "alltime_rank": 48,
+    "rank": 19
   },
   {
     "fighter_id": "253076a23d03dcd0",
@@ -349,14 +336,15 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1614.29,
-    "alltime_rank": 38
+    "alltime_rank": 38,
+    "rank": 20
   },
   {
     "fighter_id": "853eb0dd5c0e2149",
     "fighter_name": "Kai Kara-France",
     "division": "Flyweight",
-    "elo": 1654.68,
-    "peak_elo": 1679.77,
+    "elo": 1654.61,
+    "peak_elo": 1679.68,
     "peak_elo_date": "2022-03-26",
     "peak_elo_opponent": "Askar Askarov",
     "record": "25-12-0",
@@ -365,23 +353,8 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1570.27,
-    "alltime_rank": 43
-  },
-  {
-    "fighter_id": "2f43a3e82661fa99",
-    "fighter_name": "Rei Tsuruya",
-    "division": "Flyweight",
-    "elo": 1645.63,
-    "peak_elo": 1682.9,
-    "peak_elo_date": "2024-06-29",
-    "peak_elo_opponent": "Carlos Hernandez",
-    "record": "10-1-0",
-    "fight_count": 2,
-    "last_fight_date": "2025-03-08",
-    "active": true,
-    "streak": -1,
-    "division_elo_entry": 1663.64,
-    "alltime_rank": 39
+    "alltime_rank": 43,
+    "rank": 21
   },
   {
     "fighter_id": "5ef94841c4bc3f86",
@@ -397,13 +370,14 @@
     "active": true,
     "streak": 3,
     "division_elo_entry": 1573.68,
-    "alltime_rank": 66
+    "alltime_rank": 66,
+    "rank": 22
   },
   {
     "fighter_id": "88be62d6c1e6dadb",
     "fighter_name": "Jose Ochoa",
     "division": "Flyweight",
-    "elo": 1638.79,
+    "elo": 1638.8,
     "peak_elo": 1639.83,
     "peak_elo_date": "2026-05-09",
     "peak_elo_opponent": "Clayton Carpenter",
@@ -413,7 +387,8 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1627.27,
-    "alltime_rank": 68
+    "alltime_rank": 68,
+    "rank": 23
   },
   {
     "fighter_id": "e0d3d9b564f95635",
@@ -429,7 +404,8 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1660.0,
-    "alltime_rank": 60
+    "alltime_rank": 60,
+    "rank": 24
   },
   {
     "fighter_id": "814e5233e2acf2ee",
@@ -445,7 +421,8 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1581.48,
-    "alltime_rank": 65
+    "alltime_rank": 65,
+    "rank": 25
   },
   {
     "fighter_id": "c051c2e12d692b8a",
@@ -461,14 +438,15 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1600.0,
-    "alltime_rank": 51
+    "alltime_rank": 51,
+    "rank": 26
   },
   {
     "fighter_id": "f2900678e98f6d6a",
     "fighter_name": "Ronaldo Rodriguez",
     "division": "Flyweight",
-    "elo": 1628.37,
-    "peak_elo": 1675.73,
+    "elo": 1628.38,
+    "peak_elo": 1675.74,
     "peak_elo_date": "2024-09-14",
     "peak_elo_opponent": "Ode Osbourne",
     "record": "17-3-0",
@@ -477,7 +455,8 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1640.0,
-    "alltime_rank": 47
+    "alltime_rank": 47,
+    "rank": 27
   },
   {
     "fighter_id": "0be6776db31d98ec",
@@ -493,7 +472,8 @@
     "active": true,
     "streak": 2,
     "division_elo_entry": 1607.69,
-    "alltime_rank": 77
+    "alltime_rank": 77,
+    "rank": 28
   },
   {
     "fighter_id": "b671bdf981ad527d",
@@ -509,7 +489,8 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1633.33,
-    "alltime_rank": 28
+    "alltime_rank": 28,
+    "rank": 29
   },
   {
     "fighter_id": "6e15f63b6c2e2c15",
@@ -525,13 +506,14 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1561.54,
-    "alltime_rank": 57
+    "alltime_rank": 57,
+    "rank": 30
   },
   {
     "fighter_id": "32ab52e5de93092d",
     "fighter_name": "Steve Erceg",
     "division": "Flyweight",
-    "elo": 1622.88,
+    "elo": 1622.87,
     "peak_elo": 1691.06,
     "peak_elo_date": "2024-03-02",
     "peak_elo_opponent": "Matt Schnell",
@@ -541,7 +523,8 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1611.11,
-    "alltime_rank": 35
+    "alltime_rank": 35,
+    "rank": 31
   },
   {
     "fighter_id": "3cf18e01cb6cbde3",
@@ -557,13 +540,14 @@
     "active": true,
     "streak": 0,
     "division_elo_entry": 1585.28,
-    "alltime_rank": 69
+    "alltime_rank": 69,
+    "rank": 32
   },
   {
     "fighter_id": "30cad5a751adcb48",
     "fighter_name": "Alibi Idiris",
     "division": "Flyweight",
-    "elo": 1618.89,
+    "elo": 1618.9,
     "peak_elo": 1666.67,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -573,7 +557,8 @@
     "active": true,
     "streak": 0,
     "division_elo_entry": 1666.67,
-    "alltime_rank": 53
+    "alltime_rank": 53,
+    "rank": 33
   },
   {
     "fighter_id": "1a31ef98efce7a79",
@@ -589,14 +574,15 @@
     "active": true,
     "streak": -3,
     "division_elo_entry": 1630.55,
-    "alltime_rank": 32
+    "alltime_rank": 32,
+    "rank": 34
   },
   {
     "fighter_id": "294aa73dbf37d281",
     "fighter_name": "Bruno Silva",
     "division": "Flyweight",
-    "elo": 1605.36,
-    "peak_elo": 1648.7,
+    "elo": 1605.37,
+    "peak_elo": 1648.71,
     "peak_elo_date": "2024-07-20",
     "peak_elo_opponent": "Cody Durden",
     "record": "15-8-2",
@@ -605,7 +591,8 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1563.73,
-    "alltime_rank": 62
+    "alltime_rank": 62,
+    "rank": 35
   },
   {
     "fighter_id": "3fa97913cfd205d3",
@@ -621,7 +608,8 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1600.0,
-    "alltime_rank": 83
+    "alltime_rank": 83,
+    "rank": 36
   },
   {
     "fighter_id": "a78f7a9135eb6249",
@@ -637,7 +625,8 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1620.0,
-    "alltime_rank": 87
+    "alltime_rank": 87,
+    "rank": 37
   },
   {
     "fighter_id": "296a120cb880477b",
@@ -653,7 +642,8 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1620.0,
-    "alltime_rank": 88
+    "alltime_rank": 88,
+    "rank": 38
   },
   {
     "fighter_id": "b62d5280966b2460",
@@ -669,14 +659,15 @@
     "active": true,
     "streak": -3,
     "division_elo_entry": 1590.91,
-    "alltime_rank": 54
+    "alltime_rank": 54,
+    "rank": 39
   },
   {
     "fighter_id": "67c1d46f4ed16f9e",
     "fighter_name": "Matt Schnell",
     "division": "Flyweight",
-    "elo": 1555.98,
-    "peak_elo": 1607.23,
+    "elo": 1556.02,
+    "peak_elo": 1607.29,
     "peak_elo_date": "2019-08-03",
     "peak_elo_opponent": "Jordan Espinosa",
     "record": "17-10-0",
@@ -684,24 +675,9 @@
     "last_fight_date": "2025-11-08",
     "active": true,
     "streak": -1,
-    "division_elo_entry": 1519.85,
-    "alltime_rank": 97
-  },
-  {
-    "fighter_id": "29162be25ebef5f0",
-    "fighter_name": "Luis Gurule",
-    "division": "Flyweight",
-    "elo": 1553.44,
-    "peak_elo": 1607.69,
-    "peak_elo_date": null,
-    "peak_elo_opponent": null,
-    "record": "10-3-0",
-    "fight_count": 4,
-    "last_fight_date": "2026-05-16",
-    "active": true,
-    "streak": 1,
-    "division_elo_entry": 1607.69,
-    "alltime_rank": 96
+    "division_elo_entry": 1519.93,
+    "alltime_rank": 97,
+    "rank": 40
   },
   {
     "fighter_id": "7f1bf0c255ec8756",
@@ -717,7 +693,8 @@
     "active": true,
     "streak": -3,
     "division_elo_entry": 1633.33,
-    "alltime_rank": 63
+    "alltime_rank": 63,
+    "rank": 41
   },
   {
     "fighter_id": "5cdf5339728f580d",
@@ -733,23 +710,8 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1590.91,
-    "alltime_rank": 108
-  },
-  {
-    "fighter_id": "d33da8a3d82bdb62",
-    "fighter_name": "Kai Asakura",
-    "division": "Flyweight",
-    "elo": 1546.16,
-    "peak_elo": 1611.11,
-    "peak_elo_date": null,
-    "peak_elo_opponent": null,
-    "record": "21-6-0",
-    "fight_count": 2,
-    "last_fight_date": "2025-08-16",
-    "active": true,
-    "streak": -2,
-    "division_elo_entry": 1611.11,
-    "alltime_rank": 92
+    "alltime_rank": 108,
+    "rank": 42
   },
   {
     "fighter_id": "dc7927cd622676a7",
@@ -765,7 +727,8 @@
     "active": true,
     "streak": -3,
     "division_elo_entry": 1582.35,
-    "alltime_rank": 86
+    "alltime_rank": 86,
+    "rank": 43
   },
   {
     "fighter_id": "798e48f9e7f6ba22",
@@ -781,7 +744,8 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1566.67,
-    "alltime_rank": 116
+    "alltime_rank": 116,
+    "rank": 44
   },
   {
     "fighter_id": "34b96d52db1d26e6",
@@ -797,7 +761,8 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1566.67,
-    "alltime_rank": 131
+    "alltime_rank": 131,
+    "rank": 45
   },
   {
     "fighter_id": "53c10176e3bc7416",
@@ -813,7 +778,8 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1543.48,
-    "alltime_rank": 135
+    "alltime_rank": 135,
+    "rank": 46
   },
   {
     "fighter_id": "e8fe9c15d348e778",
@@ -829,7 +795,8 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1583.33,
-    "alltime_rank": 119
+    "alltime_rank": 119,
+    "rank": 47
   },
   {
     "fighter_id": "c96d9178c9ed9e62",
@@ -845,7 +812,8 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1544.44,
-    "alltime_rank": 125
+    "alltime_rank": 125,
+    "rank": 48
   },
   {
     "fighter_id": "09e62c450e754913",
@@ -861,14 +829,15 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1561.54,
-    "alltime_rank": 103
+    "alltime_rank": 103,
+    "rank": 49
   },
   {
     "fighter_id": "077e3ace32b72be9",
     "fighter_name": "CJ Vergara",
     "division": "Flyweight",
     "elo": 1524.14,
-    "peak_elo": 1577.52,
+    "peak_elo": 1577.53,
     "peak_elo_date": "2023-07-29",
     "peak_elo_opponent": "Vinicius Salvador",
     "record": "12-7-1",
@@ -877,30 +846,15 @@
     "active": true,
     "streak": -3,
     "division_elo_entry": 1552.63,
-    "alltime_rank": 124
-  },
-  {
-    "fighter_id": "7f6ed67d3ed3c036",
-    "fighter_name": "Cody Durden",
-    "division": "Flyweight",
-    "elo": 1523.2,
-    "peak_elo": 1626.05,
-    "peak_elo_date": "2023-08-05",
-    "peak_elo_opponent": "Jake Hadley",
-    "record": "18-10-1",
-    "fight_count": 12,
-    "last_fight_date": "2026-03-07",
-    "active": true,
-    "streak": -5,
-    "division_elo_entry": 1536.7,
-    "alltime_rank": 78
+    "alltime_rank": 124,
+    "rank": 50
   },
   {
     "fighter_id": "6d68c1afe954f121",
     "fighter_name": "Ode Osbourne",
     "division": "Flyweight",
-    "elo": 1519.44,
-    "peak_elo": 1586.53,
+    "elo": 1519.5,
+    "peak_elo": 1586.62,
     "peak_elo_date": "2022-06-04",
     "peak_elo_opponent": "Zarrukh Adashev",
     "record": "13-9-0",
@@ -908,8 +862,9 @@
     "last_fight_date": "2026-02-21",
     "active": true,
     "streak": 0,
-    "division_elo_entry": 1552.0,
-    "alltime_rank": 117
+    "division_elo_entry": 1552.13,
+    "alltime_rank": 117,
+    "rank": 51
   },
   {
     "fighter_id": "2bd98ab77a8daa75",
@@ -925,7 +880,8 @@
     "active": true,
     "streak": -3,
     "division_elo_entry": 1590.91,
-    "alltime_rank": 110
+    "alltime_rank": 110,
+    "rank": 52
   },
   {
     "fighter_id": "84f727cf0166d6f2",
@@ -941,6 +897,7 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1545.38,
-    "alltime_rank": 144
+    "alltime_rank": 143,
+    "rank": 53
   }
 ]

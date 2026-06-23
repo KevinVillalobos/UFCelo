@@ -1,4 +1,4 @@
-"""Runs scraper + ELO engine for all 8 divisions in sequence."""
+"""Runs scraper + ELO engine for all 8 divisions, then unifies cross-division rankings."""
 import subprocess
 import sys
 from pathlib import Path
@@ -17,6 +17,8 @@ DIVISIONS = [
 ROOT = Path(__file__).parent.parent
 SCRAPER = ROOT / "scraper" / "scraper.py"
 ELO     = ROOT / "models" / "elo_engine.py"
+UNIFY   = ROOT / "models" / "unify_rankings.py"
+
 
 def run(cmd: list, label: str):
     print(f"\n{'='*60}")
@@ -27,10 +29,9 @@ def run(cmd: list, label: str):
         print(f"[WARN] {label} salió con código {result.returncode}")
     return result.returncode
 
+
 failed = []
 for div in DIVISIONS:
-    slug = div.replace(" ", "_")
-
     rc = run(
         [sys.executable, str(SCRAPER), "--division", div, "--output", "data"],
         f"SCRAPER: {div}",
@@ -45,9 +46,15 @@ for div in DIVISIONS:
     if rc != 0:
         failed.append(f"elo:{div}")
 
+# After all divisions: unify cross-division fighter assignments
+run(
+    [sys.executable, str(UNIFY), "--output", "data"],
+    "UNIFY: cross-division rankings",
+)
+
 print("\n" + "="*60)
 if failed:
     print(f"TERMINADO con errores en: {', '.join(failed)}")
 else:
-    print("TERMINADO — todas las divisiones actualizadas.")
+    print("TERMINADO — todas las divisiones actualizadas y unificadas.")
 print("="*60)

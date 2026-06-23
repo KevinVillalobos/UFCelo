@@ -137,6 +137,14 @@ class EloEngine:
         fights: List[FightRecord],
         fighters: Dict[str, Dict[str, Optional[str]]],
     ) -> tuple:
+        # Build name lookup from fight records — reliable even when fighters JSON is empty
+        names_from_fights: Dict[str, str] = {}
+        for fight in fights:
+            if fight.fighter_a_id and fight.fighter_a_name:
+                names_from_fights[fight.fighter_a_id] = fight.fighter_a_name
+            if fight.fighter_b_id and fight.fighter_b_name:
+                names_from_fights[fight.fighter_b_id] = fight.fighter_b_name
+
         ratings: Dict[str, float] = {fid: self._initial_elo(fid, fighters) for fid in fighters.keys()}
         initial_ratings: Dict[str, float] = dict(ratings)  # snapshot for division_elo_entry
         histories: Dict[str, List[Dict[str, object]]] = {fid: [] for fid in fighters.keys()}
@@ -401,8 +409,8 @@ class EloEngine:
             active = last_date is not None and (today - last_date).days <= 730
             ranking.append({
                 "fighter_id": fighter_id,
-                "fighter_name": fighter_info.get("name") or "Unknown",
-                "division": fighter_info.get("division") or "Unknown",
+                "fighter_name": fighter_info.get("name") or names_from_fights.get(fighter_id) or "Unknown",
+                "division": fighter_info.get("division") or self.division.title(),
                 "elo": round(displayed_elo, 2),
                 "peak_elo": round(peak_elos.get(fighter_id, self.base_elo), 2),
                 "peak_elo_date": peak_elo_dates.get(fighter_id),
@@ -915,7 +923,6 @@ def write_json(path: Path, data: object) -> None:
 
 
 def _load_prior_division_elos(
-    fighters: Dict[str, Dict],
     current_division: str,
     fights: List[FightRecord],
     output_dir: Path,
@@ -950,7 +957,7 @@ def _load_prior_division_elos(
             continue
 
         for fid, hist in histories.items():
-            if fid not in fighters or not hist or fid not in earliest_here:
+            if not hist or fid not in earliest_here:
                 continue
             cutoff = earliest_here[fid].strftime("%Y-%m-%d")
             prior_fights = [h for h in hist if h.get("date", "") < cutoff]
@@ -999,11 +1006,10 @@ def main():
         log.error("No se encontraron peleas para procesar.")
         return
     if not fighters:
-        log.error("No se encontraron peleadores para procesar.")
-        return
+        log.warning("[%s] fighters JSON vacío — se usarán nombres del CSV.", args.division)
 
     # Load cross-division ELOs for fighters who moved divisions
-    prior_elos = _load_prior_division_elos(fighters, args.division, fights, output_dir)
+    prior_elos = _load_prior_division_elos(args.division, fights, output_dir)
 
     elo_engine = EloEngine(division=args.division, prior_elos=prior_elos, debug=args.debug)
     skill_engine = SkillScoreEngine()
