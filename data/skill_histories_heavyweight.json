@@ -6233,13 +6233,13 @@
       "opponent_name": "Tallison Teixeira",
       "result": "Win",
       "skill_score": {
-        "Striking": 77.02,
-        "Grappling": 42.13,
-        "Defensa": 82.31,
-        "Consistencia": 54.42,
+        "Striking": 79.41,
+        "Grappling": 43.33,
+        "Defensa": 87.91,
+        "Consistencia": 48.6,
         "Finish Rate": 61.87,
-        "Cardio/Durabilidad": 81.51,
-        "Presión": 47.78
+        "Cardio/Durabilidad": 85.71,
+        "Presión": 34.62
       },
       "event": "UFC Fight Night: Song vs. Figueiredo",
       "method": "KO/TKO",
@@ -11205,13 +11205,13 @@
       "opponent_name": "Alex Pereira",
       "result": "Win",
       "skill_score": {
-        "Striking": 87.93,
-        "Grappling": 35.06,
-        "Defensa": 67.81,
-        "Consistencia": 74.22,
+        "Striking": 90.33,
+        "Grappling": 37.06,
+        "Defensa": 73.35,
+        "Consistencia": 81.02,
         "Finish Rate": 63.34,
-        "Cardio/Durabilidad": 83.58,
-        "Presión": 49.94
+        "Cardio/Durabilidad": 90.58,
+        "Presión": 41.7
       },
       "event": "UFC Freedom 250",
       "method": "KO/TKO",
@@ -17449,13 +17449,13 @@
       "opponent_name": "Josh Hokit",
       "result": "Loss",
       "skill_score": {
-        "Striking": 60.23,
-        "Grappling": 24.83,
-        "Defensa": 50.75,
-        "Consistencia": 43.1,
-        "Finish Rate": 66.48,
-        "Cardio/Durabilidad": 77.45,
-        "Presión": 28.63
+        "Striking": 47.96,
+        "Grappling": 21.59,
+        "Defensa": 42.88,
+        "Consistencia": 38.75,
+        "Finish Rate": 53.26,
+        "Cardio/Durabilidad": 80.2,
+        "Presión": 14.93
       },
       "event": "UFC Freedom 250",
       "method": "KO/TKO",
@@ -23153,13 +23153,13 @@
       "opponent_name": "Derrick Lewis",
       "result": "Win",
       "skill_score": {
-        "Striking": 75.54,
-        "Grappling": 43.47,
-        "Defensa": 67.71,
-        "Consistencia": 49.5,
+        "Striking": 77.94,
+        "Grappling": 54.94,
+        "Defensa": 73.13,
+        "Consistencia": 55.14,
         "Finish Rate": 68.32,
-        "Cardio/Durabilidad": 68.0,
-        "Presión": 64.7
+        "Cardio/Durabilidad": 74.2,
+        "Presión": 67.19
       },
       "event": "UFC Freedom 250",
       "method": "KO/TKO",
@@ -31455,13 +31455,13 @@
       "opponent_name": "Sergei Pavlovich",
       "result": "Loss",
       "skill_score": {
-        "Striking": 67.92,
-        "Grappling": 42.6,
-        "Defensa": 66.56,
-        "Consistencia": 54.22,
-        "Finish Rate": 57.1,
-        "Cardio/Durabilidad": 64.4,
-        "Presión": 51.89
+        "Striking": 52.4,
+        "Grappling": 42.65,
+        "Defensa": 66.66,
+        "Consistencia": 44.19,
+        "Finish Rate": 43.88,
+        "Cardio/Durabilidad": 65.64,
+        "Presión": 37.47
       },
       "event": "UFC Fight Night: Song vs. Figueiredo",
       "method": "KO/TKO",
@@ -34761,13 +34761,13 @@
       "opponent_name": "Ciryl Gane",
       "result": "Loss",
       "skill_score": {
-        "Striking": 89.55,
-        "Grappling": 36.34,
-        "Defensa": 81.38,
-        "Consistencia": 71.03,
-        "Finish Rate": 80.23,
-        "Cardio/Durabilidad": 83.96,
-        "Presión": 46.62
+        "Striking": 80.48,
+        "Grappling": 37.2,
+        "Defensa": 82.71,
+        "Consistencia": 68.22,
+        "Finish Rate": 67.81,
+        "Cardio/Durabilidad": 87.5,
+        "Presión": 34.08
       },
       "event": "UFC Freedom 250",
       "method": "KO/TKO",

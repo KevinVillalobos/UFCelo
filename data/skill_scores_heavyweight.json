@@ -994,15 +994,15 @@
     "fighter_name": "Sergei Pavlovich",
     "division": "Heavyweight",
     "skill_score": {
-      "Striking": 77.02,
-      "Grappling": 42.13,
-      "Defensa": 82.31,
-      "Consistencia": 54.42,
+      "Striking": 79.41,
+      "Grappling": 43.33,
+      "Defensa": 87.91,
+      "Consistencia": 48.6,
       "Finish Rate": 61.87,
-      "Cardio/Durabilidad": 81.51,
-      "Presión": 47.78
+      "Cardio/Durabilidad": 85.71,
+      "Presión": 34.62
     },
-    "skill_composite": 65.46
+    "skill_composite": 65.47
   },
   {
     "fighter_id": "8349d55cdecd393a",
@@ -1819,15 +1819,15 @@
     "fighter_name": "Ciryl Gane",
     "division": "Heavyweight",
     "skill_score": {
-      "Striking": 87.93,
-      "Grappling": 35.06,
-      "Defensa": 67.81,
-      "Consistencia": 74.22,
+      "Striking": 90.33,
+      "Grappling": 37.06,
+      "Defensa": 73.35,
+      "Consistencia": 81.02,
       "Finish Rate": 63.34,
-      "Cardio/Durabilidad": 83.58,
-      "Presión": 49.94
+      "Cardio/Durabilidad": 90.58,
+      "Presión": 41.7
     },
-    "skill_composite": 67.23
+    "skill_composite": 70.01
   },
   {
     "fighter_id": "1eff7bc0f815b270",
@@ -2284,15 +2284,15 @@
     "fighter_name": "Derrick Lewis",
     "division": "Heavyweight",
     "skill_score": {
-      "Striking": 60.23,
-      "Grappling": 24.83,
-      "Defensa": 50.75,
-      "Consistencia": 43.1,
-      "Finish Rate": 66.48,
-      "Cardio/Durabilidad": 77.45,
-      "Presión": 28.63
+      "Striking": 47.96,
+      "Grappling": 21.59,
+      "Defensa": 42.88,
+      "Consistencia": 38.75,
+      "Finish Rate": 53.26,
+      "Cardio/Durabilidad": 80.2,
+      "Presión": 14.93
     },
-    "skill_composite": 49.64
+    "skill_composite": 42.06
   },
   {
     "fighter_id": "ba280572acfba13f",
@@ -3154,15 +3154,15 @@
     "fighter_name": "Josh Hokit",
     "division": "Heavyweight",
     "skill_score": {
-      "Striking": 75.54,
-      "Grappling": 43.47,
-      "Defensa": 67.71,
-      "Consistencia": 49.5,
+      "Striking": 77.94,
+      "Grappling": 54.94,
+      "Defensa": 73.13,
+      "Consistencia": 55.14,
       "Finish Rate": 68.32,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 64.7
+      "Cardio/Durabilidad": 74.2,
+      "Presión": 67.19
     },
-    "skill_composite": 62.7
+    "skill_composite": 67.7
   },
   {
     "fighter_id": "0d5cc0170c1a7e71",
@@ -4369,15 +4369,15 @@
     "fighter_name": "Tallison Teixeira",
     "division": "Heavyweight",
     "skill_score": {
-      "Striking": 67.92,
-      "Grappling": 42.6,
-      "Defensa": 66.56,
-      "Consistencia": 54.22,
-      "Finish Rate": 57.1,
-      "Cardio/Durabilidad": 64.4,
-      "Presión": 51.89
+      "Striking": 52.4,
+      "Grappling": 42.65,
+      "Defensa": 66.66,
+      "Consistencia": 44.19,
+      "Finish Rate": 43.88,
+      "Cardio/Durabilidad": 65.64,
+      "Presión": 37.47
     },
-    "skill_composite": 58.76
+    "skill_composite": 51.54
   },
   {
     "fighter_id": "56b8b24f65f9f057",
@@ -4744,14 +4744,14 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 89.55,
-      "Grappling": 36.34,
-      "Defensa": 81.38,
-      "Consistencia": 71.03,
-      "Finish Rate": 80.23,
-      "Cardio/Durabilidad": 83.96,
-      "Presión": 46.62
+      "Striking": 80.48,
+      "Grappling": 37.2,
+      "Defensa": 82.71,
+      "Consistencia": 68.22,
+      "Finish Rate": 67.81,
+      "Cardio/Durabilidad": 87.5,
+      "Presión": 34.08
     },
-    "skill_composite": 71.37
+    "skill_composite": 67.39
   }
 ]

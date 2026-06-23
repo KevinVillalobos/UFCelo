@@ -311,19 +311,23 @@ class UFCScraper:
             if not thead:
                 continue
             ths = [th.get_text(strip=True).upper() for th in thead.select("th, td")]
-            tbody = table.select_one("tbody")
-            if not tbody:
-                continue
 
             is_totals = "CTRL" in ths
             is_sig = "HEAD" in ths
             if not is_totals and not is_sig:
                 continue
 
+            # UFCstats changed their HTML structure: tbody.select("tr") now returns 0 rows
+            # because the browser renders <tr> elements outside direct tbody children.
+            # Using table.select("tr") finds all rows at any depth, then we skip header rows.
+            thead_rows = set(id(r) for r in table.select("thead tr"))
+
             # UFCstats fight pages put BOTH fighters in a single <tr>.
             # Each stat <td> has two <p> elements: p[0]=fighter shown first, p[1]=fighter shown second.
             # cols[0] has two <a> links in the same order.
-            for row in tbody.select("tr"):
+            for row in table.select("tr"):
+                if id(row) in thead_rows:
+                    continue
                 cols = row.select("td")
                 if len(cols) < 5:
                     continue
@@ -702,14 +706,21 @@ def scrape_division(division: str, output_dir: str, max_events: Optional[int] = 
         scraper.close()
 
 
-def refresh_fight_stats(csv_path: str, delay: float = 1.5) -> None:
-    """Re-fetch per-fight stats for all rows in the existing CSV and write them back."""
+def _is_row_missing_stats(row: dict) -> bool:
+    """Return True if the fight row has no strike stats at all."""
+    return not row.get("fighter_a_strikes_landed")
+
+
+def refresh_fight_stats(csv_path: str, delay: float = 1.5, missing_only: bool = False) -> None:
+    """Re-fetch per-fight stats for rows in the existing CSV and write them back.
+
+    missing_only=True skips fights that already have stats (faster for incremental use).
+    """
     path = Path(csv_path)
     with path.open("r", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
 
     fieldnames = list(rows[0].keys()) if rows else []
-    # Ensure stat columns are present
     stat_cols = [
         "fighter_a_strikes_landed", "fighter_a_strikes_attempted",
         "fighter_a_takedowns_landed", "fighter_a_takedowns_attempted",
@@ -730,10 +741,13 @@ def refresh_fight_stats(csv_path: str, delay: float = 1.5) -> None:
         if col not in fieldnames:
             fieldnames.append(col)
 
+    target_rows = [r for r in rows if _is_row_missing_stats(r)] if missing_only else rows
+    log.info(f"Re-fetching stats for {len(target_rows)}/{len(rows)} fights in {csv_path}")
+
     scraper = UFCScraper(delay=delay)
     updated = 0
     try:
-        for i, row in enumerate(rows, 1):
+        for i, row in enumerate(target_rows, 1):
             fight_id = row.get("fight_id", "")
             fa_id = row.get("fighter_a_id", "")
             fb_id = row.get("fighter_b_id", "")
@@ -741,8 +755,15 @@ def refresh_fight_stats(csv_path: str, delay: float = 1.5) -> None:
                 continue
 
             fight_url = f"http://ufcstats.com/fight-details/{fight_id}"
-            log.info(f"[{i}/{len(rows)}] Stats: {row.get('fighter_a_name')} vs {row.get('fighter_b_name')}")
+            fa_name = row.get('fighter_a_name', '?')
+            fb_name = row.get('fighter_b_name', '?')
+            log.info(f"[{i}/{len(target_rows)}] {fa_name} vs {fb_name}")
             fa_stats, fb_stats, _ = scraper.get_fight_stats(fight_url, fa_id, fb_id)
+
+            if not fa_stats and not fb_stats:
+                log.warning(f"  → No stats found for fight {fight_id} ({fa_name} vs {fb_name})")
+            else:
+                log.info(f"  → Got stats: fa={fa_stats is not None} fb={fb_stats is not None}")
 
             def apply_stats(prefix: str, stats: Optional[FightStats]) -> None:
                 if not stats:
@@ -774,7 +795,7 @@ def refresh_fight_stats(csv_path: str, delay: float = 1.5) -> None:
         writer.writeheader()
         writer.writerows(rows)
 
-    log.info(f"Stats actualizadas para {updated}/{len(rows)} peleas en {csv_path}")
+    log.info(f"Stats actualizadas para {updated}/{len(target_rows)} peleas en {csv_path}")
 
 
 if __name__ == "__main__":
@@ -786,13 +807,14 @@ if __name__ == "__main__":
     parser.add_argument("--test", action="store_true", help="Modo test: solo 10 eventos")
     parser.add_argument("--deep", action="store_true", help="Forzar scrape completo ignorando checkpoint")
     parser.add_argument("--refresh-stats", action="store_true", help="Re-fetch fight stats for existing CSV")
+    parser.add_argument("--missing-only", action="store_true", help="With --refresh-stats: only refetch fights with no stats")
     args = parser.parse_args()
 
     division_slug = args.division.lower().replace(" ", "_")
     csv_path = str(Path(args.output) / f"fights_{division_slug}.csv")
 
     if args.refresh_stats:
-        refresh_fight_stats(csv_path)
+        refresh_fight_stats(csv_path, missing_only=args.missing_only)
         log.info("¡Stats actualizadas!")
     else:
         if args.test:

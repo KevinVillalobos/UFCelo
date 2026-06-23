@@ -4,15 +4,15 @@
     "fighter_name": "John Yannis",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 57.98,
-      "Grappling": 44.94,
-      "Defensa": 57.57,
-      "Consistencia": 53.42,
-      "Finish Rate": 49.71,
-      "Cardio/Durabilidad": 64.92,
-      "Presión": 48.14
+      "Striking": 56.55,
+      "Grappling": 37.68,
+      "Defensa": 58.84,
+      "Consistencia": 51.65,
+      "Finish Rate": 50.46,
+      "Cardio/Durabilidad": 67.46,
+      "Presión": 35.43
     },
-    "skill_composite": 54.14
+    "skill_composite": 51.81
   },
   {
     "fighter_id": "51ec9dc3b4964f19",
@@ -1249,15 +1249,15 @@
     "fighter_name": "Sean O'Malley",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 80.99,
-      "Grappling": 27.49,
-      "Defensa": 67.85,
-      "Consistencia": 70.77,
+      "Striking": 83.39,
+      "Grappling": 28.69,
+      "Defensa": 71.76,
+      "Consistencia": 73.26,
       "Finish Rate": 56.65,
-      "Cardio/Durabilidad": 86.51,
-      "Presión": 42.39
+      "Cardio/Durabilidad": 92.71,
+      "Presión": 31.56
     },
-    "skill_composite": 63.06
+    "skill_composite": 64.41
   },
   {
     "fighter_id": "6d35bf94f7d30241",
@@ -1669,15 +1669,15 @@
     "fighter_name": "Marcus McGhee",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 69.66,
-      "Grappling": 46.64,
-      "Defensa": 70.58,
-      "Consistencia": 61.61,
-      "Finish Rate": 47.78,
-      "Cardio/Durabilidad": 79.5,
-      "Presión": 51.61
+      "Striking": 71.01,
+      "Grappling": 39.64,
+      "Defensa": 72.87,
+      "Consistencia": 57.68,
+      "Finish Rate": 48.98,
+      "Cardio/Durabilidad": 81.5,
+      "Presión": 40.96
     },
-    "skill_composite": 62.17
+    "skill_composite": 60.52
   },
   {
     "fighter_id": "50a28b9f8314e008",
@@ -2254,15 +2254,15 @@
     "fighter_name": "Deiveson Figueiredo",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 55.32,
-      "Grappling": 48.63,
-      "Defensa": 52.51,
-      "Consistencia": 58.12,
-      "Finish Rate": 48.74,
-      "Cardio/Durabilidad": 85.47,
-      "Presión": 32.68
+      "Striking": 58.22,
+      "Grappling": 35.13,
+      "Defensa": 41.95,
+      "Consistencia": 57.24,
+      "Finish Rate": 35.46,
+      "Cardio/Durabilidad": 89.64,
+      "Presión": 22.12
     },
-    "skill_composite": 54.27
+    "skill_composite": 48.61
   },
   {
     "fighter_id": "69888118d968ba52",
@@ -2614,15 +2614,15 @@
     "fighter_name": "Malcolm Wellmaker",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 57.74,
-      "Grappling": 53.15,
-      "Defensa": 65.89,
-      "Consistencia": 57.32,
-      "Finish Rate": 73.08,
-      "Cardio/Durabilidad": 60.34,
-      "Presión": 45.97
+      "Striking": 57.88,
+      "Grappling": 38.55,
+      "Defensa": 59.98,
+      "Consistencia": 54.09,
+      "Finish Rate": 59.8,
+      "Cardio/Durabilidad": 64.5,
+      "Presión": 34.56
     },
-    "skill_composite": 59.24
+    "skill_composite": 53.35
   },
   {
     "fighter_id": "bc711b6dd95c1af6",
@@ -2944,15 +2944,15 @@
     "fighter_name": "Bryce Mitchell",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 64.78,
-      "Grappling": 65.29,
-      "Defensa": 76.31,
-      "Consistencia": 64.18,
+      "Striking": 73.39,
+      "Grappling": 63.48,
+      "Defensa": 79.27,
+      "Consistencia": 63.44,
       "Finish Rate": 52.86,
-      "Cardio/Durabilidad": 80.94,
-      "Presión": 60.2
+      "Cardio/Durabilidad": 89.34,
+      "Presión": 61.01
     },
-    "skill_composite": 67.04
+    "skill_composite": 69.89
   },
   {
     "fighter_id": "a54660deb6a8489c",
@@ -3544,15 +3544,15 @@
     "fighter_name": "Cody Haddon",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 65.6,
-      "Grappling": 48.56,
-      "Defensa": 58.89,
-      "Consistencia": 58.05,
+      "Striking": 68.0,
+      "Grappling": 54.89,
+      "Defensa": 62.26,
+      "Consistencia": 65.58,
       "Finish Rate": 56.8,
-      "Cardio/Durabilidad": 60.4,
-      "Presión": 60.06
+      "Cardio/Durabilidad": 66.6,
+      "Presión": 62.04
     },
-    "skill_composite": 58.62
+    "skill_composite": 62.67
   },
   {
     "fighter_id": "45e738622ea2c02c",
@@ -4039,15 +4039,15 @@
     "fighter_name": "Aiemann Zahabi",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 77.75,
-      "Grappling": 33.66,
-      "Defensa": 80.0,
-      "Consistencia": 56.05,
-      "Finish Rate": 53.5,
-      "Cardio/Durabilidad": 82.87,
-      "Presión": 40.89
+      "Striking": 73.0,
+      "Grappling": 33.71,
+      "Defensa": 80.89,
+      "Consistencia": 51.42,
+      "Finish Rate": 40.28,
+      "Cardio/Durabilidad": 85.61,
+      "Presión": 29.35
     },
-    "skill_composite": 62.73
+    "skill_composite": 59.07
   },
   {
     "fighter_id": "3623bd267a2eef2e",
@@ -4219,15 +4219,15 @@
     "fighter_name": "Song Yadong",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 74.76,
-      "Grappling": 55.54,
-      "Defensa": 74.58,
-      "Consistencia": 61.73,
+      "Striking": 80.17,
+      "Grappling": 57.14,
+      "Defensa": 74.96,
+      "Consistencia": 60.55,
       "Finish Rate": 55.22,
-      "Cardio/Durabilidad": 87.52,
-      "Presión": 47.33
+      "Cardio/Durabilidad": 94.52,
+      "Presión": 37.2
     },
-    "skill_composite": 66.47
+    "skill_composite": 67.37
   },
   {
     "fighter_id": "67c1d46f4ed16f9e",
@@ -4369,15 +4369,15 @@
     "fighter_name": "Timmy Cuamba",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 52.41,
-      "Grappling": 53.72,
-      "Defensa": 48.91,
-      "Consistencia": 53.92,
-      "Finish Rate": 52.54,
-      "Cardio/Durabilidad": 65.23,
-      "Presión": 49.56
+      "Striking": 53.79,
+      "Grappling": 40.66,
+      "Defensa": 46.25,
+      "Consistencia": 50.72,
+      "Finish Rate": 39.26,
+      "Cardio/Durabilidad": 69.4,
+      "Presión": 39.7
     },
-    "skill_composite": 53.14
+    "skill_composite": 48.55
   },
   {
     "fighter_id": "6546af7ab545b90c",
@@ -4414,15 +4414,15 @@
     "fighter_name": "Santiago Luna",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 60.11,
-      "Grappling": 59.71,
-      "Defensa": 52.32,
-      "Consistencia": 61.94,
-      "Finish Rate": 61.88,
-      "Cardio/Durabilidad": 63.06,
-      "Presión": 57.14
+      "Striking": 68.26,
+      "Grappling": 45.7,
+      "Defensa": 48.25,
+      "Consistencia": 58.9,
+      "Finish Rate": 48.0,
+      "Cardio/Durabilidad": 68.22,
+      "Presión": 51.78
     },
-    "skill_composite": 58.94
+    "skill_composite": 55.79
   },
   {
     "fighter_id": "8765559b6a29a421",
@@ -4789,15 +4789,15 @@
     "fighter_name": "Benardo Sopaj",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 59.6,
-      "Grappling": 64.04,
-      "Defensa": 56.62,
-      "Consistencia": 57.72,
+      "Striking": 71.2,
+      "Grappling": 61.49,
+      "Defensa": 62.17,
+      "Consistencia": 56.46,
       "Finish Rate": 53.28,
-      "Cardio/Durabilidad": 62.8,
-      "Presión": 54.42
+      "Cardio/Durabilidad": 69.8,
+      "Presión": 51.2
     },
-    "skill_composite": 58.56
+    "skill_composite": 61.79
   },
   {
     "fighter_id": "32feae6d9a1e5047",
@@ -4834,15 +4834,15 @@
     "fighter_name": "Aoriqileng",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 80.17,
-      "Grappling": 37.35,
-      "Defensa": 66.43,
-      "Consistencia": 55.47,
-      "Finish Rate": 57.59,
-      "Cardio/Durabilidad": 78.64,
-      "Presión": 45.16
+      "Striking": 74.0,
+      "Grappling": 35.76,
+      "Defensa": 62.44,
+      "Consistencia": 52.67,
+      "Finish Rate": 44.37,
+      "Cardio/Durabilidad": 81.38,
+      "Presión": 31.82
     },
-    "skill_composite": 61.38
+    "skill_composite": 56.31
   },
   {
     "fighter_id": "c0386644627a7ee5",
@@ -4939,15 +4939,15 @@
     "fighter_name": "Cameron Smotherman",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 60.23,
-      "Grappling": 33.21,
-      "Defensa": 55.07,
-      "Consistencia": 53.87,
-      "Finish Rate": 49.65,
-      "Cardio/Durabilidad": 70.88,
-      "Presión": 45.08
+      "Striking": 50.2,
+      "Grappling": 33.26,
+      "Defensa": 56.19,
+      "Consistencia": 46.34,
+      "Finish Rate": 36.43,
+      "Cardio/Durabilidad": 72.12,
+      "Presión": 31.2
     },
-    "skill_composite": 52.68
+    "skill_composite": 47.19
   },
   {
     "fighter_id": "f2477cf43c4975cc",
@@ -5029,59 +5029,59 @@
     "fighter_name": "Rei Tsuruya",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 54.98,
-      "Grappling": 56.67,
-      "Defensa": 57.64,
-      "Consistencia": 56.78,
+      "Striking": 64.46,
+      "Grappling": 54.13,
+      "Defensa": 62.64,
+      "Consistencia": 48.94,
       "Finish Rate": 53.76,
-      "Cardio/Durabilidad": 66.0,
-      "Presión": 53.44
+      "Cardio/Durabilidad": 71.0,
+      "Presión": 50.83
     },
-    "skill_composite": 56.86
+    "skill_composite": 58.44
   },
   {
     "fighter_id": "29162be25ebef5f0",
     "fighter_name": "Luis Gurule",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 53.91,
-      "Grappling": 56.15,
-      "Defensa": 62.71,
-      "Consistencia": 57.99,
-      "Finish Rate": 47.21,
-      "Cardio/Durabilidad": 70.43,
-      "Presión": 53.02
+      "Striking": 52.73,
+      "Grappling": 43.08,
+      "Defensa": 60.21,
+      "Consistencia": 51.97,
+      "Finish Rate": 33.93,
+      "Cardio/Durabilidad": 73.0,
+      "Presión": 40.36
     },
-    "skill_composite": 57.51
+    "skill_composite": 51.57
   },
   {
     "fighter_id": "74939a16c7b56f33",
     "fighter_name": "Juan Diaz",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 48.4,
-      "Grappling": 58.4,
-      "Defensa": 53.6,
-      "Consistencia": 52.8,
+      "Striking": 52.16,
+      "Grappling": 60.0,
+      "Defensa": 58.84,
+      "Consistencia": 53.08,
       "Finish Rate": 60.0,
-      "Cardio/Durabilidad": 51.6,
-      "Presión": 54.4
+      "Cardio/Durabilidad": 58.6,
+      "Presión": 48.08
     },
-    "skill_composite": 53.68
+    "skill_composite": 55.83
   },
   {
     "fighter_id": "d33da8a3d82bdb62",
     "fighter_name": "Kai Asakura",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 60.58,
-      "Grappling": 36.32,
-      "Defensa": 51.58,
-      "Consistencia": 52.42,
+      "Striking": 56.1,
+      "Grappling": 37.52,
+      "Defensa": 56.07,
+      "Consistencia": 53.77,
       "Finish Rate": 53.89,
-      "Cardio/Durabilidad": 60.11,
-      "Presión": 48.44
+      "Cardio/Durabilidad": 64.31,
+      "Presión": 34.94
     },
-    "skill_composite": 51.99
+    "skill_composite": 51.44
   }
 ]

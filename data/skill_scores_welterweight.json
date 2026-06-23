@@ -499,15 +499,15 @@
     "fighter_name": "Nikolay Veretennikov",
     "division": "Welterweight",
     "skill_score": {
-      "Striking": 74.68,
-      "Grappling": 37.49,
-      "Defensa": 63.97,
-      "Consistencia": 68.37,
-      "Finish Rate": 59.45,
-      "Cardio/Durabilidad": 72.25,
-      "Presión": 45.67
+      "Striking": 71.47,
+      "Grappling": 37.54,
+      "Defensa": 64.9,
+      "Consistencia": 69.2,
+      "Finish Rate": 46.23,
+      "Cardio/Durabilidad": 73.5,
+      "Presión": 34.85
     },
-    "skill_composite": 61.35
+    "skill_composite": 58.74
   },
   {
     "fighter_id": "0052de90691d4a93",
@@ -2014,15 +2014,15 @@
     "fighter_name": "Belal Muhammad",
     "division": "Welterweight",
     "skill_score": {
-      "Striking": 85.38,
-      "Grappling": 51.09,
-      "Defensa": 75.41,
-      "Consistencia": 71.4,
-      "Finish Rate": 34.49,
-      "Cardio/Durabilidad": 96.14,
-      "Presión": 63.05
+      "Striking": 81.41,
+      "Grappling": 43.84,
+      "Defensa": 76.31,
+      "Consistencia": 67.72,
+      "Finish Rate": 35.23,
+      "Cardio/Durabilidad": 98.68,
+      "Presión": 50.14
     },
-    "skill_composite": 69.9
+    "skill_composite": 66.68
   },
   {
     "fighter_id": "d8d7b24d276c8cb0",
@@ -2854,15 +2854,15 @@
     "fighter_name": "Yushin Okami",
     "division": "Welterweight",
     "skill_score": {
-      "Striking": 45.23,
-      "Grappling": 46.27,
-      "Defensa": 63.92,
-      "Consistencia": 50.33,
-      "Finish Rate": 39.26,
-      "Cardio/Durabilidad": 70.18,
-      "Presión": 43.63
+      "Striking": 52.97,
+      "Grappling": 46.9,
+      "Defensa": 77.84,
+      "Consistencia": 54.09,
+      "Finish Rate": 34.3,
+      "Cardio/Durabilidad": 89.07,
+      "Presión": 40.41
     },
-    "skill_composite": 51.63
+    "skill_composite": 57.69
   },
   {
     "fighter_id": "9d4522df6fc49a47",
@@ -2944,15 +2944,15 @@
     "fighter_name": "Gabriel Bonfim",
     "division": "Welterweight",
     "skill_score": {
-      "Striking": 71.53,
-      "Grappling": 65.17,
-      "Defensa": 79.95,
-      "Consistencia": 67.36,
-      "Finish Rate": 56.83,
-      "Cardio/Durabilidad": 84.23,
-      "Presión": 48.45
+      "Striking": 74.02,
+      "Grappling": 58.17,
+      "Defensa": 82.9,
+      "Consistencia": 69.04,
+      "Finish Rate": 58.03,
+      "Cardio/Durabilidad": 86.23,
+      "Presión": 37.61
     },
-    "skill_composite": 69.13
+    "skill_composite": 68.65
   },
   {
     "fighter_id": "d8da10db80131bec",
@@ -3994,15 +3994,15 @@
     "fighter_name": "Dave Menne",
     "division": "Welterweight",
     "skill_score": {
-      "Striking": 43.65,
-      "Grappling": 44.38,
-      "Defensa": 42.93,
-      "Consistencia": 48.53,
-      "Finish Rate": 34.88,
-      "Cardio/Durabilidad": 68.87,
-      "Presión": 28.61
+      "Striking": 46.93,
+      "Grappling": 43.09,
+      "Defensa": 44.82,
+      "Consistencia": 50.13,
+      "Finish Rate": 33.56,
+      "Cardio/Durabilidad": 72.14,
+      "Presión": 31.88
     },
-    "skill_composite": 44.49
+    "skill_composite": 46.09
   },
   {
     "fighter_id": "b7d524c77c27389b",
@@ -4624,15 +4624,15 @@
     "fighter_name": "Carlston Harris",
     "division": "Welterweight",
     "skill_score": {
-      "Striking": 61.18,
-      "Grappling": 41.27,
-      "Defensa": 67.17,
-      "Consistencia": 60.95,
-      "Finish Rate": 43.71,
-      "Cardio/Durabilidad": 76.3,
-      "Presión": 44.88
+      "Striking": 57.71,
+      "Grappling": 34.02,
+      "Defensa": 67.58,
+      "Consistencia": 58.02,
+      "Finish Rate": 44.46,
+      "Cardio/Durabilidad": 78.84,
+      "Presión": 31.39
     },
-    "skill_composite": 57.49
+    "skill_composite": 54.33
   },
   {
     "fighter_id": "275aca31f61ba28c",
@@ -6229,15 +6229,15 @@
     "fighter_name": "Khaos Williams",
     "division": "Welterweight",
     "skill_score": {
-      "Striking": 77.84,
-      "Grappling": 26.58,
-      "Defensa": 62.14,
-      "Consistencia": 53.28,
+      "Striking": 80.24,
+      "Grappling": 27.78,
+      "Defensa": 65.91,
+      "Consistencia": 51.96,
       "Finish Rate": 58.78,
-      "Cardio/Durabilidad": 82.34,
-      "Presión": 46.73
+      "Cardio/Durabilidad": 86.54,
+      "Presión": 42.09
     },
-    "skill_composite": 58.76
+    "skill_composite": 59.93
   },
   {
     "fighter_id": "32c3ee378671a5d9",
@@ -6619,15 +6619,15 @@
     "fighter_name": "Jake Matthews",
     "division": "Welterweight",
     "skill_score": {
-      "Striking": 69.87,
-      "Grappling": 52.19,
-      "Defensa": 70.33,
-      "Consistencia": 62.38,
-      "Finish Rate": 43.5,
-      "Cardio/Durabilidad": 90.66,
-      "Presión": 45.47
+      "Striking": 75.47,
+      "Grappling": 45.19,
+      "Defensa": 72.71,
+      "Consistencia": 57.81,
+      "Finish Rate": 44.7,
+      "Cardio/Durabilidad": 92.66,
+      "Presión": 47.22
     },
-    "skill_composite": 63.19
+    "skill_composite": 63.54
   },
   {
     "fighter_id": "9e50097a89442158",
@@ -8314,59 +8314,59 @@
     "fighter_name": "Levan Chokheli",
     "division": "Welterweight",
     "skill_score": {
-      "Striking": 57.6,
-      "Grappling": 46.0,
-      "Defensa": 54.4,
-      "Consistencia": 51.6,
+      "Striking": 53.81,
+      "Grappling": 47.2,
+      "Defensa": 60.0,
+      "Consistencia": 56.43,
       "Finish Rate": 60.0,
-      "Cardio/Durabilidad": 52.4,
-      "Presión": 56.4
+      "Cardio/Durabilidad": 56.6,
+      "Presión": 42.09
     },
-    "skill_composite": 53.92
+    "skill_composite": 54.18
   },
   {
     "fighter_id": "20a0e4cc5227c117",
     "fighter_name": "Jose Souza",
     "division": "Welterweight",
     "skill_score": {
-      "Striking": 54.4,
-      "Grappling": 53.6,
-      "Defensa": 55.8,
-      "Consistencia": 56.8,
-      "Finish Rate": 44.8,
-      "Cardio/Durabilidad": 58.0,
-      "Presión": 57.6
+      "Striking": 55.99,
+      "Grappling": 46.6,
+      "Defensa": 58.27,
+      "Consistencia": 55.61,
+      "Finish Rate": 46.0,
+      "Cardio/Durabilidad": 60.0,
+      "Presión": 46.34
     },
-    "skill_composite": 54.64
+    "skill_composite": 53.42
   },
   {
     "fighter_id": "e0664abaa023fd6f",
     "fighter_name": "Ding Meng",
     "division": "Welterweight",
     "skill_score": {
-      "Striking": 53.97,
-      "Grappling": 53.19,
-      "Defensa": 55.33,
-      "Consistencia": 56.3,
-      "Finish Rate": 44.66,
-      "Cardio/Durabilidad": 57.46,
-      "Presión": 57.07
+      "Striking": 52.85,
+      "Grappling": 45.94,
+      "Defensa": 56.31,
+      "Consistencia": 49.94,
+      "Finish Rate": 45.4,
+      "Cardio/Durabilidad": 60.0,
+      "Presión": 44.99
     },
-    "skill_composite": 54.2
+    "skill_composite": 51.25
   },
   {
     "fighter_id": "9eed2bcc9e0b92af",
     "fighter_name": "Leon Shahbazyan",
     "division": "Welterweight",
     "skill_score": {
-      "Striking": 56.12,
-      "Grappling": 45.5,
-      "Defensa": 53.19,
-      "Consistencia": 50.63,
-      "Finish Rate": 58.32,
-      "Cardio/Durabilidad": 51.36,
-      "Presión": 55.02
+      "Striking": 40.6,
+      "Grappling": 45.55,
+      "Defensa": 53.96,
+      "Consistencia": 40.6,
+      "Finish Rate": 45.1,
+      "Cardio/Durabilidad": 52.6,
+      "Presión": 40.6
     },
-    "skill_composite": 52.75
+    "skill_composite": 45.66
   }
 ]

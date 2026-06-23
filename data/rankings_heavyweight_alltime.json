@@ -4,7 +4,7 @@
     "fighter_name": "Jon Jones",
     "division": "Heavyweight",
     "elo": 1987.42,
-    "peak_elo": 2039.13,
+    "peak_elo": 2039.14,
     "peak_elo_date": "2024-11-16",
     "peak_elo_opponent": "Stipe Miocic",
     "record": "28-1-0",
@@ -12,7 +12,7 @@
     "last_fight_date": "2024-11-16",
     "active": true,
     "streak": 2,
-    "division_elo_entry": 1976.02,
+    "division_elo_entry": 1976.03,
     "alltime_rank": 1
   },
   {
@@ -20,7 +20,7 @@
     "fighter_name": "Alex Pereira",
     "division": "Heavyweight",
     "elo": 1890.23,
-    "peak_elo": 1951.69,
+    "peak_elo": 1951.7,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
     "record": "13-3-0",
@@ -28,7 +28,7 @@
     "last_fight_date": "2026-06-14",
     "active": true,
     "streak": -1,
-    "division_elo_entry": 1951.69,
+    "division_elo_entry": 1951.7,
     "alltime_rank": 2
   },
   {
@@ -99,7 +99,7 @@
     "fighter_id": "787bb1f087ccff8a",
     "fighter_name": "Ciryl Gane",
     "division": "Heavyweight",
-    "elo": 1888.98,
+    "elo": 1888.99,
     "peak_elo": 1889.56,
     "peak_elo_date": "2026-06-14",
     "peak_elo_opponent": "Alex Pereira",
@@ -595,7 +595,7 @@
     "fighter_id": "8eb046f83e82bf26",
     "fighter_name": "Martin Buday",
     "division": "Heavyweight",
-    "elo": 1699.79,
+    "elo": 1699.8,
     "peak_elo": 1736.27,
     "peak_elo_date": "2023-08-12",
     "peak_elo_opponent": "Josh Parisian",
@@ -899,8 +899,8 @@
     "fighter_id": "a67f5afa8d6a1b80",
     "fighter_name": "Ryan Spann",
     "division": "Heavyweight",
-    "elo": 1699.93,
-    "peak_elo": 1701.89,
+    "elo": 1699.95,
+    "peak_elo": 1701.9,
     "peak_elo_date": "2026-04-25",
     "peak_elo_opponent": "Marcus Buchecha",
     "record": "24-11-0",
@@ -908,7 +908,7 @@
     "last_fight_date": "2026-04-25",
     "active": true,
     "streak": 2,
-    "division_elo_entry": 1692.34,
+    "division_elo_entry": 1692.36,
     "alltime_rank": 57
   },
   {
@@ -1340,7 +1340,7 @@
     "last_fight_date": "2025-12-13",
     "active": true,
     "streak": 1,
-    "division_elo_entry": 1611.74,
+    "division_elo_entry": 1611.75,
     "alltime_rank": 84
   },
   {
@@ -3203,8 +3203,8 @@
     "fighter_id": "fcd448a2fe1a23cc",
     "fighter_name": "Gian Villante",
     "division": "Heavyweight",
-    "elo": 1455.44,
-    "peak_elo": 1562.24,
+    "elo": 1455.45,
+    "peak_elo": 1562.26,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
     "record": "17-14-0",
@@ -3212,7 +3212,7 @@
     "last_fight_date": "2021-11-06",
     "active": false,
     "streak": -3,
-    "division_elo_entry": 1562.24,
+    "division_elo_entry": 1562.26,
     "alltime_rank": 201
   },
   {
@@ -3571,7 +3571,7 @@
     "fighter_id": "01b352b6a9074d5c",
     "fighter_name": "Chase Sherman",
     "division": "Heavyweight",
-    "elo": 1452.6,
+    "elo": 1452.61,
     "peak_elo": 1534.94,
     "peak_elo_date": "2017-07-22",
     "peak_elo_opponent": "Damian Grabowski",

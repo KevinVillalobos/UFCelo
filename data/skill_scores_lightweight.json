@@ -4,120 +4,120 @@
     "fighter_name": "Michael Chandler",
     "division": "Lightweight",
     "skill_score": {
-      "Striking": 69.75,
-      "Grappling": 42.19,
-      "Defensa": 59.32,
-      "Consistencia": 57.02,
-      "Finish Rate": 51.93,
-      "Cardio/Durabilidad": 74.29,
-      "Presión": 44.93
+      "Striking": 57.79,
+      "Grappling": 42.25,
+      "Defensa": 60.26,
+      "Consistencia": 50.92,
+      "Finish Rate": 38.71,
+      "Cardio/Durabilidad": 75.54,
+      "Presión": 31.05
     },
-    "skill_composite": 57.81
+    "skill_composite": 52.12
   },
   {
     "fighter_id": "6c3b2525436cf5d4",
     "fighter_name": "Tom Nolan",
     "division": "Lightweight",
     "skill_score": {
-      "Striking": 78.19,
-      "Grappling": 54.96,
-      "Defensa": 73.34,
-      "Consistencia": 63.23,
-      "Finish Rate": 50.68,
-      "Cardio/Durabilidad": 78.35,
-      "Presión": 56.46
+      "Striking": 80.18,
+      "Grappling": 49.13,
+      "Defensa": 65.19,
+      "Consistencia": 59.34,
+      "Finish Rate": 51.88,
+      "Cardio/Durabilidad": 80.35,
+      "Presión": 51.55
     },
-    "skill_composite": 66.58
+    "skill_composite": 63.72
   },
   {
     "fighter_id": "9e8f6c728eb01124",
     "fighter_name": "Justin Gaethje",
     "division": "Lightweight",
     "skill_score": {
-      "Striking": 88.19,
-      "Grappling": 39.39,
-      "Defensa": 69.44,
-      "Consistencia": 72.36,
+      "Striking": 90.59,
+      "Grappling": 38.59,
+      "Defensa": 68.0,
+      "Consistencia": 74.35,
       "Finish Rate": 55.94,
-      "Cardio/Durabilidad": 83.99,
-      "Presión": 52.59
+      "Cardio/Durabilidad": 91.59,
+      "Presión": 45.21
     },
-    "skill_composite": 67.54
+    "skill_composite": 67.93
   },
   {
     "fighter_id": "1e4f273069fb9e85",
     "fighter_name": "Fares Ziam",
     "division": "Lightweight",
     "skill_score": {
-      "Striking": 82.94,
-      "Grappling": 58.7,
-      "Defensa": 73.78,
-      "Consistencia": 78.27,
-      "Finish Rate": 48.54,
-      "Cardio/Durabilidad": 90.66,
-      "Presión": 63.02
+      "Striking": 83.38,
+      "Grappling": 57.79,
+      "Defensa": 69.64,
+      "Consistencia": 77.62,
+      "Finish Rate": 49.29,
+      "Cardio/Durabilidad": 93.2,
+      "Presión": 54.47
     },
-    "skill_composite": 72.11
+    "skill_composite": 70.61
   },
   {
     "fighter_id": "de83f920fd302871",
     "fighter_name": "Tommy Gantt",
     "division": "Lightweight",
     "skill_score": {
-      "Striking": 57.6,
-      "Grappling": 46.0,
-      "Defensa": 54.4,
-      "Consistencia": 51.6,
+      "Striking": 60.0,
+      "Grappling": 52.64,
+      "Defensa": 57.21,
+      "Consistencia": 50.75,
       "Finish Rate": 60.0,
-      "Cardio/Durabilidad": 52.4,
-      "Presión": 56.4
+      "Cardio/Durabilidad": 58.6,
+      "Presión": 56.59
     },
-    "skill_composite": 53.92
+    "skill_composite": 56.47
   },
   {
     "fighter_id": "54f64b5e283b0ce7",
     "fighter_name": "Ilia Topuria",
     "division": "Lightweight",
     "skill_score": {
-      "Striking": 79.29,
-      "Grappling": 43.68,
-      "Defensa": 76.62,
-      "Consistencia": 57.65,
-      "Finish Rate": 80.62,
-      "Cardio/Durabilidad": 72.14,
-      "Presión": 52.65
+      "Striking": 78.73,
+      "Grappling": 47.78,
+      "Defensa": 77.67,
+      "Consistencia": 59.39,
+      "Finish Rate": 67.6,
+      "Cardio/Durabilidad": 76.58,
+      "Presión": 44.76
     },
-    "skill_composite": 66.92
+    "skill_composite": 66.25
   },
   {
     "fighter_id": "20d37922ba85e6fc",
     "fighter_name": "Artur Minev",
     "division": "Lightweight",
     "skill_score": {
-      "Striking": 56.12,
-      "Grappling": 45.5,
-      "Defensa": 53.19,
-      "Consistencia": 50.63,
-      "Finish Rate": 58.32,
-      "Cardio/Durabilidad": 51.36,
-      "Presión": 55.02
+      "Striking": 53.8,
+      "Grappling": 43.8,
+      "Defensa": 48.79,
+      "Consistencia": 52.03,
+      "Finish Rate": 45.1,
+      "Cardio/Durabilidad": 54.1,
+      "Presión": 44.05
     },
-    "skill_composite": 52.75
+    "skill_composite": 49.22
   },
   {
     "fighter_id": "9c393e836a852f30",
     "fighter_name": "Mauricio Ruffy",
     "division": "Lightweight",
     "skill_score": {
-      "Striking": 67.2,
-      "Grappling": 37.53,
-      "Defensa": 70.26,
-      "Consistencia": 50.86,
+      "Striking": 69.32,
+      "Grappling": 38.73,
+      "Defensa": 75.46,
+      "Consistencia": 52.83,
       "Finish Rate": 74.27,
-      "Cardio/Durabilidad": 68.56,
-      "Presión": 44.67
+      "Cardio/Durabilidad": 72.76,
+      "Presión": 34.28
     },
-    "skill_composite": 59.5
+    "skill_composite": 60.82
   },
   {
     "fighter_id": "93892752c5fc23ca",
@@ -6004,15 +6004,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 74.19,
-      "Grappling": 25.72,
-      "Defensa": 45.78,
-      "Consistencia": 58.32,
-      "Finish Rate": 40.34,
-      "Cardio/Durabilidad": 70.78,
-      "Presión": 41.04
+      "Striking": 82.77,
+      "Grappling": 24.79,
+      "Defensa": 53.36,
+      "Consistencia": 58.76,
+      "Finish Rate": 49.49,
+      "Cardio/Durabilidad": 79.04,
+      "Presión": 38.71
     },
-    "skill_composite": 51.82
+    "skill_composite": 56.48
   },
   {
     "fighter_id": "e1248941344b3288",
