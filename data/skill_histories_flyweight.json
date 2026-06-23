@@ -2687,6 +2687,28 @@
       "time": "4:21",
       "weight_class": "Flyweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-06-20",
+      "fight_id": "17d31249c9ab18af",
+      "opponent_id": "b1f21ce050035d58",
+      "opponent_name": "Andre Lima",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 57.23,
+        "Grappling": 39.58,
+        "Defensa": 63.22,
+        "Consistencia": 63.46,
+        "Finish Rate": 32.38,
+        "Cardio/Durabilidad": 77.75,
+        "Presión": 42.98
+      },
+      "event": "UFC Fight Night: Kape vs. Horiguchi",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Flyweight",
+      "is_title_fight": false
     }
   ],
   "3be16d817b36098b": [
@@ -3557,6 +3579,28 @@
       },
       "event": "UFC 321: Aspinall vs. Gane",
       "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Flyweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-06-20",
+      "fight_id": "3b4803afa824fea3",
+      "opponent_id": "253076a23d03dcd0",
+      "opponent_name": "Allan Nascimento",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 56.18,
+        "Grappling": 50.61,
+        "Defensa": 65.21,
+        "Consistencia": 59.5,
+        "Finish Rate": 36.3,
+        "Cardio/Durabilidad": 77.52,
+        "Presión": 47.05
+      },
+      "event": "UFC Fight Night: Kape vs. Horiguchi",
+      "method": "DEC S",
       "round": 3,
       "time": "5:00",
       "weight_class": "Flyweight",
@@ -4881,6 +4925,28 @@
       "time": "3:05",
       "weight_class": "Flyweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-05-16",
+      "fight_id": "b482d4452e4d0eee",
+      "opponent_id": "29162be25ebef5f0",
+      "opponent_name": "Luis Gurule",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 59.28,
+        "Grappling": 42.2,
+        "Defensa": 54.49,
+        "Consistencia": 62.34,
+        "Finish Rate": 35.58,
+        "Cardio/Durabilidad": 70.4,
+        "Presión": 46.91
+      },
+      "event": "UFC Fight Night: Allen vs. Costa",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Flyweight",
+      "is_title_fight": false
     }
   ],
   "edad57b3dddf2168": [
@@ -5169,6 +5235,28 @@
       "method": "KO/TKO",
       "round": 1,
       "time": "3:16",
+      "weight_class": "Flyweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-05-30",
+      "fight_id": "7e8749cbf32ef1f8",
+      "opponent_id": "3cf18e01cb6cbde3",
+      "opponent_name": "Sumudaerji",
+      "result": "Draw",
+      "skill_score": {
+        "Striking": 68.92,
+        "Grappling": 44.47,
+        "Defensa": 62.36,
+        "Consistencia": 55.15,
+        "Finish Rate": 53.58,
+        "Cardio/Durabilidad": 74.95,
+        "Presión": 44.0
+      },
+      "event": "UFC Fight Night: Song vs. Figueiredo",
+      "method": "OTHER",
+      "round": 2,
+      "time": "1:45",
       "weight_class": "Flyweight",
       "is_title_fight": false
     }
@@ -9249,6 +9337,28 @@
       "time": "5:00",
       "weight_class": "Flyweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-05-30",
+      "fight_id": "7e8749cbf32ef1f8",
+      "opponent_id": "ab2b4ff41d6ebe0f",
+      "opponent_name": "Alex Perez",
+      "result": "Draw",
+      "skill_score": {
+        "Striking": 70.08,
+        "Grappling": 44.34,
+        "Defensa": 66.62,
+        "Consistencia": 61.95,
+        "Finish Rate": 37.61,
+        "Cardio/Durabilidad": 80.9,
+        "Presión": 43.56
+      },
+      "event": "UFC Fight Night: Song vs. Figueiredo",
+      "method": "OTHER",
+      "round": 2,
+      "time": "1:45",
+      "weight_class": "Flyweight",
+      "is_title_fight": false
     }
   ],
   "c051c2e12d692b8a": [
@@ -9539,6 +9649,28 @@
       "method": "SUB",
       "round": 3,
       "time": "3:05",
+      "weight_class": "Flyweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-06-20",
+      "fight_id": "17d31249c9ab18af",
+      "opponent_id": "34b96d52db1d26e6",
+      "opponent_name": "Kevin Borjas",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 69.12,
+        "Grappling": 64.42,
+        "Defensa": 64.21,
+        "Consistencia": 66.45,
+        "Finish Rate": 46.41,
+        "Cardio/Durabilidad": 80.26,
+        "Presión": 60.22
+      },
+      "event": "UFC Fight Night: Kape vs. Horiguchi",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
       "weight_class": "Flyweight",
       "is_title_fight": false
     }
@@ -9981,6 +10113,28 @@
       },
       "event": "UFC Fight Night: Blanchfield vs. Barber",
       "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Flyweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-06-20",
+      "fight_id": "3b4803afa824fea3",
+      "opponent_id": "0be6776db31d98ec",
+      "opponent_name": "Mitch Raposo",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 61.48,
+        "Grappling": 53.98,
+        "Defensa": 61.16,
+        "Consistencia": 66.01,
+        "Finish Rate": 43.93,
+        "Cardio/Durabilidad": 78.9,
+        "Presión": 56.49
+      },
+      "event": "UFC Fight Night: Kape vs. Horiguchi",
+      "method": "DEC S",
       "round": 3,
       "time": "5:00",
       "weight_class": "Flyweight",
@@ -10541,6 +10695,28 @@
       "method": "DEC S",
       "round": 3,
       "time": "5:00",
+      "weight_class": "Flyweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-06-06",
+      "fight_id": "20d74ed23d3e9b3a",
+      "opponent_id": "5ef94841c4bc3f86",
+      "opponent_name": "Edgar Chairez",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 68.1,
+        "Grappling": 52.03,
+        "Defensa": 67.3,
+        "Consistencia": 63.57,
+        "Finish Rate": 64.9,
+        "Cardio/Durabilidad": 80.15,
+        "Presión": 44.49
+      },
+      "event": "UFC Fight Night: Muhammad vs. Bonfim",
+      "method": "SUB",
+      "round": 1,
+      "time": "4:13",
       "weight_class": "Flyweight",
       "is_title_fight": false
     }
@@ -13091,6 +13267,28 @@
       "time": "5:00",
       "weight_class": "Flyweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-05-16",
+      "fight_id": "b482d4452e4d0eee",
+      "opponent_id": "e8fe9c15d348e778",
+      "opponent_name": "Daniel Barez",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 57.58,
+        "Grappling": 48.7,
+        "Defensa": 62.51,
+        "Consistencia": 57.54,
+        "Finish Rate": 35.66,
+        "Cardio/Durabilidad": 74.5,
+        "Presión": 49.46
+      },
+      "event": "UFC Fight Night: Allen vs. Costa",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Flyweight",
+      "is_title_fight": false
     }
   ],
   "a1b0715c4fd2dbd3": [
@@ -14075,6 +14273,28 @@
       "time": "5:00",
       "weight_class": "Flyweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-06-20",
+      "fight_id": "33afdd7ad43a2756",
+      "opponent_id": "5d1b7e3dd9e11074",
+      "opponent_name": "Manel Kape",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 84.38,
+        "Grappling": 42.31,
+        "Defensa": 70.74,
+        "Consistencia": 66.15,
+        "Finish Rate": 55.67,
+        "Cardio/Durabilidad": 84.58,
+        "Presión": 60.04
+      },
+      "event": "UFC Fight Night: Kape vs. Horiguchi",
+      "method": "KO/TKO",
+      "round": 3,
+      "time": "2:42",
+      "weight_class": "Flyweight",
+      "is_title_fight": false
     }
   ],
   "901cddcbfa079097": [
@@ -14319,6 +14539,28 @@
       "method": "KO/TKO",
       "round": 1,
       "time": "3:18",
+      "weight_class": "Flyweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-06-20",
+      "fight_id": "33afdd7ad43a2756",
+      "opponent_id": "98aa60cf58071fd6",
+      "opponent_name": "Kyoji Horiguchi",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 86.73,
+        "Grappling": 36.7,
+        "Defensa": 76.94,
+        "Consistencia": 68.3,
+        "Finish Rate": 77.94,
+        "Cardio/Durabilidad": 84.1,
+        "Presión": 44.41
+      },
+      "event": "UFC Fight Night: Kape vs. Horiguchi",
+      "method": "KO/TKO",
+      "round": 3,
+      "time": "2:42",
       "weight_class": "Flyweight",
       "is_title_fight": false
     }
@@ -15845,6 +16087,28 @@
       "method": "DEC S",
       "round": 3,
       "time": "5:00",
+      "weight_class": "Flyweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-06-06",
+      "fight_id": "20d74ed23d3e9b3a",
+      "opponent_id": "294aa73dbf37d281",
+      "opponent_name": "Bruno Silva",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 56.76,
+        "Grappling": 42.18,
+        "Defensa": 53.82,
+        "Consistencia": 55.55,
+        "Finish Rate": 63.54,
+        "Cardio/Durabilidad": 73.35,
+        "Presión": 40.43
+      },
+      "event": "UFC Fight Night: Muhammad vs. Bonfim",
+      "method": "SUB",
+      "round": 1,
+      "time": "4:13",
       "weight_class": "Flyweight",
       "is_title_fight": false
     }

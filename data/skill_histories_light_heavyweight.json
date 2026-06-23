@@ -827,6 +827,28 @@
       "time": "4:25",
       "weight_class": "Light Heavyweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-05-16",
+      "fight_id": "6242cda790f2085d",
+      "opponent_id": "64ad3e3b0efa30bb",
+      "opponent_name": "Ivan Erslan",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 57.15,
+        "Grappling": 57.64,
+        "Defensa": 64.42,
+        "Consistencia": 59.11,
+        "Finish Rate": 47.36,
+        "Cardio/Durabilidad": 72.48,
+        "Presión": 54.36
+      },
+      "event": "UFC Fight Night: Allen vs. Costa",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Light Heavyweight",
+      "is_title_fight": false
     }
   ],
   "a7f4d0902bb64092": [
@@ -6465,6 +6487,28 @@
       "method": "KO/TKO",
       "round": 1,
       "time": "2:42",
+      "weight_class": "Light Heavyweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-06-06",
+      "fight_id": "bfe4950b3de83e9c",
+      "opponent_id": "1c23ec2f1b71be40",
+      "opponent_name": "Iwo Baraniewski",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 66.78,
+        "Grappling": 36.33,
+        "Defensa": 60.1,
+        "Consistencia": 53.07,
+        "Finish Rate": 61.02,
+        "Cardio/Durabilidad": 62.4,
+        "Presión": 45.13
+      },
+      "event": "UFC Fight Night: Muhammad vs. Bonfim",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "1:25",
       "weight_class": "Light Heavyweight",
       "is_title_fight": false
     }
@@ -16109,6 +16153,28 @@
       "time": "3:19",
       "weight_class": "Light Heavyweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-05-16",
+      "fight_id": "6242cda790f2085d",
+      "opponent_id": "3e8118c1ab52f211",
+      "opponent_name": "Tuco Tokkos",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 60.95,
+        "Grappling": 44.02,
+        "Defensa": 53.79,
+        "Consistencia": 63.79,
+        "Finish Rate": 35.82,
+        "Cardio/Durabilidad": 72.24,
+        "Presión": 49.5
+      },
+      "event": "UFC Fight Night: Allen vs. Costa",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Light Heavyweight",
+      "is_title_fight": false
     }
   ],
   "98b80a717b9bda17": [
@@ -19105,6 +19171,28 @@
       "method": "SUB",
       "round": 1,
       "time": "4:24",
+      "weight_class": "Light Heavyweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-06-20",
+      "fight_id": "afc021700481ac4e",
+      "opponent_id": "b4b496ec2197ee3e",
+      "opponent_name": "Navajo Stirling",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 82.04,
+        "Grappling": 55.86,
+        "Defensa": 73.6,
+        "Consistencia": 64.05,
+        "Finish Rate": 64.76,
+        "Cardio/Durabilidad": 80.85,
+        "Presión": 57.84
+      },
+      "event": "UFC Fight Night: Kape vs. Horiguchi",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "3:23",
       "weight_class": "Light Heavyweight",
       "is_title_fight": false
     }
@@ -23701,6 +23789,28 @@
       "time": "0:28",
       "weight_class": "Light Heavyweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-06-06",
+      "fight_id": "bfe4950b3de83e9c",
+      "opponent_id": "c15fa95b9a12fde4",
+      "opponent_name": "Junior Tafa",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 71.99,
+        "Grappling": 41.97,
+        "Defensa": 67.71,
+        "Consistencia": 57.7,
+        "Finish Rate": 74.4,
+        "Cardio/Durabilidad": 61.9,
+        "Presión": 49.56
+      },
+      "event": "UFC Fight Night: Muhammad vs. Bonfim",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "1:25",
+      "weight_class": "Light Heavyweight",
+      "is_title_fight": false
     }
   ],
   "27d65e9d0fba61ea": [
@@ -24691,6 +24801,28 @@
       "time": "1:27",
       "weight_class": "Light Heavyweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-05-30",
+      "fight_id": "a23d84f15207e459",
+      "opponent_id": "8a65fd9ba31fd3f7",
+      "opponent_name": "Zhang Mingyang",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 62.47,
+        "Grappling": 34.12,
+        "Defensa": 74.07,
+        "Consistencia": 56.27,
+        "Finish Rate": 50.56,
+        "Cardio/Durabilidad": 79.01,
+        "Presión": 38.27
+      },
+      "event": "UFC Fight Night: Song vs. Figueiredo",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "4:15",
+      "weight_class": "Light Heavyweight",
+      "is_title_fight": false
     }
   ],
   "8a65fd9ba31fd3f7": [
@@ -24779,6 +24911,28 @@
       "method": "KO/TKO",
       "round": 2,
       "time": "2:37",
+      "weight_class": "Light Heavyweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-05-30",
+      "fight_id": "a23d84f15207e459",
+      "opponent_id": "a495f599e787614f",
+      "opponent_name": "Alonzo Menifield",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 71.26,
+        "Grappling": 37.57,
+        "Defensa": 68.91,
+        "Consistencia": 58.63,
+        "Finish Rate": 70.02,
+        "Cardio/Durabilidad": 64.94,
+        "Presión": 52.55
+      },
+      "event": "UFC Fight Night: Song vs. Figueiredo",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "4:15",
       "weight_class": "Light Heavyweight",
       "is_title_fight": false
     }
@@ -33093,6 +33247,28 @@
       "method": "KO/TKO",
       "round": 2,
       "time": "4:05",
+      "weight_class": "Light Heavyweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-06-20",
+      "fight_id": "afc021700481ac4e",
+      "opponent_id": "cd13728ae1151f46",
+      "opponent_name": "Ion Cutelaba",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 81.22,
+        "Grappling": 43.34,
+        "Defensa": 68.25,
+        "Consistencia": 60.69,
+        "Finish Rate": 61.75,
+        "Cardio/Durabilidad": 74.9,
+        "Presión": 62.96
+      },
+      "event": "UFC Fight Night: Kape vs. Horiguchi",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "3:23",
       "weight_class": "Light Heavyweight",
       "is_title_fight": false
     }

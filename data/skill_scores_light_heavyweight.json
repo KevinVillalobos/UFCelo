@@ -109,15 +109,15 @@
     "fighter_name": "Tuco Tokkos",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 53.98,
-      "Grappling": 55.56,
-      "Defensa": 61.37,
-      "Consistencia": 53.52,
-      "Finish Rate": 53.38,
-      "Cardio/Durabilidad": 68.78,
-      "Presión": 46.61
+      "Striking": 57.15,
+      "Grappling": 57.64,
+      "Defensa": 64.42,
+      "Consistencia": 59.11,
+      "Finish Rate": 47.36,
+      "Cardio/Durabilidad": 72.48,
+      "Presión": 54.36
     },
-    "skill_composite": 56.31
+    "skill_composite": 59.25
   },
   {
     "fighter_id": "a7f4d0902bb64092",
@@ -829,15 +829,15 @@
     "fighter_name": "Junior Tafa",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 63.32,
-      "Grappling": 38.54,
-      "Defensa": 58.64,
-      "Consistencia": 53.05,
-      "Finish Rate": 53.38,
-      "Cardio/Durabilidad": 63.8,
-      "Presión": 37.64
+      "Striking": 66.78,
+      "Grappling": 36.33,
+      "Defensa": 60.1,
+      "Consistencia": 53.07,
+      "Finish Rate": 61.02,
+      "Cardio/Durabilidad": 62.4,
+      "Presión": 45.13
     },
-    "skill_composite": 53.61
+    "skill_composite": 55.64
   },
   {
     "fighter_id": "f703250471acaf96",
@@ -2194,15 +2194,15 @@
     "fighter_name": "Ivan Erslan",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 58.19,
-      "Grappling": 38.02,
-      "Defensa": 47.49,
-      "Consistencia": 58.74,
-      "Finish Rate": 38.78,
-      "Cardio/Durabilidad": 67.8,
-      "Presión": 39.88
+      "Striking": 60.95,
+      "Grappling": 44.02,
+      "Defensa": 53.79,
+      "Consistencia": 63.79,
+      "Finish Rate": 35.82,
+      "Cardio/Durabilidad": 72.24,
+      "Presión": 49.5
     },
-    "skill_composite": 50.3
+    "skill_composite": 54.88
   },
   {
     "fighter_id": "98b80a717b9bda17",
@@ -2569,15 +2569,15 @@
     "fighter_name": "Ion Cutelaba",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 82.4,
-      "Grappling": 62.96,
-      "Defensa": 75.51,
-      "Consistencia": 66.78,
-      "Finish Rate": 58.05,
-      "Cardio/Durabilidad": 86.87,
-      "Presión": 53.52
+      "Striking": 82.04,
+      "Grappling": 55.86,
+      "Defensa": 73.6,
+      "Consistencia": 64.05,
+      "Finish Rate": 64.76,
+      "Cardio/Durabilidad": 80.85,
+      "Presión": 57.84
     },
-    "skill_composite": 70.89
+    "skill_composite": 69.46
   },
   {
     "fighter_id": "d761b3766e38c5db",
@@ -3199,15 +3199,15 @@
     "fighter_name": "Iwo Baraniewski",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 67.99,
-      "Grappling": 44.96,
-      "Defensa": 66.64,
-      "Consistencia": 57.63,
-      "Finish Rate": 68.0,
-      "Cardio/Durabilidad": 61.88,
-      "Presión": 41.45
+      "Striking": 71.99,
+      "Grappling": 41.97,
+      "Defensa": 67.71,
+      "Consistencia": 57.7,
+      "Finish Rate": 74.4,
+      "Cardio/Durabilidad": 61.9,
+      "Presión": 49.56
     },
-    "skill_composite": 59.45
+    "skill_composite": 61.48
   },
   {
     "fighter_id": "27d65e9d0fba61ea",
@@ -3364,30 +3364,30 @@
     "fighter_name": "Alonzo Menifield",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 56.09,
-      "Grappling": 35.15,
-      "Defensa": 74.59,
-      "Consistencia": 55.84,
-      "Finish Rate": 38.2,
-      "Cardio/Durabilidad": 83.26,
-      "Presión": 27.34
+      "Striking": 62.47,
+      "Grappling": 34.12,
+      "Defensa": 74.07,
+      "Consistencia": 56.27,
+      "Finish Rate": 50.56,
+      "Cardio/Durabilidad": 79.01,
+      "Presión": 38.27
     },
-    "skill_composite": 54.66
+    "skill_composite": 57.65
   },
   {
     "fighter_id": "8a65fd9ba31fd3f7",
     "fighter_name": "Zhang Mingyang",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 68.92,
-      "Grappling": 40.09,
-      "Defensa": 69.65,
-      "Consistencia": 60.0,
-      "Finish Rate": 64.62,
-      "Cardio/Durabilidad": 66.98,
-      "Presión": 46.91
+      "Striking": 71.26,
+      "Grappling": 37.57,
+      "Defensa": 68.91,
+      "Consistencia": 58.63,
+      "Finish Rate": 70.02,
+      "Cardio/Durabilidad": 64.94,
+      "Presión": 52.55
     },
-    "skill_composite": 60.58
+    "skill_composite": 61.22
   },
   {
     "fighter_id": "2b6d855c6e280fb1",
@@ -4354,15 +4354,15 @@
     "fighter_name": "Navajo Stirling",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 79.52,
-      "Grappling": 46.67,
-      "Defensa": 67.31,
-      "Consistencia": 61.36,
-      "Finish Rate": 52.19,
-      "Cardio/Durabilidad": 78.12,
-      "Presión": 58.2
+      "Striking": 81.22,
+      "Grappling": 43.34,
+      "Defensa": 68.25,
+      "Consistencia": 60.69,
+      "Finish Rate": 61.75,
+      "Cardio/Durabilidad": 74.9,
+      "Presión": 62.96
     },
-    "skill_composite": 64.42
+    "skill_composite": 65.46
   },
   {
     "fighter_id": "6e344b71421103da",

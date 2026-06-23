@@ -6592,5 +6592,33 @@
     "losses": 9,
     "draws": 0,
     "url": "http://ufcstats.com/fighter-details/f5431394fb284bb9"
+  },
+  {
+    "fighter_id": "33a86e839ad202d8",
+    "name": "Luis Felipe Dias",
+    "nickname": "",
+    "height": "5' 10\"",
+    "weight": "185 lbs.",
+    "reach": "74\"",
+    "stance": "",
+    "dob": "Jan 17, 1995",
+    "wins": 18,
+    "losses": 5,
+    "draws": 0,
+    "url": "http://ufcstats.com/fighter-details/33a86e839ad202d8"
+  },
+  {
+    "fighter_id": "e6666480a830f764",
+    "name": "YiSak Lee",
+    "nickname": "",
+    "height": "6' 0\"",
+    "weight": "185 lbs.",
+    "reach": "72\"",
+    "stance": "Orthodox",
+    "dob": "Jan 01, 2000",
+    "wins": 8,
+    "losses": 2,
+    "draws": 0,
+    "url": "http://ufcstats.com/fighter-details/e6666480a830f764"
   }
 ]

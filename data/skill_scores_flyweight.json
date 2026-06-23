@@ -364,15 +364,15 @@
     "fighter_name": "Kevin Borjas",
     "division": "Flyweight",
     "skill_score": {
-      "Striking": 53.54,
-      "Grappling": 32.48,
-      "Defensa": 59.27,
-      "Consistencia": 58.32,
-      "Finish Rate": 34.47,
-      "Cardio/Durabilidad": 74.69,
-      "Presión": 31.73
+      "Striking": 57.23,
+      "Grappling": 39.58,
+      "Defensa": 63.22,
+      "Consistencia": 63.46,
+      "Finish Rate": 32.38,
+      "Cardio/Durabilidad": 77.75,
+      "Presión": 42.98
     },
-    "skill_composite": 50.27
+    "skill_composite": 54.86
   },
   {
     "fighter_id": "3be16d817b36098b",
@@ -484,15 +484,15 @@
     "fighter_name": "Mitch Raposo",
     "division": "Flyweight",
     "skill_score": {
-      "Striking": 52.22,
-      "Grappling": 46.26,
-      "Defensa": 61.76,
-      "Consistencia": 53.37,
-      "Finish Rate": 39.38,
-      "Cardio/Durabilidad": 74.4,
-      "Presión": 36.81
+      "Striking": 56.18,
+      "Grappling": 50.61,
+      "Defensa": 65.21,
+      "Consistencia": 59.5,
+      "Finish Rate": 36.3,
+      "Cardio/Durabilidad": 77.52,
+      "Presión": 47.05
     },
-    "skill_composite": 52.8
+    "skill_composite": 56.88
   },
   {
     "fighter_id": "5ea918ea81b7dee2",
@@ -649,15 +649,15 @@
     "fighter_name": "Daniel Barez",
     "division": "Flyweight",
     "skill_score": {
-      "Striking": 56.64,
-      "Grappling": 36.26,
-      "Defensa": 48.95,
-      "Consistencia": 57.56,
-      "Finish Rate": 38.66,
-      "Cardio/Durabilidad": 66.18,
-      "Presión": 37.3
+      "Striking": 59.28,
+      "Grappling": 42.2,
+      "Defensa": 54.49,
+      "Consistencia": 62.34,
+      "Finish Rate": 35.58,
+      "Cardio/Durabilidad": 70.4,
+      "Presión": 46.91
     },
-    "skill_composite": 49.41
+    "skill_composite": 53.72
   },
   {
     "fighter_id": "edad57b3dddf2168",
@@ -679,15 +679,15 @@
     "fighter_name": "Alex Perez",
     "division": "Flyweight",
     "skill_score": {
-      "Striking": 74.03,
-      "Grappling": 43.46,
-      "Defensa": 63.4,
-      "Consistencia": 54.39,
-      "Finish Rate": 57.28,
-      "Cardio/Durabilidad": 79.14,
-      "Presión": 40.45
+      "Striking": 68.92,
+      "Grappling": 44.47,
+      "Defensa": 62.36,
+      "Consistencia": 55.15,
+      "Finish Rate": 53.58,
+      "Cardio/Durabilidad": 74.95,
+      "Presión": 44.0
     },
-    "skill_composite": 59.85
+    "skill_composite": 58.45
   },
   {
     "fighter_id": "b72a60a0cadff408",
@@ -1234,15 +1234,15 @@
     "fighter_name": "Sumudaerji",
     "division": "Flyweight",
     "skill_score": {
-      "Striking": 75.48,
-      "Grappling": 43.3,
-      "Defensa": 68.72,
-      "Consistencia": 62.89,
-      "Finish Rate": 37.31,
-      "Cardio/Durabilidad": 86.58,
-      "Presión": 39.9
+      "Striking": 70.08,
+      "Grappling": 44.34,
+      "Defensa": 66.62,
+      "Consistencia": 61.95,
+      "Finish Rate": 37.61,
+      "Cardio/Durabilidad": 80.9,
+      "Presión": 43.56
     },
-    "skill_composite": 61.15
+    "skill_composite": 59.49
   },
   {
     "fighter_id": "c051c2e12d692b8a",
@@ -1279,15 +1279,15 @@
     "fighter_name": "Andre Lima",
     "division": "Flyweight",
     "skill_score": {
-      "Striking": 68.94,
-      "Grappling": 64.03,
-      "Defensa": 61.1,
-      "Consistencia": 62.69,
-      "Finish Rate": 52.19,
-      "Cardio/Durabilidad": 78.5,
-      "Presión": 53.94
+      "Striking": 69.12,
+      "Grappling": 64.42,
+      "Defensa": 64.21,
+      "Consistencia": 66.45,
+      "Finish Rate": 46.41,
+      "Cardio/Durabilidad": 80.26,
+      "Presión": 60.22
     },
-    "skill_composite": 63.48
+    "skill_composite": 64.99
   },
   {
     "fighter_id": "b102c26727306ab6",
@@ -1309,15 +1309,15 @@
     "fighter_name": "Allan Nascimento",
     "division": "Flyweight",
     "skill_score": {
-      "Striking": 59.39,
-      "Grappling": 50.99,
-      "Defensa": 57.29,
-      "Consistencia": 62.14,
-      "Finish Rate": 49.09,
-      "Cardio/Durabilidad": 76.8,
-      "Presión": 49.27
+      "Striking": 61.48,
+      "Grappling": 53.98,
+      "Defensa": 61.16,
+      "Consistencia": 66.01,
+      "Finish Rate": 43.93,
+      "Cardio/Durabilidad": 78.9,
+      "Presión": 56.49
     },
-    "skill_composite": 57.82
+    "skill_composite": 60.46
   },
   {
     "fighter_id": "f57dd0bfa8c17813",
@@ -1369,15 +1369,15 @@
     "fighter_name": "Bruno Silva",
     "division": "Flyweight",
     "skill_score": {
-      "Striking": 75.32,
-      "Grappling": 43.56,
-      "Defensa": 68.25,
-      "Consistencia": 64.52,
-      "Finish Rate": 57.77,
-      "Cardio/Durabilidad": 86.65,
-      "Presión": 38.8
+      "Striking": 68.1,
+      "Grappling": 52.03,
+      "Defensa": 67.3,
+      "Consistencia": 63.57,
+      "Finish Rate": 64.9,
+      "Cardio/Durabilidad": 80.15,
+      "Presión": 44.49
     },
-    "skill_composite": 63.25
+    "skill_composite": 63.37
   },
   {
     "fighter_id": "6e15f63b6c2e2c15",
@@ -1669,15 +1669,15 @@
     "fighter_name": "Luis Gurule",
     "division": "Flyweight",
     "skill_score": {
-      "Striking": 53.98,
-      "Grappling": 43.88,
-      "Defensa": 58.39,
-      "Consistencia": 50.92,
-      "Finish Rate": 38.58,
-      "Cardio/Durabilidad": 70.62,
-      "Presión": 39.82
+      "Striking": 57.58,
+      "Grappling": 48.7,
+      "Defensa": 62.51,
+      "Consistencia": 57.54,
+      "Finish Rate": 35.66,
+      "Cardio/Durabilidad": 74.5,
+      "Presión": 49.46
     },
-    "skill_composite": 51.6
+    "skill_composite": 55.92
   },
   {
     "fighter_id": "a1b0715c4fd2dbd3",
@@ -1789,15 +1789,15 @@
     "fighter_name": "Kyoji Horiguchi",
     "division": "Flyweight",
     "skill_score": {
-      "Striking": 85.32,
-      "Grappling": 46.02,
-      "Defensa": 71.94,
-      "Consistencia": 69.41,
-      "Finish Rate": 46.69,
-      "Cardio/Durabilidad": 91.53,
-      "Presión": 56.27
+      "Striking": 84.38,
+      "Grappling": 42.31,
+      "Defensa": 70.74,
+      "Consistencia": 66.15,
+      "Finish Rate": 55.67,
+      "Cardio/Durabilidad": 84.58,
+      "Presión": 60.04
     },
-    "skill_composite": 68.22
+    "skill_composite": 67.32
   },
   {
     "fighter_id": "901cddcbfa079097",
@@ -1819,15 +1819,15 @@
     "fighter_name": "Manel Kape",
     "division": "Flyweight",
     "skill_score": {
-      "Striking": 86.41,
-      "Grappling": 38.38,
-      "Defensa": 78.18,
-      "Consistencia": 70.87,
-      "Finish Rate": 72.42,
-      "Cardio/Durabilidad": 89.62,
-      "Presión": 35.01
+      "Striking": 86.73,
+      "Grappling": 36.7,
+      "Defensa": 76.94,
+      "Consistencia": 68.3,
+      "Finish Rate": 77.94,
+      "Cardio/Durabilidad": 84.1,
+      "Presión": 44.41
     },
-    "skill_composite": 69.01
+    "skill_composite": 69.13
   },
   {
     "fighter_id": "81d9df19e255b8b6",
@@ -2044,15 +2044,15 @@
     "fighter_name": "Edgar Chairez",
     "division": "Flyweight",
     "skill_score": {
-      "Striking": 60.45,
-      "Grappling": 29.72,
-      "Defensa": 50.28,
-      "Consistencia": 53.44,
-      "Finish Rate": 54.42,
-      "Cardio/Durabilidad": 77.19,
-      "Presión": 32.54
+      "Striking": 56.76,
+      "Grappling": 42.18,
+      "Defensa": 53.82,
+      "Consistencia": 55.55,
+      "Finish Rate": 63.54,
+      "Cardio/Durabilidad": 73.35,
+      "Presión": 40.43
     },
-    "skill_composite": 51.04
+    "skill_composite": 54.51
   },
   {
     "fighter_id": "09e62c450e754913",

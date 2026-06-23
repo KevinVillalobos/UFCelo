@@ -485,7 +485,7 @@ class UFCScraper:
 
 
 def _parse_event_date(date_str: str) -> Optional[date]:
-    for fmt in ("%B %d %Y", "%b %d %Y", "%m/%d/%Y"):
+    for fmt in ("%B %d, %Y", "%B %d %Y", "%b %d, %Y", "%b %d %Y", "%m/%d/%Y"):
         try:
             return datetime.strptime(date_str.strip(), fmt).date()
         except ValueError:

@@ -949,15 +949,15 @@
     "fighter_name": "Kyle Daukaus",
     "division": "Middleweight",
     "skill_score": {
-      "Striking": 65.43,
-      "Grappling": 37.17,
-      "Defensa": 68.3,
-      "Consistencia": 48.43,
-      "Finish Rate": 57.07,
-      "Cardio/Durabilidad": 75.96,
-      "Presión": 32.35
+      "Striking": 68.47,
+      "Grappling": 35.23,
+      "Defensa": 67.83,
+      "Consistencia": 49.37,
+      "Finish Rate": 63.98,
+      "Cardio/Durabilidad": 72.13,
+      "Presión": 40.9
     },
-    "skill_composite": 56.12
+    "skill_composite": 57.65
   },
   {
     "fighter_id": "7ab478c397cd68ef",
@@ -3454,15 +3454,15 @@
     "fighter_name": "Cody Brundage",
     "division": "Middleweight",
     "skill_score": {
-      "Striking": 58.5,
-      "Grappling": 43.48,
-      "Defensa": 73.86,
-      "Consistencia": 53.99,
-      "Finish Rate": 41.54,
-      "Cardio/Durabilidad": 82.74,
-      "Presión": 30.26
+      "Striking": 64.4,
+      "Grappling": 40.78,
+      "Defensa": 73.49,
+      "Consistencia": 54.79,
+      "Finish Rate": 53.23,
+      "Cardio/Durabilidad": 78.59,
+      "Presión": 40.61
     },
-    "skill_composite": 56.55
+    "skill_composite": 59.16
   },
   {
     "fighter_id": "6ceff86fae4f6b3b",
@@ -5419,15 +5419,15 @@
     "fighter_name": "Andre Petroski",
     "division": "Middleweight",
     "skill_score": {
-      "Striking": 55.78,
-      "Grappling": 51.2,
-      "Defensa": 76.81,
-      "Consistencia": 55.26,
-      "Finish Rate": 34.05,
-      "Cardio/Durabilidad": 84.83,
-      "Presión": 33.82
+      "Striking": 60.75,
+      "Grappling": 46.46,
+      "Defensa": 74.64,
+      "Consistencia": 54.83,
+      "Finish Rate": 45.56,
+      "Cardio/Durabilidad": 79.22,
+      "Presión": 42.08
     },
-    "skill_composite": 57.76
+    "skill_composite": 58.96
   },
   {
     "fighter_id": "4e06913c91da5200",
@@ -5929,15 +5929,15 @@
     "fighter_name": "Edmen Shahbazyan",
     "division": "Middleweight",
     "skill_score": {
-      "Striking": 74.46,
-      "Grappling": 35.62,
-      "Defensa": 71.83,
-      "Consistencia": 62.54,
-      "Finish Rate": 65.62,
-      "Cardio/Durabilidad": 83.46,
-      "Presión": 32.45
+      "Striking": 73.54,
+      "Grappling": 41.69,
+      "Defensa": 72.79,
+      "Consistencia": 66.33,
+      "Finish Rate": 57.15,
+      "Cardio/Durabilidad": 84.23,
+      "Presión": 43.03
     },
-    "skill_composite": 62.13
+    "skill_composite": 63.91
   },
   {
     "fighter_id": "5442f1bc4b47eaf3",
@@ -6514,15 +6514,15 @@
     "fighter_name": "Bo Nickal",
     "division": "Middleweight",
     "skill_score": {
-      "Striking": 72.03,
-      "Grappling": 64.1,
-      "Defensa": 76.66,
-      "Consistencia": 54.8,
-      "Finish Rate": 66.02,
-      "Cardio/Durabilidad": 78.94,
-      "Presión": 41.35
+      "Striking": 75.22,
+      "Grappling": 57.28,
+      "Defensa": 75.73,
+      "Consistencia": 55.44,
+      "Finish Rate": 72.82,
+      "Cardio/Durabilidad": 75.55,
+      "Presión": 49.48
     },
-    "skill_composite": 66.2
+    "skill_composite": 66.88
   },
   {
     "fighter_id": "a780d16cf7eed44d",
@@ -6604,15 +6604,15 @@
     "fighter_name": "Brendan Allen",
     "division": "Middleweight",
     "skill_score": {
-      "Striking": 88.91,
-      "Grappling": 68.88,
-      "Defensa": 70.16,
-      "Consistencia": 73.33,
-      "Finish Rate": 59.39,
-      "Cardio/Durabilidad": 96.06,
-      "Presión": 56.26
+      "Striking": 85.53,
+      "Grappling": 68.7,
+      "Defensa": 71.93,
+      "Consistencia": 75.46,
+      "Finish Rate": 52.31,
+      "Cardio/Durabilidad": 94.85,
+      "Presión": 62.61
     },
-    "skill_composite": 74.32
+    "skill_composite": 74.09
   },
   {
     "fighter_id": "0e31bfd26cc8c503",
@@ -7063,5 +7063,35 @@
       "Presión": 45.32
     },
     "skill_composite": 47.52
+  },
+  {
+    "fighter_id": "33a86e839ad202d8",
+    "fighter_name": "Luis Felipe Dias",
+    "division": "Middleweight",
+    "skill_score": {
+      "Striking": 57.6,
+      "Grappling": 46.0,
+      "Defensa": 54.4,
+      "Consistencia": 51.6,
+      "Finish Rate": 60.0,
+      "Cardio/Durabilidad": 52.4,
+      "Presión": 56.4
+    },
+    "skill_composite": 53.92
+  },
+  {
+    "fighter_id": "e6666480a830f764",
+    "fighter_name": "YiSak Lee",
+    "division": "Middleweight",
+    "skill_score": {
+      "Striking": 56.12,
+      "Grappling": 45.5,
+      "Defensa": 53.19,
+      "Consistencia": 50.63,
+      "Finish Rate": 58.32,
+      "Cardio/Durabilidad": 51.36,
+      "Presión": 55.02
+    },
+    "skill_composite": 52.75
   }
 ]

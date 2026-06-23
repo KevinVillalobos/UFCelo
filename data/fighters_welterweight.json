@@ -7754,5 +7754,61 @@
     "losses": 13,
     "draws": 0,
     "url": "http://ufcstats.com/fighter-details/fc31f896cde2bc2e"
+  },
+  {
+    "fighter_id": "a69a7120cf26669d",
+    "name": "Levan Chokheli",
+    "nickname": "",
+    "height": "5' 11\"",
+    "weight": "170 lbs.",
+    "reach": "72\"",
+    "stance": "Orthodox",
+    "dob": "Oct 02, 1996",
+    "wins": 15,
+    "losses": 3,
+    "draws": 0,
+    "url": "http://ufcstats.com/fighter-details/a69a7120cf26669d"
+  },
+  {
+    "fighter_id": "20a0e4cc5227c117",
+    "name": "Jose Souza",
+    "nickname": "",
+    "height": "6' 3\"",
+    "weight": "170 lbs.",
+    "reach": "79\"",
+    "stance": "Orthodox",
+    "dob": "May 23, 2002",
+    "wins": 9,
+    "losses": 1,
+    "draws": 0,
+    "url": "http://ufcstats.com/fighter-details/20a0e4cc5227c117"
+  },
+  {
+    "fighter_id": "e0664abaa023fd6f",
+    "name": "Ding Meng",
+    "nickname": "",
+    "height": "6' 2\"",
+    "weight": "170 lbs.",
+    "reach": "73\"",
+    "stance": "Orthodox",
+    "dob": "Sep 27, 1994",
+    "wins": 35,
+    "losses": 10,
+    "draws": 0,
+    "url": "http://ufcstats.com/fighter-details/e0664abaa023fd6f"
+  },
+  {
+    "fighter_id": "9eed2bcc9e0b92af",
+    "name": "Leon Shahbazyan",
+    "nickname": "",
+    "height": "6' 4\"",
+    "weight": "170 lbs.",
+    "reach": "74\"",
+    "stance": "Orthodox",
+    "dob": "Nov 18, 1995",
+    "wins": 12,
+    "losses": 5,
+    "draws": 0,
+    "url": "http://ufcstats.com/fighter-details/9eed2bcc9e0b92af"
   }
 ]

@@ -21,6 +21,28 @@
       "time": "2:43",
       "weight_class": "Bantamweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-06-06",
+      "fight_id": "90940d93d6e0998f",
+      "opponent_id": "c0ac37a4a1133da9",
+      "opponent_name": "Marcus McGhee",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 61.97,
+        "Grappling": 50.95,
+        "Defensa": 63.01,
+        "Consistencia": 59.44,
+        "Finish Rate": 52.66,
+        "Cardio/Durabilidad": 62.74,
+        "Presión": 53.92
+      },
+      "event": "UFC Fight Night: Muhammad vs. Bonfim",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
     }
   ],
   "51ec9dc3b4964f19": [
@@ -8481,6 +8503,28 @@
       "time": "5:00",
       "weight_class": "Bantamweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-06-14",
+      "fight_id": "60de0423ae6ed097",
+      "opponent_id": "24656ef4d605c96f",
+      "opponent_name": "Aiemann Zahabi",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 80.99,
+        "Grappling": 27.49,
+        "Defensa": 67.85,
+        "Consistencia": 70.77,
+        "Finish Rate": 56.65,
+        "Cardio/Durabilidad": 86.51,
+        "Presión": 42.39
+      },
+      "event": "UFC Freedom 250",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "4:02",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
     }
   ],
   "6d35bf94f7d30241": [
@@ -10512,6 +10556,28 @@
         "Presión": 42.51
       },
       "event": "UFC Fight Night: Whittaker vs. De Ridder",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-06-06",
+      "fight_id": "90940d93d6e0998f",
+      "opponent_id": "450bcab0968562c4",
+      "opponent_name": "John Yannis",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 69.66,
+        "Grappling": 46.64,
+        "Defensa": 70.58,
+        "Consistencia": 61.61,
+        "Finish Rate": 47.78,
+        "Cardio/Durabilidad": 79.5,
+        "Presión": 51.61
+      },
+      "event": "UFC Fight Night: Muhammad vs. Bonfim",
       "method": "DEC U",
       "round": 3,
       "time": "5:00",
@@ -14291,6 +14357,28 @@
       "time": "5:00",
       "weight_class": "Bantamweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-05-30",
+      "fight_id": "423f32dd018ac218",
+      "opponent_id": "efb96bf3e9ada36f",
+      "opponent_name": "Song Yadong",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 51.93,
+        "Grappling": 48.17,
+        "Defensa": 51.58,
+        "Consistencia": 56.12,
+        "Finish Rate": 48.52,
+        "Cardio/Durabilidad": 79.06,
+        "Presión": 35.76
+      },
+      "event": "UFC Fight Night: Song vs. Figueiredo",
+      "method": "SUB",
+      "round": 2,
+      "time": "4:42",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
     }
   ],
   "69888118d968ba52": [
@@ -16847,6 +16935,28 @@
       "time": "2:37",
       "weight_class": "Bantamweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-05-16",
+      "fight_id": "ecb7ff543dd41bf8",
+      "opponent_id": "74939a16c7b56f33",
+      "opponent_name": "Juan Diaz",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 57.74,
+        "Grappling": 53.15,
+        "Defensa": 65.89,
+        "Consistencia": 57.32,
+        "Finish Rate": 73.08,
+        "Cardio/Durabilidad": 60.34,
+        "Presión": 45.97
+      },
+      "event": "UFC Fight Night: Allen vs. Costa",
+      "method": "SUB",
+      "round": 2,
+      "time": "4:08",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
     }
   ],
   "bc711b6dd95c1af6": [
@@ -18869,6 +18979,28 @@
       "method": "DEC U",
       "round": 3,
       "time": "5:00",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-06-06",
+      "fight_id": "c47796e11a801e12",
+      "opponent_id": "faf317c665546a36",
+      "opponent_name": "Santiago Luna",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 53.2,
+        "Grappling": 59.78,
+        "Defensa": 59.06,
+        "Consistencia": 58.47,
+        "Finish Rate": 56.8,
+        "Cardio/Durabilidad": 59.6,
+        "Presión": 57.14
+      },
+      "event": "UFC Fight Night: Muhammad vs. Bonfim",
+      "method": "SUB",
+      "round": 3,
+      "time": "4:52",
       "weight_class": "Bantamweight",
       "is_title_fight": false
     }
@@ -23241,6 +23373,28 @@
       "time": "5:00",
       "weight_class": "Bantamweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-05-30",
+      "fight_id": "3bc0190fb17ba42f",
+      "opponent_id": "7d420039bbfe7c1a",
+      "opponent_name": "Aoriqileng",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 65.6,
+        "Grappling": 48.56,
+        "Defensa": 58.89,
+        "Consistencia": 58.05,
+        "Finish Rate": 56.8,
+        "Cardio/Durabilidad": 60.4,
+        "Presión": 60.06
+      },
+      "event": "UFC Fight Night: Song vs. Figueiredo",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "2:11",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
     }
   ],
   "45e738622ea2c02c": [
@@ -27553,6 +27707,28 @@
       "time": "5:00",
       "weight_class": "Bantamweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-06-14",
+      "fight_id": "60de0423ae6ed097",
+      "opponent_id": "b50a426a33da0012",
+      "opponent_name": "Sean O'Malley",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 77.75,
+        "Grappling": 33.66,
+        "Defensa": 80.0,
+        "Consistencia": 56.05,
+        "Finish Rate": 53.5,
+        "Cardio/Durabilidad": 82.87,
+        "Presión": 40.89
+      },
+      "event": "UFC Freedom 250",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "4:02",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
     }
   ],
   "3623bd267a2eef2e": [
@@ -29447,6 +29623,28 @@
       "time": "5:00",
       "weight_class": "Bantamweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-05-30",
+      "fight_id": "423f32dd018ac218",
+      "opponent_id": "aa72b0f831d0bfe5",
+      "opponent_name": "Deiveson Figueiredo",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 74.82,
+        "Grappling": 55.58,
+        "Defensa": 74.22,
+        "Consistencia": 61.84,
+        "Finish Rate": 54.86,
+        "Cardio/Durabilidad": 87.29,
+        "Presión": 47.56
+      },
+      "event": "UFC Fight Night: Song vs. Figueiredo",
+      "method": "SUB",
+      "round": 2,
+      "time": "4:42",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
     }
   ],
   "67c1d46f4ed16f9e": [
@@ -30369,6 +30567,28 @@
       "time": "5:00",
       "weight_class": "Bantamweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-05-16",
+      "fight_id": "a6ec8573a9d38c51",
+      "opponent_id": "b6c37948cb226e8c",
+      "opponent_name": "Benardo Sopaj",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 53.2,
+        "Grappling": 58.65,
+        "Defensa": 53.9,
+        "Consistencia": 54.54,
+        "Finish Rate": 55.48,
+        "Cardio/Durabilidad": 58.83,
+        "Presión": 53.06
+      },
+      "event": "UFC Fight Night: Allen vs. Costa",
+      "method": "SUB",
+      "round": 2,
+      "time": "2:25",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
     }
   ],
   "6546af7ab545b90c": [
@@ -30571,6 +30791,28 @@
       "method": "DEC U",
       "round": 3,
       "time": "5:00",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-06-06",
+      "fight_id": "c47796e11a801e12",
+      "opponent_id": "d9c6f19f958643e9",
+      "opponent_name": "Bryce Mitchell",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 60.11,
+        "Grappling": 59.71,
+        "Defensa": 52.32,
+        "Consistencia": 61.94,
+        "Finish Rate": 61.88,
+        "Cardio/Durabilidad": 63.06,
+        "Presión": 57.14
+      },
+      "event": "UFC Fight Night: Muhammad vs. Bonfim",
+      "method": "SUB",
+      "round": 3,
+      "time": "4:52",
       "weight_class": "Bantamweight",
       "is_title_fight": false
     }
@@ -33021,6 +33263,28 @@
       "time": "5:00",
       "weight_class": "Bantamweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-05-16",
+      "fight_id": "a6ec8573a9d38c51",
+      "opponent_id": "0e46690e55a8df75",
+      "opponent_name": "Timmy Cuamba",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 59.6,
+        "Grappling": 64.04,
+        "Defensa": 56.62,
+        "Consistencia": 57.72,
+        "Finish Rate": 53.28,
+        "Cardio/Durabilidad": 62.8,
+        "Presión": 54.42
+      },
+      "event": "UFC Fight Night: Allen vs. Costa",
+      "method": "SUB",
+      "round": 2,
+      "time": "2:25",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
     }
   ],
   "32feae6d9a1e5047": [
@@ -33399,6 +33663,28 @@
       "method": "KO/TKO",
       "round": 1,
       "time": "0:21",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-05-30",
+      "fight_id": "3bc0190fb17ba42f",
+      "opponent_id": "8e6654e9f0461b8f",
+      "opponent_name": "Cody Haddon",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 78.21,
+        "Grappling": 36.9,
+        "Defensa": 65.79,
+        "Consistencia": 53.88,
+        "Finish Rate": 58.98,
+        "Cardio/Durabilidad": 75.63,
+        "Presión": 45.37
+      },
+      "event": "UFC Fight Night: Song vs. Figueiredo",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "2:11",
       "weight_class": "Bantamweight",
       "is_title_fight": false
     }
@@ -33963,6 +34249,28 @@
       "method": "DEC U",
       "round": 3,
       "time": "5:00",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-05-30",
+      "fight_id": "00959e29e4a10e26",
+      "opponent_id": "d33da8a3d82bdb62",
+      "opponent_name": "Kai Asakura",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 60.23,
+        "Grappling": 33.21,
+        "Defensa": 55.07,
+        "Consistencia": 53.87,
+        "Finish Rate": 49.65,
+        "Cardio/Durabilidad": 70.88,
+        "Presión": 45.08
+      },
+      "event": "UFC Fight Night: Song vs. Figueiredo",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "1:50",
       "weight_class": "Bantamweight",
       "is_title_fight": false
     }
@@ -34941,6 +35249,102 @@
       "method": "SUB",
       "round": 1,
       "time": "3:58",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
+    }
+  ],
+  "2f43a3e82661fa99": [
+    {
+      "date": "2026-05-30",
+      "fight_id": "224dce2c0b03e7eb",
+      "opponent_id": "29162be25ebef5f0",
+      "opponent_name": "Luis Gurule",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 48.4,
+        "Grappling": 58.4,
+        "Defensa": 53.6,
+        "Consistencia": 52.8,
+        "Finish Rate": 60.0,
+        "Cardio/Durabilidad": 51.6,
+        "Presión": 54.4
+      },
+      "event": "UFC Fight Night: Song vs. Figueiredo",
+      "method": "SUB",
+      "round": 1,
+      "time": "3:19",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
+    }
+  ],
+  "29162be25ebef5f0": [
+    {
+      "date": "2026-05-30",
+      "fight_id": "224dce2c0b03e7eb",
+      "opponent_id": "2f43a3e82661fa99",
+      "opponent_name": "Rei Tsuruya",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 47.85,
+        "Grappling": 57.19,
+        "Defensa": 52.7,
+        "Consistencia": 51.96,
+        "Finish Rate": 58.68,
+        "Cardio/Durabilidad": 50.83,
+        "Presión": 53.45
+      },
+      "event": "UFC Fight Night: Song vs. Figueiredo",
+      "method": "SUB",
+      "round": 1,
+      "time": "3:19",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
+    }
+  ],
+  "74939a16c7b56f33": [
+    {
+      "date": "2026-05-16",
+      "fight_id": "ecb7ff543dd41bf8",
+      "opponent_id": "2e45d08b3f2f02c8",
+      "opponent_name": "Malcolm Wellmaker",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 48.4,
+        "Grappling": 58.4,
+        "Defensa": 53.6,
+        "Consistencia": 52.8,
+        "Finish Rate": 60.0,
+        "Cardio/Durabilidad": 51.6,
+        "Presión": 54.4
+      },
+      "event": "UFC Fight Night: Allen vs. Costa",
+      "method": "SUB",
+      "round": 2,
+      "time": "4:08",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
+    }
+  ],
+  "d33da8a3d82bdb62": [
+    {
+      "date": "2026-05-30",
+      "fight_id": "00959e29e4a10e26",
+      "opponent_id": "5c84f673b7bb7c15",
+      "opponent_name": "Cameron Smotherman",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 57.6,
+        "Grappling": 46.0,
+        "Defensa": 54.4,
+        "Consistencia": 51.6,
+        "Finish Rate": 60.0,
+        "Cardio/Durabilidad": 52.4,
+        "Presión": 56.4
+      },
+      "event": "UFC Fight Night: Song vs. Figueiredo",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "1:50",
       "weight_class": "Bantamweight",
       "is_title_fight": false
     }
