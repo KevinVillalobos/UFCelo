@@ -79,15 +79,15 @@
     "fighter_name": "Ilia Topuria",
     "division": "Lightweight",
     "skill_score": {
-      "Striking": 69.81,
-      "Grappling": 44.57,
-      "Defensa": 65.95,
-      "Consistencia": 53.94,
-      "Finish Rate": 72.72,
-      "Cardio/Durabilidad": 62.78,
-      "Presión": 53.8
+      "Striking": 79.29,
+      "Grappling": 43.68,
+      "Defensa": 76.62,
+      "Consistencia": 57.65,
+      "Finish Rate": 80.62,
+      "Cardio/Durabilidad": 72.14,
+      "Presión": 52.65
     },
-    "skill_composite": 60.86
+    "skill_composite": 66.92
   },
   {
     "fighter_id": "20d37922ba85e6fc",
@@ -694,15 +694,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 54.3,
-      "Grappling": 42.64,
-      "Defensa": 47.28,
-      "Consistencia": 48.77,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 43.56
+      "Striking": 52.71,
+      "Grappling": 35.12,
+      "Defensa": 40.45,
+      "Consistencia": 42.25,
+      "Finish Rate": 41.48,
+      "Cardio/Durabilidad": 62.08,
+      "Presión": 37.05
     },
-    "skill_composite": 48.92
+    "skill_composite": 44.3
   },
   {
     "fighter_id": "44260175069b6276",
@@ -859,15 +859,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 40.6,
-      "Grappling": 45.55,
-      "Defensa": 54.6,
-      "Consistencia": 40.6,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 52.6,
-      "Presión": 40.6
+      "Striking": 43.74,
+      "Grappling": 53.55,
+      "Defensa": 61.27,
+      "Consistencia": 37.81,
+      "Finish Rate": 53.1,
+      "Cardio/Durabilidad": 60.6,
+      "Presión": 37.26
     },
-    "skill_composite": 45.79
+    "skill_composite": 49.8
   },
   {
     "fighter_id": "eb1723480fa2f96c",
@@ -934,30 +934,30 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 62.12,
-      "Grappling": 55.09,
-      "Defensa": 64.92,
-      "Consistencia": 46.97,
-      "Finish Rate": 56.96,
-      "Cardio/Durabilidad": 64.6,
-      "Presión": 53.63
+      "Striking": 56.1,
+      "Grappling": 49.08,
+      "Defensa": 58.9,
+      "Consistencia": 40.95,
+      "Finish Rate": 63.36,
+      "Cardio/Durabilidad": 68.82,
+      "Presión": 47.62
     },
-    "skill_composite": 58.24
+    "skill_composite": 54.48
   },
   {
     "fighter_id": "86dfed7cc24a9fa7",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 66.77,
-      "Grappling": 59.89,
-      "Defensa": 64.06,
-      "Consistencia": 55.85,
-      "Finish Rate": 41.6,
-      "Cardio/Durabilidad": 82.22,
-      "Presión": 62.14
+      "Striking": 67.17,
+      "Grappling": 58.31,
+      "Defensa": 64.89,
+      "Consistencia": 57.91,
+      "Finish Rate": 38.85,
+      "Cardio/Durabilidad": 86.81,
+      "Presión": 60.92
     },
-    "skill_composite": 62.12
+    "skill_composite": 62.5
   },
   {
     "fighter_id": "1a225f04aa6e0739",
@@ -994,15 +994,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 55.96,
-      "Grappling": 36.34,
-      "Defensa": 59.31,
-      "Consistencia": 54.18,
-      "Finish Rate": 38.73,
-      "Cardio/Durabilidad": 82.57,
-      "Presión": 22.47
+      "Striking": 56.0,
+      "Grappling": 36.29,
+      "Defensa": 59.34,
+      "Consistencia": 54.26,
+      "Finish Rate": 38.66,
+      "Cardio/Durabilidad": 82.69,
+      "Presión": 22.4
     },
-    "skill_composite": 51.01
+    "skill_composite": 51.03
   },
   {
     "fighter_id": "9a967e8e43dcef63",
@@ -1249,15 +1249,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 72.87,
-      "Grappling": 34.03,
-      "Defensa": 54.68,
-      "Consistencia": 66.42,
-      "Finish Rate": 32.94,
-      "Cardio/Durabilidad": 90.77,
-      "Presión": 36.47
+      "Striking": 73.27,
+      "Grappling": 33.83,
+      "Defensa": 54.47,
+      "Consistencia": 66.55,
+      "Finish Rate": 33.58,
+      "Cardio/Durabilidad": 91.24,
+      "Presión": 36.25
     },
-    "skill_composite": 56.6
+    "skill_composite": 56.71
   },
   {
     "fighter_id": "eb29176b03dfa888",
@@ -1279,15 +1279,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 56.47,
-      "Grappling": 32.38,
-      "Defensa": 72.98,
-      "Consistencia": 52.01,
-      "Finish Rate": 43.7,
-      "Cardio/Durabilidad": 86.42,
-      "Presión": 19.93
+      "Striking": 56.49,
+      "Grappling": 32.51,
+      "Defensa": 72.95,
+      "Consistencia": 51.99,
+      "Finish Rate": 43.74,
+      "Cardio/Durabilidad": 86.54,
+      "Presión": 19.86
     },
-    "skill_composite": 53.55
+    "skill_composite": 53.58
   },
   {
     "fighter_id": "2549d63da9c456cb",
@@ -1309,15 +1309,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 73.23,
-      "Grappling": 60.22,
-      "Defensa": 65.2,
-      "Consistencia": 56.16,
-      "Finish Rate": 68.52,
-      "Cardio/Durabilidad": 90.7,
-      "Presión": 42.77
+      "Striking": 73.27,
+      "Grappling": 59.79,
+      "Defensa": 65.09,
+      "Consistencia": 56.02,
+      "Finish Rate": 68.24,
+      "Cardio/Durabilidad": 90.93,
+      "Presión": 42.23
     },
-    "skill_composite": 65.34
+    "skill_composite": 65.18
   },
   {
     "fighter_id": "04d5718ed2661e8c",
@@ -1339,15 +1339,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 50.3,
-      "Grappling": 43.32,
+      "Striking": 51.14,
+      "Grappling": 43.74,
       "Defensa": 55.79,
-      "Consistencia": 45.33,
-      "Finish Rate": 42.85,
-      "Cardio/Durabilidad": 87.13,
-      "Presión": 33.26
+      "Consistencia": 45.64,
+      "Finish Rate": 42.46,
+      "Cardio/Durabilidad": 88.13,
+      "Presión": 33.45
     },
-    "skill_composite": 50.84
+    "skill_composite": 51.2
   },
   {
     "fighter_id": "a54fc2d6fc224dc3",
@@ -1429,15 +1429,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 55.02,
-      "Grappling": 45.09,
-      "Defensa": 54.19,
-      "Consistencia": 48.18,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 47.95
+      "Striking": 53.58,
+      "Grappling": 39.68,
+      "Defensa": 52.42,
+      "Consistencia": 45.99,
+      "Finish Rate": 41.72,
+      "Cardio/Durabilidad": 62.72,
+      "Presión": 41.35
     },
-    "skill_composite": 51.17
+    "skill_composite": 48.63
   },
   {
     "fighter_id": "20205040232ed0f3",
@@ -1474,15 +1474,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 66.26,
-      "Grappling": 56.87,
-      "Defensa": 74.31,
-      "Consistencia": 71.34,
-      "Finish Rate": 34.99,
-      "Cardio/Durabilidad": 84.74,
-      "Presión": 55.02
+      "Striking": 72.67,
+      "Grappling": 54.46,
+      "Defensa": 72.97,
+      "Consistencia": 73.06,
+      "Finish Rate": 34.05,
+      "Cardio/Durabilidad": 92.59,
+      "Presión": 56.35
     },
-    "skill_composite": 64.82
+    "skill_composite": 66.56
   },
   {
     "fighter_id": "4c8d6fde2dde07c4",
@@ -1534,15 +1534,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 81.3,
-      "Grappling": 66.34,
-      "Defensa": 61.14,
-      "Consistencia": 56.29,
-      "Finish Rate": 51.39,
-      "Cardio/Durabilidad": 91.81,
-      "Presión": 59.45
+      "Striking": 81.81,
+      "Grappling": 66.06,
+      "Defensa": 60.34,
+      "Consistencia": 56.32,
+      "Finish Rate": 50.95,
+      "Cardio/Durabilidad": 92.33,
+      "Presión": 59.51
     },
-    "skill_composite": 67.15
+    "skill_composite": 67.07
   },
   {
     "fighter_id": "d0d7160824278840",
@@ -1609,15 +1609,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 47.6,
-      "Grappling": 47.56,
-      "Defensa": 40.65,
-      "Consistencia": 44.34,
-      "Finish Rate": 42.2,
-      "Cardio/Durabilidad": 61.4,
-      "Presión": 43.13
+      "Striking": 43.63,
+      "Grappling": 41.54,
+      "Defensa": 34.63,
+      "Consistencia": 39.18,
+      "Finish Rate": 39.26,
+      "Cardio/Durabilidad": 63.58,
+      "Presión": 37.23
     },
-    "skill_composite": 46.11
+    "skill_composite": 41.77
   },
   {
     "fighter_id": "4f4dac51adc1af4f",
@@ -1639,13 +1639,13 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 44.86,
-      "Grappling": 47.3,
-      "Defensa": 73.43,
-      "Consistencia": 46.43,
-      "Finish Rate": 30.7,
-      "Cardio/Durabilidad": 85.35,
-      "Presión": 23.12
+      "Striking": 44.85,
+      "Grappling": 47.29,
+      "Defensa": 73.44,
+      "Consistencia": 46.41,
+      "Finish Rate": 30.69,
+      "Cardio/Durabilidad": 85.36,
+      "Presión": 23.11
     },
     "skill_composite": 51.63
   },
@@ -2029,15 +2029,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 72.71,
-      "Grappling": 42.81,
-      "Defensa": 69.9,
-      "Consistencia": 54.62,
-      "Finish Rate": 47.72,
-      "Cardio/Durabilidad": 86.03,
-      "Presión": 39.59
+      "Striking": 72.78,
+      "Grappling": 43.26,
+      "Defensa": 70.31,
+      "Consistencia": 54.34,
+      "Finish Rate": 47.4,
+      "Cardio/Durabilidad": 86.26,
+      "Presión": 39.0
     },
-    "skill_composite": 60.47
+    "skill_composite": 60.52
   },
   {
     "fighter_id": "c6d8ae3b016d5ad5",
@@ -2134,30 +2134,30 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 51.82,
-      "Grappling": 58.0,
-      "Defensa": 56.54,
-      "Consistencia": 47.81,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 46.58
+      "Striking": 57.75,
+      "Grappling": 60.38,
+      "Defensa": 58.35,
+      "Consistencia": 53.04,
+      "Finish Rate": 38.78,
+      "Cardio/Durabilidad": 74.4,
+      "Presión": 41.33
     },
-    "skill_composite": 52.74
+    "skill_composite": 55.68
   },
   {
     "fighter_id": "d1a1314976c50bef",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 68.28,
-      "Grappling": 36.99,
-      "Defensa": 48.66,
-      "Consistencia": 59.97,
-      "Finish Rate": 44.13,
-      "Cardio/Durabilidad": 82.72,
-      "Presión": 45.29
+      "Striking": 68.89,
+      "Grappling": 32.22,
+      "Defensa": 43.48,
+      "Consistencia": 58.87,
+      "Finish Rate": 41.44,
+      "Cardio/Durabilidad": 90.97,
+      "Presión": 40.76
     },
-    "skill_composite": 55.15
+    "skill_composite": 53.45
   },
   {
     "fighter_id": "35dc6220b113b7ec",
@@ -2194,15 +2194,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 76.81,
-      "Grappling": 35.05,
-      "Defensa": 54.2,
-      "Consistencia": 63.36,
-      "Finish Rate": 34.81,
-      "Cardio/Durabilidad": 88.33,
-      "Presión": 48.77
+      "Striking": 77.5,
+      "Grappling": 35.74,
+      "Defensa": 54.81,
+      "Consistencia": 63.44,
+      "Finish Rate": 35.5,
+      "Cardio/Durabilidad": 88.84,
+      "Presión": 49.02
     },
-    "skill_composite": 58.15
+    "skill_composite": 58.68
   },
   {
     "fighter_id": "9f1641c08cf8fbe2",
@@ -2239,45 +2239,45 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 53.06,
-      "Grappling": 45.8,
-      "Defensa": 53.48,
-      "Consistencia": 53.5,
-      "Finish Rate": 50.26,
-      "Cardio/Durabilidad": 67.9,
-      "Presión": 32.08
+      "Striking": 49.79,
+      "Grappling": 43.52,
+      "Defensa": 55.14,
+      "Consistencia": 48.68,
+      "Finish Rate": 47.75,
+      "Cardio/Durabilidad": 69.23,
+      "Presión": 27.37
     },
-    "skill_composite": 51.23
+    "skill_composite": 49.25
   },
   {
     "fighter_id": "1efa064872f089d0",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 59.74,
-      "Grappling": 43.08,
-      "Defensa": 40.71,
-      "Consistencia": 53.84,
-      "Finish Rate": 42.2,
-      "Cardio/Durabilidad": 61.4,
-      "Presión": 48.6
+      "Striking": 62.66,
+      "Grappling": 37.06,
+      "Defensa": 35.35,
+      "Consistencia": 51.03,
+      "Finish Rate": 39.06,
+      "Cardio/Durabilidad": 63.06,
+      "Presión": 43.86
     },
-    "skill_composite": 49.85
+    "skill_composite": 47.41
   },
   {
     "fighter_id": "a8aba6fd8a463043",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 57.12,
-      "Grappling": 56.02,
-      "Defensa": 45.86,
-      "Consistencia": 43.46,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 47.58
+      "Striking": 61.44,
+      "Grappling": 45.86,
+      "Defensa": 40.8,
+      "Consistencia": 46.54,
+      "Finish Rate": 47.8,
+      "Cardio/Durabilidad": 75.74,
+      "Presión": 43.51
     },
-    "skill_composite": 50.82
+    "skill_composite": 51.01
   },
   {
     "fighter_id": "d1941565abf50b16",
@@ -2314,15 +2314,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 51.85,
-      "Grappling": 39.82,
-      "Defensa": 63.24,
-      "Consistencia": 48.55,
-      "Finish Rate": 32.12,
-      "Cardio/Durabilidad": 78.14,
-      "Presión": 38.67
+      "Striking": 53.42,
+      "Grappling": 38.68,
+      "Defensa": 63.37,
+      "Consistencia": 49.13,
+      "Finish Rate": 30.32,
+      "Cardio/Durabilidad": 80.37,
+      "Presión": 37.77
     },
-    "skill_composite": 51.17
+    "skill_composite": 51.38
   },
   {
     "fighter_id": "6a2f7c151031653d",
@@ -2479,15 +2479,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 53.66,
-      "Grappling": 30.85,
-      "Defensa": 62.41,
-      "Consistencia": 54.48,
-      "Finish Rate": 29.76,
-      "Cardio/Durabilidad": 82.86,
-      "Presión": 31.74
+      "Striking": 54.53,
+      "Grappling": 31.33,
+      "Defensa": 63.14,
+      "Consistencia": 54.69,
+      "Finish Rate": 30.63,
+      "Cardio/Durabilidad": 83.5,
+      "Presión": 31.66
     },
-    "skill_composite": 50.45
+    "skill_composite": 51.02
   },
   {
     "fighter_id": "3138fab619faf4d1",
@@ -2524,15 +2524,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 64.63,
-      "Grappling": 39.08,
-      "Defensa": 34.28,
-      "Consistencia": 52.88,
-      "Finish Rate": 52.26,
-      "Cardio/Durabilidad": 77.64,
-      "Presión": 51.7
+      "Striking": 67.18,
+      "Grappling": 39.32,
+      "Defensa": 29.06,
+      "Consistencia": 53.76,
+      "Finish Rate": 49.58,
+      "Cardio/Durabilidad": 82.98,
+      "Presión": 54.17
     },
-    "skill_composite": 51.74
+    "skill_composite": 51.88
   },
   {
     "fighter_id": "4f732e58ed907eff",
@@ -2584,15 +2584,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 44.98,
-      "Grappling": 46.35,
-      "Defensa": 71.06,
-      "Consistencia": 43.83,
-      "Finish Rate": 41.02,
-      "Cardio/Durabilidad": 83.45,
-      "Presión": 30.84
+      "Striking": 47.4,
+      "Grappling": 47.44,
+      "Defensa": 73.34,
+      "Consistencia": 43.03,
+      "Finish Rate": 43.44,
+      "Cardio/Durabilidad": 85.31,
+      "Presión": 31.82
     },
-    "skill_composite": 52.27
+    "skill_composite": 53.78
   },
   {
     "fighter_id": "6085ceb59087514b",
@@ -2734,15 +2734,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 53.64,
-      "Grappling": 51.79,
-      "Defensa": 59.76,
-      "Consistencia": 44.24,
-      "Finish Rate": 42.97,
-      "Cardio/Durabilidad": 80.67,
-      "Presión": 46.2
+      "Striking": 54.57,
+      "Grappling": 50.63,
+      "Defensa": 60.43,
+      "Consistencia": 43.7,
+      "Finish Rate": 41.58,
+      "Cardio/Durabilidad": 82.58,
+      "Presión": 45.38
     },
-    "skill_composite": 54.07
+    "skill_composite": 54.1
   },
   {
     "fighter_id": "28f62d866c59c709",
@@ -2839,15 +2839,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 66.4,
-      "Grappling": 41.58,
-      "Defensa": 57.67,
-      "Consistencia": 59.14,
-      "Finish Rate": 56.32,
-      "Cardio/Durabilidad": 66.6,
-      "Presión": 51.76
+      "Striking": 80.48,
+      "Grappling": 31.79,
+      "Defensa": 52.42,
+      "Consistencia": 67.53,
+      "Finish Rate": 47.64,
+      "Cardio/Durabilidad": 90.5,
+      "Presión": 48.88
     },
-    "skill_composite": 57.39
+    "skill_composite": 60.18
   },
   {
     "fighter_id": "64a50dad704d1d49",
@@ -3004,15 +3004,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 50.7,
-      "Grappling": 50.72,
-      "Defensa": 53.41,
-      "Consistencia": 45.62,
-      "Finish Rate": 44.5,
-      "Cardio/Durabilidad": 55.0,
-      "Presión": 46.54
+      "Striking": 68.99,
+      "Grappling": 47.73,
+      "Defensa": 54.96,
+      "Consistencia": 48.58,
+      "Finish Rate": 47.7,
+      "Cardio/Durabilidad": 83.03,
+      "Presión": 33.63
     },
-    "skill_composite": 49.88
+    "skill_composite": 55.67
   },
   {
     "fighter_id": "3414b50b08a10600",
@@ -3214,60 +3214,60 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 52.58,
-      "Grappling": 37.35,
-      "Defensa": 47.02,
-      "Consistencia": 41.8,
-      "Finish Rate": 41.42,
-      "Cardio/Durabilidad": 60.6,
-      "Presión": 38.75
+      "Striking": 56.87,
+      "Grappling": 40.66,
+      "Defensa": 52.76,
+      "Consistencia": 47.05,
+      "Finish Rate": 38.86,
+      "Cardio/Durabilidad": 67.0,
+      "Presión": 42.04
     },
-    "skill_composite": 45.87
+    "skill_composite": 49.87
   },
   {
     "fighter_id": "22a92d7f62195791",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 71.9,
-      "Grappling": 21.26,
-      "Defensa": 50.81,
+      "Striking": 71.99,
+      "Grappling": 21.33,
+      "Defensa": 50.91,
       "Consistencia": 59.51,
-      "Finish Rate": 41.17,
-      "Cardio/Durabilidad": 89.8,
-      "Presión": 30.0
+      "Finish Rate": 41.26,
+      "Cardio/Durabilidad": 89.86,
+      "Presión": 30.01
     },
-    "skill_composite": 52.75
+    "skill_composite": 52.82
   },
   {
     "fighter_id": "a26198ba5093147e",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 82.41,
-      "Grappling": 46.93,
-      "Defensa": 73.37,
-      "Consistencia": 63.66,
-      "Finish Rate": 67.49,
-      "Cardio/Durabilidad": 77.5,
-      "Presión": 61.43
+      "Striking": 87.78,
+      "Grappling": 43.6,
+      "Defensa": 71.56,
+      "Consistencia": 70.19,
+      "Finish Rate": 64.59,
+      "Cardio/Durabilidad": 89.02,
+      "Presión": 59.17
     },
-    "skill_composite": 68.39
+    "skill_composite": 70.21
   },
   {
     "fighter_id": "22aa91e402d0fe1f",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 67.01,
-      "Grappling": 73.42,
-      "Defensa": 73.86,
-      "Consistencia": 50.62,
-      "Finish Rate": 42.72,
-      "Cardio/Durabilidad": 81.04,
-      "Presión": 54.97
+      "Striking": 66.68,
+      "Grappling": 72.49,
+      "Defensa": 73.39,
+      "Consistencia": 50.04,
+      "Finish Rate": 42.17,
+      "Cardio/Durabilidad": 81.5,
+      "Presión": 54.13
     },
-    "skill_composite": 64.65
+    "skill_composite": 64.17
   },
   {
     "fighter_id": "03c9994c5b8958ec",
@@ -3439,15 +3439,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 58.98,
-      "Grappling": 37.99,
-      "Defensa": 48.48,
-      "Consistencia": 50.29,
-      "Finish Rate": 41.72,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 44.23
+      "Striking": 55.57,
+      "Grappling": 31.37,
+      "Defensa": 52.23,
+      "Consistencia": 47.45,
+      "Finish Rate": 34.86,
+      "Cardio/Durabilidad": 81.9,
+      "Presión": 33.88
     },
-    "skill_composite": 50.13
+    "skill_composite": 48.45
   },
   {
     "fighter_id": "182f2b78582de3d8",
@@ -3469,15 +3469,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 54.06,
-      "Grappling": 38.11,
-      "Defensa": 48.44,
-      "Consistencia": 52.57,
-      "Finish Rate": 41.72,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 40.83
+      "Striking": 47.66,
+      "Grappling": 35.93,
+      "Defensa": 52.79,
+      "Consistencia": 46.17,
+      "Finish Rate": 39.16,
+      "Cardio/Durabilidad": 71.84,
+      "Presión": 34.43
     },
-    "skill_composite": 49.16
+    "skill_composite": 46.95
   },
   {
     "fighter_id": "c58f51dedb310998",
@@ -3664,15 +3664,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 42.59,
-      "Grappling": 42.83,
-      "Defensa": 61.23,
-      "Consistencia": 47.84,
-      "Finish Rate": 41.9,
-      "Cardio/Durabilidad": 62.1,
-      "Presión": 38.89
+      "Striking": 44.71,
+      "Grappling": 37.69,
+      "Defensa": 58.92,
+      "Consistencia": 49.9,
+      "Finish Rate": 38.96,
+      "Cardio/Durabilidad": 68.5,
+      "Presión": 36.04
     },
-    "skill_composite": 48.65
+    "skill_composite": 48.21
   },
   {
     "fighter_id": "c0eecd851dbf3146",
@@ -3694,15 +3694,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 66.68,
-      "Grappling": 51.77,
-      "Defensa": 68.57,
-      "Consistencia": 66.19,
-      "Finish Rate": 53.26,
-      "Cardio/Durabilidad": 97.42,
-      "Presión": 28.87
+      "Striking": 66.77,
+      "Grappling": 51.75,
+      "Defensa": 68.64,
+      "Consistencia": 66.2,
+      "Finish Rate": 53.35,
+      "Cardio/Durabilidad": 97.49,
+      "Presión": 28.9
     },
-    "skill_composite": 62.7
+    "skill_composite": 62.75
   },
   {
     "fighter_id": "53ec9cb470e1a4ea",
@@ -3724,15 +3724,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 51.14,
-      "Grappling": 58.0,
-      "Defensa": 55.74,
-      "Consistencia": 51.73,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 44.8
+      "Striking": 40.37,
+      "Grappling": 48.81,
+      "Defensa": 59.85,
+      "Consistencia": 39.5,
+      "Finish Rate": 43.66,
+      "Cardio/Durabilidad": 73.06,
+      "Presión": 27.55
     },
-    "skill_composite": 52.86
+    "skill_composite": 47.72
   },
   {
     "fighter_id": "e14b5aa06eea9653",
@@ -3904,15 +3904,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 46.58,
-      "Grappling": 52.78,
-      "Defensa": 61.26,
-      "Consistencia": 44.29,
-      "Finish Rate": 38.92,
-      "Cardio/Durabilidad": 68.48,
-      "Presión": 44.33
+      "Striking": 45.99,
+      "Grappling": 49.37,
+      "Defensa": 61.19,
+      "Consistencia": 44.37,
+      "Finish Rate": 36.26,
+      "Cardio/Durabilidad": 71.55,
+      "Presión": 40.82
     },
-    "skill_composite": 51.3
+    "skill_composite": 50.36
   },
   {
     "fighter_id": "01d2ed8c502e3828",
@@ -3949,15 +3949,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 49.4,
-      "Grappling": 49.98,
-      "Defensa": 53.87,
-      "Consistencia": 46.63,
-      "Finish Rate": 42.2,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 42.02
+      "Striking": 49.13,
+      "Grappling": 46.23,
+      "Defensa": 53.68,
+      "Consistencia": 50.93,
+      "Finish Rate": 39.77,
+      "Cardio/Durabilidad": 74.4,
+      "Presión": 36.98
     },
-    "skill_composite": 50.37
+    "skill_composite": 50.25
   },
   {
     "fighter_id": "46fd223e3ced39b3",
@@ -4024,15 +4024,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 71.26,
-      "Grappling": 29.76,
-      "Defensa": 34.23,
-      "Consistencia": 57.07,
-      "Finish Rate": 34.66,
-      "Cardio/Durabilidad": 83.21,
-      "Presión": 51.4
+      "Striking": 72.48,
+      "Grappling": 28.41,
+      "Defensa": 35.63,
+      "Consistencia": 58.16,
+      "Finish Rate": 33.16,
+      "Cardio/Durabilidad": 84.32,
+      "Presión": 49.76
     },
-    "skill_composite": 51.05
+    "skill_composite": 51.33
   },
   {
     "fighter_id": "813550bc53b15fb0",
@@ -4084,15 +4084,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 56.61,
-      "Grappling": 51.88,
-      "Defensa": 55.74,
-      "Consistencia": 49.34,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 51.56
+      "Striking": 65.08,
+      "Grappling": 53.84,
+      "Defensa": 64.56,
+      "Consistencia": 52.5,
+      "Finish Rate": 42.26,
+      "Cardio/Durabilidad": 82.9,
+      "Presión": 46.57
     },
-    "skill_composite": 53.35
+    "skill_composite": 59.05
   },
   {
     "fighter_id": "6256b2b1562cb8e1",
@@ -4129,15 +4129,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 76.91,
-      "Grappling": 66.12,
-      "Defensa": 67.68,
-      "Consistencia": 59.39,
-      "Finish Rate": 52.69,
-      "Cardio/Durabilidad": 91.12,
-      "Presión": 50.65
+      "Striking": 77.0,
+      "Grappling": 65.65,
+      "Defensa": 67.47,
+      "Consistencia": 59.66,
+      "Finish Rate": 52.06,
+      "Cardio/Durabilidad": 92.46,
+      "Presión": 50.26
     },
-    "skill_composite": 67.19
+    "skill_composite": 67.17
   },
   {
     "fighter_id": "5580771f383e141f",
@@ -4189,15 +4189,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 47.41,
-      "Grappling": 41.76,
-      "Defensa": 40.62,
-      "Consistencia": 47.37,
-      "Finish Rate": 41.72,
-      "Cardio/Durabilidad": 57.4,
-      "Presión": 37.67
+      "Striking": 50.66,
+      "Grappling": 37.48,
+      "Defensa": 39.56,
+      "Consistencia": 50.02,
+      "Finish Rate": 36.56,
+      "Cardio/Durabilidad": 65.72,
+      "Presión": 37.69
     },
-    "skill_composite": 44.65
+    "skill_composite": 45.17
   },
   {
     "fighter_id": "7dcf06c1967801c1",
@@ -4234,15 +4234,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 47.15,
-      "Grappling": 41.49,
-      "Defensa": 44.67,
-      "Consistencia": 45.96,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 41.92
+      "Striking": 43.23,
+      "Grappling": 33.97,
+      "Defensa": 38.42,
+      "Consistencia": 39.7,
+      "Finish Rate": 41.48,
+      "Cardio/Durabilidad": 62.08,
+      "Presión": 35.69
     },
-    "skill_composite": 46.21
+    "skill_composite": 41.31
   },
   {
     "fighter_id": "8f5c8850b2484173",
@@ -4279,30 +4279,30 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 49.74,
-      "Grappling": 46.85,
-      "Defensa": 51.46,
-      "Consistencia": 46.62,
-      "Finish Rate": 41.12,
-      "Cardio/Durabilidad": 64.0,
-      "Presión": 39.88
+      "Striking": 54.14,
+      "Grappling": 33.28,
+      "Defensa": 44.03,
+      "Consistencia": 53.28,
+      "Finish Rate": 38.7,
+      "Cardio/Durabilidad": 79.04,
+      "Presión": 29.52
     },
-    "skill_composite": 48.76
+    "skill_composite": 47.34
   },
   {
     "fighter_id": "52ba464d9068d871",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 61.51,
-      "Grappling": 51.05,
-      "Defensa": 56.9,
-      "Consistencia": 57.72,
-      "Finish Rate": 45.35,
-      "Cardio/Durabilidad": 75.52,
-      "Presión": 47.54
+      "Striking": 65.61,
+      "Grappling": 52.64,
+      "Defensa": 59.7,
+      "Consistencia": 59.48,
+      "Finish Rate": 43.71,
+      "Cardio/Durabilidad": 79.62,
+      "Presión": 50.1
     },
-    "skill_composite": 56.84
+    "skill_composite": 59.22
   },
   {
     "fighter_id": "08af939f41b5a57b",
@@ -4324,15 +4324,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 53.28,
-      "Grappling": 43.64,
-      "Defensa": 47.3,
-      "Consistencia": 50.79,
-      "Finish Rate": 38.54,
-      "Cardio/Durabilidad": 58.86,
-      "Presión": 39.26
+      "Striking": 55.3,
+      "Grappling": 41.84,
+      "Defensa": 56.54,
+      "Consistencia": 48.18,
+      "Finish Rate": 28.95,
+      "Cardio/Durabilidad": 70.94,
+      "Presión": 37.4
     },
-    "skill_composite": 47.95
+    "skill_composite": 49.6
   },
   {
     "fighter_id": "ee9ebceabfd16fa7",
@@ -4384,45 +4384,45 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 50.6,
-      "Grappling": 41.45,
-      "Defensa": 60.64,
-      "Consistencia": 53.0,
-      "Finish Rate": 36.01,
-      "Cardio/Durabilidad": 75.52,
-      "Presión": 33.43
+      "Striking": 54.09,
+      "Grappling": 40.31,
+      "Defensa": 68.43,
+      "Consistencia": 56.17,
+      "Finish Rate": 35.48,
+      "Cardio/Durabilidad": 84.62,
+      "Presión": 29.61
     },
-    "skill_composite": 50.91
+    "skill_composite": 53.95
   },
   {
     "fighter_id": "19db7ac26308178f",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 55.18,
-      "Grappling": 40.46,
-      "Defensa": 57.3,
-      "Consistencia": 53.67,
-      "Finish Rate": 39.26,
-      "Cardio/Durabilidad": 67.8,
-      "Presión": 43.79
+      "Striking": 60.3,
+      "Grappling": 40.29,
+      "Defensa": 61.1,
+      "Consistencia": 57.0,
+      "Finish Rate": 37.21,
+      "Cardio/Durabilidad": 72.92,
+      "Presión": 46.3
     },
-    "skill_composite": 51.7
+    "skill_composite": 54.52
   },
   {
     "fighter_id": "99bd87a300079ed9",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 52.16,
-      "Grappling": 56.02,
-      "Defensa": 65.58,
-      "Consistencia": 58.27,
-      "Finish Rate": 49.7,
-      "Cardio/Durabilidad": 77.54,
-      "Presión": 33.74
+      "Striking": 54.34,
+      "Grappling": 51.3,
+      "Defensa": 69.09,
+      "Consistencia": 61.63,
+      "Finish Rate": 47.75,
+      "Cardio/Durabilidad": 85.1,
+      "Presión": 29.28
     },
-    "skill_composite": 56.79
+    "skill_composite": 57.84
   },
   {
     "fighter_id": "b406da701c479076",
@@ -4489,15 +4489,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 71.09,
-      "Grappling": 46.1,
-      "Defensa": 74.47,
-      "Consistencia": 65.44,
-      "Finish Rate": 42.45,
-      "Cardio/Durabilidad": 84.85,
-      "Presión": 33.69
+      "Striking": 71.72,
+      "Grappling": 45.96,
+      "Defensa": 74.55,
+      "Consistencia": 66.09,
+      "Finish Rate": 43.52,
+      "Cardio/Durabilidad": 85.87,
+      "Presión": 33.41
     },
-    "skill_composite": 61.94
+    "skill_composite": 62.34
   },
   {
     "fighter_id": "1971869b7e054261",
@@ -4519,15 +4519,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 45.64,
-      "Grappling": 45.55,
-      "Defensa": 53.24,
-      "Consistencia": 44.84,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 52.6,
-      "Presión": 41.5
+      "Striking": 41.23,
+      "Grappling": 41.99,
+      "Defensa": 56.28,
+      "Consistencia": 39.32,
+      "Finish Rate": 41.18,
+      "Cardio/Durabilidad": 54.68,
+      "Presión": 34.12
     },
-    "skill_composite": 47.25
+    "skill_composite": 44.7
   },
   {
     "fighter_id": "2816ced060a21be3",
@@ -4549,30 +4549,30 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 68.12,
-      "Grappling": 32.27,
-      "Defensa": 75.95,
-      "Consistencia": 56.42,
-      "Finish Rate": 67.94,
-      "Cardio/Durabilidad": 86.04,
+      "Striking": 68.13,
+      "Grappling": 32.25,
+      "Defensa": 75.98,
+      "Consistencia": 56.43,
+      "Finish Rate": 67.92,
+      "Cardio/Durabilidad": 86.08,
       "Presión": 23.66
     },
-    "skill_composite": 59.88
+    "skill_composite": 59.89
   },
   {
     "fighter_id": "e5d03e4d966126bd",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 48.54,
-      "Grappling": 52.15,
-      "Defensa": 41.73,
-      "Consistencia": 48.9,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 54.1,
-      "Presión": 45.97
+      "Striking": 50.32,
+      "Grappling": 60.45,
+      "Defensa": 55.33,
+      "Consistencia": 38.42,
+      "Finish Rate": 44.06,
+      "Cardio/Durabilidad": 72.16,
+      "Presión": 38.04
     },
-    "skill_composite": 47.73
+    "skill_composite": 51.39
   },
   {
     "fighter_id": "33e00249ef08d3a4",
@@ -4789,15 +4789,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 64.04,
-      "Grappling": 48.64,
-      "Defensa": 56.3,
-      "Consistencia": 60.99,
-      "Finish Rate": 39.16,
-      "Cardio/Durabilidad": 74.4,
-      "Presión": 50.34
+      "Striking": 66.31,
+      "Grappling": 50.47,
+      "Defensa": 60.64,
+      "Consistencia": 60.88,
+      "Finish Rate": 37.52,
+      "Cardio/Durabilidad": 79.52,
+      "Presión": 49.13
     },
-    "skill_composite": 56.9
+    "skill_composite": 58.71
   },
   {
     "fighter_id": "494b0bfdbac74502",
@@ -4864,15 +4864,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 61.14,
-      "Grappling": 50.01,
-      "Defensa": 61.49,
-      "Consistencia": 57.86,
-      "Finish Rate": 39.55,
-      "Cardio/Durabilidad": 84.02,
-      "Presión": 35.15
+      "Striking": 62.57,
+      "Grappling": 47.38,
+      "Defensa": 59.42,
+      "Consistencia": 58.57,
+      "Finish Rate": 38.34,
+      "Cardio/Durabilidad": 86.64,
+      "Presión": 34.15
     },
-    "skill_composite": 56.58
+    "skill_composite": 56.2
   },
   {
     "fighter_id": "1f4b04a926ef1287",
@@ -4909,30 +4909,30 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 67.51,
-      "Grappling": 40.45,
-      "Defensa": 72.86,
-      "Consistencia": 60.64,
-      "Finish Rate": 49.5,
-      "Cardio/Durabilidad": 75.48,
-      "Presión": 39.02
+      "Striking": 69.46,
+      "Grappling": 39.11,
+      "Defensa": 74.7,
+      "Consistencia": 62.81,
+      "Finish Rate": 48.45,
+      "Cardio/Durabilidad": 78.76,
+      "Presión": 38.17
     },
-    "skill_composite": 59.64
+    "skill_composite": 60.66
   },
   {
     "fighter_id": "55ee431411ccf07a",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 70.31,
-      "Grappling": 41.43,
-      "Defensa": 68.23,
-      "Consistencia": 58.16,
-      "Finish Rate": 48.94,
-      "Cardio/Durabilidad": 93.36,
-      "Presión": 33.98
+      "Striking": 70.42,
+      "Grappling": 41.41,
+      "Defensa": 68.87,
+      "Consistencia": 58.64,
+      "Finish Rate": 48.62,
+      "Cardio/Durabilidad": 94.22,
+      "Presión": 33.59
     },
-    "skill_composite": 60.27
+    "skill_composite": 60.51
   },
   {
     "fighter_id": "e5010b1b94ca5755",
@@ -4969,30 +4969,30 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 55.4,
-      "Grappling": 45.04,
-      "Defensa": 48.12,
+      "Striking": 61.23,
+      "Grappling": 43.52,
+      "Defensa": 46.94,
       "Consistencia": 51.56,
-      "Finish Rate": 47.22,
-      "Cardio/Durabilidad": 68.5,
-      "Presión": 44.03
+      "Finish Rate": 43.23,
+      "Cardio/Durabilidad": 77.72,
+      "Presión": 45.77
     },
-    "skill_composite": 51.17
+    "skill_composite": 52.57
   },
   {
     "fighter_id": "23024fdfc966410a",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 78.71,
-      "Grappling": 66.49,
-      "Defensa": 75.22,
-      "Consistencia": 64.17,
-      "Finish Rate": 66.05,
-      "Cardio/Durabilidad": 85.86,
-      "Presión": 53.49
+      "Striking": 78.98,
+      "Grappling": 66.45,
+      "Defensa": 76.08,
+      "Consistencia": 64.43,
+      "Finish Rate": 65.62,
+      "Cardio/Durabilidad": 86.94,
+      "Presión": 53.36
     },
-    "skill_composite": 70.92
+    "skill_composite": 71.24
   },
   {
     "fighter_id": "de45aaae23dfa392",
@@ -5029,15 +5029,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 54.7,
-      "Grappling": 52.22,
-      "Defensa": 57.65,
-      "Consistencia": 49.42,
-      "Finish Rate": 41.6,
-      "Cardio/Durabilidad": 64.0,
-      "Presión": 48.24
+      "Striking": 57.15,
+      "Grappling": 51.69,
+      "Defensa": 58.61,
+      "Consistencia": 49.5,
+      "Finish Rate": 38.66,
+      "Cardio/Durabilidad": 70.4,
+      "Presión": 47.42
     },
-    "skill_composite": 53.1
+    "skill_composite": 53.98
   },
   {
     "fighter_id": "96c336b463e0662c",
@@ -5074,15 +5074,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 48.68,
-      "Grappling": 45.2,
-      "Defensa": 40.75,
-      "Consistencia": 53.93,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 46.01
+      "Striking": 50.94,
+      "Grappling": 40.76,
+      "Defensa": 34.33,
+      "Consistencia": 52.41,
+      "Finish Rate": 41.48,
+      "Cardio/Durabilidad": 63.28,
+      "Presión": 43.76
     },
-    "skill_composite": 47.9
+    "skill_composite": 45.88
   },
   {
     "fighter_id": "5904b0b38dc6718d",
@@ -5134,60 +5134,60 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 61.83,
-      "Grappling": 53.09,
-      "Defensa": 60.7,
-      "Consistencia": 53.53,
-      "Finish Rate": 41.9,
-      "Cardio/Durabilidad": 60.6,
-      "Presión": 52.92
+      "Striking": 61.43,
+      "Grappling": 49.07,
+      "Defensa": 60.53,
+      "Consistencia": 52.52,
+      "Finish Rate": 38.38,
+      "Cardio/Durabilidad": 63.8,
+      "Presión": 48.29
     },
-    "skill_composite": 56.04
+    "skill_composite": 54.68
   },
   {
     "fighter_id": "ddf3e0ea10ea6d8c",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 51.9,
-      "Grappling": 40.6,
-      "Defensa": 41.61,
-      "Consistencia": 40.6,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 53.4,
-      "Presión": 42.71
+      "Striking": 55.25,
+      "Grappling": 33.79,
+      "Defensa": 37.66,
+      "Consistencia": 41.19,
+      "Finish Rate": 41.72,
+      "Cardio/Durabilidad": 61.4,
+      "Presión": 38.64
     },
-    "skill_composite": 45.03
+    "skill_composite": 44.01
   },
   {
     "fighter_id": "029eaff01e6bb8f0",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 77.1,
-      "Grappling": 33.44,
-      "Defensa": 66.89,
-      "Consistencia": 66.35,
-      "Finish Rate": 53.58,
-      "Cardio/Durabilidad": 89.78,
-      "Presión": 33.33
+      "Striking": 77.34,
+      "Grappling": 33.34,
+      "Defensa": 67.07,
+      "Consistencia": 66.4,
+      "Finish Rate": 53.67,
+      "Cardio/Durabilidad": 90.07,
+      "Presión": 33.27
     },
-    "skill_composite": 61.44
+    "skill_composite": 61.54
   },
   {
     "fighter_id": "d06f8869449ba7bd",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 62.05,
-      "Grappling": 62.58,
-      "Defensa": 64.79,
-      "Consistencia": 55.89,
-      "Finish Rate": 46.07,
-      "Cardio/Durabilidad": 72.02,
-      "Presión": 42.74
+      "Striking": 62.11,
+      "Grappling": 60.56,
+      "Defensa": 66.0,
+      "Consistencia": 57.75,
+      "Finish Rate": 42.68,
+      "Cardio/Durabilidad": 79.4,
+      "Presión": 37.9
     },
-    "skill_composite": 59.22
+    "skill_composite": 59.37
   },
   {
     "fighter_id": "31a13532e724ca2b",
@@ -5269,15 +5269,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 51.95,
-      "Grappling": 35.84,
-      "Defensa": 45.01,
-      "Consistencia": 52.88,
-      "Finish Rate": 42.2,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 45.46
+      "Striking": 52.87,
+      "Grappling": 30.7,
+      "Defensa": 42.55,
+      "Consistencia": 56.07,
+      "Finish Rate": 39.26,
+      "Cardio/Durabilidad": 74.4,
+      "Presión": 41.63
     },
-    "skill_composite": 48.27
+    "skill_composite": 47.63
   },
   {
     "fighter_id": "8f4eeaf7a0df7c1a",
@@ -5359,15 +5359,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 52.01,
-      "Grappling": 50.5,
-      "Defensa": 52.62,
-      "Consistencia": 45.11,
-      "Finish Rate": 41.72,
-      "Cardio/Durabilidad": 61.4,
-      "Presión": 37.6
+      "Striking": 56.67,
+      "Grappling": 48.71,
+      "Defensa": 58.36,
+      "Consistencia": 45.37,
+      "Finish Rate": 48.12,
+      "Cardio/Durabilidad": 65.62,
+      "Presión": 34.42
     },
-    "skill_composite": 49.34
+    "skill_composite": 51.93
   },
   {
     "fighter_id": "784285b7ae7dd85f",
@@ -5629,15 +5629,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 55.36,
-      "Grappling": 41.9,
-      "Defensa": 58.24,
-      "Consistencia": 49.9,
-      "Finish Rate": 36.43,
-      "Cardio/Durabilidad": 66.84,
-      "Presión": 32.19
+      "Striking": 57.58,
+      "Grappling": 41.58,
+      "Defensa": 61.3,
+      "Consistencia": 52.29,
+      "Finish Rate": 28.1,
+      "Cardio/Durabilidad": 81.3,
+      "Presión": 23.88
     },
-    "skill_composite": 50.04
+    "skill_composite": 51.18
   },
   {
     "fighter_id": "51e86de150ee8be6",
@@ -5749,15 +5749,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 50.08,
-      "Grappling": 35.78,
-      "Defensa": 53.78,
-      "Consistencia": 51.56,
-      "Finish Rate": 37.64,
-      "Cardio/Durabilidad": 77.35,
-      "Presión": 27.77
+      "Striking": 50.52,
+      "Grappling": 33.68,
+      "Defensa": 51.84,
+      "Consistencia": 51.54,
+      "Finish Rate": 36.49,
+      "Cardio/Durabilidad": 78.4,
+      "Presión": 26.51
     },
-    "skill_composite": 48.15
+    "skill_composite": 47.4
   },
   {
     "fighter_id": "b6e6c3b1dcaae0a1",
@@ -5779,15 +5779,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 50.02,
-      "Grappling": 51.48,
-      "Defensa": 55.17,
-      "Consistencia": 57.1,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 48.96
+      "Striking": 49.05,
+      "Grappling": 49.4,
+      "Defensa": 53.18,
+      "Consistencia": 59.82,
+      "Finish Rate": 42.36,
+      "Cardio/Durabilidad": 68.0,
+      "Presión": 46.24
     },
-    "skill_composite": 52.76
+    "skill_composite": 52.49
   },
   {
     "fighter_id": "f9b200db02b488d9",
@@ -6004,15 +6004,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 68.14,
-      "Grappling": 30.58,
-      "Defensa": 46.15,
-      "Consistencia": 55.29,
-      "Finish Rate": 43.48,
-      "Cardio/Durabilidad": 65.05,
-      "Presión": 41.27
+      "Striking": 74.19,
+      "Grappling": 25.72,
+      "Defensa": 45.78,
+      "Consistencia": 58.32,
+      "Finish Rate": 40.34,
+      "Cardio/Durabilidad": 70.78,
+      "Presión": 41.04
     },
-    "skill_composite": 50.72
+    "skill_composite": 51.82
   },
   {
     "fighter_id": "e1248941344b3288",
@@ -6064,15 +6064,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 66.29,
-      "Grappling": 39.86,
-      "Defensa": 46.22,
-      "Consistencia": 57.24,
-      "Finish Rate": 39.5,
-      "Cardio/Durabilidad": 82.1,
-      "Presión": 36.77
+      "Striking": 70.71,
+      "Grappling": 38.85,
+      "Defensa": 50.02,
+      "Consistencia": 58.98,
+      "Finish Rate": 37.9,
+      "Cardio/Durabilidad": 88.54,
+      "Presión": 34.45
     },
-    "skill_composite": 52.9
+    "skill_composite": 54.91
   },
   {
     "fighter_id": "f046d724d2a84ac5",
@@ -6094,15 +6094,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 77.42,
-      "Grappling": 27.34,
-      "Defensa": 59.72,
-      "Consistencia": 57.07,
-      "Finish Rate": 37.69,
-      "Cardio/Durabilidad": 83.68,
-      "Presión": 40.8
+      "Striking": 77.86,
+      "Grappling": 27.05,
+      "Defensa": 60.09,
+      "Consistencia": 57.01,
+      "Finish Rate": 37.85,
+      "Cardio/Durabilidad": 84.4,
+      "Presión": 40.61
     },
-    "skill_composite": 56.31
+    "skill_composite": 56.48
   },
   {
     "fighter_id": "18e8b7070228e728",
@@ -6154,15 +6154,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 41.51,
-      "Grappling": 42.25,
-      "Defensa": 58.12,
-      "Consistencia": 40.09,
-      "Finish Rate": 41.42,
-      "Cardio/Durabilidad": 55.32,
-      "Presión": 34.99
+      "Striking": 40.79,
+      "Grappling": 35.49,
+      "Defensa": 59.5,
+      "Consistencia": 38.05,
+      "Finish Rate": 43.6,
+      "Cardio/Durabilidad": 61.9,
+      "Presión": 25.49
     },
-    "skill_composite": 45.45
+    "skill_composite": 44.19
   },
   {
     "fighter_id": "69f01b25dfabaf6b",
@@ -6199,75 +6199,75 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 72.57,
-      "Grappling": 52.42,
-      "Defensa": 67.62,
-      "Consistencia": 55.08,
-      "Finish Rate": 42.58,
-      "Cardio/Durabilidad": 80.28,
-      "Presión": 47.63
+      "Striking": 72.93,
+      "Grappling": 52.68,
+      "Defensa": 67.97,
+      "Consistencia": 55.2,
+      "Finish Rate": 42.94,
+      "Cardio/Durabilidad": 80.58,
+      "Presión": 47.98
     },
-    "skill_composite": 61.21
+    "skill_composite": 61.51
   },
   {
     "fighter_id": "ed209f6618c82e41",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 49.34,
-      "Grappling": 44.24,
-      "Defensa": 51.83,
-      "Consistencia": 51.66,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 43.82
+      "Striking": 61.34,
+      "Grappling": 43.43,
+      "Defensa": 62.23,
+      "Consistencia": 63.75,
+      "Finish Rate": 31.54,
+      "Cardio/Durabilidad": 91.62,
+      "Presión": 39.46
     },
-    "skill_composite": 49.54
+    "skill_composite": 57.05
   },
   {
     "fighter_id": "5e84a859c6a82288",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 50.76,
-      "Grappling": 42.38,
-      "Defensa": 47.58,
-      "Consistencia": 50.52,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 44.36
+      "Striking": 46.84,
+      "Grappling": 36.18,
+      "Defensa": 44.14,
+      "Consistencia": 47.86,
+      "Finish Rate": 41.48,
+      "Cardio/Durabilidad": 63.28,
+      "Presión": 37.99
     },
-    "skill_composite": 48.58
+    "skill_composite": 45.08
   },
   {
     "fighter_id": "764342d39cdaa54a",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 55.94,
-      "Grappling": 32.5,
-      "Defensa": 54.87,
-      "Consistencia": 44.42,
-      "Finish Rate": 41.72,
-      "Cardio/Durabilidad": 65.35,
-      "Presión": 38.55
+      "Striking": 56.45,
+      "Grappling": 35.13,
+      "Defensa": 55.51,
+      "Consistencia": 42.99,
+      "Finish Rate": 40.21,
+      "Cardio/Durabilidad": 68.63,
+      "Presión": 36.92
     },
-    "skill_composite": 48.26
+    "skill_composite": 48.69
   },
   {
     "fighter_id": "0052de90691d4a93",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 59.55,
-      "Grappling": 55.95,
-      "Defensa": 74.93,
-      "Consistencia": 56.44,
-      "Finish Rate": 51.66,
-      "Cardio/Durabilidad": 83.76,
-      "Presión": 36.45
+      "Striking": 58.97,
+      "Grappling": 54.88,
+      "Defensa": 76.63,
+      "Consistencia": 56.65,
+      "Finish Rate": 50.45,
+      "Cardio/Durabilidad": 86.38,
+      "Presión": 34.56
     },
-    "skill_composite": 60.94
+    "skill_composite": 60.99
   },
   {
     "fighter_id": "dccb63727f2f5f74",
@@ -6289,15 +6289,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 55.35,
-      "Grappling": 39.72,
-      "Defensa": 54.51,
-      "Consistencia": 50.02,
-      "Finish Rate": 41.72,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 41.68
+      "Striking": 67.87,
+      "Grappling": 41.13,
+      "Defensa": 60.92,
+      "Consistencia": 55.91,
+      "Finish Rate": 32.38,
+      "Cardio/Durabilidad": 89.52,
+      "Presión": 42.77
     },
-    "skill_composite": 50.57
+    "skill_composite": 56.78
   },
   {
     "fighter_id": "262a7d06203657e6",
@@ -6454,15 +6454,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 46.01,
-      "Grappling": 42.3,
-      "Defensa": 59.01,
-      "Consistencia": 50.08,
-      "Finish Rate": 41.42,
-      "Cardio/Durabilidad": 60.6,
-      "Presión": 37.09
+      "Striking": 47.95,
+      "Grappling": 35.43,
+      "Defensa": 61.29,
+      "Consistencia": 55.16,
+      "Finish Rate": 36.43,
+      "Cardio/Durabilidad": 72.12,
+      "Presión": 31.45
     },
-    "skill_composite": 48.77
+    "skill_composite": 49.44
   },
   {
     "fighter_id": "d945aae53e3e54e6",
@@ -6574,15 +6574,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 58.75,
-      "Grappling": 55.16,
-      "Defensa": 58.32,
-      "Consistencia": 56.42,
-      "Finish Rate": 46.0,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 48.01
+      "Striking": 81.91,
+      "Grappling": 54.46,
+      "Defensa": 77.17,
+      "Consistencia": 68.78,
+      "Finish Rate": 32.5,
+      "Cardio/Durabilidad": 93.19,
+      "Presión": 50.9
     },
-    "skill_composite": 55.55
+    "skill_composite": 67.96
   },
   {
     "fighter_id": "72e5e5a6edfa8223",
@@ -6604,15 +6604,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 72.7,
-      "Grappling": 39.13,
-      "Defensa": 74.39,
-      "Consistencia": 62.4,
-      "Finish Rate": 63.02,
-      "Cardio/Durabilidad": 80.14,
-      "Presión": 40.83
+      "Striking": 73.06,
+      "Grappling": 38.82,
+      "Defensa": 74.64,
+      "Consistencia": 62.38,
+      "Finish Rate": 62.67,
+      "Cardio/Durabilidad": 80.31,
+      "Presión": 40.56
     },
-    "skill_composite": 63.05
+    "skill_composite": 63.07
   },
   {
     "fighter_id": "8fc9ae9c7527dfcb",
@@ -6649,15 +6649,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 74.23,
-      "Grappling": 36.71,
-      "Defensa": 64.0,
-      "Consistencia": 64.56,
-      "Finish Rate": 46.66,
-      "Cardio/Durabilidad": 79.52,
-      "Presión": 45.14
+      "Striking": 92.19,
+      "Grappling": 41.33,
+      "Defensa": 79.59,
+      "Consistencia": 74.05,
+      "Finish Rate": 60.29,
+      "Cardio/Durabilidad": 98.94,
+      "Presión": 50.38
     },
-    "skill_composite": 59.97
+    "skill_composite": 72.62
   },
   {
     "fighter_id": "eae48ff31db420c2",
@@ -6739,15 +6739,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 75.33,
-      "Grappling": 23.96,
-      "Defensa": 32.61,
-      "Consistencia": 51.05,
-      "Finish Rate": 39.4,
-      "Cardio/Durabilidad": 79.72,
-      "Presión": 49.13
+      "Striking": 78.73,
+      "Grappling": 22.07,
+      "Defensa": 32.89,
+      "Consistencia": 51.09,
+      "Finish Rate": 36.26,
+      "Cardio/Durabilidad": 83.34,
+      "Presión": 48.59
     },
-    "skill_composite": 49.66
+    "skill_composite": 50.12
   },
   {
     "fighter_id": "d2cd7a69cc55e7ed",
@@ -6844,15 +6844,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 46.97,
-      "Grappling": 34.25,
-      "Defensa": 48.94,
-      "Consistencia": 46.54,
-      "Finish Rate": 37.88,
-      "Cardio/Durabilidad": 65.4,
-      "Presión": 33.14
+      "Striking": 47.26,
+      "Grappling": 32.17,
+      "Defensa": 52.2,
+      "Consistencia": 46.11,
+      "Finish Rate": 35.52,
+      "Cardio/Durabilidad": 70.52,
+      "Presión": 30.17
     },
-    "skill_composite": 44.94
+    "skill_composite": 45.26
   },
   {
     "fighter_id": "da0995f19b749cfa",
@@ -6994,60 +6994,60 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 78.46,
-      "Grappling": 48.02,
-      "Defensa": 66.55,
-      "Consistencia": 64.45,
-      "Finish Rate": 68.6,
-      "Cardio/Durabilidad": 86.53,
-      "Presión": 52.76
+      "Striking": 78.94,
+      "Grappling": 48.01,
+      "Defensa": 68.63,
+      "Consistencia": 64.05,
+      "Finish Rate": 68.02,
+      "Cardio/Durabilidad": 88.7,
+      "Presión": 51.17
     },
-    "skill_composite": 66.66
+    "skill_composite": 67.11
   },
   {
     "fighter_id": "436f970c9ea9169c",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 72.26,
-      "Grappling": 37.98,
-      "Defensa": 62.77,
-      "Consistencia": 59.92,
-      "Finish Rate": 50.88,
-      "Cardio/Durabilidad": 76.5,
-      "Presión": 46.99
+      "Striking": 77.08,
+      "Grappling": 35.03,
+      "Defensa": 67.79,
+      "Consistencia": 63.83,
+      "Finish Rate": 51.44,
+      "Cardio/Durabilidad": 85.84,
+      "Presión": 40.89
     },
-    "skill_composite": 59.13
+    "skill_composite": 61.62
   },
   {
     "fighter_id": "40093d1d2d78394e",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 58.81,
-      "Grappling": 38.77,
-      "Defensa": 51.7,
-      "Consistencia": 54.71,
-      "Finish Rate": 42.2,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 44.97
+      "Striking": 65.46,
+      "Grappling": 24.96,
+      "Defensa": 40.9,
+      "Consistencia": 61.93,
+      "Finish Rate": 40.94,
+      "Cardio/Durabilidad": 89.5,
+      "Presión": 32.76
     },
-    "skill_composite": 51.64
+    "skill_composite": 50.63
   },
   {
     "fighter_id": "cf946e03ba2e7666",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 51.19,
-      "Grappling": 45.94,
-      "Defensa": 56.56,
-      "Consistencia": 51.41,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 44.26
+      "Striking": 55.42,
+      "Grappling": 44.36,
+      "Defensa": 68.29,
+      "Consistencia": 55.57,
+      "Finish Rate": 34.85,
+      "Cardio/Durabilidad": 77.7,
+      "Presión": 34.31
     },
-    "skill_composite": 51.12
+    "skill_composite": 54.42
   },
   {
     "fighter_id": "304a21d0595e1a08",
@@ -7144,15 +7144,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 61.55,
-      "Grappling": 52.41,
-      "Defensa": 65.54,
-      "Consistencia": 58.41,
-      "Finish Rate": 47.82,
-      "Cardio/Durabilidad": 64.82,
-      "Presión": 40.63
+      "Striking": 59.1,
+      "Grappling": 50.13,
+      "Defensa": 67.68,
+      "Consistencia": 56.38,
+      "Finish Rate": 45.31,
+      "Cardio/Durabilidad": 66.92,
+      "Presión": 37.58
     },
-    "skill_composite": 57.37
+    "skill_composite": 56.31
   },
   {
     "fighter_id": "7772b283d288dbe2",
@@ -7234,15 +7234,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 40.6,
-      "Grappling": 45.55,
-      "Defensa": 53.37,
-      "Consistencia": 40.6,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 52.6,
-      "Presión": 40.98
+      "Striking": 34.98,
+      "Grappling": 41.99,
+      "Defensa": 56.02,
+      "Consistencia": 35.08,
+      "Finish Rate": 41.18,
+      "Cardio/Durabilidad": 54.68,
+      "Presión": 33.89
     },
-    "skill_composite": 45.58
+    "skill_composite": 42.74
   },
   {
     "fighter_id": "e132d47bd9efbbe0",
@@ -7264,15 +7264,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 75.57,
-      "Grappling": 61.61,
-      "Defensa": 75.45,
-      "Consistencia": 58.59,
-      "Finish Rate": 58.66,
-      "Cardio/Durabilidad": 86.64,
-      "Presión": 62.62
+      "Striking": 77.23,
+      "Grappling": 62.59,
+      "Defensa": 75.66,
+      "Consistencia": 59.13,
+      "Finish Rate": 59.98,
+      "Cardio/Durabilidad": 88.52,
+      "Presión": 63.35
     },
-    "skill_composite": 69.03
+    "skill_composite": 70.02
   },
   {
     "fighter_id": "e4a47b07044ddd72",
@@ -7324,15 +7324,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 53.76,
-      "Grappling": 42.71,
-      "Defensa": 47.58,
-      "Consistencia": 53.11,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 55.0,
-      "Presión": 44.15
+      "Striking": 59.83,
+      "Grappling": 32.96,
+      "Defensa": 43.53,
+      "Consistencia": 59.54,
+      "Finish Rate": 35.94,
+      "Cardio/Durabilidad": 68.76,
+      "Presión": 35.18
     },
-    "skill_composite": 49.1
+    "skill_composite": 48.54
   },
   {
     "fighter_id": "029afd138865d20a",
@@ -7414,15 +7414,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 52.18,
-      "Grappling": 37.14,
-      "Defensa": 44.49,
-      "Consistencia": 44.81,
-      "Finish Rate": 41.18,
-      "Cardio/Durabilidad": 55.88,
-      "Presión": 39.31
+      "Striking": 53.93,
+      "Grappling": 31.12,
+      "Defensa": 38.53,
+      "Consistencia": 42.2,
+      "Finish Rate": 38.24,
+      "Cardio/Durabilidad": 58.06,
+      "Presión": 33.54
     },
-    "skill_composite": 45.26
+    "skill_composite": 42.47
   },
   {
     "fighter_id": "a2ccf35a88346a91",
@@ -7474,15 +7474,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 47.0,
-      "Grappling": 56.6,
-      "Defensa": 52.56,
-      "Consistencia": 46.92,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 55.0,
-      "Presión": 43.23
+      "Striking": 55.26,
+      "Grappling": 45.0,
+      "Defensa": 52.26,
+      "Consistencia": 46.34,
+      "Finish Rate": 45.77,
+      "Cardio/Durabilidad": 69.24,
+      "Presión": 35.94
     },
-    "skill_composite": 49.8
+    "skill_composite": 50.3
   },
   {
     "fighter_id": "19c591115a58982c",
@@ -7504,15 +7504,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 60.0,
-      "Grappling": 58.15,
-      "Defensa": 57.85,
-      "Consistencia": 59.0,
-      "Finish Rate": 46.0,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 55.6
+      "Striking": 72.46,
+      "Grappling": 53.29,
+      "Defensa": 48.34,
+      "Consistencia": 61.57,
+      "Finish Rate": 37.5,
+      "Cardio/Durabilidad": 76.96,
+      "Presión": 56.42
     },
-    "skill_composite": 57.3
+    "skill_composite": 58.48
   },
   {
     "fighter_id": "cda1099995b46cc2",
@@ -7549,15 +7549,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 89.43,
-      "Grappling": 53.15,
-      "Defensa": 70.93,
-      "Consistencia": 74.84,
-      "Finish Rate": 37.78,
-      "Cardio/Durabilidad": 91.9,
-      "Presión": 56.83
+      "Striking": 90.48,
+      "Grappling": 52.34,
+      "Defensa": 71.93,
+      "Consistencia": 75.5,
+      "Finish Rate": 37.45,
+      "Cardio/Durabilidad": 94.34,
+      "Presión": 55.01
     },
-    "skill_composite": 69.92
+    "skill_composite": 70.34
   },
   {
     "fighter_id": "cfc3e7bb44685289",
@@ -7594,30 +7594,30 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 82.47,
-      "Grappling": 56.01,
-      "Defensa": 76.58,
-      "Consistencia": 54.34,
-      "Finish Rate": 84.72,
-      "Cardio/Durabilidad": 83.53,
-      "Presión": 58.78
+      "Striking": 82.95,
+      "Grappling": 55.82,
+      "Defensa": 77.09,
+      "Consistencia": 54.77,
+      "Finish Rate": 84.32,
+      "Cardio/Durabilidad": 84.38,
+      "Presión": 58.62
     },
-    "skill_composite": 71.07
+    "skill_composite": 71.33
   },
   {
     "fighter_id": "62f7097c04311193",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 53.69,
-      "Grappling": 42.71,
-      "Defensa": 46.19,
-      "Consistencia": 53.13,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 55.0,
-      "Presión": 42.52
+      "Striking": 53.06,
+      "Grappling": 40.2,
+      "Defensa": 40.3,
+      "Consistencia": 55.02,
+      "Finish Rate": 38.54,
+      "Cardio/Durabilidad": 63.48,
+      "Presión": 31.9
     },
-    "skill_composite": 48.64
+    "skill_composite": 46.35
   },
   {
     "fighter_id": "8c1ca54b5089d199",
@@ -7684,15 +7684,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 48.97,
-      "Grappling": 45.55,
-      "Defensa": 54.0,
-      "Consistencia": 48.95,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 52.6,
-      "Presión": 43.3
+      "Striking": 51.12,
+      "Grappling": 41.99,
+      "Defensa": 56.78,
+      "Consistencia": 49.99,
+      "Finish Rate": 41.18,
+      "Cardio/Durabilidad": 54.68,
+      "Presión": 38.52
     },
-    "skill_composite": 48.87
+    "skill_composite": 48.82
   },
   {
     "fighter_id": "849c5d9979df5357",
@@ -7819,15 +7819,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 53.91,
-      "Grappling": 45.94,
-      "Defensa": 56.26,
-      "Consistencia": 54.19,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 47.8
+      "Striking": 64.15,
+      "Grappling": 50.44,
+      "Defensa": 83.05,
+      "Consistencia": 57.01,
+      "Finish Rate": 41.61,
+      "Cardio/Durabilidad": 90.83,
+      "Presión": 38.16
     },
-    "skill_composite": 52.37
+    "skill_composite": 62.62
   },
   {
     "fighter_id": "ff62013d2fce6d13",
@@ -7849,15 +7849,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 69.94,
-      "Grappling": 49.43,
-      "Defensa": 59.9,
-      "Consistencia": 62.24,
-      "Finish Rate": 39.28,
-      "Cardio/Durabilidad": 71.2,
-      "Presión": 46.75
+      "Striking": 70.19,
+      "Grappling": 45.33,
+      "Defensa": 57.69,
+      "Consistencia": 64.48,
+      "Finish Rate": 36.93,
+      "Cardio/Durabilidad": 76.32,
+      "Presión": 43.86
     },
-    "skill_composite": 58.44
+    "skill_composite": 57.76
   },
   {
     "fighter_id": "0bc697c5936a2d0a",
@@ -7999,15 +7999,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 62.19,
-      "Grappling": 48.41,
-      "Defensa": 62.97,
-      "Consistencia": 48.27,
-      "Finish Rate": 50.06,
-      "Cardio/Durabilidad": 72.77,
-      "Presión": 47.73
+      "Striking": 65.95,
+      "Grappling": 46.33,
+      "Defensa": 62.88,
+      "Consistencia": 49.57,
+      "Finish Rate": 51.47,
+      "Cardio/Durabilidad": 78.72,
+      "Presión": 47.56
     },
-    "skill_composite": 56.59
+    "skill_composite": 57.93
   },
   {
     "fighter_id": "a75a48bfe776b2c2",
@@ -8059,15 +8059,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 57.49,
-      "Grappling": 42.97,
-      "Defensa": 41.43,
-      "Consistencia": 56.05,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 52.66
+      "Striking": 69.17,
+      "Grappling": 32.33,
+      "Defensa": 38.17,
+      "Consistencia": 58.75,
+      "Finish Rate": 39.16,
+      "Cardio/Durabilidad": 70.4,
+      "Presión": 50.02
     },
-    "skill_composite": 50.44
+    "skill_composite": 51.09
   },
   {
     "fighter_id": "267f4a6568abe245",
@@ -8104,15 +8104,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 56.67,
-      "Grappling": 47.92,
-      "Defensa": 59.16,
-      "Consistencia": 53.09,
-      "Finish Rate": 41.48,
-      "Cardio/Durabilidad": 62.08,
-      "Presión": 45.66
+      "Striking": 54.95,
+      "Grappling": 45.08,
+      "Defensa": 61.57,
+      "Consistencia": 53.29,
+      "Finish Rate": 38.34,
+      "Cardio/Durabilidad": 63.74,
+      "Presión": 40.74
     },
-    "skill_composite": 53.24
+    "skill_composite": 52.34
   },
   {
     "fighter_id": "d7fe8c6b7d2872e5",
@@ -8179,15 +8179,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 63.06,
-      "Grappling": 54.38,
-      "Defensa": 52.04,
-      "Consistencia": 58.51,
-      "Finish Rate": 56.32,
-      "Cardio/Durabilidad": 66.6,
-      "Presión": 42.24
+      "Striking": 65.46,
+      "Grappling": 54.37,
+      "Defensa": 54.99,
+      "Consistencia": 60.48,
+      "Finish Rate": 53.38,
+      "Cardio/Durabilidad": 69.8,
+      "Presión": 39.5
     },
-    "skill_composite": 56.47
+    "skill_composite": 57.59
   },
   {
     "fighter_id": "4bdedbdeedff7d1d",
@@ -8299,30 +8299,30 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 59.28,
-      "Grappling": 47.83,
-      "Defensa": 49.47,
-      "Consistencia": 56.11,
-      "Finish Rate": 46.0,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 54.7
+      "Striking": 60.16,
+      "Grappling": 55.83,
+      "Defensa": 56.26,
+      "Consistencia": 53.26,
+      "Finish Rate": 54.0,
+      "Cardio/Durabilidad": 66.88,
+      "Presión": 57.04
     },
-    "skill_composite": 53.41
+    "skill_composite": 57.44
   },
   {
     "fighter_id": "52ef95b5860fb28c",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 57.92,
-      "Grappling": 46.6,
-      "Defensa": 58.41,
-      "Consistencia": 54.7,
-      "Finish Rate": 60.0,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 44.24
+      "Striking": 72.32,
+      "Grappling": 48.5,
+      "Defensa": 65.81,
+      "Consistencia": 59.05,
+      "Finish Rate": 74.4,
+      "Cardio/Durabilidad": 71.1,
+      "Presión": 38.31
     },
-    "skill_composite": 54.89
+    "skill_composite": 62.14
   },
   {
     "fighter_id": "ca36633b80be4a78",
@@ -8359,45 +8359,45 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 53.98,
-      "Grappling": 38.48,
-      "Defensa": 50.99,
-      "Consistencia": 50.82,
-      "Finish Rate": 41.72,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 41.84
+      "Striking": 63.2,
+      "Grappling": 33.8,
+      "Defensa": 58.14,
+      "Consistencia": 55.06,
+      "Finish Rate": 36.42,
+      "Cardio/Durabilidad": 79.52,
+      "Presión": 42.46
     },
-    "skill_composite": 49.55
+    "skill_composite": 53.44
   },
   {
     "fighter_id": "5d495dec23d7c68e",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 62.2,
-      "Grappling": 56.2,
-      "Defensa": 64.77,
-      "Consistencia": 59.48,
-      "Finish Rate": 42.8,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 54.29
+      "Striking": 62.94,
+      "Grappling": 51.9,
+      "Defensa": 65.84,
+      "Consistencia": 59.69,
+      "Finish Rate": 41.41,
+      "Cardio/Durabilidad": 78.3,
+      "Presión": 47.06
     },
-    "skill_composite": 59.26
+    "skill_composite": 59.17
   },
   {
     "fighter_id": "c4d039123e62f6a9",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 55.07,
-      "Grappling": 44.95,
-      "Defensa": 53.91,
-      "Consistencia": 52.14,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 46.14
+      "Striking": 60.69,
+      "Grappling": 33.11,
+      "Defensa": 55.36,
+      "Consistencia": 54.21,
+      "Finish Rate": 47.91,
+      "Cardio/Durabilidad": 74.78,
+      "Presión": 35.86
     },
-    "skill_composite": 51.51
+    "skill_composite": 52.16
   },
   {
     "fighter_id": "15ea371202eb25e1",
@@ -8464,45 +8464,45 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 58.06,
-      "Grappling": 44.4,
-      "Defensa": 52.58,
-      "Consistencia": 54.7,
-      "Finish Rate": 46.0,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 48.25
+      "Striking": 69.13,
+      "Grappling": 37.23,
+      "Defensa": 57.66,
+      "Consistencia": 60.35,
+      "Finish Rate": 49.2,
+      "Cardio/Durabilidad": 74.02,
+      "Presión": 42.75
     },
-    "skill_composite": 52.42
+    "skill_composite": 56.59
   },
   {
     "fighter_id": "94426bb170c88115",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 53.67,
-      "Grappling": 50.56,
-      "Defensa": 55.76,
-      "Consistencia": 50.52,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 46.63
+      "Striking": 71.77,
+      "Grappling": 40.1,
+      "Defensa": 64.87,
+      "Consistencia": 60.88,
+      "Finish Rate": 42.23,
+      "Cardio/Durabilidad": 85.8,
+      "Presión": 37.37
     },
-    "skill_composite": 52.25
+    "skill_composite": 59.02
   },
   {
     "fighter_id": "5eb50529a8418b77",
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 56.61,
-      "Grappling": 43.46,
-      "Defensa": 47.18,
-      "Consistencia": 52.03,
-      "Finish Rate": 60.0,
-      "Cardio/Durabilidad": 58.6,
-      "Presión": 48.0
+      "Striking": 71.75,
+      "Grappling": 35.24,
+      "Defensa": 48.58,
+      "Consistencia": 61.3,
+      "Finish Rate": 55.11,
+      "Cardio/Durabilidad": 78.86,
+      "Presión": 42.41
     },
-    "skill_composite": 51.74
+    "skill_composite": 56.19
   },
   {
     "fighter_id": "72f890c5d421e705",
@@ -8629,15 +8629,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 54.08,
-      "Grappling": 51.88,
-      "Defensa": 56.24,
-      "Consistencia": 49.1,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 47.53
+      "Striking": 59.84,
+      "Grappling": 52.24,
+      "Defensa": 63.25,
+      "Consistencia": 45.8,
+      "Finish Rate": 53.4,
+      "Cardio/Durabilidad": 68.0,
+      "Presión": 45.16
     },
-    "skill_composite": 52.5
+    "skill_composite": 55.98
   },
   {
     "fighter_id": "ae81a3ac7b260411",
@@ -8674,15 +8674,15 @@
     "fighter_name": "Unknown",
     "division": "Unknown",
     "skill_score": {
-      "Striking": 60.0,
-      "Grappling": 44.4,
-      "Defensa": 52.68,
-      "Consistencia": 59.12,
-      "Finish Rate": 46.0,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 53.07
+      "Striking": 76.79,
+      "Grappling": 46.55,
+      "Defensa": 55.54,
+      "Consistencia": 69.33,
+      "Finish Rate": 35.23,
+      "Cardio/Durabilidad": 80.59,
+      "Presión": 54.74
     },
-    "skill_composite": 53.97
+    "skill_composite": 60.9
   },
   {
     "fighter_id": "6142edbd477d20c9",

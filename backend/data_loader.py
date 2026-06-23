@@ -40,10 +40,16 @@ def load_skill_scores(division: str = "heavyweight") -> List[Dict[str, Any]]:
     return data
 
 
+_ALL_DIVISION_SLUGS = [
+    "heavyweight", "light_heavyweight", "middleweight", "welterweight",
+    "lightweight", "featherweight", "bantamweight", "flyweight",
+]
+
+
 def load_fighters(division: str = "heavyweight") -> List[Dict[str, Any]]:
     slug = _division_slug(division)
     data = load_json_file(f"fighters_{slug}.json")
-    if data is None:
+    if not data:
         data = load_json_file("fighters.json")  # legacy fallback
     if not data:
         return []
@@ -83,18 +89,75 @@ def load_skill_histories(division: str = "heavyweight") -> Dict[str, List[Dict[s
 
 
 def get_fighter_by_id(fighter_id: str, division: str = "heavyweight") -> Optional[Dict[str, Any]]:
-    fighters = load_fighters(division)
-    for fighter in fighters:
-        if str(fighter.get("id")) == str(fighter_id) or str(fighter.get("fighter_id")) == str(fighter_id):
+    fid = str(fighter_id)
+    # Try the requested division first
+    for fighter in load_fighters(division):
+        if str(fighter.get("id")) == fid or str(fighter.get("fighter_id")) == fid:
+            return fighter
+    # Fall back: search every division's JSON
+    for slug in _ALL_DIVISION_SLUGS:
+        if slug == _division_slug(division):
+            continue
+        for fighter in (load_json_file(f"fighters_{slug}.json") or []):
+            if str(fighter.get("fighter_id", "")) == fid:
+                return fighter
+    # Final fallback: global fighters.json
+    for fighter in (load_json_file("fighters.json") or []):
+        if str(fighter.get("fighter_id", "")) == fid or str(fighter.get("id", "")) == fid:
             return fighter
     return None
 
 
+def compute_career_record(fighter_id: str) -> Optional[str]:
+    """Compute W-L-D from ELO histories across all divisions (deduped by fight_id)."""
+    wins = losses = draws = 0
+    seen: set = set()
+    fid = str(fighter_id)
+    for slug in _ALL_DIVISION_SLUGS:
+        hist = load_json_file(f"elo_histories_{slug}.json") or {}
+        for entry in hist.get(fid, []):
+            key = entry.get("fight_id") or (entry.get("date", "") + str(entry.get("opponent_id", "")))
+            if key in seen:
+                continue
+            seen.add(key)
+            result = (entry.get("result") or "").lower()
+            if result == "win":
+                wins += 1
+            elif result == "loss":
+                losses += 1
+            elif result == "draw":
+                draws += 1
+    if wins + losses + draws == 0:
+        return None
+    return f"{wins}-{losses}-{draws}"
+
+
+def get_career_division(fighter_id: str) -> str:
+    """Return the division where the fighter has the most ELO history entries (most fights)."""
+    fid = str(fighter_id)
+    best_div = "heavyweight"
+    best_count = 0
+    for slug in _ALL_DIVISION_SLUGS:
+        hist = load_json_file(f"elo_histories_{slug}.json") or {}
+        count = len(hist.get(fid, []))
+        if count > best_count:
+            best_count = count
+            best_div = slug.replace("_", " ")
+    return best_div
+
+
 def get_skill_score_by_id(fighter_id: str, division: str = "heavyweight") -> Optional[Dict[str, Any]]:
-    skills = load_skill_scores(division)
-    for skill in skills:
-        if str(skill.get("fighter_id")) == str(fighter_id) or str(skill.get("id")) == str(fighter_id):
+    fid = str(fighter_id)
+    # Try requested division
+    for skill in load_skill_scores(division):
+        if str(skill.get("fighter_id")) == fid or str(skill.get("id")) == fid:
             return skill
+    # Fall back to the division with most career fights
+    career_div = get_career_division(fighter_id)
+    if career_div.replace(" ", "_") != _division_slug(division):
+        for skill in load_skill_scores(career_div):
+            if str(skill.get("fighter_id")) == fid or str(skill.get("id")) == fid:
+                return skill
     return None
 
 

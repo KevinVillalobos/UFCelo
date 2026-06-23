@@ -8,6 +8,8 @@ _sys.path.insert(0, str(_Path(__file__).parent.parent))
 from models.tag_engine import TAG_GROUPS, TAG_TOOLTIPS, calculate_tags as _calculate_tags
 
 from .data_loader import (
+    compute_career_record,
+    get_career_division,
     get_fighter_by_id,
     get_skill_score_by_id,
     get_upcoming_events,
@@ -215,15 +217,60 @@ def build_ranking_response(division: str, alltime: bool = False) -> List[Dict[st
         else:
             rest_current.append((item, is_v, v_label))
 
+    # Build a global fighter lookup from ALL division JSONs once — keyed by fighter_id.
+    # ELO histories only cover scraped events so their W/L counts are incomplete.
+    # The fighters_*.json files have the correct career record from scraping.
+    null_record_ids = {
+        str(item.get("fighter_id") or "")
+        for item in sorted_rankings
+        if item.get("record") is None
+    }
+    batch_records: Dict[str, str] = {}
+    if null_record_ids:
+        from .data_loader import load_json_file as _ljf, _ALL_DIVISION_SLUGS
+        global_map: Dict[str, dict] = {}
+        for slug in _ALL_DIVISION_SLUGS:
+            for f in (_ljf(f"fighters_{slug}.json") or []):
+                fid = str(f.get("fighter_id") or f.get("id") or "")
+                if fid and fid not in global_map:
+                    global_map[fid] = f
+        for f in (_ljf("fighters.json") or []):
+            fid = str(f.get("fighter_id") or f.get("id") or "")
+            if fid and fid not in global_map:
+                global_map[fid] = f
+
+        for fid in null_record_ids:
+            f = global_map.get(fid)
+            if not f:
+                continue
+            rec = f.get("record")
+            if not rec:
+                w = f.get("wins", 0) or 0
+                l = f.get("losses", 0) or 0
+                d = f.get("draws", 0) or 0
+                if w + l + d > 0:
+                    rec = f"{w}-{l}-{d}"
+            if rec and rec != "0-0-0":
+                batch_records[fid] = rec
+
+    def _enrich(item: dict) -> dict:
+        if item.get("record") is None:
+            fid = str(item.get("fighter_id") or item.get("id") or "")
+            rec = batch_records.get(fid)
+            if rec:
+                item = dict(item)
+                item["record"] = rec
+        return item
+
     rank = 1
     if champion_item:
-        result.append(_ranking_entry(champion_item[0], division, rank, is_champion=True))
+        result.append(_ranking_entry(_enrich(champion_item[0]), division, rank, is_champion=True))
         rank += 1
     for item, is_v, v_label in rest_current:
-        result.append(_ranking_entry(item, division, rank))
+        result.append(_ranking_entry(_enrich(item), division, rank))
         rank += 1
     for item, is_v, v_label in visitor_fighters:
-        result.append(_ranking_entry(item, division, rank, visitor=True, visitor_label=v_label))
+        result.append(_ranking_entry(_enrich(item), division, rank, visitor=True, visitor_label=v_label))
         rank += 1
 
     return result
@@ -250,6 +297,20 @@ def _get_current_elo(fighter_id: str, fighter: Dict[str, object], division: str 
         except ValueError:
             pass
     return raw_elo
+
+
+def _resolve_record(fighter_id: str, fighter: dict) -> Optional[str]:
+    """Return W-L-D record, preferring scraped data then ELO history as fallback."""
+    scraped = fighter.get("record")
+    if not scraped:
+        w = fighter.get("wins", 0) or 0
+        l = fighter.get("losses", 0) or 0
+        d = fighter.get("draws", 0) or 0
+        if w + l + d > 0:
+            scraped = f"{w}-{l}-{d}"
+    if scraped and scraped != "0-0-0":
+        return scraped
+    return compute_career_record(fighter_id)
 
 
 def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Optional[Dict[str, object]]:
@@ -316,12 +377,27 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
             "fight_stats": per_fight,
         })
 
-    skill_item = get_skill_score_by_id(fighter_id, division) or {}
+    # Use the division where the fighter has the most fights for skill/tag data.
+    # This prevents cross-division movers (Islam, Holloway, Pereira) from showing
+    # flat ~60% scores based on only 1-2 fights in their new division.
+    career_div = get_career_division(fighter_id)
+
+    skill_item = get_skill_score_by_id(fighter_id, career_div) or {}
     skill_score = skill_item.get("skill_score", {})
     skill_composite = skill_item.get("skill_composite")
-    skill_histories = load_skill_histories(division).get(str(fighter_id), [])
+
+    # Merge skill histories from all divisions, deduped by fight_id
+    all_skill_entries = []
+    seen_skill_fights: set = set()
+    for div in _ALL_DIVISIONS:
+        for entry in load_skill_histories(div).get(str(fighter_id), []):
+            key = entry.get("fight_id") or (entry.get("date", "") + entry.get("opponent_id", ""))
+            if key not in seen_skill_fights:
+                seen_skill_fights.add(key)
+                all_skill_entries.append(entry)
+
     skill_history_response = []
-    for item in sorted(skill_histories, key=lambda entry: entry.get("date") or ""):
+    for item in sorted(all_skill_entries, key=lambda e: e.get("date") or ""):
         skill_history_response.append(
             {
                 "date": item.get("date"),
@@ -342,10 +418,7 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
         "fighter_name": fighter.get("name") or fighter.get("full_name"),
         "division": fighter.get("division") or division.title(),
         "elo": _get_current_elo(fighter_id, fighter, division),
-        "record": (
-            fighter.get("record")
-            or f"{fighter.get('wins', 0) or 0}-{fighter.get('losses', 0) or 0}-{fighter.get('draws', 0) or 0}"
-        ),
+        "record": _resolve_record(fighter_id, fighter),
         "country": fighter.get("country"),
         "height": fighter.get("height"),
         "weight": fighter.get("weight"),
@@ -359,7 +432,7 @@ def build_fighter_profile(fighter_id: str, division: str = "heavyweight") -> Opt
         "skill_composite": skill_composite,
         "skill_history": skill_history_response,
         "fight_stats": fight_stats,
-        "tags": _calculate_tags(fighter_id, division),
+        "tags": _calculate_tags(fighter_id, career_div),
     }
 
 

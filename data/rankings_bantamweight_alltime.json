@@ -19,8 +19,8 @@
     "fighter_id": "aa72b0f831d0bfe5",
     "fighter_name": "Deiveson Figueiredo",
     "division": "Bantamweight",
-    "elo": 1747.59,
-    "peak_elo": 1848.21,
+    "elo": 1747.58,
+    "peak_elo": 1848.2,
     "peak_elo_date": "2024-08-03",
     "peak_elo_opponent": "Marlon Vera",
     "record": "25-6-1",
@@ -28,7 +28,7 @@
     "last_fight_date": "2026-05-30",
     "active": true,
     "streak": -2,
-    "division_elo_entry": 1779.08,
+    "division_elo_entry": 1779.07,
     "alltime_rank": 2
   },
   {
@@ -116,7 +116,7 @@
     "fighter_name": "John Lineker",
     "division": "Bantamweight",
     "elo": 1739.07,
-    "peak_elo": 1801.52,
+    "peak_elo": 1801.53,
     "peak_elo_date": "2016-10-01",
     "peak_elo_opponent": "John Dodson",
     "record": "31-9-0",
@@ -124,7 +124,7 @@
     "last_fight_date": "2019-04-27",
     "active": false,
     "streak": -1,
-    "division_elo_entry": 1702.09,
+    "division_elo_entry": 1702.1,
     "alltime_rank": 8
   },
   {
@@ -323,8 +323,8 @@
     "fighter_id": "f2688492b9a525a3",
     "fighter_name": "Frankie Edgar",
     "division": "Bantamweight",
-    "elo": 1598.0,
-    "peak_elo": 1750.59,
+    "elo": 1598.01,
+    "peak_elo": 1750.6,
     "peak_elo_date": "2020-08-22",
     "peak_elo_opponent": "Pedro Munhoz",
     "record": "23-11-1",
@@ -332,7 +332,7 @@
     "last_fight_date": "2022-11-12",
     "active": false,
     "streak": -3,
-    "division_elo_entry": 1732.1,
+    "division_elo_entry": 1732.11,
     "alltime_rank": 21
   },
   {
@@ -340,7 +340,7 @@
     "fighter_name": "Montel Jackson",
     "division": "Bantamweight",
     "elo": 1722.54,
-    "peak_elo": 1750.1,
+    "peak_elo": 1750.11,
     "peak_elo_date": "2025-05-03",
     "peak_elo_opponent": "Daniel Marcos",
     "record": "15-4-0",
@@ -1235,8 +1235,8 @@
     "fighter_id": "65adf3856c4d9256",
     "fighter_name": "Jafel Filho",
     "division": "Bantamweight",
-    "elo": 1633.3,
-    "peak_elo": 1666.84,
+    "elo": 1633.31,
+    "peak_elo": 1666.85,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
     "record": "17-5-0",
@@ -1244,7 +1244,7 @@
     "last_fight_date": "2026-04-25",
     "active": true,
     "streak": -1,
-    "division_elo_entry": 1666.84,
+    "division_elo_entry": 1666.85,
     "alltime_rank": 78
   },
   {
@@ -1908,7 +1908,7 @@
     "fighter_name": "Louis Smolka",
     "division": "Bantamweight",
     "elo": 1573.98,
-    "peak_elo": 1630.75,
+    "peak_elo": 1630.76,
     "peak_elo_date": "2018-11-24",
     "peak_elo_opponent": "Sumudaerji",
     "record": "17-9-0",
@@ -1916,7 +1916,7 @@
     "last_fight_date": "2022-05-14",
     "active": false,
     "streak": -2,
-    "division_elo_entry": 1595.03,
+    "division_elo_entry": 1595.04,
     "alltime_rank": 120
   },
   {
@@ -3683,8 +3683,8 @@
     "fighter_id": "29162be25ebef5f0",
     "fighter_name": "Luis Gurule",
     "division": "Bantamweight",
-    "elo": 1529.15,
-    "peak_elo": 1553.77,
+    "elo": 1529.16,
+    "peak_elo": 1553.78,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
     "record": "11-4-0",
@@ -3692,7 +3692,7 @@
     "last_fight_date": "2026-05-30",
     "active": true,
     "streak": -1,
-    "division_elo_entry": 1553.77,
+    "division_elo_entry": 1553.78,
     "alltime_rank": 231
   },
   {
@@ -4195,8 +4195,8 @@
     "fighter_id": "a75a48bfe776b2c2",
     "fighter_name": "Jesse Butler",
     "division": "Bantamweight",
-    "elo": 1463.26,
-    "peak_elo": 1475.59,
+    "elo": 1463.24,
+    "peak_elo": 1475.57,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
     "record": "12-6-0",
@@ -4204,7 +4204,7 @@
     "last_fight_date": "2024-06-08",
     "active": false,
     "streak": -1,
-    "division_elo_entry": 1475.59,
+    "division_elo_entry": 1475.57,
     "alltime_rank": 263
   }
 ]

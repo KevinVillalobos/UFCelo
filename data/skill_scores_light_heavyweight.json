@@ -4,15 +4,15 @@
     "fighter_name": "Daniel Cormier",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 86.15,
-      "Grappling": 66.56,
-      "Defensa": 77.53,
-      "Consistencia": 72.64,
-      "Finish Rate": 66.3,
-      "Cardio/Durabilidad": 91.58,
-      "Presión": 63.78
+      "Striking": 88.34,
+      "Grappling": 66.98,
+      "Defensa": 79.54,
+      "Consistencia": 74.52,
+      "Finish Rate": 65.33,
+      "Cardio/Durabilidad": 93.99,
+      "Presión": 64.68
     },
-    "skill_composite": 75.78
+    "skill_composite": 77.2
   },
   {
     "fighter_id": "f7a7f7118d4b01b6",
@@ -124,15 +124,15 @@
     "fighter_name": "James Irvin",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 50.17,
-      "Grappling": 23.55,
-      "Defensa": 46.61,
-      "Consistencia": 36.83,
-      "Finish Rate": 47.99,
-      "Cardio/Durabilidad": 69.35,
-      "Presión": 18.83
+      "Striking": 49.64,
+      "Grappling": 21.98,
+      "Defensa": 45.15,
+      "Consistencia": 37.14,
+      "Finish Rate": 47.18,
+      "Cardio/Durabilidad": 69.79,
+      "Presión": 17.38
     },
-    "skill_composite": 42.03
+    "skill_composite": 41.26
   },
   {
     "fighter_id": "497ba5b12a4bfc47",
@@ -154,15 +154,15 @@
     "fighter_name": "Anthony Perosh",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 49.95,
-      "Grappling": 43.37,
-      "Defensa": 67.36,
-      "Consistencia": 25.1,
-      "Finish Rate": 54.12,
-      "Cardio/Durabilidad": 72.22,
-      "Presión": 27.52
+      "Striking": 50.01,
+      "Grappling": 41.72,
+      "Defensa": 67.31,
+      "Consistencia": 24.76,
+      "Finish Rate": 52.54,
+      "Cardio/Durabilidad": 74.07,
+      "Presión": 25.85
     },
-    "skill_composite": 49.12
+    "skill_composite": 48.68
   },
   {
     "fighter_id": "cd01f0b768a32475",
@@ -184,15 +184,15 @@
     "fighter_name": "Evan Tanner",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 62.85,
-      "Grappling": 45.09,
-      "Defensa": 63.12,
-      "Consistencia": 54.98,
-      "Finish Rate": 53.42,
-      "Cardio/Durabilidad": 69.22,
-      "Presión": 44.14
+      "Striking": 67.2,
+      "Grappling": 49.56,
+      "Defensa": 62.65,
+      "Consistencia": 57.09,
+      "Finish Rate": 59.74,
+      "Cardio/Durabilidad": 75.9,
+      "Presión": 42.3
     },
-    "skill_composite": 56.88
+    "skill_composite": 59.76
   },
   {
     "fighter_id": "330ec26453c44a59",
@@ -259,15 +259,15 @@
     "fighter_name": "Philipe Lins",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 70.0,
-      "Grappling": 51.72,
-      "Defensa": 72.5,
-      "Consistencia": 64.12,
-      "Finish Rate": 47.15,
-      "Cardio/Durabilidad": 77.34,
-      "Presión": 53.44
+      "Striking": 68.46,
+      "Grappling": 48.57,
+      "Defensa": 76.02,
+      "Consistencia": 62.11,
+      "Finish Rate": 43.64,
+      "Cardio/Durabilidad": 81.68,
+      "Presión": 47.87
     },
-    "skill_composite": 63.67
+    "skill_composite": 62.82
   },
   {
     "fighter_id": "2b93ebd9f5417ad2",
@@ -289,15 +289,15 @@
     "fighter_name": "Eryk Anders",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 64.46,
-      "Grappling": 36.88,
-      "Defensa": 54.93,
-      "Consistencia": 47.72,
-      "Finish Rate": 48.24,
-      "Cardio/Durabilidad": 74.24,
-      "Presión": 46.64
+      "Striking": 71.7,
+      "Grappling": 35.79,
+      "Defensa": 59.73,
+      "Consistencia": 50.88,
+      "Finish Rate": 51.87,
+      "Cardio/Durabilidad": 85.62,
+      "Presión": 44.15
     },
-    "skill_composite": 53.48
+    "skill_composite": 57.45
   },
   {
     "fighter_id": "6967153c7edb4d87",
@@ -364,30 +364,30 @@
     "fighter_name": "Dan Henderson",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 54.64,
-      "Grappling": 27.95,
-      "Defensa": 43.43,
-      "Consistencia": 56.57,
-      "Finish Rate": 42.27,
-      "Cardio/Durabilidad": 82.88,
-      "Presión": 23.85
+      "Striking": 56.32,
+      "Grappling": 29.36,
+      "Defensa": 42.98,
+      "Consistencia": 57.24,
+      "Finish Rate": 41.73,
+      "Cardio/Durabilidad": 84.56,
+      "Presión": 23.75
     },
-    "skill_composite": 47.19
+    "skill_composite": 47.85
   },
   {
     "fighter_id": "00e11b5c8b7bfeeb",
     "fighter_name": "Luke Rockhold",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 47.76,
-      "Grappling": 45.55,
-      "Defensa": 53.32,
-      "Consistencia": 47.43,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 54.1,
-      "Presión": 45.73
+      "Striking": 63.03,
+      "Grappling": 42.24,
+      "Defensa": 68.05,
+      "Consistencia": 55.56,
+      "Finish Rate": 58.12,
+      "Cardio/Durabilidad": 77.35,
+      "Presión": 36.83
     },
-    "skill_composite": 48.66
+    "skill_composite": 58.12
   },
   {
     "fighter_id": "663b76da637402c3",
@@ -424,15 +424,15 @@
     "fighter_name": "Israel Adesanya",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 54.69,
-      "Grappling": 43.18,
-      "Defensa": 47.76,
-      "Consistencia": 54.18,
-      "Finish Rate": 46.2,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 45.51
+      "Striking": 78.27,
+      "Grappling": 33.34,
+      "Defensa": 77.19,
+      "Consistencia": 70.77,
+      "Finish Rate": 57.1,
+      "Cardio/Durabilidad": 92.77,
+      "Presión": 32.82
     },
-    "skill_composite": 50.27
+    "skill_composite": 64.98
   },
   {
     "fighter_id": "e51e5cb722bd47a8",
@@ -454,30 +454,30 @@
     "fighter_name": "Zac Pauga",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 64.5,
-      "Grappling": 42.34,
-      "Defensa": 63.26,
-      "Consistencia": 61.51,
-      "Finish Rate": 38.86,
-      "Cardio/Durabilidad": 67.0,
-      "Presión": 48.6
+      "Striking": 65.7,
+      "Grappling": 40.06,
+      "Defensa": 65.64,
+      "Consistencia": 62.33,
+      "Finish Rate": 36.35,
+      "Cardio/Durabilidad": 69.1,
+      "Presión": 45.3
     },
-    "skill_composite": 56.58
+    "skill_composite": 56.7
   },
   {
     "fighter_id": "6803d4d6908354ac",
     "fighter_name": "Brad Morris",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 51.98,
-      "Grappling": 40.6,
-      "Defensa": 40.93,
-      "Consistencia": 50.6,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 54.1,
-      "Presión": 41.05
+      "Striking": 46.85,
+      "Grappling": 37.04,
+      "Defensa": 43.62,
+      "Consistencia": 44.08,
+      "Finish Rate": 41.18,
+      "Cardio/Durabilidad": 56.18,
+      "Presión": 33.67
     },
-    "skill_composite": 46.29
+    "skill_composite": 43.37
   },
   {
     "fighter_id": "88d7b6d8230e1f3f",
@@ -514,30 +514,30 @@
     "fighter_name": "Sean Strickland",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 60.0,
-      "Grappling": 60.0,
-      "Defensa": 58.11,
-      "Consistencia": 57.42,
-      "Finish Rate": 46.0,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 52.83
+      "Striking": 80.41,
+      "Grappling": 63.09,
+      "Defensa": 79.44,
+      "Consistencia": 67.76,
+      "Finish Rate": 33.98,
+      "Cardio/Durabilidad": 87.98,
+      "Presión": 47.08
     },
-    "skill_composite": 57.12
+    "skill_composite": 68.5
   },
   {
     "fighter_id": "6aae253467e8f9ce",
     "fighter_name": "Tafon Nchukwi",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 55.92,
-      "Grappling": 47.12,
-      "Defensa": 59.78,
-      "Consistencia": 47.86,
-      "Finish Rate": 38.14,
-      "Cardio/Durabilidad": 63.0,
-      "Presión": 40.56
+      "Striking": 61.61,
+      "Grappling": 45.3,
+      "Defensa": 61.63,
+      "Consistencia": 52.76,
+      "Finish Rate": 34.15,
+      "Cardio/Durabilidad": 72.22,
+      "Presión": 41.14
     },
-    "skill_composite": 51.56
+    "skill_composite": 54.11
   },
   {
     "fighter_id": "ffc088e64fab57e9",
@@ -709,45 +709,45 @@
     "fighter_name": "Mark Coleman",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 58.52,
-      "Grappling": 42.92,
-      "Defensa": 45.33,
-      "Consistencia": 54.06,
-      "Finish Rate": 38.68,
-      "Cardio/Durabilidad": 66.2,
-      "Presión": 45.45
+      "Striking": 67.28,
+      "Grappling": 43.38,
+      "Defensa": 53.54,
+      "Consistencia": 50.75,
+      "Finish Rate": 35.7,
+      "Cardio/Durabilidad": 77.93,
+      "Presión": 38.7
     },
-    "skill_composite": 50.35
+    "skill_composite": 53.52
   },
   {
     "fighter_id": "cc7040fe76f0ef91",
     "fighter_name": "Devin Clark",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 76.55,
-      "Grappling": 32.05,
-      "Defensa": 51.06,
-      "Consistencia": 61.11,
-      "Finish Rate": 28.18,
-      "Cardio/Durabilidad": 87.54,
-      "Presión": 43.41
+      "Striking": 76.74,
+      "Grappling": 32.24,
+      "Defensa": 51.2,
+      "Consistencia": 61.05,
+      "Finish Rate": 28.0,
+      "Cardio/Durabilidad": 87.63,
+      "Presión": 43.47
     },
-    "skill_composite": 55.41
+    "skill_composite": 55.49
   },
   {
     "fighter_id": "92b62174c175ce19",
     "fighter_name": "Clint Hester",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 42.83,
-      "Grappling": 45.88,
-      "Defensa": 53.99,
-      "Consistencia": 40.6,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 53.4,
-      "Presión": 40.79
+      "Striking": 52.12,
+      "Grappling": 45.05,
+      "Defensa": 50.84,
+      "Consistencia": 48.86,
+      "Finish Rate": 40.56,
+      "Cardio/Durabilidad": 73.96,
+      "Presión": 30.63
     },
-    "skill_composite": 46.3
+    "skill_composite": 49.19
   },
   {
     "fighter_id": "4d44f37107f01b9b",
@@ -784,15 +784,15 @@
     "fighter_name": "Austen Lane",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 40.6,
-      "Grappling": 45.55,
-      "Defensa": 53.29,
-      "Consistencia": 40.6,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 52.6,
-      "Presión": 40.6
+      "Striking": 46.81,
+      "Grappling": 33.33,
+      "Defensa": 57.31,
+      "Consistencia": 40.3,
+      "Finish Rate": 31.49,
+      "Cardio/Durabilidad": 66.96,
+      "Presión": 27.85
     },
-    "skill_composite": 45.53
+    "skill_composite": 44.5
   },
   {
     "fighter_id": "2d447cc91bdaa545",
@@ -829,45 +829,45 @@
     "fighter_name": "Junior Tafa",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 66.78,
-      "Grappling": 36.33,
-      "Defensa": 60.1,
-      "Consistencia": 53.07,
-      "Finish Rate": 61.02,
-      "Cardio/Durabilidad": 62.4,
-      "Presión": 45.13
+      "Striking": 73.29,
+      "Grappling": 29.31,
+      "Defensa": 63.69,
+      "Consistencia": 52.73,
+      "Finish Rate": 63.65,
+      "Cardio/Durabilidad": 71.17,
+      "Presión": 37.72
     },
-    "skill_composite": 55.64
+    "skill_composite": 56.96
   },
   {
     "fighter_id": "f703250471acaf96",
     "fighter_name": "Harry Hunsucker",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 46.58,
-      "Grappling": 45.55,
-      "Defensa": 53.96,
-      "Consistencia": 45.6,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 52.6,
-      "Presión": 40.96
+      "Striking": 41.66,
+      "Grappling": 39.14,
+      "Defensa": 59.34,
+      "Consistencia": 44.17,
+      "Finish Rate": 38.04,
+      "Cardio/Durabilidad": 56.34,
+      "Presión": 28.38
     },
-    "skill_composite": 47.65
+    "skill_composite": 44.97
   },
   {
     "fighter_id": "e023fa2e648ea0f1",
     "fighter_name": "Steve Bosse",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 60.72,
-      "Grappling": 49.49,
-      "Defensa": 65.63,
-      "Consistencia": 57.5,
-      "Finish Rate": 54.0,
-      "Cardio/Durabilidad": 65.28,
-      "Presión": 46.83
+      "Striking": 54.7,
+      "Grappling": 46.65,
+      "Defensa": 67.77,
+      "Consistencia": 51.49,
+      "Finish Rate": 50.86,
+      "Cardio/Durabilidad": 66.94,
+      "Presión": 40.81
     },
-    "skill_composite": 57.93
+    "skill_composite": 55.08
   },
   {
     "fighter_id": "9b75954db8db2a08",
@@ -949,15 +949,15 @@
     "fighter_name": "Guto Inocente",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 44.75,
-      "Grappling": 43.24,
-      "Defensa": 47.75,
-      "Consistencia": 42.38,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 53.4,
-      "Presión": 40.79
+      "Striking": 45.98,
+      "Grappling": 37.7,
+      "Defensa": 46.44,
+      "Consistencia": 42.86,
+      "Finish Rate": 41.48,
+      "Cardio/Durabilidad": 55.48,
+      "Presión": 34.42
     },
-    "skill_composite": 45.3
+    "skill_composite": 43.71
   },
   {
     "fighter_id": "24b033b3daf1c9df",
@@ -994,15 +994,15 @@
     "fighter_name": "Travis Wiuff",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 51.74,
-      "Grappling": 54.68,
-      "Defensa": 45.68,
-      "Consistencia": 48.6,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 55.0,
-      "Presión": 42.89
+      "Striking": 53.54,
+      "Grappling": 48.48,
+      "Defensa": 41.72,
+      "Consistencia": 41.08,
+      "Finish Rate": 41.48,
+      "Cardio/Durabilidad": 57.08,
+      "Presión": 35.88
     },
-    "skill_composite": 49.3
+    "skill_composite": 45.93
   },
   {
     "fighter_id": "82529ce93cd9a2cf",
@@ -1039,15 +1039,15 @@
     "fighter_name": "Christian Wellisch",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 52.06,
-      "Grappling": 41.08,
-      "Defensa": 44.42,
-      "Consistencia": 51.9,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 45.37
+      "Striking": 51.42,
+      "Grappling": 48.4,
+      "Defensa": 56.0,
+      "Consistencia": 44.52,
+      "Finish Rate": 43.82,
+      "Cardio/Durabilidad": 72.49,
+      "Presión": 32.78
     },
-    "skill_composite": 48.32
+    "skill_composite": 50.33
   },
   {
     "fighter_id": "6e8f1bcdda94ff45",
@@ -1129,15 +1129,15 @@
     "fighter_name": "Nassourdine Imavov",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 55.18,
-      "Grappling": 40.0,
-      "Defensa": 41.94,
-      "Consistencia": 55.5,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 46.34
+      "Striking": 77.62,
+      "Grappling": 39.74,
+      "Defensa": 57.87,
+      "Consistencia": 64.59,
+      "Finish Rate": 50.53,
+      "Cardio/Durabilidad": 85.28,
+      "Presión": 47.1
     },
-    "skill_composite": 48.92
+    "skill_composite": 61.04
   },
   {
     "fighter_id": "07a74004d964c7f4",
@@ -1174,15 +1174,15 @@
     "fighter_name": "Yuki Kondo",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 58.0,
-      "Grappling": 40.0,
-      "Defensa": 40.67,
-      "Consistencia": 42.4,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 46.26
+      "Striking": 62.62,
+      "Grappling": 29.89,
+      "Defensa": 37.08,
+      "Consistencia": 38.65,
+      "Finish Rate": 48.76,
+      "Cardio/Durabilidad": 69.76,
+      "Presión": 39.0
     },
-    "skill_composite": 47.26
+    "skill_composite": 45.97
   },
   {
     "fighter_id": "d62e280d0f7b6d6f",
@@ -1204,15 +1204,15 @@
     "fighter_name": "Ednaldo Oliveira",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 48.08,
-      "Grappling": 43.56,
-      "Defensa": 49.83,
-      "Consistencia": 52.73,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 45.35
+      "Striking": 40.56,
+      "Grappling": 36.04,
+      "Defensa": 43.73,
+      "Consistencia": 45.21,
+      "Finish Rate": 41.72,
+      "Cardio/Durabilidad": 62.72,
+      "Presión": 37.83
     },
-    "skill_composite": 49.1
+    "skill_composite": 43.27
   },
   {
     "fighter_id": "6ebe96a116e79e52",
@@ -1279,15 +1279,15 @@
     "fighter_name": "Branden Lee Hinkle",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 49.75,
-      "Grappling": 52.48,
-      "Defensa": 53.18,
-      "Consistencia": 49.35,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 52.6,
-      "Presión": 44.93
+      "Striking": 58.18,
+      "Grappling": 50.91,
+      "Defensa": 57.81,
+      "Consistencia": 49.24,
+      "Finish Rate": 47.82,
+      "Cardio/Durabilidad": 59.54,
+      "Presión": 47.5
     },
-    "skill_composite": 50.12
+    "skill_composite": 53.71
   },
   {
     "fighter_id": "232c582f29f8f65e",
@@ -1309,30 +1309,30 @@
     "fighter_name": "Jake O'Brien",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 48.16,
-      "Grappling": 53.24,
-      "Defensa": 62.61,
-      "Consistencia": 35.37,
-      "Finish Rate": 42.2,
-      "Cardio/Durabilidad": 63.0,
-      "Presión": 42.32
+      "Striking": 58.87,
+      "Grappling": 49.29,
+      "Defensa": 54.41,
+      "Consistencia": 29.93,
+      "Finish Rate": 36.23,
+      "Cardio/Durabilidad": 76.39,
+      "Presión": 42.79
     },
-    "skill_composite": 50.2
+    "skill_composite": 50.08
   },
   {
     "fighter_id": "72ffecf712673af1",
     "fighter_name": "Adam Milstead",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 57.38,
-      "Grappling": 41.44,
-      "Defensa": 55.29,
-      "Consistencia": 57.1,
-      "Finish Rate": 41.42,
-      "Cardio/Durabilidad": 60.6,
-      "Presión": 40.99
+      "Striking": 61.71,
+      "Grappling": 34.41,
+      "Defensa": 56.01,
+      "Consistencia": 57.14,
+      "Finish Rate": 43.79,
+      "Cardio/Durabilidad": 69.54,
+      "Presión": 33.98
     },
-    "skill_composite": 51.62
+    "skill_composite": 52.01
   },
   {
     "fighter_id": "bd21a1e3d41c97ee",
@@ -1414,15 +1414,15 @@
     "fighter_name": "Anthony Smith",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 59.25,
-      "Grappling": 30.01,
-      "Defensa": 61.87,
-      "Consistencia": 54.54,
-      "Finish Rate": 42.12,
-      "Cardio/Durabilidad": 80.05,
-      "Presión": 21.13
+      "Striking": 59.48,
+      "Grappling": 29.72,
+      "Defensa": 62.0,
+      "Consistencia": 54.56,
+      "Finish Rate": 42.3,
+      "Cardio/Durabilidad": 80.61,
+      "Presión": 20.73
     },
-    "skill_composite": 51.24
+    "skill_composite": 51.3
   },
   {
     "fighter_id": "6a92caba39b64752",
@@ -1459,15 +1459,15 @@
     "fighter_name": "Chris Daukaus",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 50.03,
-      "Grappling": 45.55,
-      "Defensa": 53.6,
-      "Consistencia": 47.18,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 52.6,
-      "Presión": 43.26
+      "Striking": 59.32,
+      "Grappling": 33.48,
+      "Defensa": 72.43,
+      "Consistencia": 43.03,
+      "Finish Rate": 47.63,
+      "Cardio/Durabilidad": 67.43,
+      "Presión": 24.36
     },
-    "skill_composite": 48.73
+    "skill_composite": 51.77
   },
   {
     "fighter_id": "7ff97850e8c32bda",
@@ -1504,30 +1504,30 @@
     "fighter_name": "Keith Jardine",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 49.11,
-      "Grappling": 27.71,
-      "Defensa": 56.24,
-      "Consistencia": 57.86,
-      "Finish Rate": 30.49,
-      "Cardio/Durabilidad": 83.28,
-      "Presión": 23.48
+      "Striking": 49.64,
+      "Grappling": 27.52,
+      "Defensa": 56.93,
+      "Consistencia": 58.13,
+      "Finish Rate": 31.18,
+      "Cardio/Durabilidad": 83.87,
+      "Presión": 23.18
     },
-    "skill_composite": 47.63
+    "skill_composite": 47.98
   },
   {
     "fighter_id": "2e5c2aa8e4ab9d82",
     "fighter_name": "Paulo Costa",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 66.4,
-      "Grappling": 49.7,
-      "Defensa": 52.5,
-      "Consistencia": 60.71,
-      "Finish Rate": 56.32,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 45.01
+      "Striking": 82.41,
+      "Grappling": 40.7,
+      "Defensa": 66.25,
+      "Consistencia": 69.92,
+      "Finish Rate": 63.74,
+      "Cardio/Durabilidad": 86.23,
+      "Presión": 37.72
     },
-    "skill_composite": 57.27
+    "skill_composite": 65.09
   },
   {
     "fighter_id": "a08d909a5be6f410",
@@ -1549,15 +1549,15 @@
     "fighter_name": "Randy Couture",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 59.65,
-      "Grappling": 56.05,
-      "Defensa": 72.32,
-      "Consistencia": 57.92,
-      "Finish Rate": 53.76,
-      "Cardio/Durabilidad": 81.44,
-      "Presión": 43.43
+      "Striking": 62.99,
+      "Grappling": 57.76,
+      "Defensa": 72.54,
+      "Consistencia": 59.84,
+      "Finish Rate": 54.43,
+      "Cardio/Durabilidad": 85.0,
+      "Presión": 43.59
     },
-    "skill_composite": 61.35
+    "skill_composite": 63.05
   },
   {
     "fighter_id": "30ea504870f8597b",
@@ -1609,15 +1609,15 @@
     "fighter_name": "Jake Collier",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 62.72,
-      "Grappling": 39.91,
-      "Defensa": 54.05,
-      "Consistencia": 58.71,
-      "Finish Rate": 42.32,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 49.05
+      "Striking": 72.69,
+      "Grappling": 33.79,
+      "Defensa": 56.42,
+      "Consistencia": 56.97,
+      "Finish Rate": 42.97,
+      "Cardio/Durabilidad": 80.55,
+      "Presión": 44.81
     },
-    "skill_composite": 54.08
+    "skill_composite": 56.27
   },
   {
     "fighter_id": "5c1ca0c72b599a3c",
@@ -1699,30 +1699,30 @@
     "fighter_name": "Aaron Rosa",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 59.17,
-      "Grappling": 42.3,
-      "Defensa": 58.05,
-      "Consistencia": 47.53,
-      "Finish Rate": 41.9,
-      "Cardio/Durabilidad": 60.6,
-      "Presión": 51.48
+      "Striking": 62.37,
+      "Grappling": 38.28,
+      "Defensa": 58.16,
+      "Consistencia": 47.42,
+      "Finish Rate": 38.38,
+      "Cardio/Durabilidad": 63.8,
+      "Presión": 50.32
     },
-    "skill_composite": 52.32
+    "skill_composite": 52.21
   },
   {
     "fighter_id": "3a8176e15b9887c1",
     "fighter_name": "Chris Weidman",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 51.79,
-      "Grappling": 48.44,
-      "Defensa": 53.35,
-      "Consistencia": 46.85,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 52.6,
-      "Presión": 44.85
+      "Striking": 64.72,
+      "Grappling": 64.42,
+      "Defensa": 70.42,
+      "Consistencia": 48.08,
+      "Finish Rate": 47.56,
+      "Cardio/Durabilidad": 78.96,
+      "Presión": 37.75
     },
-    "skill_composite": 49.58
+    "skill_composite": 60.33
   },
   {
     "fighter_id": "28c55b4087a6f136",
@@ -1819,15 +1819,15 @@
     "fighter_name": "Alex Pereira",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 85.85,
-      "Grappling": 38.97,
-      "Defensa": 81.49,
-      "Consistencia": 73.25,
-      "Finish Rate": 74.8,
-      "Cardio/Durabilidad": 85.35,
-      "Presión": 41.1
+      "Striking": 91.78,
+      "Grappling": 38.56,
+      "Defensa": 85.24,
+      "Consistencia": 75.51,
+      "Finish Rate": 77.39,
+      "Cardio/Durabilidad": 90.75,
+      "Presión": 39.5
     },
-    "skill_composite": 70.43
+    "skill_composite": 73.28
   },
   {
     "fighter_id": "a85998eb79650b2c",
@@ -1939,15 +1939,15 @@
     "fighter_name": "Elvis Sinosic",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 60.74,
-      "Grappling": 19.99,
-      "Defensa": 32.1,
-      "Consistencia": 47.87,
-      "Finish Rate": 32.58,
-      "Cardio/Durabilidad": 71.07,
-      "Presión": 33.88
+      "Striking": 63.36,
+      "Grappling": 19.78,
+      "Defensa": 34.08,
+      "Consistencia": 48.91,
+      "Finish Rate": 35.2,
+      "Cardio/Durabilidad": 72.79,
+      "Presión": 32.74
     },
-    "skill_composite": 42.5
+    "skill_composite": 43.86
   },
   {
     "fighter_id": "28ba5f27e473420c",
@@ -1969,15 +1969,15 @@
     "fighter_name": "Matt Lindland",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 60.0,
-      "Grappling": 60.0,
-      "Defensa": 57.44,
-      "Consistencia": 50.11,
-      "Finish Rate": 46.0,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 60.0
+      "Striking": 68.0,
+      "Grappling": 57.76,
+      "Defensa": 65.44,
+      "Consistencia": 46.08,
+      "Finish Rate": 54.0,
+      "Cardio/Durabilidad": 65.28,
+      "Presión": 64.67
     },
-    "skill_composite": 56.6
+    "skill_composite": 60.66
   },
   {
     "fighter_id": "863d06a7ef8bc98c",
@@ -2014,15 +2014,15 @@
     "fighter_name": "Uran Satybaldiev",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 46.07,
-      "Grappling": 40.6,
-      "Defensa": 41.86,
-      "Consistencia": 48.93,
-      "Finish Rate": 60.0,
-      "Cardio/Durabilidad": 56.6,
-      "Presión": 44.59
+      "Striking": 45.25,
+      "Grappling": 37.35,
+      "Defensa": 46.33,
+      "Consistencia": 51.83,
+      "Finish Rate": 56.32,
+      "Cardio/Durabilidad": 64.6,
+      "Presión": 39.68
     },
-    "skill_composite": 47.13
+    "skill_composite": 47.75
   },
   {
     "fighter_id": "5114f1b5ad4cdf72",
@@ -2044,15 +2044,15 @@
     "fighter_name": "Jacare Souza",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 52.12,
-      "Grappling": 45.94,
-      "Defensa": 56.16,
-      "Consistencia": 50.7,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 47.33
+      "Striking": 73.03,
+      "Grappling": 37.33,
+      "Defensa": 69.92,
+      "Consistencia": 57.39,
+      "Finish Rate": 55.5,
+      "Cardio/Durabilidad": 91.99,
+      "Presión": 38.41
     },
-    "skill_composite": 51.42
+    "skill_composite": 61.39
   },
   {
     "fighter_id": "49e96ff8ab781589",
@@ -2089,15 +2089,15 @@
     "fighter_name": "Caio Machado",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 54.58,
-      "Grappling": 45.94,
-      "Defensa": 56.65,
-      "Consistencia": 52.52,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 46.29
+      "Striking": 63.78,
+      "Grappling": 38.96,
+      "Defensa": 63.16,
+      "Consistencia": 59.69,
+      "Finish Rate": 38.78,
+      "Cardio/Durabilidad": 74.4,
+      "Presión": 42.18
     },
-    "skill_composite": 52.18
+    "skill_composite": 55.72
   },
   {
     "fighter_id": "2e19380f34871c6a",
@@ -2149,15 +2149,15 @@
     "fighter_name": "James McSweeney",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 51.21,
-      "Grappling": 44.95,
-      "Defensa": 52.67,
-      "Consistencia": 49.73,
-      "Finish Rate": 44.5,
-      "Cardio/Durabilidad": 55.0,
-      "Presión": 44.28
+      "Striking": 56.75,
+      "Grappling": 44.14,
+      "Defensa": 61.16,
+      "Consistencia": 51.81,
+      "Finish Rate": 46.98,
+      "Cardio/Durabilidad": 63.48,
+      "Presión": 40.99
     },
-    "skill_composite": 49.36
+    "skill_composite": 53.12
   },
   {
     "fighter_id": "6add18754930182b",
@@ -2224,15 +2224,15 @@
     "fighter_name": "Mike Massenzio",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 50.34,
-      "Grappling": 47.57,
-      "Defensa": 55.75,
-      "Consistencia": 56.8,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 45.65
+      "Striking": 53.52,
+      "Grappling": 48.37,
+      "Defensa": 56.64,
+      "Consistencia": 49.53,
+      "Finish Rate": 43.22,
+      "Cardio/Durabilidad": 69.84,
+      "Presión": 35.52
     },
-    "skill_composite": 51.98
+    "skill_composite": 51.58
   },
   {
     "fighter_id": "917a5cb9821df261",
@@ -2284,60 +2284,60 @@
     "fighter_name": "Brendan Allen",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 57.11,
-      "Grappling": 49.18,
-      "Defensa": 58.92,
-      "Consistencia": 56.61,
-      "Finish Rate": 60.0,
-      "Cardio/Durabilidad": 58.6,
-      "Presión": 45.95
+      "Striking": 76.7,
+      "Grappling": 45.67,
+      "Defensa": 70.44,
+      "Consistencia": 71.93,
+      "Finish Rate": 62.9,
+      "Cardio/Durabilidad": 80.17,
+      "Presión": 46.17
     },
-    "skill_composite": 55.53
+    "skill_composite": 65.99
   },
   {
     "fighter_id": "7acbb0972e75281a",
     "fighter_name": "Marvin Vettori",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 60.0,
-      "Grappling": 43.08,
-      "Defensa": 41.44,
-      "Consistencia": 59.35,
-      "Finish Rate": 46.0,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 53.42
+      "Striking": 86.94,
+      "Grappling": 50.94,
+      "Defensa": 66.67,
+      "Consistencia": 71.99,
+      "Finish Rate": 38.28,
+      "Cardio/Durabilidad": 94.88,
+      "Presión": 65.07
     },
-    "skill_composite": 51.59
+    "skill_composite": 68.98
   },
   {
     "fighter_id": "ba1e6cb3d43f7430",
     "fighter_name": "Justin Ledet",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 43.64,
-      "Grappling": 32.72,
-      "Defensa": 51.98,
-      "Consistencia": 35.48,
-      "Finish Rate": 35.93,
-      "Cardio/Durabilidad": 67.38,
-      "Presión": 29.12
+      "Striking": 45.88,
+      "Grappling": 33.71,
+      "Defensa": 60.38,
+      "Consistencia": 31.96,
+      "Finish Rate": 36.52,
+      "Cardio/Durabilidad": 76.26,
+      "Presión": 25.03
     },
-    "skill_composite": 42.6
+    "skill_composite": 44.88
   },
   {
     "fighter_id": "aa03a3ca00ac6827",
     "fighter_name": "Carmelo Marrero",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 41.06,
-      "Grappling": 38.4,
-      "Defensa": 48.66,
-      "Consistencia": 42.98,
-      "Finish Rate": 41.72,
-      "Cardio/Durabilidad": 62.72,
-      "Presión": 35.16
+      "Striking": 47.66,
+      "Grappling": 35.38,
+      "Defensa": 46.86,
+      "Consistencia": 38.5,
+      "Finish Rate": 36.73,
+      "Cardio/Durabilidad": 70.02,
+      "Presión": 32.67
     },
-    "skill_composite": 44.11
+    "skill_composite": 43.93
   },
   {
     "fighter_id": "3a12a2f096a6d975",
@@ -2389,15 +2389,15 @@
     "fighter_name": "Rashad Evans",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 51.0,
-      "Grappling": 40.98,
+      "Striking": 51.05,
+      "Grappling": 40.89,
       "Defensa": 73.27,
-      "Consistencia": 43.4,
-      "Finish Rate": 40.04,
-      "Cardio/Durabilidad": 83.54,
-      "Presión": 30.15
+      "Consistencia": 43.44,
+      "Finish Rate": 39.99,
+      "Cardio/Durabilidad": 83.66,
+      "Presión": 30.12
     },
-    "skill_composite": 52.88
+    "skill_composite": 52.89
   },
   {
     "fighter_id": "c80095f6092271a7",
@@ -2464,15 +2464,15 @@
     "fighter_name": "Karlos Vemola",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 61.58,
-      "Grappling": 48.0,
-      "Defensa": 47.54,
-      "Consistencia": 49.19,
-      "Finish Rate": 53.4,
-      "Cardio/Durabilidad": 65.28,
-      "Presión": 52.04
+      "Striking": 60.44,
+      "Grappling": 42.55,
+      "Defensa": 43.81,
+      "Consistencia": 51.31,
+      "Finish Rate": 50.46,
+      "Cardio/Durabilidad": 71.68,
+      "Presión": 46.81
     },
-    "skill_composite": 53.47
+    "skill_composite": 51.82
   },
   {
     "fighter_id": "71171fc96445bf65",
@@ -2524,15 +2524,15 @@
     "fighter_name": "Anderson Silva",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 67.89,
-      "Grappling": 34.54,
-      "Defensa": 59.43,
-      "Consistencia": 54.76,
-      "Finish Rate": 64.92,
-      "Cardio/Durabilidad": 72.88,
-      "Presión": 34.33
+      "Striking": 82.62,
+      "Grappling": 32.27,
+      "Defensa": 64.32,
+      "Consistencia": 63.83,
+      "Finish Rate": 80.04,
+      "Cardio/Durabilidad": 85.68,
+      "Presión": 33.46
     },
-    "skill_composite": 56.07
+    "skill_composite": 63.72
   },
   {
     "fighter_id": "c2a670b22d2e196f",
@@ -2584,30 +2584,30 @@
     "fighter_name": "Marcel Fortuna",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 56.71,
-      "Grappling": 42.65,
-      "Defensa": 58.02,
-      "Consistencia": 53.81,
-      "Finish Rate": 41.72,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 42.12
+      "Striking": 62.49,
+      "Grappling": 40.86,
+      "Defensa": 63.72,
+      "Consistencia": 56.08,
+      "Finish Rate": 48.12,
+      "Cardio/Durabilidad": 72.22,
+      "Presión": 38.75
     },
-    "skill_composite": 52.6
+    "skill_composite": 55.69
   },
   {
     "fighter_id": "5d7bdab5e03e3216",
     "fighter_name": "CB Dollaway",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 60.0,
-      "Grappling": 55.4,
-      "Defensa": 41.18,
-      "Consistencia": 60.0,
-      "Finish Rate": 46.0,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 59.57
+      "Striking": 64.95,
+      "Grappling": 53.71,
+      "Defensa": 61.86,
+      "Consistencia": 59.99,
+      "Finish Rate": 35.08,
+      "Cardio/Durabilidad": 86.96,
+      "Presión": 43.57
     },
-    "skill_composite": 54.1
+    "skill_composite": 58.98
   },
   {
     "fighter_id": "132f860d02953f4c",
@@ -2644,30 +2644,30 @@
     "fighter_name": "Karl Roberson",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 52.09,
-      "Grappling": 34.09,
-      "Defensa": 48.24,
-      "Consistencia": 50.47,
-      "Finish Rate": 37.64,
-      "Cardio/Durabilidad": 60.46,
-      "Presión": 33.46
+      "Striking": 62.49,
+      "Grappling": 37.75,
+      "Defensa": 53.94,
+      "Consistencia": 53.33,
+      "Finish Rate": 36.98,
+      "Cardio/Durabilidad": 69.13,
+      "Presión": 32.49
     },
-    "skill_composite": 45.91
+    "skill_composite": 50.81
   },
   {
     "fighter_id": "d6285cba1d1052e0",
     "fighter_name": "Bojan Mihajlovic",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 43.71,
-      "Grappling": 36.56,
-      "Defensa": 43.78,
-      "Consistencia": 39.63,
-      "Finish Rate": 40.7,
-      "Cardio/Durabilidad": 58.1,
-      "Presión": 35.33
+      "Striking": 41.7,
+      "Grappling": 33.71,
+      "Defensa": 46.54,
+      "Consistencia": 38.42,
+      "Finish Rate": 37.56,
+      "Cardio/Durabilidad": 59.76,
+      "Presión": 29.66
     },
-    "skill_composite": 42.34
+    "skill_composite": 41.17
   },
   {
     "fighter_id": "d1dcd4e96464a53d",
@@ -2689,15 +2689,15 @@
     "fighter_name": "Cody Brundage",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 52.1,
-      "Grappling": 51.88,
-      "Defensa": 56.09,
-      "Consistencia": 52.4,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 48.46
+      "Striking": 64.01,
+      "Grappling": 48.3,
+      "Defensa": 74.49,
+      "Consistencia": 49.96,
+      "Finish Rate": 45.48,
+      "Cardio/Durabilidad": 84.32,
+      "Presión": 34.14
     },
-    "skill_composite": 52.67
+    "skill_composite": 58.83
   },
   {
     "fighter_id": "c0ab242c40decc55",
@@ -2749,15 +2749,15 @@
     "fighter_name": "Antonio Carlos Junior",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 47.28,
-      "Grappling": 49.9,
-      "Defensa": 48.09,
-      "Consistencia": 56.7,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 41.68
+      "Striking": 47.77,
+      "Grappling": 57.9,
+      "Defensa": 54.3,
+      "Consistencia": 60.52,
+      "Finish Rate": 42.84,
+      "Cardio/Durabilidad": 68.0,
+      "Presión": 43.61
     },
-    "skill_composite": 49.77
+    "skill_composite": 53.62
   },
   {
     "fighter_id": "23459ee7e373b98f",
@@ -2839,15 +2839,15 @@
     "fighter_name": "Thiago Santos",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 61.14,
-      "Grappling": 38.76,
-      "Defensa": 64.69,
-      "Consistencia": 54.9,
-      "Finish Rate": 38.92,
-      "Cardio/Durabilidad": 86.36,
-      "Presión": 28.06
+      "Striking": 64.83,
+      "Grappling": 37.3,
+      "Defensa": 67.96,
+      "Consistencia": 56.83,
+      "Finish Rate": 40.52,
+      "Cardio/Durabilidad": 90.88,
+      "Presión": 27.58
     },
-    "skill_composite": 54.55
+    "skill_composite": 56.58
   },
   {
     "fighter_id": "83d0de122f2f9664",
@@ -2884,15 +2884,15 @@
     "fighter_name": "Luis Henrique",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 53.5,
-      "Grappling": 50.98,
-      "Defensa": 56.22,
-      "Consistencia": 57.51,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 48.48
+      "Striking": 65.96,
+      "Grappling": 45.31,
+      "Defensa": 55.07,
+      "Consistencia": 61.65,
+      "Finish Rate": 45.81,
+      "Cardio/Durabilidad": 81.18,
+      "Presión": 48.08
     },
-    "skill_composite": 53.61
+    "skill_composite": 57.76
   },
   {
     "fighter_id": "5da33b8fbfa5ee95",
@@ -2974,45 +2974,45 @@
     "fighter_name": "Murilo Bustamante",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 48.21,
-      "Grappling": 47.33,
-      "Defensa": 56.75,
-      "Consistencia": 57.74,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 42.02
+      "Striking": 51.38,
+      "Grappling": 55.33,
+      "Defensa": 64.75,
+      "Consistencia": 58.22,
+      "Finish Rate": 53.4,
+      "Cardio/Durabilidad": 66.88,
+      "Presión": 42.12
     },
-    "skill_composite": 51.49
+    "skill_composite": 56.5
   },
   {
     "fighter_id": "1091d4d957141094",
     "fighter_name": "Nikita Krylov",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 75.31,
-      "Grappling": 41.04,
-      "Defensa": 61.51,
-      "Consistencia": 56.29,
-      "Finish Rate": 53.33,
-      "Cardio/Durabilidad": 82.91,
-      "Presión": 46.07
+      "Striking": 75.54,
+      "Grappling": 40.85,
+      "Defensa": 61.55,
+      "Consistencia": 56.43,
+      "Finish Rate": 53.42,
+      "Cardio/Durabilidad": 83.1,
+      "Presión": 45.91
     },
-    "skill_composite": 60.19
+    "skill_composite": 60.25
   },
   {
     "fighter_id": "950d0ef5c17157c5",
     "fighter_name": "Maxim Grishin",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 68.59,
-      "Grappling": 47.11,
-      "Defensa": 59.71,
-      "Consistencia": 58.39,
-      "Finish Rate": 48.12,
-      "Cardio/Durabilidad": 73.5,
-      "Presión": 47.87
+      "Striking": 71.7,
+      "Grappling": 43.73,
+      "Defensa": 59.57,
+      "Consistencia": 60.51,
+      "Finish Rate": 45.77,
+      "Cardio/Durabilidad": 78.62,
+      "Presión": 45.07
     },
-    "skill_composite": 58.43
+    "skill_composite": 58.84
   },
   {
     "fighter_id": "1fb80f46d3c105d9",
@@ -3079,45 +3079,45 @@
     "fighter_name": "Kevin Randleman",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 60.94,
-      "Grappling": 56.44,
-      "Defensa": 59.19,
-      "Consistencia": 36.17,
-      "Finish Rate": 42.08,
-      "Cardio/Durabilidad": 62.08,
-      "Presión": 53.24
+      "Striking": 67.97,
+      "Grappling": 68.43,
+      "Defensa": 65.54,
+      "Consistencia": 29.12,
+      "Finish Rate": 33.83,
+      "Cardio/Durabilidad": 80.91,
+      "Presión": 49.41
     },
-    "skill_composite": 53.66
+    "skill_composite": 57.75
   },
   {
     "fighter_id": "f9d0cae37dabfafc",
     "fighter_name": "Ike Villanueva",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 45.44,
-      "Grappling": 42.32,
-      "Defensa": 64.21,
-      "Consistencia": 47.71,
-      "Finish Rate": 41.16,
-      "Cardio/Durabilidad": 62.77,
-      "Presión": 26.17
+      "Striking": 44.16,
+      "Grappling": 40.85,
+      "Defensa": 65.47,
+      "Consistencia": 46.28,
+      "Finish Rate": 39.55,
+      "Cardio/Durabilidad": 64.11,
+      "Presión": 23.56
     },
-    "skill_composite": 48.44
+    "skill_composite": 47.72
   },
   {
     "fighter_id": "fa315e6c77eee106",
     "fighter_name": "Brandon Vera",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 65.37,
-      "Grappling": 44.62,
-      "Defensa": 45.86,
-      "Consistencia": 58.6,
-      "Finish Rate": 33.83,
-      "Cardio/Durabilidad": 83.5,
-      "Presión": 33.0
+      "Striking": 68.34,
+      "Grappling": 43.24,
+      "Defensa": 46.92,
+      "Consistencia": 60.8,
+      "Finish Rate": 35.21,
+      "Cardio/Durabilidad": 86.67,
+      "Presión": 31.06
     },
-    "skill_composite": 52.76
+    "skill_composite": 53.95
   },
   {
     "fighter_id": "579fcdfcabd23a7b",
@@ -3139,30 +3139,30 @@
     "fighter_name": "Tanner Boser",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 56.34,
-      "Grappling": 39.08,
-      "Defensa": 50.68,
-      "Consistencia": 50.84,
-      "Finish Rate": 42.08,
-      "Cardio/Durabilidad": 62.08,
-      "Presión": 51.56
+      "Striking": 75.42,
+      "Grappling": 25.66,
+      "Defensa": 60.62,
+      "Consistencia": 62.97,
+      "Finish Rate": 44.27,
+      "Cardio/Durabilidad": 86.92,
+      "Presión": 45.0
     },
-    "skill_composite": 50.46
+    "skill_composite": 58.12
   },
   {
     "fighter_id": "d1528ac5675558b1",
     "fighter_name": "Rashad Coulter",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 60.0,
-      "Grappling": 46.6,
-      "Defensa": 57.86,
-      "Consistencia": 60.0,
-      "Finish Rate": 46.0,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 49.71
+      "Striking": 62.82,
+      "Grappling": 34.94,
+      "Defensa": 58.24,
+      "Consistencia": 59.99,
+      "Finish Rate": 36.43,
+      "Cardio/Durabilidad": 67.04,
+      "Presión": 38.23
     },
-    "skill_composite": 55.13
+    "skill_composite": 52.62
   },
   {
     "fighter_id": "5be86bb2f78fef2f",
@@ -3184,15 +3184,15 @@
     "fighter_name": "Sam Alvey",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 59.71,
-      "Grappling": 33.78,
-      "Defensa": 68.51,
-      "Consistencia": 57.41,
-      "Finish Rate": 33.86,
-      "Cardio/Durabilidad": 80.94,
-      "Presión": 30.13
+      "Striking": 62.73,
+      "Grappling": 30.26,
+      "Defensa": 72.22,
+      "Consistencia": 58.52,
+      "Finish Rate": 32.62,
+      "Cardio/Durabilidad": 88.23,
+      "Presión": 26.13
     },
-    "skill_composite": 53.82
+    "skill_composite": 55.01
   },
   {
     "fighter_id": "1c23ec2f1b71be40",
@@ -3289,30 +3289,30 @@
     "fighter_name": "Mike van Arsdale",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 42.04,
-      "Grappling": 40.38,
-      "Defensa": 50.35,
-      "Consistencia": 38.97,
-      "Finish Rate": 41.24,
-      "Cardio/Durabilidad": 58.2,
-      "Presión": 34.84
+      "Striking": 53.56,
+      "Grappling": 41.57,
+      "Defensa": 48.97,
+      "Consistencia": 40.08,
+      "Finish Rate": 43.8,
+      "Cardio/Durabilidad": 67.98,
+      "Presión": 39.23
     },
-    "skill_composite": 43.81
+    "skill_composite": 47.85
   },
   {
     "fighter_id": "f1175ea3aafbf351",
     "fighter_name": "Hu Yaozong",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 58.0,
-      "Grappling": 45.94,
-      "Defensa": 55.67,
-      "Consistencia": 53.84,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 52.72
+      "Striking": 56.44,
+      "Grappling": 38.42,
+      "Defensa": 48.75,
+      "Consistencia": 50.87,
+      "Finish Rate": 41.72,
+      "Cardio/Durabilidad": 64.0,
+      "Presión": 46.26
     },
-    "skill_composite": 53.51
+    "skill_composite": 49.63
   },
   {
     "fighter_id": "7195e2a932686f82",
@@ -3349,15 +3349,15 @@
     "fighter_name": "Joey Beltran",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 64.63,
-      "Grappling": 46.99,
-      "Defensa": 62.07,
-      "Consistencia": 55.3,
-      "Finish Rate": 39.02,
-      "Cardio/Durabilidad": 73.6,
-      "Presión": 58.88
+      "Striking": 79.17,
+      "Grappling": 42.34,
+      "Defensa": 69.92,
+      "Consistencia": 58.6,
+      "Finish Rate": 36.4,
+      "Cardio/Durabilidad": 89.85,
+      "Presión": 60.52
     },
-    "skill_composite": 57.83
+    "skill_composite": 63.64
   },
   {
     "fighter_id": "a495f599e787614f",
@@ -3529,30 +3529,30 @@
     "fighter_name": "Vernon White",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 48.14,
-      "Grappling": 40.6,
-      "Defensa": 41.86,
-      "Consistencia": 50.34,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 52.6,
-      "Presión": 42.94
+      "Striking": 56.14,
+      "Grappling": 38.23,
+      "Defensa": 42.67,
+      "Consistencia": 54.72,
+      "Finish Rate": 41.9,
+      "Cardio/Durabilidad": 60.6,
+      "Presión": 46.56
     },
-    "skill_composite": 45.7
+    "skill_composite": 48.61
   },
   {
     "fighter_id": "e4277e87a789d687",
     "fighter_name": "Dustin Jacoby",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 83.5,
-      "Grappling": 30.28,
-      "Defensa": 73.72,
-      "Consistencia": 64.56,
-      "Finish Rate": 72.59,
-      "Cardio/Durabilidad": 88.21,
-      "Presión": 34.02
+      "Striking": 83.34,
+      "Grappling": 29.84,
+      "Defensa": 73.65,
+      "Consistencia": 64.4,
+      "Finish Rate": 72.27,
+      "Cardio/Durabilidad": 88.7,
+      "Presión": 33.54
     },
-    "skill_composite": 65.15
+    "skill_composite": 64.99
   },
   {
     "fighter_id": "eeabcd4dc6619129",
@@ -3574,15 +3574,15 @@
     "fighter_name": "Ed Herman",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 66.7,
-      "Grappling": 36.9,
-      "Defensa": 52.45,
-      "Consistencia": 58.88,
-      "Finish Rate": 47.2,
-      "Cardio/Durabilidad": 85.42,
-      "Presión": 33.2
+      "Striking": 69.08,
+      "Grappling": 37.13,
+      "Defensa": 54.64,
+      "Consistencia": 58.63,
+      "Finish Rate": 46.17,
+      "Cardio/Durabilidad": 90.41,
+      "Presión": 31.32
     },
-    "skill_composite": 54.78
+    "skill_composite": 55.9
   },
   {
     "fighter_id": "984d15d5dc7bfcf9",
@@ -3679,15 +3679,15 @@
     "fighter_name": "Renato Sobral",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 66.07,
-      "Grappling": 62.8,
-      "Defensa": 58.89,
-      "Consistencia": 56.62,
-      "Finish Rate": 63.06,
-      "Cardio/Durabilidad": 78.23,
-      "Presión": 48.28
+      "Striking": 67.38,
+      "Grappling": 64.0,
+      "Defensa": 59.76,
+      "Consistencia": 57.4,
+      "Finish Rate": 62.52,
+      "Cardio/Durabilidad": 79.58,
+      "Presión": 49.36
     },
-    "skill_composite": 61.86
+    "skill_composite": 62.78
   },
   {
     "fighter_id": "8c57c7b8c3bab0eb",
@@ -3769,15 +3769,15 @@
     "fighter_name": "Zak Cummings",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 60.0,
-      "Grappling": 46.6,
-      "Defensa": 57.99,
-      "Consistencia": 54.85,
-      "Finish Rate": 60.0,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 52.2
+      "Striking": 65.18,
+      "Grappling": 37.02,
+      "Defensa": 72.41,
+      "Consistencia": 59.7,
+      "Finish Rate": 60.24,
+      "Cardio/Durabilidad": 90.29,
+      "Presión": 35.73
     },
-    "skill_composite": 56.04
+    "skill_composite": 60.65
   },
   {
     "fighter_id": "fcffee71cff5530e",
@@ -3799,15 +3799,15 @@
     "fighter_name": "Alan Belcher",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 40.6,
-      "Grappling": 49.18,
-      "Defensa": 56.6,
-      "Consistencia": 40.6,
-      "Finish Rate": 60.0,
-      "Cardio/Durabilidad": 56.6,
-      "Presión": 40.6
+      "Striking": 44.61,
+      "Grappling": 42.05,
+      "Defensa": 54.13,
+      "Consistencia": 39.31,
+      "Finish Rate": 60.37,
+      "Cardio/Durabilidad": 72.12,
+      "Presión": 32.03
     },
-    "skill_composite": 48.63
+    "skill_composite": 48.4
   },
   {
     "fighter_id": "95aff2fd8d09a5f0",
@@ -3844,15 +3844,15 @@
     "fighter_name": "Tito Ortiz",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 57.16,
-      "Grappling": 45.27,
-      "Defensa": 61.37,
-      "Consistencia": 44.95,
-      "Finish Rate": 38.74,
-      "Cardio/Durabilidad": 86.02,
-      "Presión": 31.24
+      "Striking": 57.65,
+      "Grappling": 45.74,
+      "Defensa": 61.82,
+      "Consistencia": 45.02,
+      "Finish Rate": 39.02,
+      "Cardio/Durabilidad": 86.43,
+      "Presión": 31.32
     },
-    "skill_composite": 52.84
+    "skill_composite": 53.19
   },
   {
     "fighter_id": "b034747dc1d15491",
@@ -3919,15 +3919,15 @@
     "fighter_name": "Wanderlei Silva",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 60.45,
-      "Grappling": 36.73,
-      "Defensa": 63.49,
-      "Consistencia": 50.16,
-      "Finish Rate": 60.13,
-      "Cardio/Durabilidad": 70.02,
-      "Presión": 33.46
+      "Striking": 66.36,
+      "Grappling": 31.69,
+      "Defensa": 65.38,
+      "Consistencia": 47.56,
+      "Finish Rate": 60.56,
+      "Cardio/Durabilidad": 76.96,
+      "Presión": 30.06
     },
-    "skill_composite": 54.18
+    "skill_composite": 54.99
   },
   {
     "fighter_id": "453ee00c3e1ae9dd",
@@ -3979,15 +3979,15 @@
     "fighter_name": "Chad Griggs",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 49.51,
-      "Grappling": 46.76,
-      "Defensa": 40.92,
-      "Consistencia": 51.27,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 53.4,
-      "Presión": 41.63
+      "Striking": 49.0,
+      "Grappling": 41.35,
+      "Defensa": 39.45,
+      "Consistencia": 43.75,
+      "Finish Rate": 41.72,
+      "Cardio/Durabilidad": 56.12,
+      "Presión": 35.03
     },
-    "skill_composite": 46.83
+    "skill_composite": 43.74
   },
   {
     "fighter_id": "59583ff832fe9d68",
@@ -4009,15 +4009,15 @@
     "fighter_name": "Eric McConico",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 54.54,
-      "Grappling": 43.77,
-      "Defensa": 50.94,
-      "Consistencia": 54.79,
-      "Finish Rate": 46.0,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 48.04
+      "Striking": 50.94,
+      "Grappling": 40.21,
+      "Defensa": 54.16,
+      "Consistencia": 51.81,
+      "Finish Rate": 42.08,
+      "Cardio/Durabilidad": 63.28,
+      "Presión": 40.95
     },
-    "skill_composite": 51.28
+    "skill_composite": 49.45
   },
   {
     "fighter_id": "0541480fbf719d86",
@@ -4084,15 +4084,15 @@
     "fighter_name": "Jared Cannonier",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 59.3,
-      "Grappling": 36.07,
-      "Defensa": 49.71,
-      "Consistencia": 56.71,
-      "Finish Rate": 43.83,
-      "Cardio/Durabilidad": 76.22,
-      "Presión": 32.42
+      "Striking": 62.28,
+      "Grappling": 33.98,
+      "Defensa": 53.9,
+      "Consistencia": 58.5,
+      "Finish Rate": 45.82,
+      "Cardio/Durabilidad": 79.06,
+      "Presión": 29.54
     },
-    "skill_composite": 50.97
+    "skill_composite": 52.55
   },
   {
     "fighter_id": "0bcfe2513cb3bc39",
@@ -4159,15 +4159,15 @@
     "fighter_name": "Chuck Liddell",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 49.78,
-      "Grappling": 56.47,
-      "Defensa": 77.35,
-      "Consistencia": 46.68,
-      "Finish Rate": 43.15,
-      "Cardio/Durabilidad": 78.26,
+      "Striking": 50.1,
+      "Grappling": 56.36,
+      "Defensa": 77.46,
+      "Consistencia": 46.67,
+      "Finish Rate": 43.13,
+      "Cardio/Durabilidad": 78.59,
       "Presión": 21.59
     },
-    "skill_composite": 55.2
+    "skill_composite": 55.3
   },
   {
     "fighter_id": "68c6cd5287b473a7",
@@ -4189,45 +4189,45 @@
     "fighter_name": "Jeremy Horn",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 46.88,
-      "Grappling": 45.75,
-      "Defensa": 54.79,
-      "Consistencia": 51.19,
-      "Finish Rate": 45.3,
-      "Cardio/Durabilidad": 55.8,
-      "Presión": 42.22
+      "Striking": 50.47,
+      "Grappling": 38.23,
+      "Defensa": 48.87,
+      "Consistencia": 52.56,
+      "Finish Rate": 53.3,
+      "Cardio/Durabilidad": 61.08,
+      "Presión": 36.12
     },
-    "skill_composite": 49.21
+    "skill_composite": 48.54
   },
   {
     "fighter_id": "0ee783aa00e468f0",
     "fighter_name": "Vitor Belfort",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 68.25,
-      "Grappling": 32.34,
-      "Defensa": 59.23,
-      "Consistencia": 49.16,
-      "Finish Rate": 57.3,
-      "Cardio/Durabilidad": 79.22,
-      "Presión": 24.26
+      "Striking": 69.38,
+      "Grappling": 33.66,
+      "Defensa": 62.24,
+      "Consistencia": 45.05,
+      "Finish Rate": 61.85,
+      "Cardio/Durabilidad": 83.2,
+      "Presión": 19.33
     },
-    "skill_composite": 53.8
+    "skill_composite": 54.57
   },
   {
     "fighter_id": "365fee2da473b177",
     "fighter_name": "Anthony Johnson",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 69.07,
-      "Grappling": 46.97,
-      "Defensa": 73.8,
-      "Consistencia": 48.16,
-      "Finish Rate": 68.98,
-      "Cardio/Durabilidad": 78.48,
-      "Presión": 32.23
+      "Striking": 73.0,
+      "Grappling": 46.91,
+      "Defensa": 78.44,
+      "Consistencia": 48.6,
+      "Finish Rate": 70.57,
+      "Cardio/Durabilidad": 83.29,
+      "Presión": 32.52
     },
-    "skill_composite": 60.81
+    "skill_composite": 63.25
   },
   {
     "fighter_id": "7f955f71fa2ce7ac",
@@ -4264,15 +4264,15 @@
     "fighter_name": "Marcos Rogerio de Lima",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 61.12,
-      "Grappling": 31.96,
-      "Defensa": 61.39,
-      "Consistencia": 50.59,
-      "Finish Rate": 56.97,
-      "Cardio/Durabilidad": 69.38,
-      "Presión": 35.7
+      "Striking": 63.0,
+      "Grappling": 31.22,
+      "Defensa": 63.34,
+      "Consistencia": 50.58,
+      "Finish Rate": 59.59,
+      "Cardio/Durabilidad": 71.12,
+      "Presión": 33.71
     },
-    "skill_composite": 53.09
+    "skill_composite": 53.98
   },
   {
     "fighter_id": "18aecaf50f52e4c3",
@@ -4309,30 +4309,30 @@
     "fighter_name": "Yushin Okami",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 40.6,
-      "Grappling": 45.88,
-      "Defensa": 53.4,
-      "Consistencia": 40.6,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 53.4,
-      "Presión": 40.6
+      "Striking": 52.69,
+      "Grappling": 46.87,
+      "Defensa": 75.14,
+      "Consistencia": 46.47,
+      "Finish Rate": 37.65,
+      "Cardio/Durabilidad": 82.93,
+      "Presión": 35.58
     },
-    "skill_composite": 45.71
+    "skill_composite": 55.18
   },
   {
     "fighter_id": "51b0bb73a1da34bc",
     "fighter_name": "Mike Ciesnolevicz",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 46.86,
-      "Grappling": 41.59,
-      "Defensa": 44.46,
-      "Consistencia": 43.1,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 52.6,
-      "Presión": 41.14
+      "Striking": 39.34,
+      "Grappling": 40.93,
+      "Defensa": 51.87,
+      "Consistencia": 35.58,
+      "Finish Rate": 53.1,
+      "Cardio/Durabilidad": 57.88,
+      "Presión": 33.62
     },
-    "skill_composite": 44.85
+    "skill_composite": 44.18
   },
   {
     "fighter_id": "b9415726dc3ec526",

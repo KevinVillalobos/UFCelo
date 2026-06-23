@@ -611,10 +611,15 @@ class SkillScoreEngine:
         self,
         fights: List[FightRecord],
         fighters: Dict[str, Dict[str, Optional[str]]],
+        prior_skills: Dict[str, Dict[str, float]] | None = None,
     ) -> tuple:
-        skill_scores: Dict[str, Dict[str, float]] = {
-            fighter_id: {dim: 50.0 for dim in SKILL_DIMENSIONS} for fighter_id in fighters.keys()
-        }
+        # Initialize skill scores: use prior-division carry-over if available, else default 50.0
+        skill_scores: Dict[str, Dict[str, float]] = {}
+        for fighter_id in fighters.keys():
+            if prior_skills and fighter_id in prior_skills:
+                skill_scores[fighter_id] = dict(prior_skills[fighter_id])
+            else:
+                skill_scores[fighter_id] = {dim: 50.0 for dim in SKILL_DIMENSIONS}
         histories: Dict[str, List[Dict[str, object]]] = {fighter_id: [] for fighter_id in fighters.keys()}
 
         for fight in fights:
@@ -623,7 +628,10 @@ class SkillScoreEngine:
                 (fight.fighter_b_id, fight.fighter_b_name, fight.fighter_a_id, fight.fighter_a_name, "b"),
             ]:
                 if fighter_id not in skill_scores:
-                    skill_scores[fighter_id] = {dim: 50.0 for dim in SKILL_DIMENSIONS}
+                    if prior_skills and fighter_id in prior_skills:
+                        skill_scores[fighter_id] = dict(prior_skills[fighter_id])
+                    else:
+                        skill_scores[fighter_id] = {dim: 50.0 for dim in SKILL_DIMENSIONS}
                     histories[fighter_id] = []
 
                 raw_scores = self._raw_scores(fight, fighter_id, side)
@@ -974,6 +982,54 @@ def _load_prior_division_elos(
     return prior_elos
 
 
+def _load_prior_division_skills(
+    current_division: str,
+    fights: List[FightRecord],
+    output_dir: Path,
+) -> Dict[str, Dict[str, float]]:
+    """For fighters entering this division from another, return their final skill
+    scores from their previous division as the starting point for EMA here.
+    Same logic as ELO carry-over: skills belong to the FIGHTER, not the division.
+    """
+    current_slug = current_division.lower().replace(" ", "_")
+
+    earliest_here: Dict[str, datetime] = {}
+    for fight in fights:
+        for fid in (fight.fighter_a_id, fight.fighter_b_id):
+            if fid not in earliest_here or fight.event_date < earliest_here[fid]:
+                earliest_here[fid] = fight.event_date
+
+    prior_skills: Dict[str, Dict[str, float]] = {}
+    for other_div in _DIVISIONS_ALL:
+        other_slug = other_div.replace(" ", "_")
+        if other_slug == current_slug:
+            continue
+        hist_path = output_dir / f"skill_histories_{other_slug}.json"
+        if not hist_path.exists():
+            continue
+        try:
+            with hist_path.open("r", encoding="utf-8") as f:
+                skill_histories = json.load(f)
+        except Exception:
+            continue
+
+        for fid, hist in skill_histories.items():
+            if not hist or fid not in earliest_here or fid in prior_skills:
+                continue
+            cutoff = earliest_here[fid].strftime("%Y-%m-%d")
+            prior_entries = [h for h in hist if h.get("date", "") < cutoff]
+            if not prior_entries:
+                continue
+            last_prior = max(prior_entries, key=lambda h: h.get("date", ""))
+            skill = last_prior.get("skill_score")
+            if skill:
+                prior_skills[fid] = skill
+
+    if prior_skills:
+        log.info("[%s] Skill score carry-over: %d fighters", current_division, len(prior_skills))
+    return prior_skills
+
+
 def main():
     parser = argparse.ArgumentParser(description="Elo engine para UFC")
     parser.add_argument("--division", default="heavyweight",
@@ -992,7 +1048,11 @@ def main():
         args.fights = f"data/fights_{division_slug}.csv"
     if args.fighters is None:
         fighters_path_candidate = Path(f"data/fighters_{division_slug}.json")
-        args.fighters = str(fighters_path_candidate) if fighters_path_candidate.exists() else "data/fighters.json"
+        # Fall back to global fighters.json if the division file is missing or empty
+        if fighters_path_candidate.exists() and fighters_path_candidate.stat().st_size > 4:
+            args.fighters = str(fighters_path_candidate)
+        else:
+            args.fighters = "data/fighters.json"
 
     fights_path = Path(args.fights)
     fighters_path = Path(args.fighters)
@@ -1008,14 +1068,15 @@ def main():
     if not fighters:
         log.warning("[%s] fighters JSON vacío — se usarán nombres del CSV.", args.division)
 
-    # Load cross-division ELOs for fighters who moved divisions
+    # Load cross-division carry-overs for fighters who moved divisions
     prior_elos = _load_prior_division_elos(args.division, fights, output_dir)
+    prior_skills = _load_prior_division_skills(args.division, fights, output_dir)
 
     elo_engine = EloEngine(division=args.division, prior_elos=prior_elos, debug=args.debug)
     skill_engine = SkillScoreEngine()
 
     ranking, elo_histories = elo_engine.process(fights, fighters)
-    skill_scores, skill_histories = skill_engine.process(fights, fighters)
+    skill_scores, skill_histories = skill_engine.process(fights, fighters, prior_skills=prior_skills)
 
     # All-time ranking: same data re-sorted by peak_elo instead of current elo
     alltime_ranking = sorted(ranking, key=lambda x: x["peak_elo"], reverse=True)
