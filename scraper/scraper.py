@@ -10,8 +10,8 @@ from typing import Optional
 
 CHECKPOINT_FILE = "scrape_checkpoint.json"
 
-import requests
 from bs4 import BeautifulSoup
+from playwright.sync_api import sync_playwright
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
@@ -102,22 +102,33 @@ class Fight:
 
 class UFCScraper:
     def __init__(self, delay: float = 1.5, target_division: str = "heavyweight"):
-        self.session = requests.Session()
-        self.session.headers.update(HEADERS)
         self.delay = delay
         self._target_division = target_division
+        self._pw = sync_playwright().start()
+        self._browser = self._pw.chromium.launch(headless=True)
+        self._context = self._browser.new_context(
+            user_agent=HEADERS["User-Agent"],
+            extra_http_headers={k: v for k, v in HEADERS.items() if k != "User-Agent"},
+        )
+        self._page = self._context.new_page()
+
+    def close(self):
+        try:
+            self._page.close()
+            self._context.close()
+            self._browser.close()
+            self._pw.stop()
+        except Exception:
+            pass
 
     def _get(self, url: str) -> Optional[BeautifulSoup]:
         for attempt in range(3):
             try:
                 time.sleep(self.delay)
-                r = self.session.get(url, timeout=20)
-                r.raise_for_status()
-                return BeautifulSoup(r.text, "lxml")
-            except requests.HTTPError as e:
-                log.warning(f"HTTP {e.response.status_code} en {url} (intento {attempt+1}/3)")
-                time.sleep(self.delay * 2)
-            except requests.RequestException as e:
+                self._page.goto(url, timeout=30000, wait_until="networkidle")
+                html = self._page.content()
+                return BeautifulSoup(html, "lxml")
+            except Exception as e:
                 log.warning(f"Error en {url}: {e} (intento {attempt+1}/3)")
                 time.sleep(self.delay * 2)
         log.error(f"Falló después de 3 intentos: {url}")
@@ -526,167 +537,169 @@ def scrape_division(division: str, output_dir: str, max_events: Optional[int] = 
         log.info("Modo completo (deep scrape)")
 
     scraper = UFCScraper(delay=1.5, target_division=division)
+    try:
+        # ── Eventos ──────────────────────────────────────────────────────────
+        events = scraper.get_all_events()
+        with open(output / "events.json", "w", encoding="utf-8") as f:
+            json.dump(events, f, indent=2, ensure_ascii=False)
+        log.info(f"Guardados {len(events)} eventos en events.json")
 
-    # ── Eventos ──────────────────────────────────────────────────────────────
-    events = scraper.get_all_events()
-    with open(output / "events.json", "w", encoding="utf-8") as f:
-        json.dump(events, f, indent=2, ensure_ascii=False)
-    log.info(f"Guardados {len(events)} eventos en events.json")
+        if incremental:
+            events = [e for e in events if (d := _parse_event_date(e["date"])) and d > since_date]
+            log.info(f"{len(events)} eventos nuevos desde {since_date}")
+            if not events:
+                log.info("No hay eventos nuevos. ¡Todo al día!")
+                return [], []
 
-    if incremental:
-        events = [e for e in events if (d := _parse_event_date(e["date"])) and d > since_date]
-        log.info(f"{len(events)} eventos nuevos desde {since_date}")
-        if not events:
-            log.info("No hay eventos nuevos. ¡Todo al día!")
-            return [], []
+        if max_events:
+            events = events[:max_events]
 
-    if max_events:
-        events = events[:max_events]
+        # ── Cargar datos existentes (solo en modo incremental) ────────────────
+        existing_fight_ids: set[str]     = set()
+        existing_fighters:  dict[str, dict] = {}
 
-    # ── Cargar datos existentes (solo en modo incremental) ───────────────────
-    existing_fight_ids: set[str]    = set()
-    existing_fighters:  dict[str, dict] = {}
+        if incremental:
+            with open(fights_path, encoding="utf-8") as f:
+                existing_fight_ids = {row["fight_id"] for row in csv.DictReader(f)}
+            with open(fighters_path, encoding="utf-8") as f:
+                for fighter in json.load(f):
+                    existing_fighters[fighter["fighter_id"]] = fighter
+            log.info(
+                f"Cargadas {len(existing_fight_ids)} peleas y "
+                f"{len(existing_fighters)} peleadores existentes"
+            )
 
-    if incremental:
-        with open(fights_path, encoding="utf-8") as f:
-            existing_fight_ids = {row["fight_id"] for row in csv.DictReader(f)}
-        with open(fighters_path, encoding="utf-8") as f:
-            for fighter in json.load(f):
-                existing_fighters[fighter["fighter_id"]] = fighter
-        log.info(
-            f"Cargadas {len(existing_fight_ids)} peleas y "
-            f"{len(existing_fighters)} peleadores existentes"
+        # ── Scrapear eventos nuevos ───────────────────────────────────────────
+        new_fights:  list[Fight] = []
+        fighter_ids: set[str]   = set()
+
+        for i, event in enumerate(events, 1):
+            log.info(f"[{i}/{len(events)}] Scrapeando: {event['name']} ({event['date']})")
+            fights = scraper.get_fights_from_event(event)
+            for fight in fights:
+                if _matches_division(fight.weight_class, division):
+                    if fight.fight_id not in existing_fight_ids:
+                        new_fights.append(fight)
+                        fighter_ids.add(fight.fighter_a_id)
+                        fighter_ids.add(fight.fighter_b_id)
+
+        new_fights.sort(key=lambda f: f.event_date)
+
+        # ── Escribir peleas al CSV ────────────────────────────────────────────
+        fieldnames = [
+            "fight_id", "event_id", "event_name", "event_date",
+            "fighter_a_id", "fighter_a_name", "fighter_b_id", "fighter_b_name",
+            "winner_id", "method", "round", "time", "weight_class", "is_title_fight",
+            "fighter_a_strikes_landed", "fighter_a_strikes_attempted",
+            "fighter_a_takedowns_landed", "fighter_a_takedowns_attempted",
+            "fighter_a_knockdowns", "fighter_a_control_time",
+            "fighter_a_submission_attempts", "fighter_a_reversals",
+            "fighter_a_head_strikes_landed", "fighter_a_head_strikes_attempted",
+            "fighter_a_body_strikes_landed", "fighter_a_body_strikes_attempted",
+            "fighter_a_leg_strikes_landed", "fighter_a_leg_strikes_attempted",
+            "fighter_b_strikes_landed", "fighter_b_strikes_attempted",
+            "fighter_b_takedowns_landed", "fighter_b_takedowns_attempted",
+            "fighter_b_knockdowns", "fighter_b_control_time",
+            "fighter_b_submission_attempts", "fighter_b_reversals",
+            "fighter_b_head_strikes_landed", "fighter_b_head_strikes_attempted",
+            "fighter_b_body_strikes_landed", "fighter_b_body_strikes_attempted",
+            "fighter_b_leg_strikes_landed", "fighter_b_leg_strikes_attempted",
+        ]
+
+        if new_fights:
+            write_mode = "a" if incremental else "w"
+            with open(fights_path, write_mode, newline="", encoding="utf-8") as f:
+                writer = csv.DictWriter(f, fieldnames=fieldnames)
+                if not incremental:
+                    writer.writeheader()
+
+                for fight in new_fights:
+                    row = {
+                        "fight_id": fight.fight_id,
+                        "event_id": fight.event_id,
+                        "event_name": fight.event_name,
+                        "event_date": fight.event_date,
+                        "fighter_a_id": fight.fighter_a_id,
+                        "fighter_a_name": fight.fighter_a_name,
+                        "fighter_b_id": fight.fighter_b_id,
+                        "fighter_b_name": fight.fighter_b_name,
+                        "winner_id": fight.winner_id,
+                        "method": fight.method,
+                        "round": fight.round,
+                        "time": fight.time,
+                        "weight_class": fight.weight_class,
+                        "is_title_fight": fight.is_title_fight,
+                    }
+                    if fight.fighter_a_stats:
+                        stats = fight.fighter_a_stats
+                        row.update({
+                            "fighter_a_strikes_landed": stats.strikes_landed,
+                            "fighter_a_strikes_attempted": stats.strikes_attempted,
+                            "fighter_a_takedowns_landed": stats.takedowns_landed,
+                            "fighter_a_takedowns_attempted": stats.takedowns_attempted,
+                            "fighter_a_knockdowns": stats.knockdowns,
+                            "fighter_a_control_time": stats.control_time,
+                            "fighter_a_submission_attempts": stats.submission_attempts,
+                            "fighter_a_reversals": stats.reversals,
+                            "fighter_a_head_strikes_landed": stats.head_strikes_landed,
+                            "fighter_a_head_strikes_attempted": stats.head_strikes_attempted,
+                            "fighter_a_body_strikes_landed": stats.body_strikes_landed,
+                            "fighter_a_body_strikes_attempted": stats.body_strikes_attempted,
+                            "fighter_a_leg_strikes_landed": stats.leg_strikes_landed,
+                            "fighter_a_leg_strikes_attempted": stats.leg_strikes_attempted,
+                        })
+                    if fight.fighter_b_stats:
+                        stats = fight.fighter_b_stats
+                        row.update({
+                            "fighter_b_strikes_landed": stats.strikes_landed,
+                            "fighter_b_strikes_attempted": stats.strikes_attempted,
+                            "fighter_b_takedowns_landed": stats.takedowns_landed,
+                            "fighter_b_takedowns_attempted": stats.takedowns_attempted,
+                            "fighter_b_knockdowns": stats.knockdowns,
+                            "fighter_b_control_time": stats.control_time,
+                            "fighter_b_submission_attempts": stats.submission_attempts,
+                            "fighter_b_reversals": stats.reversals,
+                            "fighter_b_head_strikes_landed": stats.head_strikes_landed,
+                            "fighter_b_head_strikes_attempted": stats.head_strikes_attempted,
+                            "fighter_b_body_strikes_landed": stats.body_strikes_landed,
+                            "fighter_b_body_strikes_attempted": stats.body_strikes_attempted,
+                            "fighter_b_leg_strikes_landed": stats.leg_strikes_landed,
+                            "fighter_b_leg_strikes_attempted": stats.leg_strikes_attempted,
+                        })
+                    writer.writerow(row)
+
+            action = "Añadidas" if incremental else "Guardadas"
+            log.info(f"{action} {len(new_fights)} peleas en {fights_path.name}")
+
+        # ── Perfiles de peleadores ────────────────────────────────────────────
+        new_fighter_ids = fighter_ids - set(existing_fighters.keys())
+        for fid in new_fighter_ids:
+            name = next(
+                (f.fighter_a_name for f in new_fights if f.fighter_a_id == fid),
+                next((f.fighter_b_name for f in new_fights if f.fighter_b_id == fid), "Unknown"),
+            )
+            log.info(f"  Perfil: {name}")
+            fighter = scraper.get_fighter_details(fid, name)
+            if fighter:
+                existing_fighters[fid] = asdict(fighter)
+
+        all_fighters = list(existing_fighters.values())
+        with open(fighters_path, "w", encoding="utf-8") as f:
+            json.dump(all_fighters, f, indent=2, ensure_ascii=False)
+        log.info(f"Guardados {len(all_fighters)} perfiles en {fighters_path.name}")
+
+        # ── Actualizar checkpoint ─────────────────────────────────────────────
+        latest = max(
+            (d for e in events if (d := _parse_event_date(e["date"]))),
+            default=None,
         )
+        if latest:
+            _save_checkpoint(output, division, latest)
+            log.info(f"Checkpoint actualizado: {division} → {latest}")
 
-    # ── Scrapear eventos nuevos ──────────────────────────────────────────────
-    new_fights:  list[Fight] = []
-    fighter_ids: set[str]   = set()
-
-    for i, event in enumerate(events, 1):
-        log.info(f"[{i}/{len(events)}] Scrapeando: {event['name']} ({event['date']})")
-        fights = scraper.get_fights_from_event(event)
-        for fight in fights:
-            if _matches_division(fight.weight_class, division):
-                if fight.fight_id not in existing_fight_ids:
-                    new_fights.append(fight)
-                    fighter_ids.add(fight.fighter_a_id)
-                    fighter_ids.add(fight.fighter_b_id)
-
-    new_fights.sort(key=lambda f: f.event_date)
-
-    # ── Escribir peleas al CSV ───────────────────────────────────────────────
-    fieldnames = [
-        "fight_id", "event_id", "event_name", "event_date",
-        "fighter_a_id", "fighter_a_name", "fighter_b_id", "fighter_b_name",
-        "winner_id", "method", "round", "time", "weight_class", "is_title_fight",
-        "fighter_a_strikes_landed", "fighter_a_strikes_attempted",
-        "fighter_a_takedowns_landed", "fighter_a_takedowns_attempted",
-        "fighter_a_knockdowns", "fighter_a_control_time",
-        "fighter_a_submission_attempts", "fighter_a_reversals",
-        "fighter_a_head_strikes_landed", "fighter_a_head_strikes_attempted",
-        "fighter_a_body_strikes_landed", "fighter_a_body_strikes_attempted",
-        "fighter_a_leg_strikes_landed", "fighter_a_leg_strikes_attempted",
-        "fighter_b_strikes_landed", "fighter_b_strikes_attempted",
-        "fighter_b_takedowns_landed", "fighter_b_takedowns_attempted",
-        "fighter_b_knockdowns", "fighter_b_control_time",
-        "fighter_b_submission_attempts", "fighter_b_reversals",
-        "fighter_b_head_strikes_landed", "fighter_b_head_strikes_attempted",
-        "fighter_b_body_strikes_landed", "fighter_b_body_strikes_attempted",
-        "fighter_b_leg_strikes_landed", "fighter_b_leg_strikes_attempted",
-    ]
-
-    if new_fights:
-        write_mode = "a" if incremental else "w"
-        with open(fights_path, write_mode, newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
-            if not incremental:
-                writer.writeheader()
-
-            for fight in new_fights:
-                row = {
-                    "fight_id": fight.fight_id,
-                    "event_id": fight.event_id,
-                    "event_name": fight.event_name,
-                    "event_date": fight.event_date,
-                    "fighter_a_id": fight.fighter_a_id,
-                    "fighter_a_name": fight.fighter_a_name,
-                    "fighter_b_id": fight.fighter_b_id,
-                    "fighter_b_name": fight.fighter_b_name,
-                    "winner_id": fight.winner_id,
-                    "method": fight.method,
-                    "round": fight.round,
-                    "time": fight.time,
-                    "weight_class": fight.weight_class,
-                    "is_title_fight": fight.is_title_fight,
-                }
-                if fight.fighter_a_stats:
-                    stats = fight.fighter_a_stats
-                    row.update({
-                        "fighter_a_strikes_landed": stats.strikes_landed,
-                        "fighter_a_strikes_attempted": stats.strikes_attempted,
-                        "fighter_a_takedowns_landed": stats.takedowns_landed,
-                        "fighter_a_takedowns_attempted": stats.takedowns_attempted,
-                        "fighter_a_knockdowns": stats.knockdowns,
-                        "fighter_a_control_time": stats.control_time,
-                        "fighter_a_submission_attempts": stats.submission_attempts,
-                        "fighter_a_reversals": stats.reversals,
-                        "fighter_a_head_strikes_landed": stats.head_strikes_landed,
-                        "fighter_a_head_strikes_attempted": stats.head_strikes_attempted,
-                        "fighter_a_body_strikes_landed": stats.body_strikes_landed,
-                        "fighter_a_body_strikes_attempted": stats.body_strikes_attempted,
-                        "fighter_a_leg_strikes_landed": stats.leg_strikes_landed,
-                        "fighter_a_leg_strikes_attempted": stats.leg_strikes_attempted,
-                    })
-                if fight.fighter_b_stats:
-                    stats = fight.fighter_b_stats
-                    row.update({
-                        "fighter_b_strikes_landed": stats.strikes_landed,
-                        "fighter_b_strikes_attempted": stats.strikes_attempted,
-                        "fighter_b_takedowns_landed": stats.takedowns_landed,
-                        "fighter_b_takedowns_attempted": stats.takedowns_attempted,
-                        "fighter_b_knockdowns": stats.knockdowns,
-                        "fighter_b_control_time": stats.control_time,
-                        "fighter_b_submission_attempts": stats.submission_attempts,
-                        "fighter_b_reversals": stats.reversals,
-                        "fighter_b_head_strikes_landed": stats.head_strikes_landed,
-                        "fighter_b_head_strikes_attempted": stats.head_strikes_attempted,
-                        "fighter_b_body_strikes_landed": stats.body_strikes_landed,
-                        "fighter_b_body_strikes_attempted": stats.body_strikes_attempted,
-                        "fighter_b_leg_strikes_landed": stats.leg_strikes_landed,
-                        "fighter_b_leg_strikes_attempted": stats.leg_strikes_attempted,
-                    })
-                writer.writerow(row)
-
-        action = "Añadidas" if incremental else "Guardadas"
-        log.info(f"{action} {len(new_fights)} peleas en {fights_path.name}")
-
-    # ── Perfiles de peleadores (solo los nuevos en modo incremental) ─────────
-    new_fighter_ids = fighter_ids - set(existing_fighters.keys())
-    for fid in new_fighter_ids:
-        name = next(
-            (f.fighter_a_name for f in new_fights if f.fighter_a_id == fid),
-            next((f.fighter_b_name for f in new_fights if f.fighter_b_id == fid), "Unknown"),
-        )
-        log.info(f"  Perfil: {name}")
-        fighter = scraper.get_fighter_details(fid, name)
-        if fighter:
-            existing_fighters[fid] = asdict(fighter)
-
-    all_fighters = list(existing_fighters.values())
-    with open(fighters_path, "w", encoding="utf-8") as f:
-        json.dump(all_fighters, f, indent=2, ensure_ascii=False)
-    log.info(f"Guardados {len(all_fighters)} perfiles en {fighters_path.name}")
-
-    # ── Actualizar checkpoint ────────────────────────────────────────────────
-    latest = max(
-        (d for e in events if (d := _parse_event_date(e["date"]))),
-        default=None,
-    )
-    if latest:
-        _save_checkpoint(output, division, latest)
-        log.info(f"Checkpoint actualizado: {division} → {latest}")
-
-    return new_fights, all_fighters
+        return new_fights, all_fighters
+    finally:
+        scraper.close()
 
 
 def refresh_fight_stats(csv_path: str, delay: float = 1.5) -> None:
@@ -719,40 +732,42 @@ def refresh_fight_stats(csv_path: str, delay: float = 1.5) -> None:
 
     scraper = UFCScraper(delay=delay)
     updated = 0
+    try:
+        for i, row in enumerate(rows, 1):
+            fight_id = row.get("fight_id", "")
+            fa_id = row.get("fighter_a_id", "")
+            fb_id = row.get("fighter_b_id", "")
+            if not fight_id or not fa_id or not fb_id:
+                continue
 
-    for i, row in enumerate(rows, 1):
-        fight_id = row.get("fight_id", "")
-        fa_id = row.get("fighter_a_id", "")
-        fb_id = row.get("fighter_b_id", "")
-        if not fight_id or not fa_id or not fb_id:
-            continue
+            fight_url = f"http://ufcstats.com/fight-details/{fight_id}"
+            log.info(f"[{i}/{len(rows)}] Stats: {row.get('fighter_a_name')} vs {row.get('fighter_b_name')}")
+            fa_stats, fb_stats, _ = scraper.get_fight_stats(fight_url, fa_id, fb_id)
 
-        fight_url = f"http://ufcstats.com/fight-details/{fight_id}"
-        log.info(f"[{i}/{len(rows)}] Stats: {row.get('fighter_a_name')} vs {row.get('fighter_b_name')}")
-        fa_stats, fb_stats = scraper.get_fight_stats(fight_url, fa_id, fb_id)
+            def apply_stats(prefix: str, stats: Optional[FightStats]) -> None:
+                if not stats:
+                    return
+                row[f"{prefix}_strikes_landed"] = stats.strikes_landed
+                row[f"{prefix}_strikes_attempted"] = stats.strikes_attempted
+                row[f"{prefix}_takedowns_landed"] = stats.takedowns_landed
+                row[f"{prefix}_takedowns_attempted"] = stats.takedowns_attempted
+                row[f"{prefix}_knockdowns"] = stats.knockdowns
+                row[f"{prefix}_control_time"] = stats.control_time
+                row[f"{prefix}_submission_attempts"] = stats.submission_attempts
+                row[f"{prefix}_reversals"] = stats.reversals
+                row[f"{prefix}_head_strikes_landed"] = stats.head_strikes_landed
+                row[f"{prefix}_head_strikes_attempted"] = stats.head_strikes_attempted
+                row[f"{prefix}_body_strikes_landed"] = stats.body_strikes_landed
+                row[f"{prefix}_body_strikes_attempted"] = stats.body_strikes_attempted
+                row[f"{prefix}_leg_strikes_landed"] = stats.leg_strikes_landed
+                row[f"{prefix}_leg_strikes_attempted"] = stats.leg_strikes_attempted
 
-        def apply_stats(prefix: str, stats: Optional[FightStats]) -> None:
-            if not stats:
-                return
-            row[f"{prefix}_strikes_landed"] = stats.strikes_landed
-            row[f"{prefix}_strikes_attempted"] = stats.strikes_attempted
-            row[f"{prefix}_takedowns_landed"] = stats.takedowns_landed
-            row[f"{prefix}_takedowns_attempted"] = stats.takedowns_attempted
-            row[f"{prefix}_knockdowns"] = stats.knockdowns
-            row[f"{prefix}_control_time"] = stats.control_time
-            row[f"{prefix}_submission_attempts"] = stats.submission_attempts
-            row[f"{prefix}_reversals"] = stats.reversals
-            row[f"{prefix}_head_strikes_landed"] = stats.head_strikes_landed
-            row[f"{prefix}_head_strikes_attempted"] = stats.head_strikes_attempted
-            row[f"{prefix}_body_strikes_landed"] = stats.body_strikes_landed
-            row[f"{prefix}_body_strikes_attempted"] = stats.body_strikes_attempted
-            row[f"{prefix}_leg_strikes_landed"] = stats.leg_strikes_landed
-            row[f"{prefix}_leg_strikes_attempted"] = stats.leg_strikes_attempted
-
-        apply_stats("fighter_a", fa_stats)
-        apply_stats("fighter_b", fb_stats)
-        if fa_stats or fb_stats:
-            updated += 1
+            apply_stats("fighter_a", fa_stats)
+            apply_stats("fighter_b", fb_stats)
+            if fa_stats or fb_stats:
+                updated += 1
+    finally:
+        scraper.close()
 
     with path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)

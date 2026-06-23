@@ -1,5 +1,35 @@
 [
   {
+    "event_id": "c8661e204c66f325",
+    "name": "UFC Fight Night: Kape vs. Horiguchi",
+    "date": "June 20, 2026",
+    "url": "http://ufcstats.com/event-details/c8661e204c66f325"
+  },
+  {
+    "event_id": "48544433372ecfa6",
+    "name": "UFC Freedom 250",
+    "date": "June 14, 2026",
+    "url": "http://ufcstats.com/event-details/48544433372ecfa6"
+  },
+  {
+    "event_id": "ba17afef01ed78b6",
+    "name": "UFC Fight Night: Muhammad vs. Bonfim",
+    "date": "June 06, 2026",
+    "url": "http://ufcstats.com/event-details/ba17afef01ed78b6"
+  },
+  {
+    "event_id": "1e75e6c9de99fa76",
+    "name": "UFC Fight Night: Song vs. Figueiredo",
+    "date": "May 30, 2026",
+    "url": "http://ufcstats.com/event-details/1e75e6c9de99fa76"
+  },
+  {
+    "event_id": "73abb7a5c57fb443",
+    "name": "UFC Fight Night: Allen vs. Costa",
+    "date": "May 16, 2026",
+    "url": "http://ufcstats.com/event-details/73abb7a5c57fb443"
+  },
+  {
     "event_id": "9eedac48b497de5a",
     "name": "UFC 328: Chimaev vs. Strickland",
     "date": "May 09, 2026",

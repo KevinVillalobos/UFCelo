@@ -1,0 +1,1094 @@
+2026-05-04 11:19:39,674 [INFO] Obteniendo lista de todos los eventos...
+2026-05-04 11:19:42,167 [INFO] Encontrados 772 eventos
+2026-05-04 11:19:42,175 [INFO] Guardados 772 eventos en events.json
+2026-05-04 11:19:42,180 [INFO] [1/772] Scrapeando: UFC Fight Night: Della Maddalena vs. Prates (May 02, 2026)
+2026-05-04 11:19:46,911 [INFO] [2/772] Scrapeando: UFC Fight Night: Sterling vs. Zalal (April 25, 2026)
+2026-05-04 11:19:50,073 [INFO] [3/772] Scrapeando: UFC Fight Night: Burns vs. Malott (April 18, 2026)
+2026-05-04 11:19:53,802 [INFO] [4/772] Scrapeando: UFC 327: Prochazka vs. Ulberg (April 11, 2026)
+2026-05-04 11:19:57,557 [INFO] [5/772] Scrapeando: UFC Fight Night: Moicano vs. Duncan (April 04, 2026)
+2026-05-04 11:20:02,789 [INFO] [6/772] Scrapeando: UFC Fight Night: Adesanya vs. Pyfer (March 28, 2026)
+2026-05-04 11:20:06,656 [INFO] [7/772] Scrapeando: UFC Fight Night: Evloev vs. Murphy (March 21, 2026)
+2026-05-04 11:20:11,966 [INFO] [8/772] Scrapeando: UFC Fight Night: Emmett vs. Vallejos (March 14, 2026)
+2026-05-04 11:20:20,293 [INFO] [9/772] Scrapeando: UFC 326: Holloway vs. Oliveira 2 (March 07, 2026)
+2026-05-04 11:20:21,873 [INFO] [10/772] Scrapeando: UFC Fight Night: Moreno vs. Kavanagh (February 28, 2026)
+2026-05-04 11:20:23,448 [INFO] [11/772] Scrapeando: UFC Fight Night: Strickland vs. Hernandez (February 21, 2026)
+2026-05-04 11:20:27,851 [INFO] [12/772] Scrapeando: UFC Fight Night: Bautista vs. Oliveira (February 07, 2026)
+2026-05-04 11:20:31,867 [INFO] [13/772] Scrapeando: UFC 325: Volkanovski vs. Lopes 2 (January 31, 2026)
+2026-05-04 11:20:35,296 [INFO] [14/772] Scrapeando: UFC 324: Gaethje vs. Pimblett (January 24, 2026)
+2026-05-04 11:20:40,638 [INFO] [15/772] Scrapeando: UFC Fight Night: Royval vs. Kape (December 13, 2025)
+2026-05-04 11:20:48,149 [INFO] [16/772] Scrapeando: UFC 323: Dvalishvili vs. Yan 2 (December 06, 2025)
+2026-05-04 11:20:49,750 [INFO] [17/772] Scrapeando: UFC Fight Night: Tsarukyan vs. Hooker (November 22, 2025)
+2026-05-04 11:20:54,947 [INFO] [18/772] Scrapeando: UFC 322: Della Maddalena vs. Makhachev (November 15, 2025)
+2026-05-04 11:20:56,537 [INFO] [19/772] Scrapeando: UFC Fight Night: Bonfim vs. Brown (November 08, 2025)
+2026-05-04 11:21:00,159 [INFO] [20/772] Scrapeando: UFC Fight Night: Garcia vs. Onama (November 01, 2025)
+2026-05-04 11:21:04,198 [INFO] [21/772] Scrapeando: UFC 321: Aspinall vs. Gane (October 25, 2025)
+2026-05-04 11:21:13,842 [INFO] [22/772] Scrapeando: UFC Fight Night: De Ridder vs. Allen (October 18, 2025)
+2026-05-04 11:21:15,426 [INFO] [23/772] Scrapeando: UFC Fight Night: Oliveira vs. Gamrot (October 11, 2025)
+2026-05-04 11:21:21,024 [INFO] [24/772] Scrapeando: UFC 320: Ankalaev vs. Pereira 2 (October 04, 2025)
+2026-05-04 11:21:22,612 [INFO] [25/772] Scrapeando: UFC Fight Night: Ulberg vs. Reyes (September 27, 2025)
+2026-05-04 11:21:25,764 [INFO] [26/772] Scrapeando: UFC Fight Night: Lopes vs. Silva (September 13, 2025)
+2026-05-04 11:21:27,340 [INFO] [27/772] Scrapeando: UFC Fight Night: Imavov vs. Borralho (September 06, 2025)
+2026-05-04 11:21:30,778 [INFO] [28/772] Scrapeando: UFC Fight Night: Walker vs. Zhang (August 23, 2025)
+2026-05-04 11:21:34,287 [INFO] [29/772] Scrapeando: UFC - Road to UFC 4.6 (August 22, 2025)
+2026-05-04 11:21:35,846 [INFO] [30/772] Scrapeando: UFC 319: Du Plessis vs. Chimaev (August 16, 2025)
+2026-05-04 11:21:37,441 [INFO] [31/772] Scrapeando: UFC Fight Night: Dolidze vs. Hernandez (August 09, 2025)
+2026-05-04 11:21:39,064 [INFO] [32/772] Scrapeando: UFC Fight Night: Taira vs. Park (August 02, 2025)
+2026-05-04 11:21:40,652 [INFO] [33/772] Scrapeando: UFC Fight Night: Whittaker vs. De Ridder (July 26, 2025)
+2026-05-04 11:21:44,255 [INFO] [34/772] Scrapeando: UFC 318: Holloway vs. Poirier 3 (July 19, 2025)
+2026-05-04 11:21:48,155 [INFO] [35/772] Scrapeando: UFC Fight Night: Lewis vs. Teixeira (July 12, 2025)
+2026-05-04 11:22:02,582 [INFO] [36/772] Scrapeando: UFC 317: Topuria vs. Oliveira (June 28, 2025)
+2026-05-04 11:22:06,061 [INFO] [37/772] Scrapeando: UFC Fight Night: Hill vs. Rountree Jr. (June 21, 2025)
+2026-05-04 11:22:11,792 [INFO] [38/772] Scrapeando: UFC Fight Night: Usman vs. Buckley (June 14, 2025)
+2026-05-04 11:22:13,539 [INFO] [39/772] Scrapeando: UFC 316: Dvalishvili vs. O'Malley 2 (June 07, 2025)
+2026-05-04 11:22:17,315 [INFO] [40/772] Scrapeando: UFC Fight Night: Blanchfield vs. Barber (May 31, 2025)
+2026-05-04 11:22:19,000 [INFO] [41/772] Scrapeando: UFC Fight Night: Burns vs. Morales (May 17, 2025)
+2026-05-04 11:22:20,584 [INFO] [42/772] Scrapeando: UFC 315: Muhammad vs. Della Maddalena (May 10, 2025)
+2026-05-04 11:22:22,533 [INFO] [43/772] Scrapeando: UFC Fight Night: Sandhagen vs. Figueiredo (May 03, 2025)
+2026-05-04 11:22:26,212 [INFO] [44/772] Scrapeando: UFC Fight Night: Machado Garry vs. Prates (April 26, 2025)
+2026-05-04 11:22:27,954 [INFO] [45/772] Scrapeando: UFC 314: Volkanovski vs. Lopes (April 12, 2025)
+2026-05-04 11:22:29,763 [INFO] [46/772] Scrapeando: UFC Fight Night: Emmett vs. Murphy (April 05, 2025)
+2026-05-04 11:22:33,548 [INFO] [47/772] Scrapeando: UFC Fight Night: Moreno vs. Erceg (March 29, 2025)
+2026-05-04 11:22:35,361 [INFO] [48/772] Scrapeando: UFC Fight Night: Edwards vs. Brady (March 22, 2025)
+2026-05-04 11:22:39,201 [INFO] [49/772] Scrapeando: UFC Fight Night: Vettori vs. Dolidze 2 (March 15, 2025)
+2026-05-04 11:22:42,774 [INFO] [50/772] Scrapeando: UFC 313: Pereira vs. Ankalaev (March 08, 2025)
+2026-05-04 11:22:44,515 [INFO] [51/772] Scrapeando: UFC Fight Night: Kape vs. Almabayev (March 01, 2025)
+2026-05-04 11:22:48,124 [INFO] [52/772] Scrapeando: UFC Fight Night: Cejudo vs. Song (February 22, 2025)
+2026-05-04 11:22:49,894 [INFO] [53/772] Scrapeando: UFC Fight Night: Cannonier vs. Rodrigues (February 15, 2025)
+2026-05-04 11:22:53,558 [INFO] [54/772] Scrapeando: UFC 312: Du Plessis vs. Strickland 2 (February 08, 2025)
+2026-05-04 11:22:57,335 [INFO] [55/772] Scrapeando: UFC Fight Night: Adesanya vs. Imavov (February 01, 2025)
+2026-05-04 11:23:10,333 [INFO] [56/772] Scrapeando: UFC 311: Makhachev vs. Moicano (January 18, 2025)
+2026-05-04 11:23:14,318 [INFO] [57/772] Scrapeando: UFC Fight Night: Dern vs. Ribas 2 (January 11, 2025)
+2026-05-04 11:23:16,084 [INFO] [58/772] Scrapeando: UFC Fight Night: Covington vs. Buckley (December 14, 2024)
+2026-05-04 11:23:17,833 [INFO] [59/772] Scrapeando: UFC 310: Pantoja vs. Asakura (December 07, 2024)
+2026-05-04 11:23:28,901 [INFO] [60/772] Scrapeando: UFC Fight Night: Yan vs. Figueiredo (November 23, 2024)
+2026-05-04 11:23:30,719 [INFO] [61/772] Scrapeando: UFC 309: Jones vs. Miocic (November 16, 2024)
+2026-05-04 11:23:36,218 [INFO] [62/772] Scrapeando: UFC Fight Night: Magny vs. Prates (November 09, 2024)
+2026-05-04 11:23:38,305 [INFO] [63/772] Scrapeando: UFC Fight Night: Moreno vs. Albazi (November 02, 2024)
+2026-05-04 11:23:42,115 [INFO] [64/772] Scrapeando: UFC 308: Topuria vs. Holloway (October 26, 2024)
+2026-05-04 11:23:45,830 [INFO] [65/772] Scrapeando: UFC Fight Night: Hernandez vs. Pereira (October 19, 2024)
+2026-05-04 11:23:50,077 [INFO] [66/772] Scrapeando: UFC Fight Night: Royval vs. Taira (October 12, 2024)
+2026-05-04 11:23:53,706 [INFO] [67/772] Scrapeando: UFC 307: Pereira vs. Rountree Jr. (October 05, 2024)
+2026-05-04 11:23:55,469 [INFO] [68/772] Scrapeando: UFC Fight Night: Moicano vs. Saint Denis (September 28, 2024)
+2026-05-04 11:23:57,248 [INFO] [69/772] Scrapeando: UFC 306: Riyadh Season Noche UFC (September 14, 2024)
+2026-05-04 11:23:59,056 [INFO] [70/772] Scrapeando: UFC Fight Night: Burns vs. Brady (September 07, 2024)
+2026-05-04 11:24:01,471 [INFO] [71/772] Scrapeando: UFC Fight Night: Cannonier vs. Borralho (August 24, 2024)
+2026-05-04 11:24:04,612 [INFO] [72/772] Scrapeando: UFC 305: Du Plessis vs. Adesanya (August 17, 2024)
+2026-05-04 11:24:10,258 [INFO] [73/772] Scrapeando: UFC Fight Night: Tybura vs. Spivac 2 (August 10, 2024)
+2026-05-04 11:24:16,058 [INFO] [74/772] Scrapeando: UFC Fight Night: Sandhagen vs. Nurmagomedov (August 03, 2024)
+2026-05-04 11:24:19,631 [INFO] [75/772] Scrapeando: UFC 304: Edwards vs. Muhammad 2 (July 27, 2024)
+2026-05-04 11:24:25,610 [INFO] [76/772] Scrapeando: UFC Fight Night: Lemos vs. Jandiroba (July 20, 2024)
+2026-05-04 11:24:29,040 [INFO] [77/772] Scrapeando: UFC Fight Night: Namajunas vs. Cortez (July 13, 2024)
+2026-05-04 11:24:30,616 [INFO] [78/772] Scrapeando: UFC 303: Pereira vs. Prochazka 2 (June 29, 2024)
+2026-05-04 11:24:34,191 [INFO] [79/772] Scrapeando: UFC Fight Night: Whittaker vs. Aliskerov (June 22, 2024)
+2026-05-04 11:24:38,064 [INFO] [80/772] Scrapeando: UFC Fight Night: Perez vs. Taira (June 15, 2024)
+2026-05-04 11:24:39,918 [INFO] [81/772] Scrapeando: UFC Fight Night: Cannonier vs. Imavov (June 08, 2024)
+2026-05-04 11:24:41,705 [INFO] [82/772] Scrapeando: UFC 302: Makhachev vs. Poirier (June 01, 2024)
+2026-05-04 11:24:45,539 [INFO] [83/772] Scrapeando: UFC Fight Night: Barboza vs. Murphy (May 18, 2024)
+2026-05-04 11:24:47,315 [INFO] [84/772] Scrapeando: UFC Fight Night: Lewis vs. Nascimento (May 11, 2024)
+2026-05-04 11:24:57,641 [INFO] [85/772] Scrapeando: UFC 301: Pantoja vs. Erceg (May 04, 2024)
+2026-05-04 11:24:59,483 [INFO] [86/772] Scrapeando: UFC Fight Night: Nicolau vs. Perez (April 27, 2024)
+2026-05-04 11:25:07,322 [INFO] [87/772] Scrapeando: UFC 300: Pereira vs. Hill (April 13, 2024)
+2026-05-04 11:25:08,903 [INFO] [88/772] Scrapeando: UFC Fight Night: Allen vs. Curtis 2 (April 06, 2024)
+2026-05-04 11:25:12,767 [INFO] [89/772] Scrapeando: UFC Fight Night: Blanchfield vs. Fiorot (March 30, 2024)
+2026-05-04 11:25:14,573 [INFO] [90/772] Scrapeando: UFC Fight Night: Ribas vs. Namajunas (March 23, 2024)
+2026-05-04 11:25:20,169 [INFO] [91/772] Scrapeando: UFC Fight Night: Tuivasa vs. Tybura (March 16, 2024)
+2026-05-04 11:25:23,577 [INFO] [92/772] Scrapeando: UFC 299: O'Malley vs. Vera 2 (March 09, 2024)
+2026-05-04 11:25:28,900 [INFO] [93/772] Scrapeando: UFC Fight Night: Rozenstruik vs. Gaziev (March 02, 2024)
+2026-05-04 11:25:32,412 [INFO] [94/772] Scrapeando: UFC Fight Night: Moreno vs. Royval 2 (February 24, 2024)
+2026-05-04 11:25:33,991 [INFO] [95/772] Scrapeando: UFC 298: Volkanovski vs. Topuria (February 17, 2024)
+2026-05-04 11:25:37,712 [INFO] [96/772] Scrapeando: UFC Fight Night: Hermansson vs. Pyfer (February 10, 2024)
+2026-05-04 11:25:39,294 [INFO] [97/772] Scrapeando: UFC Fight Night: Dolidze vs. Imavov (February 03, 2024)
+2026-05-04 11:25:43,234 [INFO] [98/772] Scrapeando: UFC 297: Strickland vs. Du Plessis (January 20, 2024)
+2026-05-04 11:25:44,811 [INFO] [99/772] Scrapeando: UFC Fight Night: Ankalaev vs. Walker 2 (January 13, 2024)
+2026-05-04 11:25:49,035 [INFO] [100/772] Scrapeando: UFC 296: Edwards vs. Covington (December 16, 2023)
+2026-05-04 11:25:52,853 [INFO] [101/772] Scrapeando: UFC Fight Night: Song vs. Gutierrez (December 09, 2023)
+2026-05-04 11:25:54,717 [INFO] [102/772] Scrapeando: UFC Fight Night: Dariush vs. Tsarukyan (December 02, 2023)
+2026-05-04 11:25:56,464 [INFO] [103/772] Scrapeando: UFC Fight Night: Allen vs. Craig (November 18, 2023)
+2026-05-04 11:26:00,189 [INFO] [104/772] Scrapeando: UFC 295: Prochazka vs. Pereira (November 11, 2023)
+2026-05-04 11:26:06,294 [INFO] [105/772] Scrapeando: UFC Fight Night: Almeida vs. Lewis (November 04, 2023)
+2026-05-04 11:26:12,415 [INFO] [106/772] Scrapeando: UFC 294: Makhachev vs. Volkanovski 2 (October 21, 2023)
+2026-05-04 11:26:13,990 [INFO] [107/772] Scrapeando: UFC Fight Night: Yusuff vs. Barboza (October 14, 2023)
+2026-05-04 11:26:15,952 [INFO] [108/772] Scrapeando: UFC Fight Night: Dawson vs. Green (October 07, 2023)
+2026-05-04 11:26:17,800 [INFO] [109/772] Scrapeando: UFC Fight Night: Fiziev vs. Gamrot (September 23, 2023)
+2026-05-04 11:26:26,133 [INFO] [110/772] Scrapeando: UFC Fight Night: Grasso vs. Shevchenko 2 (September 16, 2023)
+2026-05-04 11:26:27,993 [INFO] [111/772] Scrapeando: UFC 293: Adesanya vs. Strickland (September 09, 2023)
+2026-05-04 11:26:33,628 [INFO] [112/772] Scrapeando: UFC Fight Night: Gane vs. Spivac (September 02, 2023)
+2026-05-04 11:26:37,513 [INFO] [113/772] Scrapeando: UFC Fight Night: Holloway vs. The Korean Zombie (August 26, 2023)
+2026-05-04 11:26:43,209 [INFO] [114/772] Scrapeando: UFC 292: Sterling vs. O'Malley (August 19, 2023)
+2026-05-04 11:26:44,794 [INFO] [115/772] Scrapeando: UFC Fight Night: Luque vs. Dos Anjos (August 12, 2023)
+2026-05-04 11:26:48,214 [INFO] [116/772] Scrapeando: UFC Fight Night: Sandhagen vs. Font (August 05, 2023)
+2026-05-04 11:26:49,790 [INFO] [117/772] Scrapeando: UFC 291: Poirier vs. Gaethje 2 (July 29, 2023)
+2026-05-04 11:26:53,283 [INFO] [118/772] Scrapeando: UFC Fight Night: Aspinall vs. Tybura (July 22, 2023)
+2026-05-04 11:26:59,241 [INFO] [119/772] Scrapeando: UFC Fight Night: Holm vs. Bueno Silva (July 15, 2023)
+2026-05-04 11:27:03,020 [INFO] [120/772] Scrapeando: UFC 290: Volkanovski vs. Rodriguez (July 08, 2023)
+2026-05-04 11:27:04,828 [INFO] [121/772] Scrapeando: UFC Fight Night: Strickland vs. Magomedov (July 01, 2023)
+2026-05-04 11:27:08,681 [INFO] [122/772] Scrapeando: UFC Fight Night: Emmett vs. Topuria (June 24, 2023)
+2026-05-04 11:27:11,967 [INFO] [123/772] Scrapeando: UFC Fight Night: Vettori vs. Cannonier (June 17, 2023)
+2026-05-04 11:27:13,686 [INFO] [124/772] Scrapeando: UFC 289: Nunes vs. Aldana (June 10, 2023)
+2026-05-04 11:27:15,276 [INFO] [125/772] Scrapeando: UFC Fight Night: Kara-France vs. Albazi (June 03, 2023)
+2026-05-04 11:27:19,611 [INFO] [126/772] Scrapeando: UFC Fight Night: Dern vs. Hill (May 20, 2023)
+2026-05-04 11:27:23,350 [INFO] [127/772] Scrapeando: UFC Fight Night: Rozenstruik vs. Almeida (May 13, 2023)
+2026-05-04 11:27:29,450 [INFO] [128/772] Scrapeando: UFC 288: Sterling vs. Cejudo (May 06, 2023)
+2026-05-04 11:27:32,884 [INFO] [129/772] Scrapeando: UFC Fight Night: Song vs. Simon (April 29, 2023)
+2026-05-04 11:27:38,313 [INFO] [130/772] Scrapeando: UFC Fight Night: Pavlovich vs. Blaydes (April 22, 2023)
+2026-05-04 11:27:43,686 [INFO] [131/772] Scrapeando: UFC Fight Night: Holloway vs. Allen (April 15, 2023)
+2026-05-04 11:27:45,263 [INFO] [132/772] Scrapeando: UFC 287: Pereira vs. Adesanya 2 (April 08, 2023)
+2026-05-04 11:27:46,999 [INFO] [133/772] Scrapeando: UFC Fight Night: Vera vs. Sandhagen (March 25, 2023)
+2026-05-04 11:27:48,577 [INFO] [134/772] Scrapeando: UFC 286: Edwards vs. Usman 3 (March 18, 2023)
+2026-05-04 11:27:50,159 [INFO] [135/772] Scrapeando: UFC Fight Night: Yan vs. Dvalishvili (March 11, 2023)
+2026-05-04 11:27:59,003 [INFO] [136/772] Scrapeando: UFC 285: Jones vs. Gane (March 04, 2023)
+2026-05-04 11:28:04,379 [INFO] [137/772] Scrapeando: UFC Fight Night: Muniz vs. Allen (February 25, 2023)
+2026-05-04 11:28:07,709 [INFO] [138/772] Scrapeando: UFC Fight Night: Andrade vs. Blanchfield (February 18, 2023)
+2026-05-04 11:28:11,476 [INFO] [139/772] Scrapeando: UFC 284: Makhachev vs. Volkanovski (February 11, 2023)
+2026-05-04 11:28:15,248 [INFO] [140/772] Scrapeando: UFC Fight Night: Lewis vs. Spivac (February 04, 2023)
+2026-05-04 11:28:21,016 [INFO] [141/772] Scrapeando: UFC 283: Teixeira vs. Hill (January 21, 2023)
+2026-05-04 11:28:24,942 [INFO] [142/772] Scrapeando: UFC Fight Night: Strickland vs. Imavov (January 14, 2023)
+2026-05-04 11:28:26,784 [INFO] [143/772] Scrapeando: UFC Fight Night: Cannonier vs. Strickland (December 17, 2022)
+2026-05-04 11:28:28,729 [INFO] [144/772] Scrapeando: UFC 282: Blachowicz vs. Ankalaev (December 10, 2022)
+2026-05-04 11:28:32,653 [INFO] [145/772] Scrapeando: UFC Fight Night: Thompson vs. Holland (December 03, 2022)
+2026-05-04 11:28:36,935 [INFO] [146/772] Scrapeando: UFC Fight Night: Nzechukwu vs. Cutelaba (November 19, 2022)
+2026-05-04 11:28:40,853 [INFO] [147/772] Scrapeando: UFC 281: Adesanya vs. Pereira (November 12, 2022)
+2026-05-04 11:28:42,754 [INFO] [148/772] Scrapeando: UFC Fight Night: Rodriguez vs. Lemos (November 05, 2022)
+2026-05-04 11:28:44,576 [INFO] [149/772] Scrapeando: UFC Fight Night: Kattar vs. Allen (October 29, 2022)
+2026-05-04 11:28:50,062 [INFO] [150/772] Scrapeando: UFC 280: Oliveira vs. Makhachev (October 22, 2022)
+2026-05-04 11:28:51,833 [INFO] [151/772] Scrapeando: UFC Fight Night: Grasso vs. Araujo (October 15, 2022)
+2026-05-04 11:28:53,631 [INFO] [152/772] Scrapeando: UFC Fight Night: Dern vs. Yan (October 01, 2022)
+2026-05-04 11:28:57,361 [INFO] [153/772] Scrapeando: UFC Fight Night: Sandhagen vs. Song (September 17, 2022)
+2026-05-04 11:29:02,916 [INFO] [154/772] Scrapeando: UFC 279: Diaz vs. Ferguson (September 10, 2022)
+2026-05-04 11:29:06,752 [INFO] [155/772] Scrapeando: UFC Fight Night: Gane vs. Tuivasa (September 03, 2022)
+2026-05-04 11:29:10,400 [INFO] [156/772] Scrapeando: UFC 278: Usman vs. Edwards (August 20, 2022)
+2026-05-04 11:29:14,120 [INFO] [157/772] Scrapeando: UFC Fight Night: Vera vs. Cruz (August 13, 2022)
+2026-05-04 11:29:17,895 [INFO] [158/772] Scrapeando: UFC Fight Night: Santos vs. Hill (August 06, 2022)
+2026-05-04 11:29:23,827 [INFO] [159/772] Scrapeando: UFC 277: Pena vs. Nunes 2 (July 30, 2022)
+2026-05-04 11:29:28,722 [INFO] [160/772] Scrapeando: UFC Fight Night: Blaydes vs. Aspinall (July 23, 2022)
+2026-05-04 11:29:32,685 [INFO] [161/772] Scrapeando: UFC Fight Night: Ortega vs. Rodriguez (July 16, 2022)
+2026-05-04 11:29:35,723 [INFO] [162/772] Scrapeando: UFC Fight Night: Dos Anjos vs. Fiziev (July 09, 2022)
+2026-05-04 11:29:39,397 [INFO] [163/772] Scrapeando: UFC 276: Adesanya vs. Cannonier (July 02, 2022)
+2026-05-04 11:29:41,164 [INFO] [164/772] Scrapeando: UFC Fight Night: Tsarukyan vs. Gamrot (June 25, 2022)
+2026-05-04 11:29:45,116 [INFO] [165/772] Scrapeando: UFC Fight Night: Kattar vs. Emmett (June 18, 2022)
+2026-05-04 11:29:46,997 [INFO] [166/772] Scrapeando: UFC 275: Teixeira vs. Prochazka (June 11, 2022)
+2026-05-04 11:29:48,784 [INFO] [167/772] Scrapeando: UFC Fight Night: Volkov vs. Rozenstruik (June 04, 2022)
+2026-05-04 11:29:52,676 [INFO] [168/772] Scrapeando: UFC Fight Night: Holm vs. Vieira (May 21, 2022)
+2026-05-04 11:29:56,567 [INFO] [169/772] Scrapeando: UFC Fight Night: Blachowicz vs. Rakic (May 14, 2022)
+2026-05-04 11:29:58,396 [INFO] [170/772] Scrapeando: UFC 274: Oliveira vs. Gaethje (May 07, 2022)
+2026-05-04 11:30:04,594 [INFO] [171/772] Scrapeando: UFC Fight Night: Font vs. Vera (April 30, 2022)
+2026-05-04 11:30:10,475 [INFO] [172/772] Scrapeando: UFC Fight Night: Lemos vs. Andrade (April 23, 2022)
+2026-05-04 11:30:12,243 [INFO] [173/772] Scrapeando: UFC Fight Night: Luque vs. Muhammad (April 16, 2022)
+2026-05-04 11:30:18,025 [INFO] [174/772] Scrapeando: UFC 273: Volkanovski vs. The Korean Zombie (April 09, 2022)
+2026-05-04 11:30:21,864 [INFO] [175/772] Scrapeando: UFC Fight Night: Blaydes vs. Daukaus (March 26, 2022)
+2026-05-04 11:30:25,498 [INFO] [176/772] Scrapeando: UFC Fight Night: Volkov vs. Aspinall (March 19, 2022)
+2026-05-04 11:30:31,141 [INFO] [177/772] Scrapeando: UFC Fight Night: Santos vs. Ankalaev (March 12, 2022)
+2026-05-04 11:30:32,721 [INFO] [178/772] Scrapeando: UFC 272: Covington vs. Masvidal (March 05, 2022)
+2026-05-04 11:30:36,638 [INFO] [179/772] Scrapeando: UFC Fight Night: Makhachev vs. Green (February 26, 2022)
+2026-05-04 11:30:38,451 [INFO] [180/772] Scrapeando: UFC Fight Night: Walker vs. Hill (February 19, 2022)
+2026-05-04 11:30:41,960 [INFO] [181/772] Scrapeando: UFC 271: Adesanya vs. Whittaker 2 (February 12, 2022)
+2026-05-04 11:30:49,231 [INFO] [182/772] Scrapeando: UFC Fight Night: Hermansson vs. Strickland (February 05, 2022)
+2026-05-04 11:30:50,815 [INFO] [183/772] Scrapeando: UFC 270: Ngannou vs. Gane (January 22, 2022)
+2026-05-04 11:30:54,698 [INFO] [184/772] Scrapeando: UFC Fight Night: Kattar vs. Chikadze (January 15, 2022)
+2026-05-04 11:30:58,459 [INFO] [185/772] Scrapeando: UFC Fight Night: Lewis vs. Daukaus (December 18, 2021)
+2026-05-04 11:31:07,975 [INFO] [186/772] Scrapeando: UFC 269: Oliveira vs. Poirier (December 11, 2021)
+2026-05-04 11:31:11,579 [INFO] [187/772] Scrapeando: UFC Fight Night: Font vs. Aldo (December 04, 2021)
+2026-05-04 11:31:13,163 [INFO] [188/772] Scrapeando: UFC Fight Night: Vieira vs. Tate (November 20, 2021)
+2026-05-04 11:31:14,744 [INFO] [189/772] Scrapeando: UFC Fight Night: Holloway vs. Rodriguez (November 13, 2021)
+2026-05-04 11:31:18,626 [INFO] [190/772] Scrapeando: UFC 268: Usman vs. Covington 2 (November 06, 2021)
+2026-05-04 11:31:22,313 [INFO] [191/772] Scrapeando: UFC 267: Blachowicz vs. Teixeira (October 30, 2021)
+2026-05-04 11:31:26,011 [INFO] [192/772] Scrapeando: UFC Fight Night: Costa vs. Vettori (October 23, 2021)
+2026-05-04 11:31:27,603 [INFO] [193/772] Scrapeando: UFC Fight Night: Ladd vs. Dumont (October 16, 2021)
+2026-05-04 11:31:31,406 [INFO] [194/772] Scrapeando: UFC Fight Night: Dern vs. Rodriguez (October 09, 2021)
+2026-05-04 11:31:35,826 [INFO] [195/772] Scrapeando: UFC Fight Night: Santos vs. Walker (October 02, 2021)
+2026-05-04 11:31:37,407 [INFO] [196/772] Scrapeando: UFC 266: Volkanovski vs. Ortega (September 25, 2021)
+2026-05-04 11:31:43,357 [INFO] [197/772] Scrapeando: UFC Fight Night: Smith vs. Spann (September 18, 2021)
+2026-05-04 11:31:44,938 [INFO] [198/772] Scrapeando: UFC Fight Night: Brunson vs. Till (September 04, 2021)
+2026-05-04 11:31:48,598 [INFO] [199/772] Scrapeando: UFC Fight Night: Barboza vs. Chikadze (August 28, 2021)
+2026-05-04 11:31:50,185 [INFO] [200/772] Scrapeando: UFC Fight Night: Cannonier vs. Gastelum (August 21, 2021)
+2026-05-04 11:31:53,763 [INFO] [201/772] Scrapeando: UFC 265: Lewis vs. Gane (August 07, 2021)
+2026-05-04 11:31:57,477 [INFO] [202/772] Scrapeando: UFC Fight Night: Hall vs. Strickland (July 31, 2021)
+2026-05-04 11:31:59,103 [INFO] [203/772] Scrapeando: UFC Fight Night: Sandhagen vs. Dillashaw (July 24, 2021)
+2026-05-04 11:32:02,536 [INFO] [204/772] Scrapeando: UFC Fight Night: Makhachev vs. Moises (July 17, 2021)
+2026-05-04 11:32:07,477 [INFO] [205/772] Scrapeando: UFC 264: Poirier vs. McGregor 3 (July 10, 2021)
+2026-05-04 11:32:10,946 [INFO] [206/772] Scrapeando: UFC Fight Night: Gane vs. Volkov (June 26, 2021)
+2026-05-04 11:32:16,446 [INFO] [207/772] Scrapeando: UFC Fight Night: Jung vs. Ige (June 19, 2021)
+2026-05-04 11:32:22,157 [INFO] [208/772] Scrapeando: UFC 263: Adesanya vs. Vettori 2 (June 12, 2021)
+2026-05-04 11:32:25,678 [INFO] [209/772] Scrapeando: UFC Fight Night: Rozenstruik vs. Sakai (June 05, 2021)
+2026-05-04 11:32:42,268 [INFO] [210/772] Scrapeando: UFC Fight Night: Font vs. Garbrandt (May 22, 2021)
+2026-05-04 11:32:47,636 [INFO] [211/772] Scrapeando: UFC 262: Oliveira vs. Chandler (May 15, 2021)
+2026-05-04 11:32:49,226 [INFO] [212/772] Scrapeando: UFC Fight Night: Rodriguez vs. Waterson (May 08, 2021)
+2026-05-04 11:32:52,875 [INFO] [213/772] Scrapeando: UFC Fight Night: Reyes vs. Prochazka (May 01, 2021)
+2026-05-04 11:32:54,473 [INFO] [214/772] Scrapeando: UFC 261: Usman vs. Masvidal 2 (April 24, 2021)
+2026-05-04 11:32:56,070 [INFO] [215/772] Scrapeando: UFC Fight Night: Whittaker vs. Gastelum (April 17, 2021)
+2026-05-04 11:33:03,438 [INFO] [216/772] Scrapeando: UFC Fight Night: Vettori vs. Holland (April 10, 2021)
+2026-05-04 11:33:06,903 [INFO] [217/772] Scrapeando: UFC 260: Miocic vs. Ngannou (March 27, 2021)
+2026-05-04 11:33:10,373 [INFO] [218/772] Scrapeando: UFC Fight Night: Brunson vs. Holland (March 20, 2021)
+2026-05-04 11:33:13,802 [INFO] [219/772] Scrapeando: UFC Fight Night: Edwards vs. Muhammad (March 13, 2021)
+2026-05-04 11:33:15,537 [INFO] [220/772] Scrapeando: UFC 259: Blachowicz vs. Adesanya (March 06, 2021)
+2026-05-04 11:33:17,273 [INFO] [221/772] Scrapeando: UFC Fight Night: Rozenstruik vs. Gane (February 27, 2021)
+2026-05-04 11:33:21,124 [INFO] [222/772] Scrapeando: UFC Fight Night: Blaydes vs. Lewis (February 20, 2021)
+2026-05-04 11:33:30,698 [INFO] [223/772] Scrapeando: UFC 258: Usman vs. Burns (February 13, 2021)
+2026-05-04 11:33:32,426 [INFO] [224/772] Scrapeando: UFC Fight Night: Overeem vs. Volkov (February 06, 2021)
+2026-05-04 11:33:35,772 [INFO] [225/772] Scrapeando: UFC 257: Poirier vs. McGregor (January 23, 2021)
+2026-05-04 11:33:37,352 [INFO] [226/772] Scrapeando: UFC Fight Night: Chiesa vs. Magny (January 20, 2021)
+2026-05-04 11:33:38,926 [INFO] [227/772] Scrapeando: UFC Fight Night: Holloway vs. Kattar (January 16, 2021)
+2026-05-04 11:33:42,558 [INFO] [228/772] Scrapeando: UFC Fight Night: Thompson vs. Neal (December 19, 2020)
+2026-05-04 11:33:46,171 [INFO] [229/772] Scrapeando: UFC 256: Figueiredo vs. Moreno (December 12, 2020)
+2026-05-04 11:33:49,472 [INFO] [230/772] Scrapeando: UFC Fight Night: Hermansson vs. Vettori (December 05, 2020)
+2026-05-04 11:33:53,111 [INFO] [231/772] Scrapeando: UFC Fight Night: Smith vs. Clark (November 28, 2020)
+2026-05-04 11:33:56,940 [INFO] [232/772] Scrapeando: UFC 255: Figueiredo vs. Perez (November 21, 2020)
+2026-05-04 11:33:58,513 [INFO] [233/772] Scrapeando: UFC Fight Night: Felder vs. Dos Anjos (November 14, 2020)
+2026-05-04 11:34:03,422 [INFO] [234/772] Scrapeando: UFC Fight Night: Santos vs. Teixeira (November 07, 2020)
+2026-05-04 11:34:14,332 [INFO] [235/772] Scrapeando: UFC Fight Night: Hall vs. Silva (October 31, 2020)
+2026-05-04 11:34:17,765 [INFO] [236/772] Scrapeando: UFC 254: Khabib vs. Gaethje (October 24, 2020)
+2026-05-04 11:34:23,673 [INFO] [237/772] Scrapeando: UFC Fight Night: Ortega vs. The Korean Zombie (October 17, 2020)
+2026-05-04 11:34:25,246 [INFO] [238/772] Scrapeando: UFC Fight Night: Moraes vs. Sandhagen (October 10, 2020)
+2026-05-04 11:34:33,234 [INFO] [239/772] Scrapeando: UFC Fight Night: Holm vs. Aldana (October 03, 2020)
+2026-05-04 11:34:36,686 [INFO] [240/772] Scrapeando: UFC 253: Adesanya vs. Costa (September 26, 2020)
+2026-05-04 11:34:40,288 [INFO] [241/772] Scrapeando: UFC Fight Night: Covington vs. Woodley (September 19, 2020)
+2026-05-04 11:34:41,883 [INFO] [242/772] Scrapeando: UFC Fight Night: Waterson vs. Hill (September 12, 2020)
+2026-05-04 11:34:45,227 [INFO] [243/772] Scrapeando: UFC Fight Night: Overeem vs. Sakai (September 05, 2020)
+2026-05-04 11:34:48,892 [INFO] [244/772] Scrapeando: UFC Fight Night: Smith vs. Rakic (August 29, 2020)
+2026-05-04 11:34:50,488 [INFO] [245/772] Scrapeando: UFC Fight Night: Munhoz vs. Edgar (August 22, 2020)
+2026-05-04 11:34:52,065 [INFO] [246/772] Scrapeando: UFC 252: Miocic vs. Cormier 3 (August 15, 2020)
+2026-05-04 11:34:59,190 [INFO] [247/772] Scrapeando: UFC Fight Night: Lewis vs. Oleinik (August 08, 2020)
+2026-05-04 11:35:05,572 [INFO] [248/772] Scrapeando: UFC Fight Night: Brunson vs. Shahbazyan (August 01, 2020)
+2026-05-04 11:35:07,211 [INFO] [249/772] Scrapeando: UFC Fight Night: Whittaker vs. Till (July 25, 2020)
+2026-05-04 11:35:14,596 [INFO] [250/772] Scrapeando: UFC Fight Night: Figueiredo vs. Benavidez 2 (July 18, 2020)
+2026-05-04 11:35:18,188 [INFO] [251/772] Scrapeando: UFC Fight Night: Kattar vs. Ige (July 15, 2020)
+2026-05-04 11:35:19,773 [INFO] [252/772] Scrapeando: UFC 251: Usman vs. Masvidal (July 11, 2020)
+2026-05-04 11:35:23,626 [INFO] [253/772] Scrapeando: UFC Fight Night: Poirier vs. Hooker (June 27, 2020)
+2026-05-04 11:35:29,114 [INFO] [254/772] Scrapeando: UFC Fight Night: Blaydes vs. Volkov (June 20, 2020)
+2026-05-04 11:35:32,841 [INFO] [255/772] Scrapeando: UFC Fight Night: Eye vs. Calvillo (June 13, 2020)
+2026-05-04 11:35:34,423 [INFO] [256/772] Scrapeando: UFC 250: Nunes vs. Spencer (June 06, 2020)
+2026-05-04 11:35:36,004 [INFO] [257/772] Scrapeando: UFC Fight Night: Woodley vs. Burns (May 30, 2020)
+2026-05-04 11:35:39,327 [INFO] [258/772] Scrapeando: UFC Fight Night: Overeem vs. Harris (May 16, 2020)
+2026-05-04 11:35:44,770 [INFO] [259/772] Scrapeando: UFC Fight Night: Smith vs. Teixeira (May 13, 2020)
+2026-05-04 11:35:52,007 [INFO] [260/772] Scrapeando: UFC 249: Ferguson vs. Gaethje (May 09, 2020)
+2026-05-04 11:35:59,712 [INFO] [261/772] Scrapeando: UFC Fight Night: Lee vs. Oliveira (March 14, 2020)
+2026-05-04 11:36:02,378 [INFO] [262/772] Scrapeando: UFC 248: Adesanya vs. Romero (March 07, 2020)
+2026-05-04 11:36:03,968 [INFO] [263/772] Scrapeando: UFC Fight Night: Benavidez vs. Figueiredo (February 29, 2020)
+2026-05-04 11:36:07,404 [INFO] [264/772] Scrapeando: UFC Fight Night: Felder vs. Hooker (February 22, 2020)
+2026-05-04 11:36:11,269 [INFO] [265/772] Scrapeando: UFC Fight Night: Anderson vs. Blachowicz (February 15, 2020)
+2026-05-04 11:36:13,059 [INFO] [266/772] Scrapeando: UFC 247: Jones vs. Reyes (February 08, 2020)
+2026-05-04 11:36:18,433 [INFO] [267/772] Scrapeando: UFC Fight Night: Blaydes vs. Dos Santos (January 25, 2020)
+2026-05-04 11:36:21,961 [INFO] [268/772] Scrapeando: UFC 246: McGregor vs. Cowboy (January 18, 2020)
+2026-05-04 11:36:25,460 [INFO] [269/772] Scrapeando: UFC Fight Night: Edgar vs. The Korean Zombie (December 21, 2019)
+2026-05-04 11:36:29,114 [INFO] [270/772] Scrapeando: UFC 245: Usman vs. Covington (December 14, 2019)
+2026-05-04 11:36:31,124 [INFO] [271/772] Scrapeando: UFC Fight Night: Overeem vs. Rozenstruik (December 07, 2019)
+2026-05-04 11:36:36,687 [INFO] [272/772] Scrapeando: UFC Fight Night: Blachowicz vs. Jacare (November 16, 2019)
+2026-05-04 11:36:38,277 [INFO] [273/772] Scrapeando: UFC Fight Night: Zabit vs. Kattar (November 09, 2019)
+2026-05-04 11:36:41,731 [INFO] [274/772] Scrapeando: UFC 244: Masvidal vs. Diaz (November 02, 2019)
+2026-05-04 11:36:47,188 [INFO] [275/772] Scrapeando: UFC Fight Night: Maia vs. Askren (October 26, 2019)
+2026-05-04 11:36:54,985 [INFO] [276/772] Scrapeando: UFC Fight Night: Reyes vs. Weidman (October 18, 2019)
+2026-05-04 11:37:03,329 [INFO] [277/772] Scrapeando: UFC Fight Night: Joanna vs. Waterson (October 12, 2019)
+2026-05-04 11:37:05,152 [INFO] [278/772] Scrapeando: UFC 243: Whittaker vs. Adesanya (October 05, 2019)
+2026-05-04 11:37:11,172 [INFO] [279/772] Scrapeando: UFC Fight Night: Hermansson vs. Cannonier (September 28, 2019)
+2026-05-04 11:37:12,984 [INFO] [280/772] Scrapeando: UFC Fight Night: Rodriguez vs. Stephens (September 21, 2019)
+2026-05-04 11:37:17,025 [INFO] [281/772] Scrapeando: UFC Fight Night: Cowboy vs. Gaethje (September 14, 2019)
+2026-05-04 11:37:22,721 [INFO] [282/772] Scrapeando: UFC 242: Khabib vs. Poirier (September 07, 2019)
+2026-05-04 11:37:26,815 [INFO] [283/772] Scrapeando: UFC Fight Night: Andrade vs. Zhang (August 31, 2019)
+2026-05-04 11:37:28,564 [INFO] [284/772] Scrapeando: UFC 241: Cormier vs. Miocic 2 (August 17, 2019)
+2026-05-04 11:37:32,523 [INFO] [285/772] Scrapeando: UFC Fight Night: Shevchenko vs. Carmouche 2 (August 10, 2019)
+2026-05-04 11:37:36,280 [INFO] [286/772] Scrapeando: UFC Fight Night: Covington vs. Lawler (August 03, 2019)
+2026-05-04 11:37:38,175 [INFO] [287/772] Scrapeando: UFC 240: Holloway vs. Edgar (July 27, 2019)
+2026-05-04 11:37:39,939 [INFO] [288/772] Scrapeando: UFC Fight Night: Dos Anjos vs. Edwards (July 20, 2019)
+2026-05-04 11:37:47,940 [INFO] [289/772] Scrapeando: UFC Fight Night: De Randamie vs. Ladd (July 13, 2019)
+2026-05-04 11:37:49,798 [INFO] [290/772] Scrapeando: UFC 239: Jones vs. Santos (July 06, 2019)
+2026-05-04 11:37:51,554 [INFO] [291/772] Scrapeando: UFC Fight Night: Ngannou vs. Dos Santos (June 29, 2019)
+2026-05-04 11:37:57,619 [INFO] [292/772] Scrapeando: UFC Fight Night: Moicano vs. The Korean Zombie (June 22, 2019)
+2026-05-04 11:38:03,028 [INFO] [293/772] Scrapeando: UFC 238: Cejudo vs. Moraes (June 08, 2019)
+2026-05-04 11:38:07,038 [INFO] [294/772] Scrapeando: UFC Fight Night: Gustafsson vs. Smith (June 01, 2019)
+2026-05-04 11:38:08,626 [INFO] [295/772] Scrapeando: UFC Fight Night: Dos Anjos vs. Lee (May 18, 2019)
+2026-05-04 11:38:10,233 [INFO] [296/772] Scrapeando: UFC 237: Namajunas vs. Andrade (May 11, 2019)
+2026-05-04 11:38:11,822 [INFO] [297/772] Scrapeando: UFC Fight Night: Iaquinta vs. Cowboy (May 04, 2019)
+2026-05-04 11:38:17,485 [INFO] [298/772] Scrapeando: UFC Fight Night: Jacare vs. Hermansson (April 27, 2019)
+2026-05-04 11:38:23,175 [INFO] [299/772] Scrapeando: UFC Fight Night: Overeem vs. Oleinik (April 20, 2019)
+2026-05-04 11:38:30,781 [INFO] [300/772] Scrapeando: UFC 236: Holloway vs. Poirier 2 (April 13, 2019)
+2026-05-04 11:38:32,368 [INFO] [301/772] Scrapeando: UFC Fight Night: Barboza vs. Gaethje (March 30, 2019)
+2026-05-04 11:38:33,952 [INFO] [302/772] Scrapeando: UFC Fight Night: Thompson vs. Pettis (March 23, 2019)
+2026-05-04 11:38:37,578 [INFO] [303/772] Scrapeando: UFC Fight Night: Till vs. Masvidal (March 16, 2019)
+2026-05-04 11:38:39,157 [INFO] [304/772] Scrapeando: UFC Fight Night: Lewis vs. Dos Santos (March 09, 2019)
+2026-05-04 11:38:47,297 [INFO] [305/772] Scrapeando: UFC 235: Jones vs. Smith (March 02, 2019)
+2026-05-04 11:38:49,122 [INFO] [306/772] Scrapeando: UFC Fight Night: Blachowicz vs. Santos (February 23, 2019)
+2026-05-04 11:38:52,775 [INFO] [307/772] Scrapeando: UFC Fight Night: Ngannou vs. Velasquez (February 17, 2019)
+2026-05-04 11:38:56,710 [INFO] [308/772] Scrapeando: UFC 234: Adesanya vs. Silva (February 09, 2019)
+2026-05-04 11:38:58,283 [INFO] [309/772] Scrapeando: UFC Fight Night: Assuncao vs. Moraes 2 (February 02, 2019)
+2026-05-04 11:39:04,510 [INFO] [310/772] Scrapeando: UFC Fight Night: Cejudo vs. Dillashaw (January 19, 2019)
+2026-05-04 11:39:07,941 [INFO] [311/772] Scrapeando: UFC 232: Jones vs. Gustafsson 2 (December 29, 2018)
+2026-05-04 11:39:11,731 [INFO] [312/772] Scrapeando: UFC Fight Night: Lee vs. Iaquinta (December 15, 2018)
+2026-05-04 11:39:15,524 [INFO] [313/772] Scrapeando: UFC 231: Holloway vs. Ortega (December 08, 2018)
+2026-05-04 11:39:17,325 [INFO] [314/772] Scrapeando: UFC Fight Night: Dos Santos vs. Tuivasa (December 01, 2018)
+2026-05-04 11:39:22,780 [INFO] [315/772] Scrapeando: The Ultimate Fighter: Heavy Hitters Finale (November 30, 2018)
+2026-05-04 11:39:28,734 [INFO] [316/772] Scrapeando: UFC Fight Night: Blaydes vs. Ngannou 2 (November 24, 2018)
+2026-05-04 11:39:34,218 [INFO] [317/772] Scrapeando: UFC Fight Night: Magny vs. Ponzinibbio (November 17, 2018)
+2026-05-04 11:39:35,809 [INFO] [318/772] Scrapeando: UFC Fight Night: Korean Zombie vs. Rodriguez (November 10, 2018)
+2026-05-04 11:39:37,569 [INFO] [319/772] Scrapeando: UFC 230: Cormier vs. Lewis (November 03, 2018)
+2026-05-04 11:39:43,726 [INFO] [320/772] Scrapeando: UFC Fight Night: Oezdemir vs. Smith (October 27, 2018)
+2026-05-04 11:39:47,321 [INFO] [321/772] Scrapeando: UFC 229: Khabib vs. McGregor (October 06, 2018)
+2026-05-04 11:39:50,856 [INFO] [322/772] Scrapeando: UFC Fight Night: Marreta vs. Anders (September 22, 2018)
+2026-05-04 11:39:54,609 [INFO] [323/772] Scrapeando: UFC Fight Night: Hunt vs. Oleinik (September 15, 2018)
+2026-05-04 11:40:00,181 [INFO] [324/772] Scrapeando: UFC 228: Woodley vs. Till (September 08, 2018)
+2026-05-04 11:40:03,579 [INFO] [325/772] Scrapeando: UFC Fight Night: Gaethje vs. Vick (August 25, 2018)
+2026-05-04 11:40:05,335 [INFO] [326/772] Scrapeando: UFC 227: Dillashaw vs. Garbrandt 2 (August 04, 2018)
+2026-05-04 11:40:07,113 [INFO] [327/772] Scrapeando: UFC Fight Night: Alvarez vs. Poirier 2 (July 28, 2018)
+2026-05-04 11:40:09,199 [INFO] [328/772] Scrapeando: UFC Fight Night: Shogun vs. Smith (July 22, 2018)
+2026-05-04 11:40:12,963 [INFO] [329/772] Scrapeando: UFC Fight Night: Dos Santos vs. Ivanov (July 14, 2018)
+2026-05-04 11:40:21,035 [INFO] [330/772] Scrapeando: UFC 226: Miocic vs. Cormier (July 07, 2018)
+2026-05-04 11:40:27,209 [INFO] [331/772] Scrapeando: The Ultimate Fighter: Undefeated Finale (July 06, 2018)
+2026-05-04 11:40:28,999 [INFO] [332/772] Scrapeando: UFC Fight Night: Cowboy vs. Edwards (June 23, 2018)
+2026-05-04 11:40:30,890 [INFO] [333/772] Scrapeando: UFC 225: Whittaker vs. Romero 2 (June 09, 2018)
+2026-05-04 11:40:39,207 [INFO] [334/772] Scrapeando: UFC Fight Night: Rivera vs. Moraes (June 01, 2018)
+2026-05-04 11:40:43,061 [INFO] [335/772] Scrapeando: UFC Fight Night: Thompson vs. Till (May 27, 2018)
+2026-05-04 11:40:44,818 [INFO] [336/772] Scrapeando: UFC Fight Night: Maia vs. Usman (May 19, 2018)
+2026-05-04 11:40:46,635 [INFO] [337/772] Scrapeando: UFC 224: Nunes vs. Pennington (May 12, 2018)
+2026-05-04 11:40:50,245 [INFO] [338/772] Scrapeando: UFC Fight Night: Barboza vs. Lee (April 21, 2018)
+2026-05-04 11:40:54,052 [INFO] [339/772] Scrapeando: UFC Fight Night: Poirier vs. Gaethje (April 14, 2018)
+2026-05-04 11:40:57,832 [INFO] [340/772] Scrapeando: UFC 223: Khabib vs. Iaquinta (April 07, 2018)
+2026-05-04 11:40:59,645 [INFO] [341/772] Scrapeando: UFC Fight Night: Werdum vs. Volkov (March 17, 2018)
+2026-05-04 11:41:07,405 [INFO] [342/772] Scrapeando: UFC 222: Cyborg vs. Kunitskaya (March 03, 2018)
+2026-05-04 11:41:11,100 [INFO] [343/772] Scrapeando: UFC Fight Night: Emmett vs. Stephens (February 24, 2018)
+2026-05-04 11:41:12,955 [INFO] [344/772] Scrapeando: UFC Fight Night: Cerrone vs. Medeiros (February 18, 2018)
+2026-05-04 11:41:16,647 [INFO] [345/772] Scrapeando: UFC 221: Romero vs. Rockhold (February 10, 2018)
+2026-05-04 11:41:22,283 [INFO] [346/772] Scrapeando: UFC Fight Night: Machida vs. Anders (February 03, 2018)
+2026-05-04 11:41:26,115 [INFO] [347/772] Scrapeando: UFC Fight Night: Jacare vs. Brunson 2 (January 27, 2018)
+2026-05-04 11:41:27,824 [INFO] [348/772] Scrapeando: UFC 220: Miocic vs. Ngannou (January 20, 2018)
+2026-05-04 11:41:31,384 [INFO] [349/772] Scrapeando: UFC Fight Night: Stephens vs. Choi (January 14, 2018)
+2026-05-04 11:41:33,228 [INFO] [350/772] Scrapeando: UFC 219: Cyborg vs. Holm (December 30, 2017)
+2026-05-04 11:41:35,103 [INFO] [351/772] Scrapeando: UFC Fight Night: Lawler vs. Dos Anjos (December 16, 2017)
+2026-05-04 11:41:36,877 [INFO] [352/772] Scrapeando: UFC Fight Night: Swanson vs. Ortega (December 09, 2017)
+2026-05-04 11:41:38,747 [INFO] [353/772] Scrapeando: UFC 218: Holloway vs. Aldo 2 (December 02, 2017)
+2026-05-04 11:41:50,975 [INFO] [354/772] Scrapeando: The Ultimate Fighter: A New World Champion Finale (December 01, 2017)
+2026-05-04 11:41:52,726 [INFO] [355/772] Scrapeando: UFC Fight Night: Bisping vs. Gastelum (November 25, 2017)
+2026-05-04 11:41:58,337 [INFO] [356/772] Scrapeando: UFC Fight Night: Werdum vs. Tybura (November 18, 2017)
+2026-05-04 11:42:07,494 [INFO] [357/772] Scrapeando: UFC Fight Night: Poirier vs. Pettis (November 11, 2017)
+2026-05-04 11:42:11,171 [INFO] [358/772] Scrapeando: UFC 217: Bisping vs. St-Pierre (November 04, 2017)
+2026-05-04 11:42:17,406 [INFO] [359/772] Scrapeando: UFC Fight Night: Brunson vs. Machida (October 28, 2017)
+2026-05-04 11:42:20,810 [INFO] [360/772] Scrapeando: UFC Fight Night: Cerrone vs. Till (October 21, 2017)
+2026-05-04 11:42:22,426 [INFO] [361/772] Scrapeando: UFC 216: Ferguson vs. Lee (October 07, 2017)
+2026-05-04 11:42:25,892 [INFO] [362/772] Scrapeando: UFC Fight Night: Saint Preux vs. Okami (September 22, 2017)
+2026-05-04 11:42:27,507 [INFO] [363/772] Scrapeando: UFC Fight Night: Rockhold vs. Branch (September 16, 2017)
+2026-05-04 11:42:32,985 [INFO] [364/772] Scrapeando: UFC 215: Nunes vs Shevchenko 2 (September 09, 2017)
+2026-05-04 11:42:36,636 [INFO] [365/772] Scrapeando: UFC Fight Night: Volkov vs. Struve (September 02, 2017)
+2026-05-04 11:42:40,159 [INFO] [366/772] Scrapeando: UFC Fight Night: Pettis vs. Moreno (August 05, 2017)
+2026-05-04 11:42:41,748 [INFO] [367/772] Scrapeando: UFC 214: Cormier vs. Jones 2 (July 29, 2017)
+2026-05-04 11:42:43,336 [INFO] [368/772] Scrapeando: UFC Fight Night: Weidman vs. Gastelum (July 22, 2017)
+2026-05-04 11:42:48,894 [INFO] [369/772] Scrapeando: UFC Fight Night: Nelson vs. Ponzinibbio (July 16, 2017)
+2026-05-04 11:42:52,498 [INFO] [370/772] Scrapeando: UFC 213: Romero vs. Whittaker (July 08, 2017)
+2026-05-04 11:42:59,804 [INFO] [371/772] Scrapeando: The Ultimate Fighter: Redemption Finale (July 07, 2017)
+2026-05-04 11:43:01,782 [INFO] [372/772] Scrapeando: UFC Fight Night: Chiesa vs. Lee (June 25, 2017)
+2026-05-04 11:43:03,362 [INFO] [373/772] Scrapeando: UFC Fight Night: Holm vs. Correia (June 17, 2017)
+2026-05-04 11:43:10,653 [INFO] [374/772] Scrapeando: UFC Fight Night: Lewis vs. Hunt (June 10, 2017)
+2026-05-04 11:43:14,374 [INFO] [375/772] Scrapeando: UFC 212: Aldo vs. Holloway (June 03, 2017)
+2026-05-04 11:43:15,954 [INFO] [376/772] Scrapeando: UFC Fight Night: Gustafsson vs. Teixeira (May 28, 2017)
+2026-05-04 11:43:17,547 [INFO] [377/772] Scrapeando: UFC 211: Miocic vs. Dos Santos (May 13, 2017)
+2026-05-04 11:43:29,058 [INFO] [378/772] Scrapeando: UFC Fight Night: Swanson vs. Lobov (April 22, 2017)
+2026-05-04 11:43:30,643 [INFO] [379/772] Scrapeando: UFC on FOX: Johnson vs. Reis (April 15, 2017)
+2026-05-04 11:43:34,322 [INFO] [380/772] Scrapeando: UFC 210: Cormier vs. Johnson 2 (April 08, 2017)
+2026-05-04 11:43:36,125 [INFO] [381/772] Scrapeando: UFC Fight Night: Manuwa vs. Anderson (March 18, 2017)
+2026-05-04 11:43:39,658 [INFO] [382/772] Scrapeando: UFC Fight Night: Belfort vs. Gastelum (March 11, 2017)
+2026-05-04 11:43:41,422 [INFO] [383/772] Scrapeando: UFC 209: Woodley vs. Thompson 2 (March 04, 2017)
+2026-05-04 11:43:48,910 [INFO] [384/772] Scrapeando: UFC Fight Night: Lewis vs. Browne (February 19, 2017)
+2026-05-04 11:43:52,531 [INFO] [385/772] Scrapeando: UFC 208: Holm vs. De Randamie (February 11, 2017)
+2026-05-04 11:43:54,338 [INFO] [386/772] Scrapeando: UFC Fight Night: Bermudez vs. The Korean Zombie (February 04, 2017)
+2026-05-04 11:44:00,885 [INFO] [387/772] Scrapeando: UFC on FOX: Shevchenko vs. Pena (January 28, 2017)
+2026-05-04 11:44:06,096 [INFO] [388/772] Scrapeando: UFC Fight Night: Rodriguez vs. Penn (January 15, 2017)
+2026-05-04 11:44:13,901 [INFO] [389/772] Scrapeando: UFC 207: Nunes vs. Rousey (December 30, 2016)
+2026-05-04 11:44:15,643 [INFO] [390/772] Scrapeando: UFC on FOX: VanZant vs. Waterson (December 17, 2016)
+2026-05-04 11:44:17,548 [INFO] [391/772] Scrapeando: UFC 206: Holloway vs. Pettis (December 10, 2016)
+2026-05-04 11:44:19,353 [INFO] [392/772] Scrapeando: UFC Fight Night: Lewis vs. Abdurakhimov (December 09, 2016)
+2026-05-04 11:44:25,212 [INFO] [393/772] Scrapeando: The Ultimate Fighter: Tournament of Champions Finale (December 03, 2016)
+2026-05-04 11:44:26,980 [INFO] [394/772] Scrapeando: UFC Fight Night: Whittaker vs. Brunson (November 26, 2016)
+2026-05-04 11:44:28,772 [INFO] [395/772] Scrapeando: UFC Fight Night: Bader vs. Nogueira (November 19, 2016)
+2026-05-04 11:44:32,403 [INFO] [396/772] Scrapeando: UFC Fight Night: Mousasi vs. Hall 2 (November 19, 2016)
+2026-05-04 11:44:38,080 [INFO] [397/772] Scrapeando: UFC 205: Alvarez vs McGregor (November 12, 2016)
+2026-05-04 11:44:39,851 [INFO] [398/772] Scrapeando: UFC Fight Night: Dos Anjos vs. Ferguson (November 05, 2016)
+2026-05-04 11:44:41,684 [INFO] [399/772] Scrapeando: UFC 204: Bisping vs. Henderson (October 08, 2016)
+2026-05-04 11:44:45,457 [INFO] [400/772] Scrapeando: UFC Fight Night: Lineker vs. Dodson (October 01, 2016)
+2026-05-04 11:44:53,903 [INFO] [401/772] Scrapeando: UFC Fight Night: Cyborg vs. Lansberg (September 24, 2016)
+2026-05-04 11:44:57,793 [INFO] [402/772] Scrapeando: UFC Fight Night: Poirier vs. Johnson (September 17, 2016)
+2026-05-04 11:44:59,750 [INFO] [403/772] Scrapeando: UFC 203: Miocic vs. Overeem (September 10, 2016)
+2026-05-04 11:45:06,494 [INFO] [404/772] Scrapeando: UFC Fight Night: Arlovski vs. Barnett (September 03, 2016)
+2026-05-04 11:45:12,393 [INFO] [405/772] Scrapeando: UFC on FOX: Maia vs. Condit (August 27, 2016)
+2026-05-04 11:45:14,148 [INFO] [406/772] Scrapeando: UFC 202: Diaz vs. McGregor 2 (August 20, 2016)
+2026-05-04 11:45:15,902 [INFO] [407/772] Scrapeando: UFC Fight Night: Rodriguez vs. Caceres (August 06, 2016)
+2026-05-04 11:45:21,622 [INFO] [408/772] Scrapeando: UFC 201: Lawler vs. Woodley (July 30, 2016)
+2026-05-04 11:45:25,499 [INFO] [409/772] Scrapeando: UFC on FOX: Holm vs. Shevchenko (July 23, 2016)
+2026-05-04 11:45:31,346 [INFO] [410/772] Scrapeando: UFC Fight Night: McDonald vs. Lineker (July 13, 2016)
+2026-05-04 11:45:34,827 [INFO] [411/772] Scrapeando: UFC 200: Tate vs Nunes (July 09, 2016)
+2026-05-04 11:45:40,008 [INFO] [412/772] Scrapeando: The Ultimate Fighter: Team Joanna vs. Team Cláudia Finale (July 08, 2016)
+2026-05-04 11:45:41,589 [INFO] [413/772] Scrapeando: UFC Fight Night: Dos Anjos vs. Alvarez (July 07, 2016)
+2026-05-04 11:45:44,988 [INFO] [414/772] Scrapeando: UFC Fight Night: MacDonald vs Thompson (June 18, 2016)
+2026-05-04 11:45:46,567 [INFO] [415/772] Scrapeando: UFC 199: Rockhold vs. Bisping 2 (June 04, 2016)
+2026-05-04 11:45:48,392 [INFO] [416/772] Scrapeando: UFC Fight Night: Almeida vs Garbrandt (May 29, 2016)
+2026-05-04 11:45:52,225 [INFO] [417/772] Scrapeando: UFC 198: Werdum vs Miocic (May 14, 2016)
+2026-05-04 11:45:55,730 [INFO] [418/772] Scrapeando: UFC Fight Night: Overeem vs Arlovski (May 08, 2016)
+2026-05-04 11:46:03,748 [INFO] [419/772] Scrapeando: UFC 197: Jones vs Saint Preux (April 23, 2016)
+2026-05-04 11:46:07,736 [INFO] [420/772] Scrapeando: UFC on FOX: Teixeira vs Evans (April 16, 2016)
+2026-05-04 11:46:09,642 [INFO] [421/772] Scrapeando: UFC Fight Night: Rothwell vs Dos Santos (April 10, 2016)
+2026-05-04 11:46:26,284 [INFO] [422/772] Scrapeando: UFC Fight Night: Hunt vs Mir (March 19, 2016)
+2026-05-04 11:46:34,864 [INFO] [423/772] Scrapeando: UFC 196: McGregor vs Diaz (March 05, 2016)
+2026-05-04 11:46:36,462 [INFO] [424/772] Scrapeando: UFC Fight Night: Silva vs Bisping (February 27, 2016)
+2026-05-04 11:46:40,249 [INFO] [425/772] Scrapeando: UFC Fight Night: Cowboy vs Cowboy (February 21, 2016)
+2026-05-04 11:46:43,837 [INFO] [426/772] Scrapeando: UFC Fight Night: Hendricks vs Thompson (February 06, 2016)
+2026-05-04 11:46:49,394 [INFO] [427/772] Scrapeando: UFC on FOX: Johnson vs. Bader (January 30, 2016)
+2026-05-04 11:46:53,222 [INFO] [428/772] Scrapeando: UFC Fight Night: Dillashaw vs Cruz (January 17, 2016)
+2026-05-04 11:46:56,580 [INFO] [429/772] Scrapeando: UFC 195: Lawler vs Condit (January 02, 2016)
+2026-05-04 11:47:01,447 [INFO] [430/772] Scrapeando: UFC on FOX: Dos Anjos vs. Cowboy 2 (December 19, 2015)
+2026-05-04 11:47:07,632 [INFO] [431/772] Scrapeando: UFC 194: Aldo vs McGregor (December 12, 2015)
+2026-05-04 11:47:09,215 [INFO] [432/772] Scrapeando: The Ultimate Fighter: Team McGregor vs. Team Faber Finale (December 11, 2015)
+2026-05-04 11:47:12,818 [INFO] [433/772] Scrapeando: UFC Fight Night: Namajunas vs. VanZant (December 10, 2015)
+2026-05-04 11:47:14,392 [INFO] [434/772] Scrapeando: UFC Fight Night: Henderson vs Masvidal (November 28, 2015)
+2026-05-04 11:47:15,970 [INFO] [435/772] Scrapeando: UFC Fight Night: Magny vs Gastelum (November 21, 2015)
+2026-05-04 11:47:17,561 [INFO] [436/772] Scrapeando: UFC 193: Rousey vs Holm (November 14, 2015)
+2026-05-04 11:47:22,746 [INFO] [437/772] Scrapeando: UFC Fight Night: Belfort vs Henderson 3 (November 07, 2015)
+2026-05-04 11:47:24,325 [INFO] [438/772] Scrapeando: UFC Fight Night: Holohan vs Smolka (October 24, 2015)
+2026-05-04 11:47:25,911 [INFO] [439/772] Scrapeando: UFC 192: Cormier vs Gustafsson (October 03, 2015)
+2026-05-04 11:47:31,434 [INFO] [440/772] Scrapeando: UFC Fight Night: Barnett vs Nelson (September 26, 2015)
+2026-05-04 11:47:35,008 [INFO] [441/772] Scrapeando: UFC 191: Johnson vs Dodson 2 (September 05, 2015)
+2026-05-04 11:47:38,359 [INFO] [442/772] Scrapeando: UFC Fight Night: Holloway vs Oliveira (August 23, 2015)
+2026-05-04 11:47:39,959 [INFO] [443/772] Scrapeando: UFC Fight Night: Teixeira vs Saint Preux (August 08, 2015)
+2026-05-04 11:47:43,622 [INFO] [444/772] Scrapeando: UFC 190: Rousey vs Correia (August 01, 2015)
+2026-05-04 11:47:49,183 [INFO] [445/772] Scrapeando: UFC on FOX: Dillashaw vs. Barao II (July 25, 2015)
+2026-05-04 11:47:50,948 [INFO] [446/772] Scrapeando: UFC Fight Night: Bisping vs Leites (July 18, 2015)
+2026-05-04 11:47:54,828 [INFO] [447/772] Scrapeando: UFC Fight Night: Mir vs Duffee (July 15, 2015)
+2026-05-04 11:47:58,666 [INFO] [448/772] Scrapeando: The Ultimate Fighter: American Top Team vs. Blackzilians Finale (July 12, 2015)
+2026-05-04 11:48:01,407 [INFO] [449/772] Scrapeando: UFC 189: Mendes vs McGregor (July 11, 2015)
+2026-05-04 11:48:04,357 [INFO] [450/772] Scrapeando: UFC Fight Night: Machida vs Romero (June 27, 2015)
+2026-05-04 11:48:06,125 [INFO] [451/772] Scrapeando: UFC Fight Night: Jedrzejczyk vs Penne (June 20, 2015)
+2026-05-04 11:48:07,940 [INFO] [452/772] Scrapeando: UFC 188: Velasquez vs Werdum (June 13, 2015)
+2026-05-04 11:48:11,816 [INFO] [453/772] Scrapeando: UFC Fight Night: Boetsch vs Henderson (June 06, 2015)
+2026-05-04 11:48:17,552 [INFO] [454/772] Scrapeando: UFC Fight Night: Condit vs Alves (May 30, 2015)
+2026-05-04 11:48:19,542 [INFO] [455/772] Scrapeando: UFC 187: Johnson vs Cormier (May 23, 2015)
+2026-05-04 11:48:23,081 [INFO] [456/772] Scrapeando: UFC Fight Night: Edgar vs Faber (May 16, 2015)
+2026-05-04 11:48:24,657 [INFO] [457/772] Scrapeando: UFC Fight Night: Miocic vs Hunt (May 09, 2015)
+2026-05-04 11:48:28,485 [INFO] [458/772] Scrapeando: UFC 186: Johnson vs Horiguchi (April 25, 2015)
+2026-05-04 11:48:30,254 [INFO] [459/772] Scrapeando: UFC on FOX: Machida vs Rockhold (April 18, 2015)
+2026-05-04 11:48:31,836 [INFO] [460/772] Scrapeando: UFC Fight Night: Gonzaga vs Cro Cop 2 (April 11, 2015)
+2026-05-04 11:48:37,827 [INFO] [461/772] Scrapeando: UFC Fight Night: Mendes vs Lamas (April 04, 2015)
+2026-05-04 11:48:41,337 [INFO] [462/772] Scrapeando: UFC Fight Night: Maia vs LaFlare (March 21, 2015)
+2026-05-04 11:48:42,911 [INFO] [463/772] Scrapeando: UFC 185: Pettis vs Dos Anjos (March 14, 2015)
+2026-05-04 11:48:48,492 [INFO] [464/772] Scrapeando: UFC 184: Rousey vs Zingano (February 28, 2015)
+2026-05-04 11:48:51,940 [INFO] [465/772] Scrapeando: UFC Fight Night: Bigfoot vs Mir (February 22, 2015)
+2026-05-04 11:48:55,444 [INFO] [466/772] Scrapeando: UFC Fight Night: Henderson vs Thatch (February 14, 2015)
+2026-05-04 11:48:57,031 [INFO] [467/772] Scrapeando: UFC 183: Silva vs Diaz (January 31, 2015)
+2026-05-04 11:48:58,612 [INFO] [468/772] Scrapeando: UFC on FOX: Gustafsson vs Johnson (January 24, 2015)
+2026-05-04 11:49:04,585 [INFO] [469/772] Scrapeando: UFC Fight Night: McGregor vs Siver (January 18, 2015)
+2026-05-04 11:49:06,164 [INFO] [470/772] Scrapeando: UFC 182: Jones vs Cormier (January 03, 2015)
+2026-05-04 11:49:09,820 [INFO] [471/772] Scrapeando: UFC Fight Night: Machida vs Dollaway (December 20, 2014)
+2026-05-04 11:49:11,428 [INFO] [472/772] Scrapeando: UFC on FOX: Dos Santos vs Miocic (December 13, 2014)
+2026-05-04 11:49:18,717 [INFO] [473/772] Scrapeando: The Ultimate Fighter: A Champion Will Be Crowned Finale (December 12, 2014)
+2026-05-04 11:49:20,312 [INFO] [474/772] Scrapeando: UFC 181: Hendricks vs Lawler II (December 06, 2014)
+2026-05-04 11:49:25,775 [INFO] [475/772] Scrapeando: UFC Fight Night: Edgar vs Swanson (November 22, 2014)
+2026-05-04 11:49:35,302 [INFO] [476/772] Scrapeando: UFC 180: Werdum vs Hunt (November 15, 2014)
+2026-05-04 11:49:38,601 [INFO] [477/772] Scrapeando: UFC Fight Night 56: Shogun vs Saint Preux (November 08, 2014)
+2026-05-04 11:49:40,185 [INFO] [478/772] Scrapeando: UFC Fight Night: Rockhold vs Bisping (November 07, 2014)
+2026-05-04 11:49:43,825 [INFO] [479/772] Scrapeando: UFC 179: Aldo vs Mendes 2 (October 25, 2014)
+2026-05-04 11:49:45,417 [INFO] [480/772] Scrapeando: UFC Fight Night: MacDonald vs Saffiedine (October 04, 2014)
+2026-05-04 11:49:46,996 [INFO] [481/772] Scrapeando: UFC Fight Night: Nelson vs Story (October 04, 2014)
+2026-05-04 11:49:48,571 [INFO] [482/772] Scrapeando: UFC 178: Johnson vs Cariaso (September 27, 2014)
+2026-05-04 11:49:50,163 [INFO] [483/772] Scrapeando: UFC Fight Night: Hunt vs Nelson (September 20, 2014)
+2026-05-04 11:49:53,790 [INFO] [484/772] Scrapeando: UFC Fight Night: Bigfoot vs Arlovski (September 13, 2014)
+2026-05-04 11:49:57,492 [INFO] [485/772] Scrapeando: UFC Fight Night: Jacare vs Mousasi (September 05, 2014)
+2026-05-04 11:50:04,531 [INFO] [486/772] Scrapeando: UFC 177: Dillashaw vs Soto (August 30, 2014)
+2026-05-04 11:50:08,218 [INFO] [487/772] Scrapeando: UFC Fight Night: Henderson vs Dos Anjos (August 23, 2014)
+2026-05-04 11:50:09,906 [INFO] [488/772] Scrapeando: UFC Fight Night: Bisping vs Le (August 23, 2014)
+2026-05-04 11:50:11,603 [INFO] [489/772] Scrapeando: UFC Fight Night: Bader vs Saint Preux (August 16, 2014)
+2026-05-04 11:50:15,455 [INFO] [490/772] Scrapeando: UFC on FOX: Lawler vs Brown (July 26, 2014)
+2026-05-04 11:50:17,032 [INFO] [491/772] Scrapeando: UFC Fight Night: McGregor vs Brandao (July 19, 2014)
+2026-05-04 11:50:18,972 [INFO] [492/772] Scrapeando: UFC Fight Night: Cowboy vs Miller (July 16, 2014)
+2026-05-04 11:50:20,545 [INFO] [493/772] Scrapeando: The Ultimate Fighter: Team Edgar vs. Team Penn Finale (July 06, 2014)
+2026-05-04 11:50:23,956 [INFO] [494/772] Scrapeando: UFC 175: Weidman vs Machida (July 05, 2014)
+2026-05-04 11:50:25,695 [INFO] [495/772] Scrapeando: UFC Fight Night: Swanson vs Stephens (June 28, 2014)
+2026-05-04 11:50:29,161 [INFO] [496/772] Scrapeando: UFC Fight Night: Te Huna vs Marquardt (June 28, 2014)
+2026-05-04 11:50:33,116 [INFO] [497/772] Scrapeando: UFC 174: Johnson vs Bagautinov (June 14, 2014)
+2026-05-04 11:50:36,947 [INFO] [498/772] Scrapeando: UFC Fight Night: Henderson vs Khabilov (June 07, 2014)
+2026-05-04 11:50:38,753 [INFO] [499/772] Scrapeando: UFC Fight Night: Miocic vs Maldonado (May 31, 2014)
+2026-05-04 11:50:47,157 [INFO] [500/772] Scrapeando: UFC Fight Night: Munoz vs Mousasi (May 31, 2014)
+2026-05-04 11:50:50,993 [INFO] [501/772] Scrapeando: UFC 173: Barao vs Dillashaw (May 24, 2014)
+2026-05-04 11:50:52,577 [INFO] [502/772] Scrapeando: UFC Fight Night: Brown vs Silva (May 10, 2014)
+2026-05-04 11:50:56,034 [INFO] [503/772] Scrapeando: UFC 172: Jones vs Teixeira (April 26, 2014)
+2026-05-04 11:50:57,605 [INFO] [504/772] Scrapeando: UFC on FOX: Werdum vs Browne (April 19, 2014)
+2026-05-04 11:51:09,276 [INFO] [505/772] Scrapeando: UFC Fight Night: Bisping vs Kennedy (April 16, 2014)
+2026-05-04 11:51:10,860 [INFO] [506/772] Scrapeando: UFC Fight Night: Minotauro vs Nelson (April 11, 2014)
+2026-05-04 11:51:16,165 [INFO] [507/772] Scrapeando: UFC Fight Night: Shogun vs Henderson 2 (March 23, 2014)
+2026-05-04 11:51:17,742 [INFO] [508/772] Scrapeando: UFC 171: Hendricks vs Lawler (March 15, 2014)
+2026-05-04 11:51:19,553 [INFO] [509/772] Scrapeando: UFC Fight Night: Gustafsson vs Manuwa (March 08, 2014)
+2026-05-04 11:51:21,299 [INFO] [510/772] Scrapeando: UFC Fight Night: Kim vs Hathaway (March 01, 2014)
+2026-05-04 11:51:24,893 [INFO] [511/772] Scrapeando: UFC 170: Rousey vs McMann (February 22, 2014)
+2026-05-04 11:51:26,976 [INFO] [512/772] Scrapeando: UFC Fight Night: Machida vs Mousasi (February 15, 2014)
+2026-05-04 11:51:28,841 [INFO] [513/772] Scrapeando: UFC 169: Barao vs Faber 2 (February 01, 2014)
+2026-05-04 11:51:32,978 [INFO] [514/772] Scrapeando: UFC on FOX: Henderson vs Thomson (January 25, 2014)
+2026-05-04 11:51:38,797 [INFO] [515/772] Scrapeando: UFC Fight Night: Rockhold vs Philippou (January 15, 2014)
+2026-05-04 11:51:40,738 [INFO] [516/772] Scrapeando: UFC Fight Night: Saffiedine vs Lim (January 04, 2014)
+2026-05-04 11:51:42,599 [INFO] [517/772] Scrapeando: UFC 168: Weidman vs Silva 2 (December 28, 2013)
+2026-05-04 11:51:46,426 [INFO] [518/772] Scrapeando: UFC on FOX: Johnson vs. Benavidez 2 (December 14, 2013)
+2026-05-04 11:51:47,999 [INFO] [519/772] Scrapeando: UFC Fight Night: Hunt vs Bigfoot (December 06, 2013)
+2026-05-04 11:51:53,416 [INFO] [520/772] Scrapeando: The Ultimate Fighter: Team Rousey vs. Team Tate Finale (November 30, 2013)
+2026-05-04 11:51:57,197 [INFO] [521/772] Scrapeando: UFC 167: St-Pierre vs Hendricks (November 16, 2013)
+2026-05-04 11:51:58,818 [INFO] [522/772] Scrapeando: UFC Fight Night: Belfort vs Henderson 2 (November 09, 2013)
+2026-05-04 11:52:02,676 [INFO] [523/772] Scrapeando: UFC Fight Night: Fight for the Troops 3 (November 06, 2013)
+2026-05-04 11:52:04,881 [INFO] [524/772] Scrapeando: UFC Fight Night: Machida vs Munoz (October 26, 2013)
+2026-05-04 11:52:06,722 [INFO] [525/772] Scrapeando: UFC 166: Velasquez vs Dos Santos 3 (October 19, 2013)
+2026-05-04 11:52:14,474 [INFO] [526/772] Scrapeando: UFC Fight Night: Maia vs Shields (October 09, 2013)
+2026-05-04 11:52:16,276 [INFO] [527/772] Scrapeando: UFC 165: Jones vs Gustafsson (September 21, 2013)
+2026-05-04 11:52:22,398 [INFO] [528/772] Scrapeando: UFC Fight Night: Teixeira vs Bader (September 04, 2013)
+2026-05-04 11:52:24,143 [INFO] [529/772] Scrapeando: UFC 164: Henderson vs Pettis 2 (August 31, 2013)
+2026-05-04 11:52:31,441 [INFO] [530/772] Scrapeando: UFC Fight Night: Condit vs Kampmann 2 (August 28, 2013)
+2026-05-04 11:52:33,362 [INFO] [531/772] Scrapeando: UFC Fight Night: Shogun vs Sonnen (August 17, 2013)
+2026-05-04 11:52:37,102 [INFO] [532/772] Scrapeando: UFC 163: Aldo vs Jung (August 03, 2013)
+2026-05-04 11:52:38,907 [INFO] [533/772] Scrapeando: UFC on FOX: Johnson vs Moraga (July 27, 2013)
+2026-05-04 11:52:40,747 [INFO] [534/772] Scrapeando: UFC 162: Silva vs Weidman (July 06, 2013)
+2026-05-04 11:52:44,793 [INFO] [535/772] Scrapeando: UFC 161: Evans vs Henderson (June 15, 2013)
+2026-05-04 11:52:50,543 [INFO] [536/772] Scrapeando: UFC on FUEL TV: Nogueira vs. Werdum (June 08, 2013)
+2026-05-04 11:52:54,062 [INFO] [537/772] Scrapeando: UFC 160: Velasquez vs Silva 2 (May 25, 2013)
+2026-05-04 11:52:59,668 [INFO] [538/772] Scrapeando: UFC on FX: Belfort vs. Rockhold (May 18, 2013)
+2026-05-04 11:53:02,797 [INFO] [539/772] Scrapeando: UFC 159: Jones vs Sonnen (April 27, 2013)
+2026-05-04 11:53:08,243 [INFO] [540/772] Scrapeando: UFC on FOX: Henderson vs Melendez (April 20, 2013)
+2026-05-04 11:53:11,922 [INFO] [541/772] Scrapeando: The Ultimate Fighter: Team Jones vs. Team Sonnen Finale (April 13, 2013)
+2026-05-04 11:53:15,374 [INFO] [542/772] Scrapeando: UFC on FUEL TV: Mousasi vs Latifi (April 06, 2013)
+2026-05-04 11:53:20,076 [INFO] [543/772] Scrapeando: UFC 158: St-Pierre vs Diaz (March 16, 2013)
+2026-05-04 11:53:21,841 [INFO] [544/772] Scrapeando: UFC on FUEL TV: Silva vs. Stann (March 02, 2013)
+2026-05-04 11:53:25,378 [INFO] [545/772] Scrapeando: UFC 157: Rousey vs Carmouche (February 23, 2013)
+2026-05-04 11:53:29,228 [INFO] [546/772] Scrapeando: UFC on FUEL TV: Barao vs McDonald (February 16, 2013)
+2026-05-04 11:53:31,078 [INFO] [547/772] Scrapeando: UFC 156: Aldo vs Edgar (February 02, 2013)
+2026-05-04 11:53:34,598 [INFO] [548/772] Scrapeando: UFC on FOX: Johnson vs Dodson (January 26, 2013)
+2026-05-04 11:53:38,297 [INFO] [549/772] Scrapeando: UFC on FX: Belfort vs Bisping (January 19, 2013)
+2026-05-04 11:53:42,086 [INFO] [550/772] Scrapeando: UFC 155: Dos Santos vs Velasquez II (December 29, 2012)
+2026-05-04 11:53:47,495 [INFO] [551/772] Scrapeando: The Ultimate Fighter: Team Carwin vs. Team Nelson Finale (December 15, 2012)
+2026-05-04 11:53:52,947 [INFO] [552/772] Scrapeando: UFC on FX: Sotiropoulos vs Pearson (December 14, 2012)
+2026-05-04 11:53:54,521 [INFO] [553/772] Scrapeando: UFC on FOX: Henderson vs Diaz (December 08, 2012)
+2026-05-04 11:53:56,325 [INFO] [554/772] Scrapeando: UFC 154: St-Pierre vs Condit (November 17, 2012)
+2026-05-04 11:53:58,121 [INFO] [555/772] Scrapeando: UFC Macao: Franklin vs Le (November 10, 2012)
+2026-05-04 11:53:59,880 [INFO] [556/772] Scrapeando: UFC 153: Silva vs Bonnar (October 13, 2012)
+2026-05-04 11:54:09,779 [INFO] [557/772] Scrapeando: UFC on FX: Browne vs Bigfoot (October 05, 2012)
+2026-05-04 11:54:13,123 [INFO] [558/772] Scrapeando: UFC on FUEL TV: Struve vs Miocic (September 29, 2012)
+2026-05-04 11:54:17,217 [INFO] [559/772] Scrapeando: UFC 152: Jones vs Belfort (September 22, 2012)
+2026-05-04 11:54:19,230 [INFO] [560/772] Scrapeando: UFC 150: Henderson vs Edgar II (August 11, 2012)
+2026-05-04 11:54:21,397 [INFO] [561/772] Scrapeando: UFC on FOX: Shogun vs Vera (August 04, 2012)
+2026-05-04 11:54:25,580 [INFO] [562/772] Scrapeando: UFC 149: Faber vs Barao (July 21, 2012)
+2026-05-04 11:54:29,254 [INFO] [563/772] Scrapeando: UFC on FUEL TV: Munoz vs Weidman (July 11, 2012)
+2026-05-04 11:54:31,016 [INFO] [564/772] Scrapeando: UFC 148: Silva vs Sonnen 2 (July 07, 2012)
+2026-05-04 11:54:32,841 [INFO] [565/772] Scrapeando: UFC 147: Silva vs Franklin 2 (June 23, 2012)
+2026-05-04 11:54:37,261 [INFO] [566/772] Scrapeando: UFC on FX: Maynard vs Guida (June 22, 2012)
+2026-05-04 11:54:39,146 [INFO] [567/772] Scrapeando: UFC on FX: Johnson vs McCall (June 08, 2012)
+2026-05-04 11:54:41,442 [INFO] [568/772] Scrapeando: The Ultimate Fighter: Live Finale (June 01, 2012)
+2026-05-04 11:54:43,286 [INFO] [569/772] Scrapeando: UFC 146: Dos Santos vs Mir (May 26, 2012)
+2026-05-04 11:54:54,075 [INFO] [570/772] Scrapeando: UFC on FUEL TV: Korean Zombie vs Poirier (May 15, 2012)
+2026-05-04 11:54:55,972 [INFO] [571/772] Scrapeando: UFC on FOX: Diaz vs Miller (May 05, 2012)
+2026-05-04 11:54:59,626 [INFO] [572/772] Scrapeando: UFC 145: Jones vs Evans (April 21, 2012)
+2026-05-04 11:55:07,230 [INFO] [573/772] Scrapeando: UFC on FUEL TV: Gustafsson vs Silva (April 14, 2012)
+2026-05-04 11:55:09,013 [INFO] [574/772] Scrapeando: UFC on FX: Alves vs Kampmann (March 02, 2012)
+2026-05-04 11:55:12,682 [INFO] [575/772] Scrapeando: UFC 144: Edgar vs Henderson (February 25, 2012)
+2026-05-04 11:55:16,896 [INFO] [576/772] Scrapeando: UFC on FUEL TV: Sanchez vs Ellenberger (February 15, 2012)
+2026-05-04 11:55:22,580 [INFO] [577/772] Scrapeando: UFC 143: Diaz vs Condit (February 04, 2012)
+2026-05-04 11:55:26,297 [INFO] [578/772] Scrapeando: UFC on FOX: Evans vs Davis (January 28, 2012)
+2026-05-04 11:55:31,911 [INFO] [579/772] Scrapeando: UFC on FX: Guillard vs Miller (January 20, 2012)
+2026-05-04 11:55:39,971 [INFO] [580/772] Scrapeando: UFC 142: Aldo vs Mendes (January 14, 2012)
+2026-05-04 11:55:43,826 [INFO] [581/772] Scrapeando: UFC 141: Lesnar vs Overeem (December 30, 2011)
+2026-05-04 11:55:47,296 [INFO] [582/772] Scrapeando: UFC 140: Jones vs Machida (December 10, 2011)
+2026-05-04 11:55:51,052 [INFO] [583/772] Scrapeando: The Ultimate Fighter: Team Bisping vs Team Miller Finale (December 03, 2011)
+2026-05-04 11:55:52,931 [INFO] [584/772] Scrapeando: UFC 139: Shogun vs Henderson (November 19, 2011)
+2026-05-04 11:55:54,508 [INFO] [585/772] Scrapeando: UFC on FOX: Velasquez vs Dos Santos (November 12, 2011)
+2026-05-04 11:55:58,347 [INFO] [586/772] Scrapeando: UFC 138: Leben vs Munoz (November 05, 2011)
+2026-05-04 11:56:03,668 [INFO] [587/772] Scrapeando: UFC 137: Penn vs Diaz (October 29, 2011)
+2026-05-04 11:56:09,740 [INFO] [588/772] Scrapeando: UFC 136: Edgar vs Maynard 3 (October 08, 2011)
+2026-05-04 11:56:13,245 [INFO] [589/772] Scrapeando: UFC Live: Cruz vs Johnson (October 01, 2011)
+2026-05-04 11:56:17,146 [INFO] [590/772] Scrapeando: UFC 135: Jones vs Rampage (September 24, 2011)
+2026-05-04 11:56:23,456 [INFO] [591/772] Scrapeando: UFC Fight Night: Shields vs Ellenberger (September 17, 2011)
+2026-05-04 11:56:25,230 [INFO] [592/772] Scrapeando: UFC 134: Silva vs Okami (August 27, 2011)
+2026-05-04 11:56:29,338 [INFO] [593/772] Scrapeando: UFC Live: Hardy vs Lytle (August 14, 2011)
+2026-05-04 11:56:31,095 [INFO] [594/772] Scrapeando: UFC 133: Evans vs Ortiz 2 (August 06, 2011)
+2026-05-04 11:56:32,873 [INFO] [595/772] Scrapeando: UFC 132: Cruz vs Faber (July 02, 2011)
+2026-05-04 11:56:34,755 [INFO] [596/772] Scrapeando: UFC Live: Kongo vs Barry (June 26, 2011)
+2026-05-04 11:56:40,614 [INFO] [597/772] Scrapeando: UFC 131: Dos Santos vs Carwin (June 11, 2011)
+2026-05-04 11:56:48,199 [INFO] [598/772] Scrapeando: The Ultimate Fighter: Team Lesnar vs Team dos Santos Finale (June 04, 2011)
+2026-05-04 11:56:50,020 [INFO] [599/772] Scrapeando: UFC 130: Rampage vs Hamill (May 28, 2011)
+2026-05-04 11:56:55,556 [INFO] [600/772] Scrapeando: UFC 129: St-Pierre vs Shields (April 30, 2011)
+2026-05-04 11:56:57,327 [INFO] [601/772] Scrapeando: UFC Fight Night: Nogueira vs Davis (March 26, 2011)
+2026-05-04 11:57:03,936 [INFO] [602/772] Scrapeando: UFC 128: Shogun vs Jones (March 19, 2011)
+2026-05-04 11:57:15,062 [INFO] [603/772] Scrapeando: UFC Live: Sanchez vs Kampmann (March 03, 2011)
+2026-05-04 11:57:16,825 [INFO] [604/772] Scrapeando: UFC 127: Penn vs Fitch (February 26, 2011)
+2026-05-04 11:57:20,504 [INFO] [605/772] Scrapeando: UFC 126: Silva vs Belfort (February 05, 2011)
+2026-05-04 11:57:22,297 [INFO] [606/772] Scrapeando: UFC Fight Night: Fight for the Troops 2 (January 22, 2011)
+2026-05-04 11:57:27,380 [INFO] [607/772] Scrapeando: UFC 125: Resolution (January 01, 2011)
+2026-05-04 11:57:29,259 [INFO] [608/772] Scrapeando: UFC 124: St-Pierre vs Koscheck 2 (December 11, 2010)
+2026-05-04 11:57:32,747 [INFO] [609/772] Scrapeando: The Ultimate Fighter: Team GSP vs Team Koscheck Finale (December 04, 2010)
+2026-05-04 11:57:34,803 [INFO] [610/772] Scrapeando: UFC 123: Rampage vs Machida (November 20, 2010)
+2026-05-04 11:57:36,686 [INFO] [611/772] Scrapeando: UFC 122: Marquardt vs Okami (November 13, 2010)
+2026-05-04 11:57:38,703 [INFO] [612/772] Scrapeando: UFC 121: Lesnar vs Velasquez (October 23, 2010)
+2026-05-04 11:57:47,109 [INFO] [613/772] Scrapeando: UFC 120: Bisping vs Akiyama (October 16, 2010)
+2026-05-04 11:57:53,027 [INFO] [614/772] Scrapeando: UFC 119: Mir vs Cro Cop (September 25, 2010)
+2026-05-04 11:58:03,372 [INFO] [615/772] Scrapeando: UFC Fight Night: Marquardt vs Palhares (September 15, 2010)
+2026-05-04 11:58:05,703 [INFO] [616/772] Scrapeando: UFC 118: Edgar vs Penn 2 (August 28, 2010)
+2026-05-04 11:58:09,657 [INFO] [617/772] Scrapeando: UFC 117: Silva vs Sonnen (August 07, 2010)
+2026-05-04 11:58:15,575 [INFO] [618/772] Scrapeando: UFC Live: Jones vs Matyushenko (August 01, 2010)
+2026-05-04 11:58:17,602 [INFO] [619/772] Scrapeando: UFC 116: Lesnar vs Carwin (July 03, 2010)
+2026-05-04 11:58:25,476 [INFO] [620/772] Scrapeando: The Ultimate Fighter: Team Liddell vs Team Ortiz Finale (June 19, 2010)
+2026-05-04 11:58:28,715 [INFO] [621/772] Scrapeando: UFC 115: Liddell vs Franklin (June 12, 2010)
+2026-05-04 11:58:34,434 [INFO] [622/772] Scrapeando: UFC 114: Rampage vs Evans (May 29, 2010)
+2026-05-04 11:58:38,200 [INFO] [623/772] Scrapeando: UFC 113: Machida vs Shogun 2 (May 08, 2010)
+2026-05-04 11:58:43,794 [INFO] [624/772] Scrapeando: UFC 112: Invincible (April 10, 2010)
+2026-05-04 11:58:47,713 [INFO] [625/772] Scrapeando: UFC Fight Night: Florian vs Gomi (March 31, 2010)
+2026-05-04 11:58:51,463 [INFO] [626/772] Scrapeando: UFC 111: St-Pierre vs Hardy (March 27, 2010)
+2026-05-04 11:58:54,965 [INFO] [627/772] Scrapeando: UFC Live: Vera vs Jones (March 21, 2010)
+2026-05-04 11:59:04,165 [INFO] [628/772] Scrapeando: UFC 110: Nogueira vs Velasquez (February 20, 2010)
+2026-05-04 11:59:10,989 [INFO] [629/772] Scrapeando: UFC 109: Relentless (February 06, 2010)
+2026-05-04 11:59:17,056 [INFO] [630/772] Scrapeando: UFC Fight Night: Maynard vs Diaz (January 11, 2010)
+2026-05-04 11:59:18,835 [INFO] [631/772] Scrapeando: UFC 108: Evans vs Silva (January 02, 2010)
+2026-05-04 11:59:22,784 [INFO] [632/772] Scrapeando: UFC 107: Penn vs Sanchez (December 12, 2009)
+2026-05-04 11:59:28,426 [INFO] [633/772] Scrapeando: The Ultimate Fighter: Heavyweights Finale (December 05, 2009)
+2026-05-04 11:59:37,829 [INFO] [634/772] Scrapeando: UFC 106: Ortiz vs Griffin 2 (November 21, 2009)
+2026-05-04 11:59:39,643 [INFO] [635/772] Scrapeando: UFC 105: Couture vs Vera (November 14, 2009)
+2026-05-04 11:59:41,389 [INFO] [636/772] Scrapeando: UFC 104: Machida vs Shogun (October 24, 2009)
+2026-05-04 11:59:49,092 [INFO] [637/772] Scrapeando: UFC 103: Franklin vs Belfort (September 19, 2009)
+2026-05-04 11:59:52,808 [INFO] [638/772] Scrapeando: UFC Fight Night: Diaz vs Guillard (September 16, 2009)
+2026-05-04 11:59:54,615 [INFO] [639/772] Scrapeando: UFC 102: Couture vs Nogueira (August 29, 2009)
+2026-05-04 12:00:04,573 [INFO] [640/772] Scrapeando: UFC 101: Declaration (August 08, 2009)
+2026-05-04 12:00:06,936 [INFO] [641/772] Scrapeando: UFC 100 (July 11, 2009)
+2026-05-04 12:00:16,527 [INFO] [642/772] Scrapeando: The Ultimate Fighter: United States vs. United Kingdom Finale (June 20, 2009)
+2026-05-04 12:00:18,358 [INFO] [643/772] Scrapeando: UFC 99: The Comeback (June 13, 2009)
+2026-05-04 12:00:26,720 [INFO] [644/772] Scrapeando: UFC 98: Evans vs Machida (May 23, 2009)
+2026-05-04 12:00:30,610 [INFO] [645/772] Scrapeando: UFC 97: Redemption (April 18, 2009)
+2026-05-04 12:00:34,998 [INFO] [646/772] Scrapeando: UFC Fight Night: Condit vs Kampmann (April 01, 2009)
+2026-05-04 12:00:36,910 [INFO] [647/772] Scrapeando: UFC 96: Jackson vs Jardine (March 07, 2009)
+2026-05-04 12:00:41,190 [INFO] [648/772] Scrapeando: UFC 95: Sanchez vs Stevenson (February 21, 2009)
+2026-05-04 12:00:47,090 [INFO] [649/772] Scrapeando: UFC Fight Night: Lauzon vs Stephens (February 07, 2009)
+2026-05-04 12:00:50,746 [INFO] [650/772] Scrapeando: UFC 94: St-Pierre vs Penn 2 (January 31, 2009)
+2026-05-04 12:00:52,533 [INFO] [651/772] Scrapeando: UFC 93: Franklin vs Henderson (January 17, 2009)
+2026-05-04 12:00:54,318 [INFO] [652/772] Scrapeando: UFC 92: The Ultimate 2008 (December 27, 2008)
+2026-05-04 12:01:03,908 [INFO] [653/772] Scrapeando: The Ultimate Fighter: Team Nogueira vs. Team Mir Finale (December 13, 2008)
+2026-05-04 12:01:05,659 [INFO] [654/772] Scrapeando: UFC Fight Night - Fight for the Troops (December 10, 2008)
+2026-05-04 12:01:09,485 [INFO] [655/772] Scrapeando: UFC 91: Couture vs Lesnar (November 15, 2008)
+2026-05-04 12:01:15,714 [INFO] [656/772] Scrapeando: UFC 90: Silva vs Cote (October 25, 2008)
+2026-05-04 12:01:19,505 [INFO] [657/772] Scrapeando: UFC 89: Bisping vs Leben (October 18, 2008)
+2026-05-04 12:01:23,768 [INFO] [658/772] Scrapeando: UFC Fight Night: Diaz vs Neer (September 17, 2008)
+2026-05-04 12:01:25,576 [INFO] [659/772] Scrapeando: UFC 88: Breakthrough (September 06, 2008)
+2026-05-04 12:01:27,753 [INFO] [660/772] Scrapeando: UFC 87: Seek And Destroy (August 09, 2008)
+2026-05-04 12:01:33,730 [INFO] [661/772] Scrapeando: UFC: Silva vs Irvin (July 19, 2008)
+2026-05-04 12:01:37,470 [INFO] [662/772] Scrapeando: UFC 86: Jackson vs Griffin (July 05, 2008)
+2026-05-04 12:01:41,026 [INFO] [663/772] Scrapeando: The Ultimate Fighter: Team Rampage vs Team Forrest Finale (June 21, 2008)
+2026-05-04 12:01:43,031 [INFO] [664/772] Scrapeando: UFC 85: Bedlam (June 07, 2008)
+2026-05-04 12:01:48,724 [INFO] [665/772] Scrapeando: UFC 84: Ill Will (May 24, 2008)
+2026-05-04 12:01:52,661 [INFO] [666/772] Scrapeando: UFC 83: Serra vs St-Pierre 2 (April 19, 2008)
+2026-05-04 12:01:56,353 [INFO] [667/772] Scrapeando: UFC Fight Night: Florian vs Lauzon (April 02, 2008)
+2026-05-04 12:01:58,172 [INFO] [668/772] Scrapeando: UFC 82: Pride of a Champion (March 01, 2008)
+2026-05-04 12:02:04,483 [INFO] [669/772] Scrapeando: UFC 81: Breaking Point (February 02, 2008)
+2026-05-04 12:02:10,200 [INFO] [670/772] Scrapeando: UFC Fight Night: Swick vs Burkman (January 23, 2008)
+2026-05-04 12:02:12,051 [INFO] [671/772] Scrapeando: UFC 80: Rapid Fire (January 19, 2008)
+2026-05-04 12:02:17,832 [INFO] [672/772] Scrapeando: UFC 79: Nemesis (December 29, 2007)
+2026-05-04 12:02:21,943 [INFO] [673/772] Scrapeando: The Ultimate Fighter: Team Hughes vs. Team Serra Finale (December 08, 2007)
+2026-05-04 12:02:23,678 [INFO] [674/772] Scrapeando: UFC 78: Validation (November 17, 2007)
+2026-05-04 12:02:25,470 [INFO] [675/772] Scrapeando: UFC 77: Hostile Territory (October 20, 2007)
+2026-05-04 12:02:28,934 [INFO] [676/772] Scrapeando: UFC 76: Knockout (September 22, 2007)
+2026-05-04 12:02:32,823 [INFO] [677/772] Scrapeando: UFC Fight Night: Thomas vs Florian (September 19, 2007)
+2026-05-04 12:02:34,904 [INFO] [678/772] Scrapeando: UFC 75: Champion vs Champion (September 08, 2007)
+2026-05-04 12:02:39,300 [INFO] [679/772] Scrapeando: UFC 74: Respect (August 25, 2007)
+2026-05-04 12:02:44,713 [INFO] [680/772] Scrapeando: UFC 73: Stacked (July 07, 2007)
+2026-05-04 12:02:48,869 [INFO] [681/772] Scrapeando: The Ultimate Fighter: Team Pulver vs. Team Penn Finale (June 23, 2007)
+2026-05-04 12:02:50,617 [INFO] [682/772] Scrapeando: UFC 72: Victory (June 16, 2007)
+2026-05-04 12:02:54,135 [INFO] [683/772] Scrapeando: UFC Fight Night: Stout vs Fisher (June 12, 2007)
+2026-05-04 12:02:55,868 [INFO] [684/772] Scrapeando: UFC 71: Liddell vs Jackson (May 26, 2007)
+2026-05-04 12:02:57,672 [INFO] [685/772] Scrapeando: UFC 70: Nations Collide (April 21, 2007)
+2026-05-04 12:03:10,151 [INFO] [686/772] Scrapeando: UFC 69: Shootout (April 07, 2007)
+2026-05-04 12:03:14,161 [INFO] [687/772] Scrapeando: UFC Fight Night: Stevenson vs Guillard (April 05, 2007)
+2026-05-04 12:03:21,179 [INFO] [688/772] Scrapeando: UFC 68: The Uprising (March 03, 2007)
+2026-05-04 12:03:24,823 [INFO] [689/772] Scrapeando: UFC 67: All or Nothing (February 03, 2007)
+2026-05-04 12:03:29,478 [INFO] [690/772] Scrapeando: UFC Fight Night: Evans vs Salmon (January 25, 2007)
+2026-05-04 12:03:33,137 [INFO] [691/772] Scrapeando: UFC 66: Liddell vs Ortiz 2 (December 30, 2006)
+2026-05-04 12:03:41,468 [INFO] [692/772] Scrapeando: UFC Fight Night: Sanchez vs Riggs (December 13, 2006)
+2026-05-04 12:03:43,255 [INFO] [693/772] Scrapeando: UFC 65: Bad Intentions (November 18, 2006)
+2026-05-04 12:03:53,239 [INFO] [694/772] Scrapeando: The Ultimate Fighter: The Comeback Finale (November 11, 2006)
+2026-05-04 12:03:54,966 [INFO] [695/772] Scrapeando: UFC 64: Unstoppable (October 14, 2006)
+2026-05-04 12:03:59,023 [INFO] [696/772] Scrapeando: Ortiz vs Shamrock 3: The Final Chapter (October 10, 2006)
+2026-05-04 12:04:01,594 [INFO] [697/772] Scrapeando: UFC 63: Hughes vs Penn (September 23, 2006)
+2026-05-04 12:04:05,725 [INFO] [698/772] Scrapeando: UFC 62: Liddell vs Sobral (August 26, 2006)
+2026-05-04 12:04:09,179 [INFO] [699/772] Scrapeando: UFC Fight Night 6 (August 17, 2006)
+2026-05-04 12:04:13,151 [INFO] [700/772] Scrapeando: UFC 61: Bitter Rivals (July 08, 2006)
+2026-05-04 12:04:22,406 [INFO] [701/772] Scrapeando: UFC Fight Night 5 (June 28, 2006)
+2026-05-04 12:04:24,146 [INFO] [702/772] Scrapeando: The Ultimate Fighter: Team Ortiz vs. Team Shamrock Finale (June 24, 2006)
+2026-05-04 12:04:26,034 [INFO] [703/772] Scrapeando: UFC 60: Hughes vs Gracie (May 27, 2006)
+2026-05-04 12:04:31,697 [INFO] [704/772] Scrapeando: UFC 59: Reality Check (April 15, 2006)
+2026-05-04 12:04:37,283 [INFO] [705/772] Scrapeando: UFC Fight Night 4 (April 06, 2006)
+2026-05-04 12:04:40,977 [INFO] [706/772] Scrapeando: UFC 58: USA vs Canada (March 04, 2006)
+2026-05-04 12:04:45,556 [INFO] [707/772] Scrapeando: UFC 57: Liddell vs Couture 3 (February 04, 2006)
+2026-05-04 12:05:00,960 [INFO] [708/772] Scrapeando: UFC Fight Night 3 (January 16, 2006)
+2026-05-04 12:05:05,730 [INFO] [709/772] Scrapeando: UFC 56: Full Force (November 19, 2005)
+2026-05-04 12:05:09,337 [INFO] [710/772] Scrapeando: The Ultimate Fighter: Team Hughes vs. Team Franklin Finale (November 05, 2005)
+2026-05-04 12:05:14,722 [INFO] [711/772] Scrapeando: UFC 55: Fury (October 07, 2005)
+2026-05-04 12:05:22,362 [INFO] [712/772] Scrapeando: UFC Fight Night 2 (October 03, 2005)
+2026-05-04 12:05:25,819 [INFO] [713/772] Scrapeando: UFC 54: Boiling Point (August 20, 2005)
+2026-05-04 12:05:29,384 [INFO] [714/772] Scrapeando: UFC Fight Night 1 (August 06, 2005)
+2026-05-04 12:05:31,134 [INFO] [715/772] Scrapeando: UFC 53: Heavy Hitters (June 04, 2005)
+2026-05-04 12:05:36,788 [INFO] [716/772] Scrapeando: UFC 52: Couture vs Liddell 2 (April 16, 2005)
+2026-05-04 12:05:40,826 [INFO] [717/772] Scrapeando: The Ultimate Fighter: Team Couture vs. Team Liddell Finale (April 09, 2005)
+2026-05-04 12:05:42,942 [INFO] [718/772] Scrapeando: UFC 51: Super Saturday (February 05, 2005)
+2026-05-04 12:05:50,530 [INFO] [719/772] Scrapeando: UFC 50: The War Of '04 (October 22, 2004)
+2026-05-04 12:05:52,256 [INFO] [720/772] Scrapeando: UFC 49: Unfinished Business (August 21, 2004)
+2026-05-04 12:05:55,710 [INFO] [721/772] Scrapeando: UFC 48: Payback (June 19, 2004)
+2026-05-04 12:06:02,894 [INFO] [722/772] Scrapeando: UFC 47: It's On! (April 02, 2004)
+2026-05-04 12:06:13,451 [INFO] [723/772] Scrapeando: UFC 46: Supernatural (January 31, 2004)
+2026-05-04 12:06:17,034 [INFO] [724/772] Scrapeando: UFC 45: Revolution (November 21, 2003)
+2026-05-04 12:06:27,883 [INFO] [725/772] Scrapeando: UFC 44: Undisputed (September 26, 2003)
+2026-05-04 12:06:33,692 [INFO] [726/772] Scrapeando: UFC 43: Meltdown (June 06, 2003)
+2026-05-04 12:06:43,001 [INFO] [727/772] Scrapeando: UFC 42: Sudden Impact (April 25, 2003)
+2026-05-04 12:06:46,723 [INFO] [728/772] Scrapeando: UFC 41: Onslaught (February 28, 2003)
+2026-05-04 12:06:55,901 [INFO] [729/772] Scrapeando: UFC 40: Vendetta (November 22, 2002)
+2026-05-04 12:07:03,131 [INFO] [730/772] Scrapeando: UFC 39: The Warriors Return (September 27, 2002)
+2026-05-04 12:07:10,186 [INFO] [731/772] Scrapeando: UFC 38: Brawl at the Hall (July 13, 2002)
+2026-05-04 12:07:13,774 [INFO] [732/772] Scrapeando: UFC 37.5: As Real As It Gets (June 22, 2002)
+2026-05-04 12:07:15,493 [INFO] [733/772] Scrapeando: UFC 37: High Impact (May 10, 2002)
+2026-05-04 12:07:19,103 [INFO] [734/772] Scrapeando: UFC 36: Worlds Collide (March 22, 2002)
+2026-05-04 12:07:26,825 [INFO] [735/772] Scrapeando: UFC 35: Throwdown (January 11, 2002)
+2026-05-04 12:07:30,631 [INFO] [736/772] Scrapeando: UFC 34: High Voltage (November 02, 2001)
+2026-05-04 12:07:39,800 [INFO] [737/772] Scrapeando: UFC 33: Victory in Vegas (September 28, 2001)
+2026-05-04 12:07:41,541 [INFO] [738/772] Scrapeando: UFC 32: Showdown in the Meadowlands (June 29, 2001)
+2026-05-04 12:07:47,042 [INFO] [739/772] Scrapeando: UFC 31: Locked and Loaded (May 04, 2001)
+2026-05-04 12:07:52,436 [INFO] [740/772] Scrapeando: UFC 30: Battle on the Boardwalk (February 23, 2001)
+2026-05-04 12:08:05,349 [INFO] [741/772] Scrapeando: UFC 29: Defense of the Belts (December 16, 2000)
+2026-05-04 12:08:07,067 [INFO] [742/772] Scrapeando: UFC 28: High Stakes (November 17, 2000)
+2026-05-04 12:08:17,051 [INFO] [743/772] Scrapeando: UFC 27: Ultimate Bad Boyz (September 22, 2000)
+2026-05-04 12:08:26,260 [INFO] [744/772] Scrapeando: UFC 26: Ultimate Field Of Dreams (June 09, 2000)
+2026-05-04 12:08:31,698 [INFO] [745/772] Scrapeando: UFC 25: Ultimate Japan 3 (April 14, 2000)
+2026-05-04 12:08:35,795 [INFO] [746/772] Scrapeando: UFC 24: First Defense (March 10, 2000)
+2026-05-04 12:08:41,205 [INFO] [747/772] Scrapeando: UFC 23: Ultimate Japan 2 (November 19, 1999)
+2026-05-04 12:08:47,340 [INFO] [748/772] Scrapeando: UFC 22: Only One Can be Champion (September 24, 1999)
+2026-05-04 12:08:54,949 [INFO] [749/772] Scrapeando: UFC 21: Return of the Champions (July 16, 1999)
+2026-05-04 12:09:05,539 [INFO] [750/772] Scrapeando: UFC 20: Battle for the Gold (May 07, 1999)
+2026-05-04 12:09:14,824 [INFO] [751/772] Scrapeando: UFC 19: Ultimate Young Guns (March 05, 1999)
+2026-05-04 12:09:36,505 [INFO] [752/772] Scrapeando: UFC 18: The Road to the Heavyweight Title (January 08, 1999)
+2026-05-04 12:09:41,708 [INFO] [753/772] Scrapeando: UFC - Ultimate Brazil (October 16, 1998)
+2026-05-04 12:09:47,434 [INFO] [754/772] Scrapeando: UFC 17: Redemption (May 15, 1998)
+2026-05-04 12:09:56,934 [INFO] [755/772] Scrapeando: UFC 16: Battle in the Bayou (March 13, 1998)
+2026-05-04 12:10:00,583 [INFO] [756/772] Scrapeando: UFC - Ultimate Japan (December 21, 1997)
+2026-05-04 12:10:15,590 [INFO] [757/772] Scrapeando: UFC 15: Collision Course (October 17, 1997)
+2026-05-04 12:10:30,814 [INFO] [758/772] Scrapeando: UFC 14: Showdown (July 27, 1997)
+2026-05-04 12:10:41,742 [INFO] [759/772] Scrapeando: UFC 13: The Ultimate Force (May 30, 1997)
+2026-05-04 12:10:50,898 [INFO] [760/772] Scrapeando: UFC 12: Judgement Day (February 07, 1997)
+2026-05-04 12:11:03,682 [INFO] [761/772] Scrapeando: UFC - Ultimate Ultimate '96 (December 07, 1996)
+2026-05-04 12:11:05,524 [INFO] [762/772] Scrapeando: UFC 11: The Proving Ground (September 20, 1996)
+2026-05-04 12:11:07,259 [INFO] [763/772] Scrapeando: UFC 10: The Tournament (July 12, 1996)
+2026-05-04 12:11:09,006 [INFO] [764/772] Scrapeando: UFC 9: Motor City Madness (May 17, 1996)
+2026-05-04 12:11:10,738 [INFO] [765/772] Scrapeando: UFC 8: David vs Goliath (February 16, 1996)
+2026-05-04 12:11:12,561 [INFO] [766/772] Scrapeando: UFC - Ultimate Ultimate '95 (December 16, 1995)
+2026-05-04 12:11:14,280 [INFO] [767/772] Scrapeando: UFC 7: The Brawl in Buffalo (September 08, 1995)
+2026-05-04 12:11:15,997 [INFO] [768/772] Scrapeando: UFC 6: Clash of the Titans (July 14, 1995)
+2026-05-04 12:11:17,745 [INFO] [769/772] Scrapeando: UFC 5: The Return of the Beast (April 07, 1995)
+2026-05-04 12:11:19,490 [INFO] [770/772] Scrapeando: UFC 4: Revenge of the Warriors (December 16, 1994)
+2026-05-04 12:11:21,214 [INFO] [771/772] Scrapeando: UFC 3: The American Dream (September 09, 1994)
+2026-05-04 12:11:23,166 [INFO] [772/772] Scrapeando: UFC 2: No Way Out (March 11, 1994)
+2026-05-04 12:11:25,005 [INFO] Guardadas 772 peleas Heavyweight en fights_heavyweight.csv
+2026-05-04 12:11:25,005 [INFO]   Perfil: Denis Stojnic
+2026-05-04 12:11:26,696 [INFO]   Perfil: Marcus Buchecha
+2026-05-04 12:11:28,264 [INFO]   Perfil: Ruslan Magomedov
+2026-05-04 12:11:30,001 [INFO]   Perfil: Jailton Almeida
+2026-05-04 12:11:31,740 [INFO]   Perfil: Scott Adams
+2026-05-04 12:11:33,429 [INFO]   Perfil: Ron Waterman
+2026-05-04 12:11:35,175 [INFO]   Perfil: Shane del Rosario
+2026-05-04 12:11:36,883 [INFO]   Perfil: Serghei Spivac
+2026-05-04 12:11:38,507 [INFO]   Perfil: Colin Robinson
+2026-05-04 12:11:40,193 [INFO]   Perfil: Uran Satybaldiev
+2026-05-04 12:11:41,912 [INFO]   Perfil: Dmitrii Smoliakov
+2026-05-04 12:11:43,626 [INFO]   Perfil: Jared Cannonier
+2026-05-04 12:11:45,495 [INFO]   Perfil: Chase Gormley
+2026-05-04 12:11:47,188 [INFO]   Perfil: Harry Hunsucker
+2026-05-04 12:11:48,760 [INFO]   Perfil: Shawn Jordan
+2026-05-04 12:11:50,650 [INFO]   Perfil: Marcio Cruz
+2026-05-04 12:11:52,387 [INFO]   Perfil: Jairzinho Rozenstruik
+2026-05-04 12:11:54,159 [INFO]   Perfil: Kimo Leopoldo
+2026-05-04 12:11:55,911 [INFO]   Perfil: Max Gimenis
+2026-05-04 12:11:57,636 [INFO]   Perfil: Anthony Perosh
+2026-05-04 12:11:59,396 [INFO]   Perfil: Dwayne Cason
+2026-05-04 12:12:02,234 [INFO]   Perfil: Mark Godbeer
+2026-05-04 12:12:04,811 [INFO]   Perfil: Mark Kerr
+2026-05-04 12:12:06,627 [INFO]   Perfil: Vitor Belfort
+2026-05-04 12:12:08,599 [INFO]   Perfil: Brad Imes
+2026-05-04 12:12:10,332 [INFO]   Perfil: Guilherme Pat
+2026-05-04 12:12:12,037 [INFO]   Perfil: Roque Martinez
+2026-05-04 12:12:13,735 [INFO]   Perfil: Dmitry Sosnovskiy
+2026-05-04 12:12:15,427 [INFO]   Perfil: Daniel Omielanczuk
+2026-05-04 12:12:17,170 [INFO]   Perfil: Jonathan Wiezorek
+2026-05-04 12:12:18,971 [INFO]   Perfil: Christian Colombo
+2026-05-04 12:12:20,785 [INFO]   Perfil: Randy Couture
+2026-05-04 12:12:22,393 [INFO]   Perfil: Justin Frazier
+2026-05-04 12:12:24,095 [INFO]   Perfil: Antoni Hardonk
+2026-05-04 12:12:25,815 [INFO]   Perfil: Dave Beneteau
+2026-05-04 12:12:27,544 [INFO]   Perfil: Andrei Arlovski
+2026-05-04 12:12:29,211 [INFO]   Perfil: Keigo Kunihara
+2026-05-04 12:12:30,903 [INFO]   Perfil: Juan Adams
+2026-05-04 12:12:32,642 [INFO]   Perfil: Greg Stott
+2026-05-04 12:12:34,502 [INFO]   Perfil: Alex Hunter
+2026-05-04 12:12:39,605 [INFO]   Perfil: Kennedy Nzechukwu
+2026-05-04 12:12:41,377 [INFO]   Perfil: Scott Junk
+2026-05-04 12:12:43,065 [INFO]   Perfil: Roy Nelson
+2026-05-04 12:12:44,897 [INFO]   Perfil: Jared Vanderaa
+2026-05-04 12:12:46,892 [INFO]   Perfil: Jeff Monson
+2026-05-04 12:12:48,668 [INFO]   Perfil: Raphael Pessoa
+2026-05-04 12:12:50,412 [INFO]   Perfil: Shamil Gaziev
+2026-05-04 12:12:52,000 [INFO]   Perfil: Ednaldo Oliveira
+2026-05-04 12:12:53,732 [INFO]   Perfil: Marek Bujlo
+2026-05-04 12:12:55,434 [INFO]   Perfil: Kevin Randleman
+2026-05-04 12:12:57,266 [INFO]   Perfil: Joe Charles
+2026-05-04 12:12:58,979 [INFO]   Perfil: Dan Evensen
+2026-05-04 12:13:00,821 [INFO]   Perfil: Andre Roberts
+2026-05-04 12:13:02,695 [INFO]   Perfil: Josh Hokit
+2026-05-04 12:13:04,274 [INFO]   Perfil: Don'Tale Mayes
+2026-05-04 12:13:06,099 [INFO]   Perfil: Mike Ciesnolevicz
+2026-05-04 12:13:07,778 [INFO]   Perfil: Jim Mullen
+2026-05-04 12:13:09,557 [INFO]   Perfil: Justin Willis
+2026-05-04 12:13:11,303 [INFO]   Perfil: Antonio Rodrigo Nogueira
+2026-05-04 12:13:13,231 [INFO]   Perfil: Chris Condo
+2026-05-04 12:13:14,930 [INFO]   Perfil: Aaron Rosa
+2026-05-04 12:13:16,653 [INFO]   Perfil: Soa Palelei
+2026-05-04 12:13:18,398 [INFO]   Perfil: Mike Wessel
+2026-05-04 12:13:20,112 [INFO]   Perfil: Michel Batista
+2026-05-04 12:13:21,814 [INFO]   Perfil: Kristof Midoux
+2026-05-04 12:13:23,515 [INFO]   Perfil: Azunna Anyanwu
+2026-05-04 12:13:25,350 [INFO]   Perfil: Brian Johnston
+2026-05-04 12:13:27,065 [INFO]   Perfil: Rodrigo Nascimento
+2026-05-04 12:13:28,824 [INFO]   Perfil: Blagoy Ivanov
+2026-05-04 12:13:30,565 [INFO]   Perfil: Tedd Williams
+2026-05-04 12:13:32,261 [INFO]   Perfil: Vladimir Matyushenko
+2026-05-04 12:13:34,066 [INFO]   Perfil: Philipe Lins
+2026-05-04 12:13:35,782 [INFO]   Perfil: Justin Ledet
+2026-05-04 12:13:37,537 [INFO]   Perfil: Alvin Hines
+2026-05-04 12:13:39,230 [INFO]   Perfil: Joey Roberts
+2026-05-04 12:13:40,928 [INFO]   Perfil: Valter Walker
+2026-05-04 12:13:42,492 [INFO]   Perfil: Tim Hague
+2026-05-04 12:13:44,196 [INFO]   Perfil: Aleksei Oleinik
+2026-05-04 12:13:45,964 [INFO]   Perfil: Maxim Grishin
+2026-05-04 12:13:47,689 [INFO]   Perfil: Gokhan Saricam
+2026-05-04 12:13:49,374 [INFO]   Perfil: Heath Herring
+2026-05-04 12:13:51,207 [INFO]   Perfil: Tom Aspinall
+2026-05-04 12:13:52,788 [INFO]   Perfil: Todd Duffee
+2026-05-04 12:13:54,519 [INFO]   Perfil: Juan Espino
+2026-05-04 12:13:56,272 [INFO]   Perfil: Tsuyoshi Kohsaka
+2026-05-04 12:13:58,053 [INFO]   Perfil: Wesley Correira
+2026-05-04 12:13:59,773 [INFO]   Perfil: Augusto Sakai
+2026-05-04 12:14:06,064 [INFO]   Perfil: Chris Daukaus
+2026-05-04 12:14:11,968 [INFO]   Perfil: Rolles Gracie
+2026-05-04 12:14:13,666 [INFO]   Perfil: Ike Villanueva
+2026-05-04 12:14:15,374 [INFO]   Perfil: James McSweeney
+2026-05-04 12:14:17,103 [INFO]   Perfil: Walt Harris
+2026-05-04 12:14:18,870 [INFO]   Perfil: Dan Christison
+2026-05-04 12:14:20,639 [INFO]   Perfil: Viktor Pesta
+2026-05-04 12:14:22,397 [INFO]   Perfil: Jared Rosholt
+2026-05-04 12:14:24,125 [INFO]   Perfil: Ben Sosoli
+2026-05-04 12:14:25,831 [INFO]   Perfil: Chris Barnett
+2026-05-04 12:14:27,569 [INFO]   Perfil: Josh Parisian
+2026-05-04 12:14:29,310 [INFO]   Perfil: Tim Lajcik
+2026-05-04 12:14:31,049 [INFO]   Perfil: Josh Hendricks
+2026-05-04 12:14:32,928 [INFO]   Perfil: Robelis Despaigne
+2026-05-04 12:14:34,790 [INFO]   Perfil: Vernon White
+2026-05-04 12:14:36,501 [INFO]   Perfil: Cyril Asker
+2026-05-04 12:14:38,207 [INFO]   Perfil: Eric Martin
+2026-05-04 12:14:39,912 [INFO]   Perfil: John Marsh
+2026-05-04 12:14:41,711 [INFO]   Perfil: Lukasz Brzeski
+2026-05-04 12:14:43,452 [INFO]   Perfil: David Abbott
+2026-05-04 12:14:45,228 [INFO]   Perfil: Nikita Krylov
+2026-05-04 12:14:47,038 [INFO]   Perfil: Tra Telligman
+2026-05-04 12:14:48,810 [INFO]   Perfil: Junior Dos Santos
+2026-05-04 12:14:50,667 [INFO]   Perfil: Curtis Blaydes
+2026-05-04 12:14:52,272 [INFO]   Perfil: Devin Clark
+2026-05-04 12:14:54,048 [INFO]   Perfil: Antonio Carlos Junior
+2026-05-04 12:14:55,839 [INFO]   Perfil: Bojan Mihajlovic
+2026-05-04 12:14:57,555 [INFO]   Perfil: Semmy Schilt
+2026-05-04 12:14:59,300 [INFO]   Perfil: Marcelo Golm
+2026-05-04 12:15:00,881 [INFO]   Perfil: Stefan Struve
+2026-05-04 12:15:04,690 [INFO]   Perfil: Sherman Pendergarst
+2026-05-04 12:15:06,670 [INFO]   Perfil: Allen Frye Jr.
+2026-05-04 12:15:08,535 [INFO]   Perfil: Alan Baudot
+2026-05-04 12:15:10,240 [INFO]   Perfil: Cain Velasquez
+2026-05-04 12:15:12,012 [INFO]   Perfil: Adam Milstead
+2026-05-04 12:15:13,735 [INFO]   Perfil: Antonio Silva
+2026-05-04 12:15:15,535 [INFO]   Perfil: Nate Schroeder
+2026-05-04 12:15:17,596 [INFO]   Perfil: Jeff Hughes
+2026-05-04 12:15:19,294 [INFO]   Perfil: Fabricio Werdum
+2026-05-04 12:15:21,326 [INFO]   Perfil: Gian Villante
+2026-05-04 12:15:23,378 [INFO]   Perfil: Pedro Rizzo
+2026-05-04 12:15:25,322 [INFO]   Perfil: James Toney
+2026-05-04 12:15:27,008 [INFO]   Perfil: Sean Alvarez
+2026-05-04 12:15:28,723 [INFO]   Perfil: Jarjis Danho
+2026-05-04 12:15:30,441 [INFO]   Perfil: Sean McCorkle
+2026-05-04 12:15:32,142 [INFO]   Perfil: Jake O'Brien
+2026-05-04 12:15:33,901 [INFO]   Perfil: Hamdy Abdelwahab
+2026-05-04 12:15:35,615 [INFO]   Perfil: Marcos Rogerio de Lima
+2026-05-04 12:15:37,532 [INFO]   Perfil: Brad Morris
+2026-05-04 12:15:39,225 [INFO]   Perfil: Louie Sutherland
+2026-05-04 12:15:42,175 [INFO]   Perfil: Mostapha Al-Turk
+2026-05-04 12:15:47,156 [INFO]   Perfil: Assuerio Silva
+2026-05-04 12:15:48,966 [INFO]   Perfil: Jon Madsen
+2026-05-04 12:15:50,724 [INFO]   Perfil: Gilbert Aldana
+2026-05-04 12:15:52,471 [INFO]   Perfil: James Irvin
+2026-05-04 12:15:54,212 [INFO]   Perfil: Maurice Smith
+2026-05-04 12:15:55,975 [INFO]   Perfil: Karl Williams
+2026-05-04 12:15:57,697 [INFO]   Perfil: Rashad Evans
+2026-05-04 12:15:59,868 [INFO]   Perfil: Keith Jardine
+2026-05-04 12:16:03,935 [INFO]   Perfil: Nandor Guelmino
+2026-05-04 12:16:06,523 [INFO]   Perfil: Justin Tafa
+2026-05-04 12:16:08,583 [INFO]   Perfil: Joey Beltran
+2026-05-04 12:16:10,348 [INFO]   Perfil: Braxton Smith
+2026-05-04 12:16:11,983 [INFO]   Perfil: Vitor Miranda
+2026-05-04 12:16:13,708 [INFO]   Perfil: Allen Crowder
+2026-05-04 12:16:15,477 [INFO]   Perfil: Marco Ruas
+2026-05-04 12:16:17,336 [INFO]   Perfil: Stipe Miocic
+2026-05-04 12:16:19,133 [INFO]   Perfil: David Dodd
+2026-05-04 12:16:20,855 [INFO]   Perfil: Eddie Sanchez
+2026-05-04 12:16:22,678 [INFO]   Perfil: Kerry Schall
+2026-05-04 12:16:24,369 [INFO]   Perfil: Tallison Teixeira
+2026-05-04 12:16:25,938 [INFO]   Perfil: Parker Porter
+2026-05-04 12:16:27,513 [INFO]   Perfil: Brandon Vera
+2026-05-04 12:16:29,413 [INFO]   Perfil: Travis Wiuff
+2026-05-04 12:16:31,122 [INFO]   Perfil: Rob Broughton
+2026-05-04 12:16:32,839 [INFO]   Perfil: Mark Robinson
+2026-05-04 12:16:34,551 [INFO]   Perfil: Marcin Tybura
+2026-05-04 12:16:36,363 [INFO]   Perfil: Luis Henrique
+2026-05-04 12:16:38,088 [INFO]   Perfil: Ian Freeman
+2026-05-04 12:16:39,818 [INFO]   Perfil: Cody East
+2026-05-04 12:16:41,391 [INFO]   Perfil: Mirko Filipovic
+2026-05-04 12:16:43,302 [INFO]   Perfil: Marcus Silveira
+2026-05-04 12:16:45,007 [INFO]   Perfil: Dave Herman
+2026-05-04 12:16:46,739 [INFO]   Perfil: Wade Shipp
+2026-05-04 12:16:48,436 [INFO]   Perfil: Cheick Kongo
+2026-05-04 12:16:50,214 [INFO]   Perfil: Jhonata Diniz
+2026-05-04 12:16:51,930 [INFO]   Perfil: Junior Albini
+2026-05-04 12:16:53,646 [INFO]   Perfil: Oli Thompson
+2026-05-04 12:16:55,336 [INFO]   Perfil: Vitor Petrino
+2026-05-04 12:16:56,908 [INFO]   Perfil: Mohammed Usman
+2026-05-04 12:16:58,652 [INFO]   Perfil: Alexander Volkov
+2026-05-04 12:17:00,244 [INFO]   Perfil: Aaron Brink
+2026-05-04 12:17:03,176 [INFO]   Perfil: Jason Godsey
+2026-05-04 12:17:04,992 [INFO]   Perfil: Frank Mir
+2026-05-04 12:17:11,325 [INFO]   Perfil: Ante Delija
+2026-05-04 12:17:13,026 [INFO]   Perfil: Satoshi Honma
+2026-05-04 12:17:14,730 [INFO]   Perfil: Harry Moskowitz
+2026-05-04 12:17:16,505 [INFO]   Perfil: Gabriel Gonzaga
+2026-05-04 12:17:18,339 [INFO]   Perfil: Carlos Felipe
+2026-05-04 12:17:20,061 [INFO]   Perfil: Alexandr Romanov
+2026-05-04 12:17:22,092 [INFO]   Perfil: Thomas Petersen
+2026-05-04 12:17:23,820 [INFO]   Perfil: Daniel Spitz
+2026-05-04 12:17:25,587 [INFO]   Perfil: Fabio Maldonado
+2026-05-04 12:17:27,415 [INFO]   Perfil: Karlos Vemola
+2026-05-04 12:17:29,251 [INFO]   Perfil: Tanner Boser
+2026-05-04 12:17:30,998 [INFO]   Perfil: Francis Ngannou
+2026-05-04 12:17:32,802 [INFO]   Perfil: Neil Wain
+2026-05-04 12:17:34,511 [INFO]   Perfil: Ovince Saint Preux
+2026-05-04 12:17:36,380 [INFO]   Perfil: Tony Halme
+2026-05-04 12:17:38,094 [INFO]   Perfil: Vinicius Queiroz
+2026-05-04 12:17:39,795 [INFO]   Perfil: Chris de la Rocha
+2026-05-04 12:17:41,489 [INFO]   Perfil: Greg Hardy
+2026-05-04 12:17:43,227 [INFO]   Perfil: Junior Tafa
+2026-05-04 12:17:44,809 [INFO]   Perfil: Richardson Moreira
+2026-05-04 12:17:46,529 [INFO]   Perfil: Jon Olav Einemo
+2026-05-04 12:17:48,365 [INFO]   Perfil: Neil Grove
+2026-05-04 12:17:50,056 [INFO]   Perfil: Roberto Traven
+2026-05-04 12:17:51,746 [INFO]   Perfil: Steve Judson
+2026-05-04 12:17:53,450 [INFO]   Perfil: Alexandre Dantas
+2026-05-04 12:17:55,150 [INFO]   Perfil: Caio Machado
+2026-05-04 12:17:56,866 [INFO]   Perfil: Ben Rothwell
+2026-05-04 12:17:58,712 [INFO]   Perfil: Mike van Arsdale
+2026-05-04 12:18:01,116 [INFO]   Perfil: Rashad Coulter
+2026-05-04 12:18:02,826 [INFO]   Perfil: Josh Copeland
+2026-05-04 12:18:04,529 [INFO]   Perfil: Tai Tuivasa
+2026-05-04 12:18:06,116 [INFO]   Perfil: Ryan Spann
+2026-05-04 12:18:07,880 [INFO]   Perfil: Josh Barnett
+2026-05-04 12:18:10,109 [INFO]   Perfil: Sean Gannon
+2026-05-04 12:18:11,809 [INFO]   Perfil: Pete Williams
+2026-05-04 12:18:13,575 [INFO]   Perfil: Ilir Latifi
+2026-05-04 12:18:15,600 [INFO]   Perfil: Ricco Rodriguez
+2026-05-04 12:18:17,391 [INFO]   Perfil: Philip De Fries
+2026-05-04 12:18:19,237 [INFO]   Perfil: James Mulheron
+2026-05-04 12:18:20,970 [INFO]   Perfil: Maurice Greene
+2026-05-04 12:18:22,790 [INFO]   Perfil: Alexander Gustafsson
+2026-05-04 12:18:24,673 [INFO]   Perfil: Anthony Hamilton
+2026-05-04 12:18:26,410 [INFO]   Perfil: Sean Sharaf
+2026-05-04 12:18:28,201 [INFO]   Perfil: Tyrell Fortune
+2026-05-04 12:18:30,030 [INFO]   Perfil: Sione Latu
+2026-05-04 12:18:31,940 [INFO]   Perfil: Gan McGee
+2026-05-04 12:18:33,704 [INFO]   Perfil: Pat Barry
+2026-05-04 12:18:35,474 [INFO]   Perfil: Marcus Jones
+2026-05-04 12:18:37,290 [INFO]   Perfil: Sergei Pavlovich
+2026-05-04 12:18:39,172 [INFO]   Perfil: Yorgan De Castro
+2026-05-04 12:18:40,909 [INFO]   Perfil: Carlos Barreto
+2026-05-04 12:18:42,484 [INFO]   Perfil: Mark Hunt
+2026-05-04 12:18:49,235 [INFO]   Perfil: Travis Browne
+2026-05-04 12:18:52,454 [INFO]   Perfil: Chase Sherman
+2026-05-04 12:18:54,373 [INFO]   Perfil: Hugo Duarte
+2026-05-04 12:18:55,937 [INFO]   Perfil: Adam Wieczorek
+2026-05-04 12:18:57,968 [INFO]   Perfil: Zac Pauga
+2026-05-04 12:18:59,942 [INFO]   Perfil: Scott Ferrozzo
+2026-05-04 12:19:04,029 [INFO]   Perfil: Austen Lane
+2026-05-04 12:19:06,024 [INFO]   Perfil: Carmelo Marrero
+2026-05-04 12:19:07,719 [INFO]   Perfil: Paul Buentello
+2026-05-04 12:19:09,584 [INFO]   Perfil: Sam Fulton
+2026-05-04 12:19:11,148 [INFO]   Perfil: Mike Kyle
+2026-05-04 12:19:13,047 [INFO]   Perfil: Fabiano Scherner
+2026-05-04 12:19:15,075 [INFO]   Perfil: Konstantin Erokhin
+2026-05-04 12:19:16,937 [INFO]   Perfil: Mario Pinto
+2026-05-04 12:19:18,775 [INFO]   Perfil: Kazushi Sakuraba
+2026-05-04 12:19:21,242 [INFO]   Perfil: Jon Jones
+2026-05-04 12:19:23,325 [INFO]   Perfil: Hu Yaozong
+2026-05-04 12:19:25,280 [INFO]   Perfil: Dan Bobish
+2026-05-04 12:19:27,067 [INFO]   Perfil: Dmitri Stepanov
+2026-05-04 12:19:28,803 [INFO]   Perfil: Mike Russow
+2026-05-04 12:19:31,047 [INFO]   Perfil: Derrick Lewis
+2026-05-04 12:19:33,262 [INFO]   Perfil: Tim Sylvia
+2026-05-04 12:19:35,188 [INFO]   Perfil: Justin Martin
+2026-05-04 12:19:37,131 [INFO]   Perfil: Shamil Abdurakhimov
+2026-05-04 12:19:39,021 [INFO]   Perfil: Kevin Ferguson
+2026-05-04 12:19:40,656 [INFO]   Perfil: Daniel Cormier
+2026-05-04 12:19:42,676 [INFO]   Perfil: Bobby Hoffman
+2026-05-04 12:19:44,720 [INFO]   Perfil: Josh Shockman
+2026-05-04 12:19:46,427 [INFO]   Perfil: Jake Collier
+2026-05-04 12:19:48,171 [INFO]   Perfil: Rizvan Kuniev
+2026-05-04 12:19:50,169 [INFO]   Perfil: Kevin Jordan
+2026-05-04 12:19:52,088 [INFO]   Perfil: Chris Tuchscherer
+2026-05-04 12:19:53,977 [INFO]   Perfil: Gary Goodridge
+2026-05-04 12:19:55,852 [INFO]   Perfil: Jamal Pogues
+2026-05-04 12:19:57,862 [INFO]   Perfil: Mario Neto
+2026-05-04 12:19:59,742 [INFO]   Perfil: Houston Dorr
+2026-05-04 12:20:03,507 [INFO]   Perfil: Travis Fulton
+2026-05-04 12:20:05,904 [INFO]   Perfil: Steven Graham
+2026-05-04 12:20:07,764 [INFO]   Perfil: Brock Lesnar
+2026-05-04 12:20:09,708 [INFO]   Perfil: Joe Pardo
+2026-05-04 12:20:16,906 [INFO]   Perfil: Christian Wellisch
+2026-05-04 12:20:18,975 [INFO]   Perfil: Icho Larenas
+2026-05-04 12:20:20,889 [INFO]   Perfil: Justin Eilers
+2026-05-04 12:20:23,072 [INFO]   Perfil: Gilbert Yvel
+2026-05-04 12:20:25,064 [INFO]   Perfil: Jeremy Horn
+2026-05-04 12:20:26,965 [INFO]   Perfil: Mick Parkin
+2026-05-04 12:20:28,866 [INFO]   Perfil: Christian Morecraft
+2026-05-04 12:20:30,852 [INFO]   Perfil: Bas Rutten
+2026-05-04 12:20:33,164 [INFO]   Perfil: Guto Inocente
+2026-05-04 12:20:34,995 [INFO]   Perfil: Brendan Schaub
+2026-05-04 12:20:36,833 [INFO]   Perfil: Justin Wren
+2026-05-04 12:20:38,786 [INFO]   Perfil: William Knight
+2026-05-04 12:20:41,636 [INFO]   Perfil: Chad Griggs
+2026-05-04 12:20:43,571 [INFO]   Perfil: Darrill Schoonover
+2026-05-04 12:20:45,631 [INFO]   Perfil: Felipe Franco
+2026-05-04 12:20:47,602 [INFO]   Perfil: Shane Carwin
+2026-05-04 12:20:49,411 [INFO]   Perfil: Arjan Bhullar
+2026-05-04 12:20:51,745 [INFO]   Perfil: Brad Kohler
+2026-05-04 12:20:53,675 [INFO]   Perfil: Martin Buday
+2026-05-04 12:20:55,882 [INFO]   Perfil: Alistair Overeem
+2026-05-04 12:20:58,405 [INFO]   Perfil: Wes Sims
+2026-05-04 12:21:00,422 [INFO]   Perfil: Damian Grabowski
+2026-05-04 12:21:03,127 [INFO]   Perfil: Denzel Freeman
+2026-05-04 12:21:05,050 [INFO]   Perfil: Justin McCully
+2026-05-04 12:21:06,943 [INFO]   Perfil: Tom Murphy
+2026-05-04 12:21:08,882 [INFO]   Perfil: Brando Pericic
+2026-05-04 12:21:10,603 [INFO]   Perfil: Mark Coleman
+2026-05-04 12:21:12,776 [INFO]   Perfil: Jack May
+2026-05-04 12:21:14,645 [INFO]   Perfil: Ruan Potts
+2026-05-04 12:21:16,209 [INFO]   Perfil: Waldo Cortes Acosta
+2026-05-04 12:21:18,353 [INFO]   Perfil: Lavar Johnson
+2026-05-04 12:21:20,184 [INFO]   Perfil: Moti Horenstein
+2026-05-04 12:21:21,985 [INFO]   Perfil: Yoji Anjo
+2026-05-04 12:21:23,689 [INFO]   Perfil: Steven Asplund
+2026-05-04 12:21:25,390 [INFO]   Perfil: Ciryl Gane
+2026-05-04 12:21:27,357 [INFO]   Perfil: Ken Shamrock
+2026-05-04 12:21:29,296 [INFO]   Perfil: Elisha Ellison
+2026-05-04 12:21:31,157 [INFO]   Perfil: Marcel Fortuna
+2026-05-04 12:21:33,045 [INFO]   Perfil: Renato Sobral
+2026-05-04 12:21:34,641 [INFO]   Perfil: Timothy Johnson
+2026-05-04 12:21:36,359 [INFO]   Perfil: Dan Severn
+2026-05-04 12:21:38,314 [INFO]   Perfil: Matt Mitrione
+2026-05-04 12:21:40,197 [INFO]   Perfil: Branden Lee Hinkle
+2026-05-04 12:21:41,966 [INFO] Guardados 316 perfiles de peleadores en fighters_heavyweight.json
+2026-05-04 12:21:41,967 [INFO] ¡Scraping completado!
