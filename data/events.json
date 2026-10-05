@@ -1,5 +1,89 @@
 [
   {
+    "event_id": "ad3fdba28a7540cf",
+    "name": "UFC 332: Silva vs. Wang",
+    "date": "October 03, 2026",
+    "url": "http://ufcstats.com/event-details/ad3fdba28a7540cf"
+  },
+  {
+    "event_id": "7e654edcddd71550",
+    "name": "UFC Fight Night: Rosas Jr. vs. Barcelos",
+    "date": "September 26, 2026",
+    "url": "http://ufcstats.com/event-details/7e654edcddd71550"
+  },
+  {
+    "event_id": "8a0a35e7c74bebcc",
+    "name": "UFC 331: Van vs. Pantoja 2",
+    "date": "September 19, 2026",
+    "url": "http://ufcstats.com/event-details/8a0a35e7c74bebcc"
+  },
+  {
+    "event_id": "638cfec7ec559d6e",
+    "name": "Noche UFC: Silva vs. Delgado",
+    "date": "September 12, 2026",
+    "url": "http://ufcstats.com/event-details/638cfec7ec559d6e"
+  },
+  {
+    "event_id": "2144954270be834d",
+    "name": "UFC Fight Night: Hooker vs. Parnasse",
+    "date": "September 05, 2026",
+    "url": "http://ufcstats.com/event-details/2144954270be834d"
+  },
+  {
+    "event_id": "9d61d8cb1c354867",
+    "name": "UFC Fight Night: Nurmagomedov vs. Song",
+    "date": "August 29, 2026",
+    "url": "http://ufcstats.com/event-details/9d61d8cb1c354867"
+  },
+  {
+    "event_id": "a0a69dc9914ef6e1",
+    "name": "UFC Fight Night: Hernandez vs. Rodrigues",
+    "date": "August 22, 2026",
+    "url": "http://ufcstats.com/event-details/a0a69dc9914ef6e1"
+  },
+  {
+    "event_id": "b96619b3acd7d9da",
+    "name": "UFC 330: Makhachev vs. Machado Garry",
+    "date": "August 15, 2026",
+    "url": "http://ufcstats.com/event-details/b96619b3acd7d9da"
+  },
+  {
+    "event_id": "495add4fbede0a44",
+    "name": "UFC Fight Night: Gamrot vs. Salkilld",
+    "date": "August 08, 2026",
+    "url": "http://ufcstats.com/event-details/495add4fbede0a44"
+  },
+  {
+    "event_id": "1a50e734bb54861a",
+    "name": "UFC Fight Night: Medic vs. Rodriguez",
+    "date": "August 01, 2026",
+    "url": "http://ufcstats.com/event-details/1a50e734bb54861a"
+  },
+  {
+    "event_id": "681d07e328798ec0",
+    "name": "UFC Fight Night: Ankalaev vs. Guskov",
+    "date": "July 25, 2026",
+    "url": "http://ufcstats.com/event-details/681d07e328798ec0"
+  },
+  {
+    "event_id": "f354c50b8d63d9b3",
+    "name": "UFC Fight Night: Du Plessis vs. Usman",
+    "date": "July 18, 2026",
+    "url": "http://ufcstats.com/event-details/f354c50b8d63d9b3"
+  },
+  {
+    "event_id": "fccb0fee256b7b4d",
+    "name": "UFC 329: McGregor vs. Holloway 2",
+    "date": "July 11, 2026",
+    "url": "http://ufcstats.com/event-details/fccb0fee256b7b4d"
+  },
+  {
+    "event_id": "31e1ea6fe6b682f8",
+    "name": "UFC Fight Night: Fiziev vs. Torres",
+    "date": "June 27, 2026",
+    "url": "http://ufcstats.com/event-details/31e1ea6fe6b682f8"
+  },
+  {
     "event_id": "c8661e204c66f325",
     "name": "UFC Fight Night: Kape vs. Horiguchi",
     "date": "June 20, 2026",
@@ -187,7 +271,7 @@
   },
   {
     "event_id": "5efaaf313b652dd7",
-    "name": "UFC Fight Night: Lopes vs. Silva",
+    "name": "Noche UFC: Lopes vs. Silva",
     "date": "September 13, 2025",
     "url": "http://ufcstats.com/event-details/5efaaf313b652dd7"
   },
@@ -202,12 +286,6 @@
     "name": "UFC Fight Night: Walker vs. Zhang",
     "date": "August 23, 2025",
     "url": "http://ufcstats.com/event-details/754968e325d6f60d"
-  },
-  {
-    "event_id": "8fbcd82bf7f352bf",
-    "name": "UFC - Road to UFC 4.6",
-    "date": "August 22, 2025",
-    "url": "http://ufcstats.com/event-details/8fbcd82bf7f352bf"
   },
   {
     "event_id": "421ccfc6ddb17958",
@@ -691,7 +769,7 @@
   },
   {
     "event_id": "8fa2b06572365321",
-    "name": "UFC Fight Night: Grasso vs. Shevchenko 2",
+    "name": "Noche UFC: Grasso vs. Shevchenko 2",
     "date": "September 16, 2023",
     "url": "http://ufcstats.com/event-details/8fa2b06572365321"
   },
