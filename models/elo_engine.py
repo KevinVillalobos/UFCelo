@@ -3,7 +3,7 @@ import csv
 import json
 import logging
 from dataclasses import asdict, dataclass
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -15,6 +15,25 @@ BASE_ELO = 1500.0
 # Baseline: elite HW fighter lands ~5 significant strikes per minute
 _STRIKES_PER_MINUTE_BASELINE = 5.0
 K_FACTOR = 32.0
+
+# Opponent quality (Q_opponent): (win modifier, loss modifier) by the opponent's standing in the
+# active pool of the division on the fight date. Multiplier = 1 + modifier, floored at _Q_FLOOR.
+_Q_TABLE: Dict[str, tuple] = {
+    "champion": (+0.20, -0.10),
+    "top3":     (+0.18, -0.08),
+    "top5":     (+0.15, -0.06),   # ranks 4-5
+    "top10":    (+0.08, -0.03),   # ranks 6-10
+    "top15":    (+0.03, -0.01),   # ranks 11-15
+    "bottom5":  (-0.10, -0.15),   # last 5 of the pool (when ranked below 15)
+    "other":    (-0.15, -0.20),   # everyone else, unranked
+}
+_Q_FLOOR = 0.70
+_Q_MIN_POOL = 8                    # early on there is no meaningful ranking: stay neutral
+_Q_ACTIVE_DAYS = 730               # "active" = fought within the last 2 years
+
+# Legacy decay: the ELO a fight added counts less the older it is (display + prediction, never history)
+_LEGACY_GRACE_YEARS = 5.0
+_LEGACY_DECAY_PER_YEAR = 0.95
 
 _DIVISION_K_MULT: Dict[str, float] = {
     "heavyweight":       1.00,
@@ -41,6 +60,20 @@ _DIVISIONS_ALL = [
     "heavyweight", "light heavyweight", "middleweight", "welterweight",
     "lightweight", "featherweight", "bantamweight", "flyweight",
 ]
+
+
+def compute_legacy_decay(fight_date, today=None) -> float:
+    """Weight of a fight's ELO contribution given its age: 1.0 up to 5 years, then 5% less per year."""
+    if isinstance(fight_date, datetime):
+        fight_date = fight_date.date()
+    if today is None:
+        today = date.today()
+    elif isinstance(today, datetime):
+        today = today.date()
+    years_since = (today - fight_date).days / 365.25
+    if years_since <= _LEGACY_GRACE_YEARS:
+        return 1.00
+    return _LEGACY_DECAY_PER_YEAR ** (years_since - _LEGACY_GRACE_YEARS)
 
 
 @dataclass
@@ -152,6 +185,9 @@ class EloEngine:
         streaks: Dict[str, int] = {fid: 0 for fid in fighters.keys()}
         fight_counts: Dict[str, int] = {fid: 0 for fid in fighters.keys()}
         last_fight_dates: Dict[str, datetime] = {}
+        last_divisions: Dict[str, str] = {}        # division of each fighter's latest fight so far
+        champions: Dict[str, str] = {}             # division -> fighter who won its latest title fight
+        applied_deltas: Dict[str, List[tuple]] = {}  # fighter -> [(fight date, ELO actually gained/lost)]
         peak_elos: Dict[str, float] = {fid: ratings[fid] for fid in fighters.keys()}
         peak_elo_dates: Dict[str, str] = {}
         peak_elo_opponents: Dict[str, str] = {}
@@ -172,8 +208,10 @@ class EloEngine:
 
             score_a, score_b = self._result_score(fight)
 
-            quality_a = self._quality_multiplier(fight.fighter_b_id, ratings, score_a)
-            quality_b = self._quality_multiplier(fight.fighter_a_id, ratings, score_b)
+            quality_a = self._quality_multiplier(
+                fight.fighter_b_id, ratings, score_a, fight, last_fight_dates, last_divisions, champions)
+            quality_b = self._quality_multiplier(
+                fight.fighter_a_id, ratings, score_b, fight, last_fight_dates, last_divisions, champions)
             streak_a = self._streak_multiplier(streaks[fight.fighter_a_id])
             streak_b = self._streak_multiplier(streaks[fight.fighter_b_id])
 
@@ -308,6 +346,12 @@ class EloEngine:
             fight_counts[fight.fighter_b_id] += 1
             last_fight_dates[fight.fighter_a_id] = fight.event_date
             last_fight_dates[fight.fighter_b_id] = fight.event_date
+            last_divisions[fight.fighter_a_id] = fight.division
+            last_divisions[fight.fighter_b_id] = fight.division
+            if fight.is_title_fight and fight.winner_id:
+                champions[fight.division] = fight.winner_id
+            applied_deltas.setdefault(fight.fighter_a_id, []).append((fight.event_date, new_a - elo_a))
+            applied_deltas.setdefault(fight.fighter_b_id, []).append((fight.event_date, new_b - elo_b))
             pair_history.setdefault(pair_key, []).append(fight.winner_id)
 
             result_a = "Win" if score_a == 1.0 else "Loss" if score_a == 0.0 else "Draw"
@@ -398,15 +442,18 @@ class EloEngine:
             fighter_info = fighters.get(fighter_id, {})
             last_date = last_fight_dates.get(fighter_id)
 
-            displayed_elo = raw_elo
+            # Legacy decay: initial rating + each fight's ELO change weighted by its age
+            effective_elo = initial_ratings.get(fighter_id, self.base_elo) + sum(
+                delta * compute_legacy_decay(when, today) for when, delta in applied_deltas.get(fighter_id, []))
+            displayed_elo = effective_elo
             if last_date:
                 months_inactive = (today - last_date).days / 30.44
                 if months_inactive > 0:
                     capped = min(24.0, months_inactive)
-                    decay_delta = (raw_elo - self.base_elo) * 0.005 * capped
+                    decay_delta = (effective_elo - self.base_elo) * 0.005 * capped
                     if streaks.get(fighter_id, 0) <= -3:
                         decay_delta *= 1.30
-                    displayed_elo = raw_elo - decay_delta
+                    displayed_elo = effective_elo - decay_delta
 
             active = last_date is not None and (today - last_date).days <= 730
             ranking.append({
@@ -414,6 +461,8 @@ class EloEngine:
                 "fighter_name": fighter_info.get("name") or names_from_fights.get(fighter_id) or "Unknown",
                 "division": fighter_info.get("division") or self.division.title(),
                 "elo": round(displayed_elo, 2),
+                "elo_raw": round(raw_elo, 2),
+                "elo_effective": round(effective_elo, 2),
                 "peak_elo": round(peak_elos.get(fighter_id, self.base_elo), 2),
                 "peak_elo_date": peak_elo_dates.get(fighter_id),
                 "peak_elo_opponent": peak_elo_opponents.get(fighter_id),
@@ -496,20 +545,50 @@ class EloEngine:
         if consec >= 2: return 1.20
         return 1.00
 
-    def _quality_multiplier(self, opponent_id: str, ratings: Dict[str, float], score: float) -> float:
-        sorted_ids = sorted(ratings, key=lambda fid: ratings[fid], reverse=True)
-        total = len(sorted_ids)
-        if opponent_id not in sorted_ids:
+    def _quality_multiplier(
+        self,
+        opponent_id: str,
+        ratings: Dict[str, float],
+        score: float,
+        fight: "FightRecord",
+        last_fight_dates: Dict[str, datetime],
+        last_divisions: Dict[str, str],
+        champions: Dict[str, str],
+    ) -> float:
+        """How much the opponent's standing AT THE TIME OF THE FIGHT scales the result.
+
+        Only information from earlier fights is used (the engine is a single chronological pass), so
+        there is no look-ahead. Standing = the opponent's pre-fight ELO rank among the fighters of the
+        fight's division who were active in the previous two years; the division champion is tracked
+        through title fights.
+        """
+        division = fight.division
+        horizon = fight.event_date - timedelta(days=_Q_ACTIVE_DAYS)
+        pool = [fid for fid, when in last_fight_dates.items()
+                if when >= horizon and last_divisions.get(fid) == division]
+        if opponent_id not in pool:
+            pool.append(opponent_id)
+        if len(pool) < _Q_MIN_POOL:
             return 1.0
-        rank = sorted_ids.index(opponent_id) + 1
-        multiplier = 1.0
-        if rank <= 5:
-            multiplier += 0.1 if score == 1.0 else -0.05
+
+        ordered = sorted(pool, key=lambda fid: ratings.get(fid, self.base_elo), reverse=True)
+        rank = ordered.index(opponent_id) + 1
+        if champions.get(division) == opponent_id:
+            tier = "champion"
+        elif rank <= 3:
+            tier = "top3"
+        elif rank <= 5:
+            tier = "top5"
         elif rank <= 10:
-            multiplier += 0.05 if score == 1.0 else 0.0
-        elif rank >= max(total - 5, 1):
-            multiplier -= 0.05 if score == 1.0 else 0.1
-        return max(0.7, multiplier)
+            tier = "top10"
+        elif rank <= 15:
+            tier = "top15"
+        elif rank > len(ordered) - 5:
+            tier = "bottom5"
+        else:
+            tier = "other"
+        win_mod, loss_mod = _Q_TABLE[tier]
+        return max(_Q_FLOOR, 1.0 + (win_mod if score == 1.0 else loss_mod))
 
     def _streak_multiplier(self, streak: int) -> float:
         if streak >= 8:  return 1.35

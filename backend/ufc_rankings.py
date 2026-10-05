@@ -106,7 +106,7 @@ def refresh() -> Optional[dict]:
         with _lock:
             _RANKINGS_FILE.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
             _CHAMPIONS_FILE.write_text(json.dumps(champions, indent=2, ensure_ascii=False), encoding="utf-8")
-    except OSError as exc:  # read-only filesystem (e.g. serverless)
+    except OSError as exc:  # data/ not writable
         log.warning("Could not persist UFC rankings: %s", exc)
         return None
     return payload

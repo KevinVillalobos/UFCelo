@@ -44,3 +44,6 @@ data/*.log
 # OS
 .DS_Store
 Thumbs.db
+
+# External data snapshots used as backtest baselines (never in the repo or the image)
+data_baseline/

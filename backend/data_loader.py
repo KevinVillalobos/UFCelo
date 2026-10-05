@@ -8,12 +8,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
 
 
+_json_cache: Dict[str, tuple] = {}   # filename -> (mtime_ns, parsed)
+
+
 def load_json_file(filename: str) -> Any:
+    """Parsed JSON, cached until the file changes on disk (data files are re-generated in place)."""
     path = DATA_DIR / filename
-    if not path.exists():
+    try:
+        mtime = path.stat().st_mtime_ns
+    except OSError:
         return None
+    hit = _json_cache.get(filename)
+    if hit and hit[0] == mtime:
+        return hit[1]
     with path.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
+        data = json.load(handle)
+    _json_cache[filename] = (mtime, data)
+    return data
 
 
 def _division_slug(division: str) -> str:
@@ -208,12 +219,14 @@ def load_fights_csv(division: str) -> Dict[str, Dict[str, Any]]:
 
 
 def get_upcoming_events() -> List[Dict[str, Any]]:
-    events = load_event_data()
-    today = datetime.utcnow()
+    """Upcoming cards from data/upcoming_events.json (synced from ufc.com by backend/upcoming.py)."""
+    data = load_json_file("upcoming_events.json")
+    events = data.get("events", []) if isinstance(data, dict) else []
+    today = datetime.utcnow().date()
     upcoming = []
     for event in events:
-        date = parse_date(event.get("date") or event.get("event_date"))
-        if date and date >= today:
-            upcoming.append({**event, "parsed_date": date})
+        date = parse_date(event.get("date"))
+        if date and date.date() >= today:
+            upcoming.append({**event, "parsed_date": date.date()})
     upcoming.sort(key=lambda item: item["parsed_date"])
     return upcoming

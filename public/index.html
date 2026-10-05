@@ -3,170 +3,355 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UFCelo.gg — Independent ELO Rankings</title>
+  <title>UFCelo.gg — UFC Predictions with Independent ELO</title>
+  <meta name="description" content="UFC fight predictions from an in-house multi-factor ELO engine, 7 skill dimensions and Monte Carlo simulation.">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <main class="container">
-  <div style="text-align:center; padding:1.5rem 0 1rem">
-    <h1 style="font-size:2.6rem; font-weight:800; letter-spacing:-1px;">UFCelo.gg</h1>
-    <p style="color:var(--muted); font-size:1rem; margin-top:0.3rem;">Independent ELO rankings for UFC/MMA</p>
-    <div id="home-visit-counter" style="margin-top:0.75rem;display:inline-flex;align-items:center;gap:0.4rem;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px 14px;font-size:0.82rem;color:var(--muted);">
-      <span style="font-size:0.9rem;">👁</span>
-      <span id="home-visit-num" style="font-weight:700;color:var(--text);">—</span>
-      <span>visitas</span>
+
+  <!-- 1. Hero + featured prediction ─────────────────────────────────────── -->
+  <section class="hero" aria-labelledby="hero-title">
+    <h1 class="hero-title" id="hero-title">UFCelo.gg — UFC Predictions with <em>Independent ELO</em></h1>
+    <p class="hero-sub">Multi-factor engine · 7 skill dimensions · Monte Carlo</p>
+    <div data-search-mount="hero-search" data-placeholder="Search fighters..."></div>
+    <span class="hero-visits" title="Home visits"><span aria-hidden="true">👁</span> <b id="home-visit-num">—</b> visits</span>
+    <div id="featured"><div class="skeleton" style="height:260px;border-radius:12px;margin-top:1.5rem;"></div></div>
+  </section>
+
+  <!-- 2. This week predictions ───────────────────────────────────────── -->
+  <section class="section" id="week" aria-labelledby="week-title" hidden>
+    <div class="section-head">
+      <h2 id="week-title">This week's predictions</h2>
+      <span class="section-sub" id="week-sub"></span>
     </div>
-  </div>
-  <hr class="divider">
+    <div class="pred-grid" id="week-grid"></div>
+  </section>
 
-  <div id="div-grid" class="grid-4" style="margin-bottom:2rem;">
-    <div class="skeleton" style="height:200px;border-radius:8px;"></div>
-    <div class="skeleton" style="height:200px;border-radius:8px;"></div>
-    <div class="skeleton" style="height:200px;border-radius:8px;"></div>
-    <div class="skeleton" style="height:200px;border-radius:8px;"></div>
-  </div>
-
-  <hr class="divider">
-  <h2 style="margin-bottom:0.25rem;">UFC Official Rankings vs ELO</h2>
-  <p style="color:var(--muted);font-size:0.85rem;margin-bottom:1rem;">Official UFC top 15 (ufc.com) next to our ELO top 15. The small number beside each name is where the other ranking places that fighter.</p>
-  <div class="form-row">
-    <div class="form-group" style="max-width:280px;">
-      <label>Division</label>
-      <select id="cmp-div"></select>
+  <!-- 3. Historical accuracy ─────────────────────────────────────────────── -->
+  <section class="section" id="accuracy" aria-labelledby="acc-title">
+    <div class="section-head">
+      <h2 id="acc-title">Historical accuracy</h2>
+      <span class="section-sub">How often the ELO favorite won</span>
     </div>
-  </div>
-  <div id="cmp-wrap" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:1rem;"></div>
-  <p id="cmp-note" style="color:var(--muted);font-size:0.75rem;"></p>
+    <div class="acc" id="acc-box"><div class="skeleton" style="height:140px;grid-column:1/-1;"></div></div>
+  </section>
 
-  <hr class="divider">
-  <details style="margin-bottom:2rem;">
-    <summary style="cursor:pointer;font-size:1rem;font-weight:700;padding:0.4rem 0;list-style:none;display:flex;align-items:center;gap:0.5rem;">
-      <span id="elo-toggle">▶</span> How ELO rankings work
-    </summary>
-    <div style="padding:1.25rem;background:var(--surface);border-radius:8px;margin-top:0.5rem;font-size:0.875rem;line-height:1.7;color:var(--muted);">
-      <p style="margin-bottom:0.75rem;"><strong style="color:var(--text);">What is ELO?</strong><br>
-      ELO is a relative rating system originally created for chess. Every fighter starts at 1500. Each fight transfers ELO points between the two fighters — the winner gains points, the loser loses them. The amount transferred depends on how surprising the result was: beating a much higher-rated opponent earns more than beating a lower-rated one.</p>
-
-      <p style="margin-bottom:0.75rem;"><strong style="color:var(--text);">Win probability formula</strong><br>
-      P(A wins) = 1 / (1 + 10<sup>(ELO_B − ELO_A)/400</sup>)<br>
-      A 200-point gap gives ~76% win probability; a 400-point gap gives ~91%.</p>
-
-      <p style="margin-bottom:0.75rem;"><strong style="color:var(--text);">Variable K-factor</strong><br>
-      K controls how many points change hands. This system uses a variable K:
-      <br>• New fighters (&lt;5 fights): K is highest — ratings settle quickly
-      <br>• Experienced fighters (15+ fights): K is lower — stable, hard-earned ratings
-      <br>Each division also has a multiplier (Heavyweight = 1.0×, Welterweight = 0.75×, etc.)</p>
-
-      <p style="margin-bottom:0.75rem;"><strong style="color:var(--text);">Method &amp; round weights</strong><br>
-      Not all wins are equal. A first-round KO earns more than a split decision:
-      <br>• KO/TKO Rd 1: 1.40× · KO/TKO Rd 2: 1.25× · KO/TKO Rd 3+: 1.10×
-      <br>• Submission: 1.20–1.25× · Unanimous decision: 1.05× · Majority: 0.90× · Split: 0.80×
-      <br>Title fights add an additional 1.20× multiplier.</p>
-
-      <p style="margin-bottom:0.75rem;"><strong style="color:var(--text);">Streak multipliers</strong><br>
-      Win streaks and loss streaks amplify K: a 3-win streak adds 1.15×, a 3-loss streak adds 1.25× to the loser's drop.</p>
-
-      <p style="margin-bottom:0"><strong style="color:var(--text);">Inactivity decay</strong><br>
-      Fighters inactive for more than a few months slowly drift back toward 1500 — preventing retired fighters from holding top spots indefinitely.</p>
+  <!-- 4. Division rankings ───────────────────────────────────────────── -->
+  <section class="section" id="rankings" aria-labelledby="rank-title">
+    <div class="section-head">
+      <h2 id="rank-title">Division rankings</h2>
+      <a class="section-sub" href="/rankings.html" style="color:var(--muted);">View full tables →</a>
     </div>
-  </details>
+    <div id="div-grid" class="grid-4" style="margin-bottom:2rem;">
+      <div class="skeleton" style="height:200px;border-radius:8px;"></div>
+      <div class="skeleton" style="height:200px;border-radius:8px;"></div>
+      <div class="skeleton" style="height:200px;border-radius:8px;"></div>
+      <div class="skeleton" style="height:200px;border-radius:8px;"></div>
+    </div>
+
+    <h3 style="margin-bottom:0.25rem;">Official UFC ranking vs ELO</h3>
+    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:1rem;">The official UFC top 15 (ufc.com) next to our ELO top 15. The small tag beside each name shows where the other ranking places that fighter.</p>
+    <div class="form-row">
+      <div class="form-group" style="max-width:280px;">
+        <label for="cmp-div">Division</label>
+        <select id="cmp-div"></select>
+      </div>
+    </div>
+    <div id="cmp-wrap" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:1rem;"></div>
+    <p id="cmp-note" style="color:var(--muted);font-size:0.75rem;"></p>
+  </section>
+
+  <!-- 5. How it works ─────────────────────────────────────────────────── -->
+  <section class="section" id="how" aria-labelledby="how-title">
+    <details class="how">
+      <summary><span id="how-toggle" aria-hidden="true">▶</span> <span id="how-title">How it works</span></summary>
+      <div class="how-body">
+        <div class="how-grid">
+          <div class="how-item"><h3>Multi-factor ELO</h3><p>One ELO per fighter, whatever the division. Every fight moves points according to how surprising the result was, adjusted by 12 multipliers: method and round, streak, opponent, rematch, fight time and more.</p></div>
+          <div class="how-item"><h3>7D skill score</h3><p>Striking, Defense, Grappling, Consistency, Finish Rate, Cardio/Durability and Pressure, each 0 to 100, built from per-fight statistics and smoothed with an exponential moving average.</p></div>
+          <div class="how-item"><h3>Monte Carlo</h3><p>We simulate the fight 100 to 10,000 times to estimate the probability of each outcome, the most likely method and the round it ends in.</p></div>
+          <div class="how-item"><h3>Validation</h3><p>We measure the engine against real results using the probability computed before each fight. See the historical accuracy block for how often it is right, and its limits.</p></div>
+        </div>
+        <details class="tech">
+          <summary>Technical details</summary>
+          <div class="tech-body">
+            <p><strong>Win probability.</strong> P(A) = 1 / (1 + 10<sup>(ELO<sub>B</sub> − ELO<sub>A</sub>)/400</sup>). A 200-point gap gives ~76%; 400 gives ~91%. The gap is capped at ±250 so the model never claims certainty.</p>
+            <p><strong>Variable K.</strong> New fighters (&lt;5 fights) move more points; with 15+ fights the rating is steadier. Each division has a multiplier (Heavyweight 1.0×, Welterweight 0.75×).</p>
+            <p><strong>Method and round.</strong> KO/TKO in R1: 1.40×, R2: 1.25×, R3+: 1.10×. Submission: 1.20–1.25×. Unanimous decision: 1.05×, majority: 0.90×, split: 0.80×. Title fights: +1.20×.</p>
+            <p><strong>Streaks.</strong> A 3-win streak adds 1.15× and a 3-loss streak adds 1.25× to the loser's drop.</p>
+            <p><strong>Inactivity.</strong> An inactive fighter slowly drifts back toward 1500, so retired fighters do not hold top spots.</p>
+            <p style="margin-bottom:0;"><strong>Final prediction.</strong> ELO probability ± an adjustment of up to ±10% from the composite skill difference.</p>
+          </div>
+        </details>
+      </div>
+    </details>
+  </section>
+
+  <!-- 6. Footer ───────────────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div>
+      <a href="/rankings.html">Rankings</a><a href="/comparison.html">Comparison</a><a href="/matchmaking.html">Matchmaking</a><a href="/p4p.html">P4P</a>
+    </div>
+    <div>Data from UFCStats.com and UFC.com · Independent project, not affiliated with the UFC.</div>
+  </footer>
 </main>
 
 <script src="/app.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', async () => {
-  // ── Division overview cards ──────────────────────────────────────────────
-  const grid = document.getElementById('div-grid');
-  const results = await Promise.allSettled(
-    DIVISIONS.map(d => apiFetch(`/rankings/${divSlug(d)}`).then(r => ({ div: d, rankings: r })))
-  );
-  grid.innerHTML = '';
-  results.forEach(res => {
-    if (res.status !== 'fulfilled') return;
-    const { div, rankings } = res.value;
-    const top = rankings.slice(0, 15);
-    const rows = top.map((f, i) => {
-      const champ = f.is_champion ? champBadge() : '';
-      const cls = ['fighter-row', i < 5 ? 'is-top5' : '', i === 0 ? 'is-first' : ''].filter(Boolean).join(' ');
-      // separator between the top 5 and the rest
-      const sep = i === 5 ? '<div class="row-sep" role="separator"></div>' : '';
-      return `${sep}<div class="${cls}">
-        <span class="rank">${i + 1}</span>
-        <span class="name">${champ}${escapeHtml(f.fighter_name)}</span>
-        ${streakBadge(f.streak || 0, { tip: true })}
-        <span class="elo">${f.elo.toFixed(0)}</span>
-      </div>`;
-    }).join('');
-    const more = rankings.length > 15 ? `<div style="color:var(--muted);font-size:0.75rem;margin-top:0.4rem;">+${rankings.length - 15} more</div>` : '';
-    const [divName, divLbs] = DIV_LABELS[div].split(/ (?=\d+ lbs$)/);
-    grid.insertAdjacentHTML('beforeend', `
-      <div class="div-card">
-        <h3 class="div-card-title"><span>${divName}</span><small>${divLbs || ''}</small></h3>
-        ${rows}${more}
-      </div>`);
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  const $ = id => document.getElementById(id);
+  const lastName = n => String(n || '').trim().split(/\s+/).slice(-1)[0];
+  const fmtDate = iso => {
+    if (!iso) return '';
+    const d = new Date(iso + 'T12:00:00');
+    return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+  };
+  const cmpUrl = fx => `/comparar/${slugify(fx.a.name)}-vs-${slugify(fx.b.name)}?a=${encodeURIComponent(fx.a.id)}&b=${encodeURIComponent(fx.b.id)}`;
+  const pct = p => `${Math.round(p * 100)}%`;
+  const CARD_LABEL = { main: 'Main card', prelims: 'Prelims', early_prelims: 'Early prelims' };
 
-  // ── ELO vs official UFC comparison ───────────────────────────────────────
-  const eloByDiv = {};
-  results.forEach(res => { if (res.status === 'fulfilled') eloByDiv[res.value.div] = res.value.rankings; });
-  const cmpSel = document.getElementById('cmp-div');
-  populateDivSelect(cmpSel);
-
-  function badge(text, title) {
-    return `<span title="${title}" style="color:var(--muted);font-size:0.7rem;margin-left:0.35rem;">${text}</span>`;
+  // One shape for both sources (event predictions and matchmaking fallback)
+  function keyAdvantage(p, a, b) {
+    const dim = p.key_advantage;
+    if (!dim) return null;
+    const label = skillLabel(dim);
+    const v = p.skill_advantages ? p.skill_advantages[dim] : null;
+    if (v == null) return label;
+    return `${label} (+${Math.abs(Math.round(v))} for ${lastName(v >= 0 ? a.name : b.name)})`;
   }
+  function fromEventFight(f) {
+    const p = f.prediction;
+    const a = { id: f.fighter_a_id, name: f.fighter_a_name, elo: p.elo_a, p: p.probability_a };
+    const b = { id: f.fighter_b_id, name: f.fighter_b_name, elo: p.elo_b, p: p.probability_b };
+    return { a, b, method: p.method_prediction, key: keyAdvantage(p, a, b), eloDiff: p.elo_difference,
+             mainEvent: f.is_main_event, card: f.card, style: p.style_reasons || [] };
+  }
+  function fromMatchup(m) {
+    const a = { id: m.fighter_a_id, name: m.fighter_a_name, elo: m.elo_a, p: m.probability_a };
+    const b = { id: m.fighter_b_id, name: m.fighter_b_name, elo: m.elo_b, p: m.probability_b };
+    const key = m.key_dimension ? `${skillLabel(m.key_dimension)} (+${Math.round(m.key_dimension_diff)})` : null;
+    return { a, b, method: null, key, eloDiff: m.elo_difference, card: null };
+  }
+
+  // ── 1.1 Featured prediction ──────────────────────────────────────────────
+  function renderFeatured(fx, meta) {
+    const favA = fx.a.p >= fx.b.p;
+    const side = (f, cls, fav) => `
+      <div class="mu-side ${cls} ${fav ? 'fav' : ''}">
+        <div class="mu-who">
+          <div class="mu-name">${escapeHtml(f.name)}${fav ? '<span class="mu-fav-tag">Favorite</span>' : ''}</div>
+          <div class="mu-elo">ELO ${Math.round(f.elo)}</div>
+        </div>
+        <div class="mu-pct" aria-label="Win probability ${pct(f.p)}">${pct(f.p)}</div>
+      </div>`;
+    const facts = [
+      fx.key ? ['Key advantage', fx.key] : null,
+      fx.method ? ['Most likely method', fx.method] : null,
+      fx.eloDiff != null ? ['ELO difference', `${fx.eloDiff >= 0 ? lastName(fx.a.name) : lastName(fx.b.name)} +${Math.abs(Math.round(fx.eloDiff))}`] : null,
+    ].filter(Boolean).map(([l, v]) => `<div><span class="fact-l">${l}</span><span class="fact-v">${escapeHtml(v)}</span></div>`).join('');
+    $('featured').innerHTML = `
+      <article class="featured">
+        <div class="featured-meta">
+          <span class="tag-live">${escapeHtml(meta.tag)}</span>
+          ${meta.event ? `<span class="featured-event">${escapeHtml(meta.event)}</span>` : ''}
+          ${meta.date ? `<span>${escapeHtml(meta.date)}</span>` : ''}
+          ${meta.venue ? `<span>${escapeHtml(meta.venue)}</span>` : ''}
+        </div>
+        <div class="matchup">
+          ${side(fx.a, 'a', favA)}
+          <div class="mu-vs" aria-hidden="true">VS</div>
+          ${side(fx.b, 'b', !favA)}
+        </div>
+        <div class="pbar" role="img" aria-label="${escapeHtml(fx.a.name)} ${pct(fx.a.p)}, ${escapeHtml(fx.b.name)} ${pct(fx.b.p)}">
+          <div class="pbar-a" style="width:${(fx.a.p * 100).toFixed(1)}%"></div>
+          <div class="pbar-b" style="width:${(fx.b.p * 100).toFixed(1)}%"></div>
+        </div>
+        <div class="facts">${facts}</div>
+        ${styleContextHTML(fx.style, fx.a.name, fx.b.name)}
+        <a class="btn-cta" href="${cmpUrl(fx)}">View full analysis <span aria-hidden="true">→</span></a>
+      </article>`;
+  }
+
+  // ── 1.2 Week cards ───────────────────────────────────────────────────────
+  function predCard(fx, tag) {
+    const favA = fx.a.p >= fx.b.p;
+    const row = (f, fav) => `<div class="pc-row ${fav ? 'fav' : ''}">
+        <span class="pc-name">${escapeHtml(f.name)}<span class="pc-elo">ELO ${Math.round(f.elo)}</span></span>
+        <span class="pc-pct">${pct(f.p)}</span></div>`;
+    return `<a class="pred-card" href="${cmpUrl(fx)}">
+      ${tag ? `<div class="pc-card-tag">${escapeHtml(tag)}</div>` : ''}
+      ${row(fx.a, favA)}${row(fx.b, !favA)}
+      <div class="pbar" style="height:6px;margin-top:8px;" aria-hidden="true">
+        <div class="pbar-a" style="width:${(fx.a.p * 100).toFixed(1)}%"></div>
+        <div class="pbar-b" style="width:${(fx.b.p * 100).toFixed(1)}%"></div>
+      </div>
+      <div class="pc-foot">
+        ${fx.method ? `<span class="pc-method" title="Most likely method">${escapeHtml(fx.method)}</span>` : `<span>${fx.key ? escapeHtml(fx.key) : ''}</span>`}
+        <span>View analysis →</span>
+      </div>
+    </a>`;
+  }
+
+  async function loadPredictions() {
+    let events = [];
+    try { events = await apiFetch('/events/upcoming'); } catch (e) { /* no card announced */ }
+    const predicted = ev => ev.fights.filter(f => f.prediction);
+    const ev = events.find(e => predicted(e).length);
+
+    if (ev) {
+      const list = predicted(ev);
+      const main = list.find(f => f.is_main_event) || list[0];
+      renderFeatured(fromEventFight(main), {
+        tag: 'Next event', event: ev.name, date: fmtDate(ev.date), venue: ev.venue,
+      });
+
+      const days = (new Date(ev.date + 'T12:00:00') - new Date()) / 86400000;
+      $('week-title').textContent = days <= 9 ? 'This week\'s predictions' : 'Upcoming predictions';
+      $('week-sub').textContent = `${ev.name} · ${fmtDate(ev.date)}`;
+      let cards = list.filter(f => f !== main).map(f => ({ fx: fromEventFight(f), tag: CARD_LABEL[f.card] || '' }));
+      if (cards.length < 3) {   // top up from the following event
+        const next = events.find(e => e !== ev && predicted(e).length);
+        if (next) cards = cards.concat(predicted(next).slice(0, 5 - cards.length)
+          .map(f => ({ fx: fromEventFight(f), tag: next.name })));
+      }
+      cards = cards.slice(0, 5);
+      if (cards.length) {
+        $('week-grid').innerHTML = cards.map(c => predCard(c.fx, c.tag)).join('');
+        $('week').hidden = false;
+      }
+      return;
+    }
+
+    // Fallback: most competitive matchups across all divisions
+    const settled = await Promise.allSettled(DIVISIONS.map(d =>
+      apiFetch(`/matchmaking/${divSlug(d)}?top_n=10`).then(rows => rows.slice(0, 3))));
+    const matchups = settled.filter(r => r.status === 'fulfilled').flatMap(r => r.value)
+      .sort((x, y) => y.matchup_score - x.matchup_score);
+    if (!matchups.length) {
+      $('featured').innerHTML = '<div class="alert-error" style="margin-top:1.5rem;">No card or matchups available right now.</div>';
+      return;
+    }
+    renderFeatured(fromMatchup(matchups[0]), { tag: 'Closest matchup', event: 'No card announced' });
+    $('week-title').textContent = 'Closest matchups right now';
+    $('week-sub').textContent = 'Suggested by the matchmaking engine';
+    $('week-grid').innerHTML = matchups.slice(1, 6).map(m => predCard(fromMatchup(m), DIV_LABELS[m.division] || '')).join('');
+    $('week').hidden = false;
+  }
+
+  // ── 1.3 Accuracy ─────────────────────────────────────────────────────────
+  async function loadAccuracy() {
+    const box = $('acc-box');
+    let a;
+    try { a = await apiFetch('/accuracy'); }
+    catch (e) { box.innerHTML = '<div class="acc-note" style="border:0;padding:0;">Accuracy not available right now.</div>'; return; }
+    const stat = (b, cap) => `<div><div class="acc-big">${Math.round(b.pct)}<small>%</small></div><div class="acc-cap">${cap}</div></div>`;
+    const bars = Object.entries(a.by_division).map(([d, b]) => `
+      <div class="acc-row" title="${DIV_LABELS[d]}: ${b.correct} de ${b.n}">
+        <span>${DIV_SHORT[d]}</span>
+        <span class="acc-track" role="img" aria-label="${DIV_LABELS[d]} ${b.pct}%"><span class="acc-fill" style="width:${b.pct}%"></span><span class="acc-base"></span></span>
+        <span>${b.pct.toFixed(1)}%</span>
+      </div>`).join('');
+    box.innerHTML = `
+      <div>
+        <div class="acc-stats">
+          ${stat(a.last_100, 'last 100 fights')}
+          ${stat(a.overall, `all ${a.overall.n.toLocaleString()} fights`)}
+        </div>
+        <p class="acc-cap" style="margin-top:var(--sp-3);">As of ${a.as_of || '—'}</p>
+      </div>
+      <div class="acc-bars" aria-label="Accuracy by division">${bars}
+        <div class="acc-cap" style="margin-top:4px;"><span style="color:var(--gold);">▌</span> 50% = coin flip</div>
+      </div>
+      <p class="acc-note">${escapeHtml(a.method)} <strong style="color:var(--text);">Ojo:</strong> ${escapeHtml(a.caveat)} A public fight-by-fight history is coming soon.</p>`;
+  }
+
+  // ── 4. Division cards (rankings section) ─────────────────────────────────
+  const eloByDiv = {};
+  async function loadDivisions() {
+    const grid = $('div-grid');
+    const results = await Promise.allSettled(
+      DIVISIONS.map(d => apiFetch(`/rankings/${divSlug(d)}`).then(r => ({ div: d, rankings: r })))
+    );
+    grid.innerHTML = '';
+    results.forEach(res => {
+      if (res.status !== 'fulfilled') return;
+      const { div, rankings } = res.value;
+      eloByDiv[div] = rankings;
+      const top = rankings.slice(0, 15);
+      const rows = top.map((f, i) => {
+        const champ = f.is_champion ? champBadge() : '';
+        const cls = ['fighter-row', i < 5 ? 'is-top5' : '', i === 0 ? 'is-first' : ''].filter(Boolean).join(' ');
+        const sep = i === 5 ? '<div class="row-sep" role="separator"></div>' : '';
+        return `${sep}<div class="${cls}">
+          <span class="rank">${i + 1}</span>
+          <span class="name">${champ}${escapeHtml(f.fighter_name)}</span>
+          ${streakBadge(f.streak || 0, { tip: true })}
+          <span class="elo">${f.elo.toFixed(0)}</span>
+        </div>`;
+      }).join('');
+      const more = rankings.length > 15
+        ? `<div style="color:var(--muted);font-size:0.75rem;margin-top:0.4rem;">+${rankings.length - 15} more</div>` : '';
+      const [divName, divLbs] = DIV_LABELS[div].split(/ (?=\d+ lbs$)/);
+      grid.insertAdjacentHTML('beforeend', `
+        <div class="div-card">
+          <h3 class="div-card-title"><span>${divName}</span><small>${divLbs || ''}</small></h3>
+          ${rows}${more}
+        </div>`);
+    });
+    await renderComparison();
+  }
+
+  // ── Official UFC vs ELO comparison ───────────────────────────────────────
+  const cmpSel = $('cmp-div');
+  populateDivSelect(cmpSel);
+  const tagSpan = (text, title) => `<span title="${title}" style="color:var(--muted);font-size:0.7rem;margin-left:0.35rem;">${text}</span>`;
 
   async function renderComparison() {
     const div = cmpSel.value;
-    const wrap = document.getElementById('cmp-wrap');
+    const wrap = $('cmp-wrap');
     const elo = eloByDiv[div] || [];
     let ufc;
-    try {
-      ufc = await apiFetch(`/ufc-rankings/${divSlug(div)}`);
-    } catch (e) {
-      wrap.innerHTML = '<div class="alert-error">Official UFC rankings unavailable.</div>';
-      return;
-    }
+    try { ufc = await apiFetch(`/ufc-rankings/${divSlug(div)}`); }
+    catch (e) { wrap.innerHTML = '<div class="alert-error">Official UFC ranking not available.</div>'; return; }
     const eloRank = new Map(elo.map((f, i) => [f.fighter_id, i + 1]));
     const ufcRank = new Map([ufc.champion, ...ufc.ranked].filter(e => e.fighter_id).map(e => [e.fighter_id, e.rank]));
     const ufcLabel = r => (r === 0 ? 'C' : `#${r}`);
 
     const eloRows = elo.slice(0, 15).map((f, i) => {
       const u = ufcRank.get(f.fighter_id);
-      const tag = u === undefined ? badge('UFC —', 'Not in the official UFC top 15') : badge(`UFC ${ufcLabel(u)}`, 'Official UFC rank');
+      const t = u === undefined ? tagSpan('UFC —', 'Not in the official top 15') : tagSpan(`UFC ${ufcLabel(u)}`, 'Official UFC rank');
       return `<div class="fighter-row">
         <span class="rank">${i + 1}</span>
-        <span class="name">${f.is_champion ? champBadge() : ''}${f.fighter_name}${tag}</span>
+        <span class="name">${f.is_champion ? champBadge() : ''}${escapeHtml(f.fighter_name)}${t}</span>
         <span class="elo">${f.elo.toFixed(0)}</span>
       </div>`;
     }).join('');
-
     const eloById = new Map(elo.map(f => [f.fighter_id, f]));
     const ufcRows = [ufc.champion, ...ufc.ranked].map(e => {
       const r = eloRank.get(e.fighter_id);
-      const tag = r === undefined ? badge('ELO —', 'Not ranked by ELO in this division') : badge(`ELO #${r}`, 'Our ELO rank');
+      const t = r === undefined ? tagSpan('ELO —', 'Not ELO-ranked in this division') : tagSpan(`ELO #${r}`, 'Our ELO rank');
       const f = eloById.get(e.fighter_id);
       return `<div class="fighter-row">
         <span class="rank">${e.rank === 0 ? 'C' : e.rank}</span>
-        <span class="name">${e.fighter_name}${tag}</span>
+        <span class="name">${escapeHtml(e.fighter_name)}${t}</span>
         <span class="elo">${f ? f.elo.toFixed(0) : '—'}</span>
       </div>`;
     }).join('');
-
     wrap.innerHTML = `
-      <div class="div-card"><div class="div-card-title">UFCelo — ELO top 15</div>${eloRows}</div>
-      <div class="div-card"><div class="div-card-title">Official UFC — top 15</div>${ufcRows}</div>`;
-    document.getElementById('cmp-note').textContent =
-      ufc.updated_at ? `Official rankings synced ${new Date(ufc.updated_at).toLocaleString()}` : '';
+      <div class="div-card"><h3 class="div-card-title"><span>UFCelo</span><small>ELO top 15</small></h3>${eloRows}</div>
+      <div class="div-card"><h3 class="div-card-title"><span>Official UFC</span><small>top 15</small></h3>${ufcRows}</div>`;
+    $('cmp-note').textContent = ufc.updated_at ? `Official rankings synced ${new Date(ufc.updated_at).toLocaleString('en-US')}` : '';
   }
-
   cmpSel.addEventListener('change', renderComparison);
-  await renderComparison();
 
-  document.querySelector('details summary').addEventListener('click', function() {
-    const span = document.getElementById('elo-toggle');
-    setTimeout(() => { span.textContent = this.parentElement.open ? '▼' : '▶'; }, 0);
-  });
+  // ── 5. How it works toggle arrow ─────────────────────────────────────────
+  const how = document.querySelector('details.how');
+  how.addEventListener('toggle', () => { $('how-toggle').textContent = how.open ? '▼' : '▶'; });
+
+  loadPredictions();
+  loadAccuracy();
+  loadDivisions();
 });
 </script>
 </body>

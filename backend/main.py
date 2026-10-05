@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .data_loader import set_fighter_retired
 
 # ── Visit counter ─────────────────────────────────────────────────────────────
-# Uses Vercel KV (Upstash Redis) when env vars are present; falls back to file.
+# Uses Upstash Redis when env vars are present; falls back to a local file.
 _KV_URL   = os.environ.get("KV_REST_API_URL", "")
 _KV_TOKEN = os.environ.get("KV_REST_API_TOKEN", "")
 _KV_KEY   = "ufcelo_visits"
@@ -56,6 +56,7 @@ def _save_visits(total: int) -> None:
         except (PermissionError, OSError):
             continue
 from .schemas import (  # noqa: F401
+    AccuracyResponse,
     EventFightPrediction,
     FightSimulation,
     FighterProfile,
@@ -67,7 +68,9 @@ from .schemas import (  # noqa: F401
     UpcomingEvent,
 )
 from .ufc_rankings import load_ufc_rankings, refresh as refresh_ufc_rankings, start_background_refresh
+from .upcoming import start_background_refresh as start_upcoming_refresh
 from .services import (
+    build_accuracy,
     build_fighter_profile,
     build_fight_simulation,
     build_fight_simulator_data,
@@ -87,8 +90,9 @@ app = FastAPI(
 
 @app.on_event("startup")
 def _sync_ufc_rankings() -> None:
-    # Keeps data/ufc_rankings.json and data/champions.json aligned with ufc.com
+    # Keeps data/ufc_rankings.json, data/champions.json and data/upcoming_events.json aligned with ufc.com
     start_background_refresh()
+    start_upcoming_refresh()
 
 
 app.add_middleware(
@@ -103,7 +107,7 @@ app.add_middleware(
 def get_rankings(division: str):
     rankings = build_ranking_response(division)
     if not rankings:
-        raise HTTPException(status_code=404, detail=f"No hay rankings disponibles para division '{division}'.")
+        raise HTTPException(status_code=404, detail=f"No rankings available for division '{division}'.")
     return rankings
 
 
@@ -111,7 +115,7 @@ def get_rankings(division: str):
 def get_alltime_rankings(division: str):
     rankings = build_ranking_response(division, alltime=True)
     if not rankings:
-        raise HTTPException(status_code=404, detail=f"No hay rankings all-time para division '{division}'.")
+        raise HTTPException(status_code=404, detail=f"No all-time rankings for division '{division}'.")
     return rankings
 
 
@@ -122,7 +126,7 @@ def get_fighter(
 ):
     profile = build_fighter_profile(fighter_id, division)
     if not profile:
-        raise HTTPException(status_code=404, detail=f"Fighter '{fighter_id}' no encontrado en {division}.")
+        raise HTTPException(status_code=404, detail=f"Fighter '{fighter_id}' not found in {division}.")
     return profile
 
 
@@ -139,10 +143,12 @@ def get_prediction(
     fighter_a: str = Query(..., description="ID del primer peleador."),
     fighter_b: str = Query(..., description="ID del segundo peleador."),
     division: str = Query(default="heavyweight", description="División"),
+    is_title_fight: bool = Query(default=False, description="Title fights are 5 rounds (switches on the cardio rule)."),
+    is_main_event: bool = Query(default=False, description="Main events are 5 rounds (switches on the cardio rule)."),
 ):
-    prediction = build_prediction(fighter_a, fighter_b, division)
+    prediction = build_prediction(fighter_a, fighter_b, division, is_title_fight, is_main_event)
     if not prediction:
-        raise HTTPException(status_code=404, detail="Uno o ambos peleadores no fueron encontrados.")
+        raise HTTPException(status_code=404, detail="One or both fighters were not found.")
     return prediction
 
 
@@ -152,15 +158,20 @@ def get_upcoming_events(
 ):
     events = build_upcoming_events(division)
     if not events:
-        raise HTTPException(status_code=404, detail="No se encontraron eventos próximos.")
+        raise HTTPException(status_code=404, detail="No upcoming events found.")
     return events
+
+
+@app.get("/accuracy", response_model=AccuracyResponse)
+def get_accuracy():
+    return build_accuracy()
 
 
 @app.get("/matchmaking/{division}", response_model=list[MatchupEntry])
 def get_matchmaking(division: str, top_n: int = Query(default=15, ge=1, le=200)):
     matchups = build_matchmaking(division, top_n=top_n)
     if not matchups:
-        raise HTTPException(status_code=404, detail=f"No se encontraron matchups para division '{division}'.")
+        raise HTTPException(status_code=404, detail=f"No matchups found for division '{division}'.")
     return matchups
 
 
@@ -172,7 +183,7 @@ def retire_fighter(
 ):
     fighter = build_fighter_profile(fighter_id, division)
     if not fighter:
-        raise HTTPException(status_code=404, detail=f"Fighter '{fighter_id}' no encontrado en {division}.")
+        raise HTTPException(status_code=404, detail=f"Fighter '{fighter_id}' not found in {division}.")
     set_fighter_retired(fighter_id, body.retired)
     return {"fighter_id": fighter_id, "retired": body.retired}
 
@@ -185,7 +196,7 @@ def get_simulator_data(
 ):
     data = build_fight_simulator_data(fighter_a, fighter_b, division)
     if not data:
-        raise HTTPException(status_code=404, detail="Uno o ambos peleadores no fueron encontrados.")
+        raise HTTPException(status_code=404, detail="One or both fighters were not found.")
     return data
 
 
@@ -193,7 +204,7 @@ def get_simulator_data(
 def get_ufc_rankings():
     data = load_ufc_rankings()
     if not data["divisions"]:
-        raise HTTPException(status_code=404, detail="Rankings oficiales de UFC aun no disponibles.")
+        raise HTTPException(status_code=404, detail="Official UFC rankings are not available yet.")
     return data
 
 
@@ -202,7 +213,7 @@ def get_ufc_rankings_division(division: str):
     data = load_ufc_rankings()
     info = data["divisions"].get(division.lower())
     if not info:
-        raise HTTPException(status_code=404, detail=f"Sin rankings oficiales para division '{division}'.")
+        raise HTTPException(status_code=404, detail=f"No official rankings for division '{division}'.")
     return {"updated_at": data["updated_at"], "division": division.lower(), **info}
 
 
@@ -234,5 +245,5 @@ def simulate_fight(
         fighter_a, fighter_b, n=simulations, rounds=rounds, seed=seed, division=division
     )
     if not result:
-        raise HTTPException(status_code=404, detail="Uno o ambos peleadores no fueron encontrados.")
+        raise HTTPException(status_code=404, detail="One or both fighters were not found.")
     return result

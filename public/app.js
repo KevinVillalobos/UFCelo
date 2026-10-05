@@ -54,7 +54,7 @@ function streakBadge(streak, opts) {
   const n = Math.abs(streak || 0);
   if (n < 3) return '';
   const up = streak > 0;
-  const text = up ? `Racha: ${n} victorias seguidas` : `Racha: ${n} derrotas seguidas`;
+  const text = up ? `Streak: ${n} wins in a row` : `Streak: ${n} losses in a row`;
   const tipAttrs = opts && opts.tip ? `data-tip="${text}" tabindex="0"` : `title="${text}"`;
   return `<span class="trend ${up ? 'trend-up' : 'trend-down'}" role="img" aria-label="${text}" ${tipAttrs}>`
        + `${up ? TREND_UP : TREND_DOWN}<span class="trend-num" aria-hidden="true">${n}${up ? 'W' : 'L'}</span></span>`;
@@ -102,6 +102,13 @@ function populateFighterSelect(el, rankings) {
 
 function divSlug(d) { return d.replace(/ /g, '%20'); }
 
+// The engine stores skill dimensions under Spanish keys; the UI always shows English labels.
+const SKILL_NAME_EN = {
+  'Striking': 'Striking', 'Grappling': 'Grappling', 'Defensa': 'Defense', 'Consistencia': 'Consistency',
+  'Finish Rate': 'Finish Rate', 'Cardio/Durabilidad': 'Cardio / Durability', 'Presión': 'Pressure',
+};
+function skillLabel(dim) { return SKILL_NAME_EN[dim] || dim; }
+
 // ── Fighter index (search + deep links) ───────────────────────────────────
 // Built only from endpoints the API already serves. "active" = current rankings,
 // "all" = all-time rankings (adds retired fighters).
@@ -143,12 +150,48 @@ const FighterIndex = (() => {
   };
 })();
 
+// Style Clash notes ("Striking dominance vs poor defense (+2%)": + favours A, - favours B). They explain the
+// matchup but do NOT change the win probability, so the percentage is dropped and the favoured fighter named.
+function styleNotes(reasons, nameA, nameB) {
+  const last = n => String(n || '').trim().split(/\s+/).slice(-1)[0];
+  return (reasons || []).map(r => {
+    const m = String(r).match(/^(.*?)\s*\(([+-])[\d.]+%\)$/);
+    if (!m) return escapeHtml(r);
+    return `${escapeHtml(m[1])} <span class="style-ctx-who">— favors ${escapeHtml(last(m[2] === '+' ? nameA : nameB))}</span>`;
+  });
+}
+
+function styleContextHTML(reasons, nameA, nameB) {
+  const items = styleNotes(reasons, nameA, nameB);
+  if (!items.length) return '';
+  return `<div class="style-ctx">
+    <div class="style-ctx-title">Style context <span>(does not affect the %)</span></div>
+    <ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>
+  </div>`;
+}
+
 // /peleador/<slug>?id=<fighter_id> — the id is exact; the slug keeps the URL readable.
 function fighterUrl(f) {
   return `/peleador/${slugify(f.name)}?id=${encodeURIComponent(f.id)}`;
 }
 
 window.UFCelo = { FighterIndex, slugify, fighterUrl };
+
+// Markup of one search field. p = id prefix, so several instances (navbar, hero) can coexist.
+function searchFieldHTML(p, opts) {
+  const o = opts || {};
+  const close = o.close ? `<button type="button" class="nav-search-close" id="${p}-close" aria-label="Close search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>` : '';
+  return `<svg class="nav-search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="${p}-input" type="search" placeholder="${o.placeholder || 'Search fighters…'}" autocomplete="off" spellcheck="false"
+             role="combobox" aria-label="Search fighters" aria-autocomplete="list" aria-expanded="false" aria-controls="${p}-list">
+      ${close}
+      <div class="nav-search-panel" id="${p}-panel" hidden>
+        <ul id="${p}-list" role="listbox" aria-label="Results"></ul>
+        <label class="nav-search-opt"><input type="checkbox" id="${p}-retired"> Include retired</label>
+      </div>`;
+}
 
 // ── Inject nav ────────────────────────────────────────────────────────────
 (function () {
@@ -169,20 +212,11 @@ window.UFCelo = { FighterIndex, slugify, fighterUrl };
   const html = `<nav class="navbar">
   <a href="/" class="nav-brand">UFC<span>elo</span>.gg</a>
   <div class="nav-search" id="nav-search" role="search">
-    <button type="button" class="nav-search-toggle" id="nav-search-toggle" aria-label="Buscar peleador" aria-expanded="false">
+    <button type="button" class="nav-search-toggle" id="nav-search-toggle" aria-label="Search fighters" aria-expanded="false">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     </button>
     <div class="nav-search-field">
-      <svg class="nav-search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="nav-search-input" type="search" placeholder="Buscar peleador…  ( / )" autocomplete="off" spellcheck="false"
-             role="combobox" aria-label="Buscar peleador" aria-autocomplete="list" aria-expanded="false" aria-controls="nav-search-list">
-      <button type="button" class="nav-search-close" id="nav-search-close" aria-label="Cerrar búsqueda">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
-      </button>
-      <div class="nav-search-panel" id="nav-search-panel" hidden>
-        <ul id="nav-search-list" role="listbox" aria-label="Resultados"></ul>
-        <label class="nav-search-opt"><input type="checkbox" id="nav-search-retired"> Incluir retirados</label>
-      </div>
+      ${searchFieldHTML('nav-search', { close: true, placeholder: 'Search fighters…  ( / )' })}
     </div>
   </div>
   <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
@@ -224,18 +258,28 @@ window.UFCelo = { FighterIndex, slugify, fighterUrl };
     .then(d => { if (d && d.total) _showVisits(d.total); })
     .catch(() => {});
 
-  initSearch();
+  initSearch('nav-search');
+
+  // Extra search boxes anywhere on a page: <div data-search-mount="hero-search"></div>
+  document.querySelectorAll('[data-search-mount]').forEach(el => {
+    const p = el.getAttribute('data-search-mount');
+    el.id = p;
+    el.setAttribute('role', 'search');
+    el.classList.add('nav-search', 'nav-search--hero');
+    el.innerHTML = `<div class="nav-search-field">${searchFieldHTML(p, { placeholder: el.getAttribute('data-placeholder') || 'Search fighters…' })}</div>`;
+    initSearch(p);
+  });
 })();
 
 // ── Global fighter search (Fuse.js fuzzy match over the fighter index) ────
-function initSearch() {
-  const box     = document.getElementById('nav-search');
-  const input   = document.getElementById('nav-search-input');
-  const panel   = document.getElementById('nav-search-panel');
-  const list    = document.getElementById('nav-search-list');
-  const retired = document.getElementById('nav-search-retired');
-  const toggle  = document.getElementById('nav-search-toggle');
-  const closeBt = document.getElementById('nav-search-close');
+function initSearch(p) {
+  const box     = document.getElementById(p);
+  const input   = document.getElementById(`${p}-input`);
+  const panel   = document.getElementById(`${p}-panel`);
+  const list    = document.getElementById(`${p}-list`);
+  const retired = document.getElementById(`${p}-retired`);
+  const toggle  = document.getElementById(`${p}-toggle`);   // navbar only (mobile icon)
+  const closeBt = document.getElementById(`${p}-close`);    // navbar only
   if (!box || !input) return;
 
   let entries = [], fuse = null, mode = null, results = [], activeIdx = -1, ticket = 0;
@@ -296,14 +340,14 @@ function initSearch() {
   function render(q) {
     if (q.trim().length < 2) { open(false); return; }
     if (!results.length) {
-      const hint = retired.checked ? '' : '. Prueba incluyendo retirados.';
-      list.innerHTML = `<li class="sr-empty" role="presentation">Sin resultados para «${escapeHtml(q.trim())}»${hint}</li>`;
+      const hint = retired.checked ? '' : '. Try including retired fighters.';
+      list.innerHTML = `<li class="sr-empty" role="presentation">No results for "${escapeHtml(q.trim())}"${hint}</li>`;
     } else {
       list.innerHTML = results.map((f, i) => `
-        <li role="presentation"><a class="sr-item" role="option" id="sr-opt-${i}" aria-selected="false" href="${fighterUrl(f)}">
+        <li role="presentation"><a class="sr-item" role="option" id="${p}-opt-${i}" aria-selected="false" href="${fighterUrl(f)}">
           <span class="sr-main">
             <span class="sr-name">${f.champion ? champBadge() : ''}${escapeHtml(f.name)}</span>
-            <span class="sr-meta">${divBadge(f.division)}<span class="sr-rec">${escapeHtml(f.record || '—')}</span>${f.active ? '' : '<span class="sr-ret">Retirado</span>'}</span>
+            <span class="sr-meta">${divBadge(f.division)}<span class="sr-rec">${escapeHtml(f.record || '—')}</span>${f.active ? '' : '<span class="sr-ret">Retired</span>'}</span>
           </span>
           <span class="sr-elo" aria-label="ELO ${Math.round(f.elo)}">${Math.round(f.elo)}</span>
         </a></li>`).join('');
@@ -322,8 +366,8 @@ function initSearch() {
   }
 
   // Mobile: the field collapses to an icon and expands over the navbar.
-  function openMobile()  { box.classList.add('search-open');    toggle.setAttribute('aria-expanded', 'true'); }
-  function closeMobile() { box.classList.remove('search-open'); toggle.setAttribute('aria-expanded', 'false'); }
+  function openMobile()  { if (!toggle) return; box.classList.add('search-open');    toggle.setAttribute('aria-expanded', 'true'); }
+  function closeMobile() { if (!toggle) return; box.classList.remove('search-open'); toggle.setAttribute('aria-expanded', 'false'); }
 
   input.addEventListener('input', run);
   input.addEventListener('focus', () => { prepare().catch(() => {}); if (results.length && input.value.trim().length >= 2) open(true); });
@@ -342,8 +386,8 @@ function initSearch() {
 
   document.addEventListener('mousedown', e => { if (!box.contains(e.target)) { open(false); closeMobile(); } });
 
-  // "/" focuses the search from anywhere (unless the user is already typing).
-  document.addEventListener('keydown', e => {
+  // "/" focuses the navbar search from anywhere (unless the user is already typing).
+  if (toggle) document.addEventListener('keydown', e => {
     if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
     if (/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) return;
     e.preventDefault();
@@ -351,8 +395,8 @@ function initSearch() {
     input.focus();
   });
 
-  toggle.addEventListener('click', () => { openMobile(); input.focus(); });
-  closeBt.addEventListener('click', () => {
+  if (toggle) toggle.addEventListener('click', () => { openMobile(); input.focus(); });
+  if (closeBt) closeBt.addEventListener('click', () => {
     input.value = ''; results = []; open(false); closeMobile(); toggle.focus();
   });
 }

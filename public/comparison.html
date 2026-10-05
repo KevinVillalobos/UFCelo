@@ -147,9 +147,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   populateDivSelect(divSel);
 
-  async function loadDiv() {
-    const div      = divSel.value;
-    const alltime  = alltimeChk.checked;
+  async function divisionList(div, alltime) {
     const cacheKey = div + (alltime ? ':alltime' : '');
     if (!rankingsCache[cacheKey]) {
       const endpoint = alltime
@@ -158,10 +156,53 @@ document.addEventListener('DOMContentLoaded', async () => {
       try { rankingsCache[cacheKey] = await apiFetch(endpoint); }
       catch(e) { rankingsCache[cacheKey] = []; }
     }
-    populateFighterSelect(faSel, rankingsCache[cacheKey]);
-    populateFighterSelect(fbSel, rankingsCache[cacheKey]);
+    return rankingsCache[cacheKey];
+  }
+
+  // preA / preB: fighter ids to preselect (a share link). addEventListener passes an Event here, so check the type.
+  async function loadDiv(preA, preB) {
+    const list = await divisionList(divSel.value, alltimeChk.checked);
+    populateFighterSelect(faSel, list);
+    populateFighterSelect(fbSel, list);
     if (fbSel.options.length > 1) fbSel.selectedIndex = 1;
+    if (typeof preA === 'string' && typeof preB === 'string') {
+      faSel.value = preA;
+      fbSel.value = preB;
+    }
     await compare();
+  }
+
+  // Share link: /comparar/<slug-a>-vs-<slug-b>?a=<id>&b=<id>. The ids are exact; slugs are the fallback.
+  async function resolveDeepLink() {
+    const q = new URLSearchParams(location.search);
+    const m = location.pathname.match(/^\/comparar\/([^/]+)/);
+    if (!(q.get('a') && q.get('b')) && !m) return null;
+    let all;
+    try { all = await UFCelo.FighterIndex.get(true); } catch (e) { return null; }
+    const byId = new Map(all.map(f => [f.id, f]));
+    let A = byId.get(q.get('a')), B = byId.get(q.get('b'));
+    if ((!A || !B) && m) {
+      const parts = decodeURIComponent(m[1]).split('-vs-');
+      if (parts.length === 2) {
+        const bySlug = s => all.find(f => UFCelo.slugify(f.name) === s);
+        A = A || bySlug(parts[0]);
+        B = B || bySlug(parts[1]);
+      }
+    }
+    if (!A || !B || A.id === B.id) return null;
+
+    divSel.value = A.division;
+    alltimeChk.checked = !A.active || !B.active;   // retired fighters only exist in the all-time lists
+    const list = await divisionList(A.division, alltimeChk.checked);
+    // The opponent may now compete in another division: borrow their entry so they can be selected here.
+    for (const f of [A, B]) {
+      if (list.some(r => r.fighter_id === f.id)) continue;
+      const own = await divisionList(f.division, alltimeChk.checked);
+      const entry = own.find(r => r.fighter_id === f.id);
+      if (entry) list.push(entry);
+    }
+    document.title = `${A.name} vs ${B.name} — UFCelo.gg`;
+    return { a: A.id, b: B.id };
   }
 
   function clearAll() {
@@ -336,7 +377,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         &rarr; with skill: <strong style="color:var(--text);">${(pa*100).toFixed(1)}%</strong>
         &nbsp;&middot;&nbsp; Skill A: <strong style="color:${COLOR_A};">${pred.skill_composite_a != null ? pred.skill_composite_a.toFixed(1) : '—'}</strong>
         vs B: <strong style="color:${COLOR_B};">${pred.skill_composite_b != null ? pred.skill_composite_b.toFixed(1) : '—'}</strong>
-      </div>`;
+      </div>
+      ${styleContextHTML(pred.style_reasons, faName, fbName)}`;
     Plotly.newPlot('prob-bar', [
       { type:'bar', orientation:'h', x:[pa*100], y:[faName], marker:{color:COLOR_A}, text:[`${(pa*100).toFixed(1)}%`], textposition:'inside', textfont:{color:'#fff',size:14}, name:faName },
       { type:'bar', orientation:'h', x:[pb*100], y:[fbName], marker:{color:COLOR_B}, text:[`${(pb*100).toFixed(1)}%`], textposition:'inside', textfont:{color:'#fff',size:14}, name:fbName },
@@ -698,7 +740,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   faSel.addEventListener('change', compare);
   fbSel.addEventListener('change', compare);
   alltimeChk.addEventListener('change', loadDiv);
-  await loadDiv();
+  const link = await resolveDeepLink();
+  await loadDiv(link && link.a, link && link.b);
 });
 </script>
 </body>

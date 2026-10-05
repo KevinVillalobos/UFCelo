@@ -1,7 +1,7 @@
 from datetime import date as _Date
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class EloBreakdown(BaseModel):
@@ -161,12 +161,16 @@ class PredictionResult(BaseModel):
     probability_b:     float
     elo_probability_a: float
     elo_difference:    float
+    elo_a:             Optional[float] = None
+    elo_b:             Optional[float] = None
     skill_composite_a: float
     skill_composite_b: float
     skill_advantages:  Dict[str, float]
     skill_comparison:  Optional[Dict[str, Dict[str, float]]] = None
     method_prediction: str
     key_advantage:     Optional[str] = None
+    style_adjustment:  float = 0.0                      # applied to probability_a; 0.0 while Style Clash is context-only
+    style_reasons:     List[str] = Field(default_factory=list)  # matchup notes shown as context (+ favours A, - favours B)
 
 
 class MatchupEntry(BaseModel):
@@ -223,14 +227,36 @@ class UpcomingFight(BaseModel):
     fighter_b_id:    str
     fighter_a_name:  str
     fighter_b_name:  str
-    scheduled_round: Optional[int]  = None
-    scheduled_time:  Optional[str]  = None
+    card:            Optional[str]  = None   # main | prelims | early_prelims
+    order:           Optional[int]  = None
+    is_main_event:   bool           = False
+    weight_class:    Optional[str]  = None
+    division:        Optional[str]  = None
+    womens:          bool           = False
     prediction:      Optional[PredictionResult] = None
 
 
 class UpcomingEvent(BaseModel):
     event_id: str
+    slug:     Optional[str]         = None
     name:     str
-    date:     Optional[_Date]        = None
+    date:     Optional[_Date]       = None
     venue:    Optional[str]         = None
+    url:      Optional[str]         = None
     fights:   List[UpcomingFight]
+
+
+class AccuracyBucket(BaseModel):
+    pct:     float
+    correct: int
+    n:       int
+
+
+class AccuracyResponse(BaseModel):
+    overall:     AccuracyBucket
+    last_100:    AccuracyBucket
+    last_500:    AccuracyBucket
+    by_division: Dict[str, AccuracyBucket]
+    as_of:       Optional[str] = None
+    method:      str
+    caveat:      str

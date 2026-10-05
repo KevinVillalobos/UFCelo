@@ -1,0 +1,259 @@
+{
+  "generated": "2026-10-04T20:56:09",
+  "rule": "apply only if (a) holdout >= default + 0.5pp, (b) tuning >= default, (c) holdout Brier <= default",
+  "combinations": 19683,
+  "tuning_fights": 6152,
+  "holdout_fights": 1538,
+  "defaults": {
+    "params": {
+      "grappling_threshold": 20,
+      "striking_threshold": 25,
+      "cardio_threshold": 15,
+      "finish_high": 80,
+      "finish_low": 50,
+      "grappling_adj": 0.03,
+      "striking_adj": 0.02,
+      "cardio_adj": 0.02,
+      "finish_adj": 0.015
+    },
+    "tuning_acc": 60.484395318595574,
+    "tuning_brier": 0.2320552619695381,
+    "holdout_acc": 68.53055916775033,
+    "holdout_brier": 0.21419856000926382
+  },
+  "top": [
+    {
+      "params": {
+        "grappling_threshold": 20,
+        "striking_threshold": 20,
+        "cardio_threshold": 15,
+        "finish_high": 75,
+        "finish_low": 50,
+        "grappling_adj": 0.03,
+        "striking_adj": 0.025,
+        "cardio_adj": 0.015,
+        "finish_adj": 0.02
+      },
+      "tuning_acc": 60.7444733420026,
+      "tuning_brier": 0.23195082223609445,
+      "holdout_acc": 68.46553966189856,
+      "holdout_brier": 0.2140603473856802,
+      "a_holdout_gain": false,
+      "b_no_loss_in_tuning": true,
+      "c_brier_ok": true,
+      "passes": false
+    },
+    {
+      "params": {
+        "grappling_threshold": 20,
+        "striking_threshold": 20,
+        "cardio_threshold": 15,
+        "finish_high": 75,
+        "finish_low": 50,
+        "grappling_adj": 0.03,
+        "striking_adj": 0.025,
+        "cardio_adj": 0.02,
+        "finish_adj": 0.02
+      },
+      "tuning_acc": 60.7444733420026,
+      "tuning_brier": 0.23195300836559812,
+      "holdout_acc": 68.46553966189856,
+      "holdout_brier": 0.21405021130259158,
+      "a_holdout_gain": false,
+      "b_no_loss_in_tuning": true,
+      "c_brier_ok": true,
+      "passes": false
+    },
+    {
+      "params": {
+        "grappling_threshold": 20,
+        "striking_threshold": 20,
+        "cardio_threshold": 15,
+        "finish_high": 75,
+        "finish_low": 50,
+        "grappling_adj": 0.02,
+        "striking_adj": 0.025,
+        "cardio_adj": 0.015,
+        "finish_adj": 0.02
+      },
+      "tuning_acc": 60.7444733420026,
+      "tuning_brier": 0.23197651574230804,
+      "holdout_acc": 68.46553966189856,
+      "holdout_brier": 0.21404562235501517,
+      "a_holdout_gain": false,
+      "b_no_loss_in_tuning": true,
+      "c_brier_ok": true,
+      "passes": false
+    },
+    {
+      "params": {
+        "grappling_threshold": 20,
+        "striking_threshold": 20,
+        "cardio_threshold": 15,
+        "finish_high": 75,
+        "finish_low": 50,
+        "grappling_adj": 0.02,
+        "striking_adj": 0.025,
+        "cardio_adj": 0.02,
+        "finish_adj": 0.02
+      },
+      "tuning_acc": 60.7444733420026,
+      "tuning_brier": 0.23197852306817063,
+      "holdout_acc": 68.46553966189856,
+      "holdout_brier": 0.21403548627192656,
+      "a_holdout_gain": false,
+      "b_no_loss_in_tuning": true,
+      "c_brier_ok": true,
+      "passes": false
+    },
+    {
+      "params": {
+        "grappling_threshold": 20,
+        "striking_threshold": 20,
+        "cardio_threshold": 15,
+        "finish_high": 75,
+        "finish_low": 50,
+        "grappling_adj": 0.04,
+        "striking_adj": 0.025,
+        "cardio_adj": 0.015,
+        "finish_adj": 0.02
+      },
+      "tuning_acc": 60.72821846553966,
+      "tuning_brier": 0.23192880233196145,
+      "holdout_acc": 68.46553966189856,
+      "holdout_brier": 0.2140765028454739,
+      "a_holdout_gain": false,
+      "b_no_loss_in_tuning": true,
+      "c_brier_ok": true,
+      "passes": false
+    },
+    {
+      "params": {
+        "grappling_threshold": 20,
+        "striking_threshold": 20,
+        "cardio_threshold": 15,
+        "finish_high": 75,
+        "finish_low": 50,
+        "grappling_adj": 0.04,
+        "striking_adj": 0.025,
+        "cardio_adj": 0.02,
+        "finish_adj": 0.02
+      },
+      "tuning_acc": 60.72821846553966,
+      "tuning_brier": 0.23193154408030872,
+      "holdout_acc": 68.46553966189856,
+      "holdout_brier": 0.21406636676238527,
+      "a_holdout_gain": false,
+      "b_no_loss_in_tuning": true,
+      "c_brier_ok": true,
+      "passes": false
+    },
+    {
+      "params": {
+        "grappling_threshold": 20,
+        "striking_threshold": 20,
+        "cardio_threshold": 15,
+        "finish_high": 75,
+        "finish_low": 50,
+        "grappling_adj": 0.03,
+        "striking_adj": 0.025,
+        "cardio_adj": 0.025,
+        "finish_adj": 0.02
+      },
+      "tuning_acc": 60.72821846553966,
+      "tuning_brier": 0.23195569026883398,
+      "holdout_acc": 68.46553966189856,
+      "holdout_brier": 0.21404020525851467,
+      "a_holdout_gain": false,
+      "b_no_loss_in_tuning": true,
+      "c_brier_ok": true,
+      "passes": false
+    },
+    {
+      "params": {
+        "grappling_threshold": 20,
+        "striking_threshold": 20,
+        "cardio_threshold": 20,
+        "finish_high": 75,
+        "finish_low": 50,
+        "grappling_adj": 0.03,
+        "striking_adj": 0.025,
+        "cardio_adj": 0.015,
+        "finish_adj": 0.02
+      },
+      "tuning_acc": 60.72821846553966,
+      "tuning_brier": 0.23196266981541439,
+      "holdout_acc": 68.46553966189856,
+      "holdout_brier": 0.21408701834825203,
+      "a_holdout_gain": false,
+      "b_no_loss_in_tuning": true,
+      "c_brier_ok": true,
+      "passes": false
+    },
+    {
+      "params": {
+        "grappling_threshold": 20,
+        "striking_threshold": 20,
+        "cardio_threshold": 20,
+        "finish_high": 75,
+        "finish_low": 50,
+        "grappling_adj": 0.03,
+        "striking_adj": 0.025,
+        "cardio_adj": 0.02,
+        "finish_adj": 0.02
+      },
+      "tuning_acc": 60.72821846553966,
+      "tuning_brier": 0.23196836625636022,
+      "holdout_acc": 68.46553966189856,
+      "holdout_brier": 0.21408557752750312,
+      "a_holdout_gain": false,
+      "b_no_loss_in_tuning": true,
+      "c_brier_ok": true,
+      "passes": false
+    },
+    {
+      "params": {
+        "grappling_threshold": 20,
+        "striking_threshold": 20,
+        "cardio_threshold": 15,
+        "finish_high": 75,
+        "finish_low": 50,
+        "grappling_adj": 0.02,
+        "striking_adj": 0.025,
+        "cardio_adj": 0.025,
+        "finish_adj": 0.02
+      },
+      "tuning_acc": 60.72821846553966,
+      "tuning_brier": 0.23198102616776536,
+      "holdout_acc": 68.46553966189856,
+      "holdout_brier": 0.2140254802278497,
+      "a_holdout_gain": false,
+      "b_no_loss_in_tuning": true,
+      "c_brier_ok": true,
+      "passes": false
+    }
+  ],
+  "decision": "keep_defaults",
+  "chosen": null,
+  "best_by_holdout_reference": {
+    "params": {
+      "grappling_threshold": 20,
+      "striking_threshold": 20,
+      "cardio_threshold": 15,
+      "finish_high": 75,
+      "finish_low": 50,
+      "grappling_adj": 0.02,
+      "striking_adj": 0.025,
+      "cardio_adj": 0.025,
+      "finish_adj": 0.02
+    },
+    "tuning_acc": 60.72821846553966,
+    "tuning_brier": 0.23198102616776536,
+    "holdout_acc": 68.46553966189856,
+    "holdout_brier": 0.2140254802278497,
+    "a_holdout_gain": false,
+    "b_no_loss_in_tuning": true,
+    "c_brier_ok": true,
+    "passes": false
+  }
+}

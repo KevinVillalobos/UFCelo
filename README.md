@@ -17,16 +17,15 @@ Independent ELO-based ranking and prediction system for all 8 UFC men's division
 7. [Validation Framework](#validation-framework)
 8. [Backend API](#backend-api)
 9. [Frontend Pages](#frontend-pages)
-10. [Deployment (Vercel)](#deployment-vercel)
+10. [Deployment (Docker)](#deployment-docker)
 11. [Data Schemas](#data-schemas)
 12. [Validation Results](#validation-results)
 13. [Champion System](#champion-system)
 14. [One ELO per Fighter](#one-elo-per-fighter)
 15. [Official UFC Rankings](#official-ufc-rankings)
-16. [Docker (local & self-hosted)](#docker-local--self-hosted)
-17. [Design System, Search & Navigation](#design-system-search--navigation)
-18. [Recent Changes](#recent-changes)
-19. [Updating the Data](#updating-the-data)
+16. [Design System, Search & Navigation](#design-system-search--navigation)
+17. [Recent Changes](#recent-changes)
+18. [Updating the Data](#updating-the-data)
 
 ---
 
@@ -57,15 +56,12 @@ models/validate.py
      │
      ▼
 backend/                              ← FastAPI application
-  main.py          ← REST API endpoints + visit counter (Vercel KV / local file)
+  main.py          ← REST API endpoints + visit counter (Upstash Redis / local file)
   ufc_rankings.py  ← official UFC top 15 + champions, synced from ufc.com every 6 h
   data_loader.py   ← JSON/CSV file access layer
   services.py      ← rankings, prediction, simulation, matchmaking, per-fight stats
   stats.py         ← career aggregate fight statistics (strikes, TDs, control)
   schemas.py       ← Pydantic v2 response models
-     │
-     ▼
-api/index.py                          ← Vercel serverless entrypoint (ASGI wrapper)
      │
      ▼
 public/                               ← Static HTML/CSS/JS frontend
@@ -92,8 +88,8 @@ docker-compose.yml / Dockerfile        ← backend + nginx containers
 | ELO Engine | Pure Python (no ML frameworks) |
 | Backend | `FastAPI`, `Pydantic v2`, `uvicorn` |
 | Frontend | Vanilla JS + HTML/CSS, `Plotly.js`, `Fuse.js` (search), Bebas Neue + Inter (Google Fonts) |
-| Hosting | Docker (nginx + FastAPI) or Vercel (serverless + static) |
-| Visit counter | Vercel KV (Upstash Redis) |
+| Hosting | Docker (nginx + FastAPI) |
+| Visit counter | Upstash Redis (optional, falls back to a local file) |
 
 No relational database. All ranking/history state lives in flat JSON/CSV files committed to the repo.
 
@@ -305,14 +301,19 @@ Title fight bonus: all of the above × 1.20.
 
 #### 2. Quality Multiplier (`Q_opponent`)
 
-| Opponent rank | Win modifier | Loss modifier |
-|--------------|-------------|--------------|
-| Top 5 | +0.10 | -0.05 |
-| Top 6–10 | +0.05 | 0.00 |
-| Bottom 5 | -0.05 | -0.10 |
-| Other | 0.00 | 0.00 |
+How good the opponent was **at the time of the fight** scales the result. The engine is a single chronological pass, so only earlier fights are used (no look-ahead). The opponent's standing is their pre-fight ELO rank among the fighters of the fight's division who fought in the previous 2 years; the division champion is tracked through title fights (the winner of the latest title fight). With fewer than 8 active fighters in the pool the multiplier stays at 1.0.
 
-Floor: 0.70.
+| Opponent standing | Win modifier | Loss modifier |
+|--------------|-------------|--------------|
+| Champion | +0.20 | -0.10 |
+| Top 3 | +0.18 | -0.08 |
+| Top 4–5 | +0.15 | -0.06 |
+| Top 6–10 | +0.08 | -0.03 |
+| Top 11–15 | +0.03 | -0.01 |
+| Bottom 5 of the pool (below 15) | -0.10 | -0.15 |
+| Other (unranked) | -0.15 | -0.20 |
+
+Multiplier = `1 + modifier`, floor 0.70. Table: `_Q_TABLE` in `models/elo_engine.py`. A draw counts as a loss modifier, as before.
 
 #### 3. Streak Multiplier (`S_streak`)
 
@@ -367,9 +368,25 @@ This accelerates decline for aging, formerly elite fighters ("the Usman problem"
 - Beating an opponent with ELO < 1300: gains capped at +8.0
 - Losing to an opponent with ELO > 1700: minimum loss of -12.0
 
+### Legacy Decay
+
+The ELO a fight added or removed counts less the older the fight is. The stored per-fight history (`elo_histories_*`) and the peak ELO are never changed; the decay applies to the rating the site **shows and predicts with**:
+
+```python
+def compute_legacy_decay(fight_date, today=None):
+    years_since = (today - fight_date).days / 365.25
+    if years_since <= 5:
+        return 1.00
+    return 0.95 ** (years_since - 5)          # 5% less per year after 5 years
+
+effective_elo = initial_elo + sum(delta_i * compute_legacy_decay(date_i, today))
+```
+
+Rankings (`elo`, plus `elo_raw` = engine rating and `elo_effective` = after legacy decay, before inactivity), `/predict` and `/accuracy` all use this same effective rating (`_effective_elo` in `backend/services.py`).
+
 ### Inactivity Decay
 
-Applied at output time only (display-only, not stored in fight history):
+Applied on top of the effective ELO at output time only (display-only, not stored in fight history):
 
 ```python
 months_inactive = (today - last_fight_date).days / 30.44
@@ -552,7 +569,7 @@ Output: `data/validation_report_{division}.json` + Unicode box display to stdout
 
 **File:** `backend/main.py`
 **Local:** `uvicorn backend.main:app --reload`
-**Production:** Vercel serverless via `api/index.py`
+**Production:** Docker (`docker compose up --build -d`); nginx proxies `/api/` to the backend
 
 All endpoints are prefixed `/api/` in production (e.g., `/api/rankings/heavyweight`).
 
@@ -563,7 +580,7 @@ All endpoints are prefixed `/api/` in production (e.g., `/api/rankings/heavyweig
 | `GET` | `/rankings/{division}` | Active ELO rankings for a division |
 | `GET` | `/rankings/{division}/alltime` | All-time rankings sorted by peak ELO |
 | `GET` | `/fighter/{fighter_id}` | Full fighter profile (ELO history, skill scores, career stats, per-fight stats) |
-| `GET` | `/predict` | Head-to-head prediction (`?fighter_a=&fighter_b=&division=`) |
+| `GET` | `/predict` | Head-to-head prediction (`?fighter_a=&fighter_b=&division=`, optional `is_title_fight` / `is_main_event` for 5-round fights). Returns `style_adjustment` and `style_reasons` |
 | `GET` | `/events/upcoming` | Upcoming events with ELO-based predictions |
 | `GET` | `/matchmaking/{division}` | Best matchups (`?top_n=15`) |
 | `GET` | `/simulator-data` | Raw K-factor state for both fighters (for frontend ELO simulator) |
@@ -675,7 +692,7 @@ The `head_pct`, `body_pct`, `leg_pct` fields power the SVG body heatmap in the F
 
 ### Visit Counter
 
-Only landing on **Home** counts as a visit (`public/app.js` sends `POST` on Home and `GET` everywhere else; the Docker healthcheck also uses `GET`). The global visit counter uses Vercel KV (Upstash Redis) when the `KV_REST_API_URL` and `KV_REST_API_TOKEN` environment variables are set. Falls back to a local file for development. The `POST /visits` endpoint uses an atomic `INCR` so concurrent requests don't cause race conditions.
+Only landing on **Home** counts as a visit (`public/app.js` sends `POST` on Home and `GET` everywhere else; the Docker healthcheck also uses `GET`). The global visit counter uses Upstash Redis when the `KV_REST_API_URL` and `KV_REST_API_TOKEN` environment variables are set. Falls back to a local file for development. The `POST /visits` endpoint uses an atomic `INCR` so concurrent requests don't cause race conditions.
 
 ### `backend/schemas.py`
 
@@ -795,50 +812,32 @@ All pages are fully responsive:
 
 ---
 
-## Deployment (Vercel)
+## Deployment (Docker)
 
-The project is deployed as a single Vercel project with two components:
-
-**Static frontend** — `public/` is served as static files. Vercel automatically serves `public/index.html` at `/`, `public/rankings.html` at `/rankings.html`, etc.
-
-**Serverless backend** — `api/index.py` is the single serverless function entry point. `vercel.json` rewrites all `/api/*` requests to it. The function strips the `/api` prefix before forwarding to FastAPI.
-
-```json
-{
-  "version": 2,
-  "functions": {
-    "api/index.py": { "maxDuration": 30 }
-  },
-  "rewrites": [
-    { "source": "/api/:path*", "destination": "/api/index.py" }
-  ]
-}
+```bash
+docker compose up --build -d      # http://localhost
+docker compose logs -f backend    # backend logs (UFC sync, errors)
+docker compose down
 ```
 
-### Environment Variables (Vercel Dashboard)
+- **backend**: FastAPI (`uvicorn`). `./data` is mounted as a volume, so regenerated data files are served immediately without rebuilding. Healthcheck on `GET /visits`.
+- **nginx**: built from `nginx/Dockerfile` (copies `public/` and `nginx.conf` into the image). Serves the static site, proxies `/api/` to the backend, routes `/peleador/<slug>` to `fighter.html`, gzips text assets. JS/CSS/HTML are served `no-cache` (revalidated on every load, same filenames across deploys); images and fonts are cached 7 days.
+- Code changes in `backend/`, `models/`, `public/` or `nginx.conf` need `docker compose up --build -d`. Data-only changes do not.
+- Optional visit counter in Redis: copy `.env.example` to `.env` and fill `KV_REST_API_URL` / `KV_REST_API_TOKEN`; otherwise it falls back to `data/visits.json`.
+
+### Environment variables
 
 | Variable | Purpose |
 |----------|---------|
-| `KV_REST_API_URL` | Upstash Redis REST URL (auto-set when KV store is linked) |
-| `KV_REST_API_TOKEN` | Upstash Redis token (auto-set when KV store is linked) |
+| `KV_REST_API_URL` | Upstash Redis REST URL for the shared visit counter (optional) |
+| `KV_REST_API_TOKEN` | Upstash Redis token (optional) |
 
-### Setting up the Visit Counter (Vercel KV)
+Without them the counter falls back to `data/visits.json`, which persists because `./data` is a mounted volume.
 
-1. Vercel Dashboard → your project → **Storage** tab
-2. **Create Database** → **KV**
-3. Name it anything, click **Create**
-4. **Connect to Project** → select the project → **Connect**
-5. Vercel auto-injects the env vars and triggers a redeploy
+### Data and background syncs
 
-The counter is globally shared across all users, persists indefinitely, and uses atomic Redis `INCR` to avoid race conditions.
-
-### Vercel Constraints
-
-- `data/` and all committed files are **read-only** on the serverless runtime
-- `/tmp/` is writable but resets on cold starts — not suitable for persistent state
-- All ranking/history data is pre-generated and committed; the backend only reads it
-- The fight CSVs (`data/fights_*.csv`) are committed to the repo so `stats.py` and `_extract_per_fight_stats` work on the serverless runtime
-- Only the visit counter requires write access — handled by Vercel KV
+- `data/` is read and written by the backend. Regenerated files are picked up on the next request (JSON reads are cached by file modification time).
+- The backend refreshes `data/ufc_rankings.json` + `data/champions.json` and `data/upcoming_events.json` from ufc.com on start and every 6 hours.
 
 ---
 
@@ -990,25 +989,10 @@ The old post-processing scripts are no longer part of the pipeline (`models/unif
 - Divisions are taken **by position** (the page always lists P4P first, then men's flyweight to heavyweight) because ufc.com localises the division headings by IP.
 - Names are matched to our fighter IDs (accent and punctuation insensitive) using the rankings and fighters files.
 - Writes `data/ufc_rankings.json` (`{updated_at, divisions: {division: {champion, ranked[15]}}}`) and rewrites `data/champions.json`.
-- Runs on backend startup and every 6 hours in a background thread. If the request fails or the page layout changes, the previous files are kept. On a read-only filesystem (Vercel) it cannot persist, so commit the files instead.
+- Runs on backend startup and every 6 hours in a background thread. If the request fails or the page layout changes, the previous files are kept. The files live in the mounted `data/` volume.
 - One-off sync: `python -m backend.ufc_rankings`
 
 `ufc_rank` is added to every ranking entry returned by `/rankings/{division}` (`0` = champion, `1–15`, `null` = unranked).
-
----
-
-## Docker (local & self-hosted)
-
-```bash
-docker compose up --build -d      # http://localhost
-docker compose logs -f backend    # backend logs (UFC sync, errors)
-docker compose down
-```
-
-- **backend**: FastAPI (`uvicorn`). `./data` is mounted as a volume, so regenerated data files are served immediately without rebuilding. Healthcheck on `GET /visits`.
-- **nginx**: built from `nginx/Dockerfile` (copies `public/` and `nginx.conf` into the image). Serves the static site, proxies `/api/` to the backend, routes `/peleador/<slug>` to `fighter.html`, gzips text assets. JS/CSS/HTML are served `no-cache` (revalidated on every load, same filenames across deploys); images and fonts are cached 7 days.
-- Code changes in `backend/`, `models/`, `public/` or `nginx.conf` need `docker compose up --build -d`. Data-only changes do not.
-- Optional visit counter in Redis: copy `.env.example` to `.env` and fill `KV_REST_API_URL` / `KV_REST_API_TOKEN`; otherwise it falls back to `data/visits.json`.
 
 ---
 
@@ -1020,7 +1004,7 @@ docker compose down
 
 **Global search** (navbar, press `/` to focus): fuzzy match with Fuse.js over a fighter index built from existing API endpoints (active rankings by default; **Include retired** loads the all-time rankings). Accent-insensitive, ARIA combobox with arrow-key, Enter and Esc navigation, collapses to an icon on mobile. Results show name, division badge, record and ELO and link to `/peleador/<slug>?id=<fighter_id>`. There are no fighter photos yet (the data has none).
 
-**Streak indicator:** arrow icon + count + W/L (`▲ 5W`), never colour alone; tooltip like *Racha: 5 victorias seguidas*. Rank movement ("puestos movidos") is not implemented: it needs the previous ranking stored by the backend.
+**Streak indicator:** arrow icon + count + W/L (`▲ 5W`), never colour alone; tooltip like *Streak: 5 wins in a row*. Rank movement is not implemented: it needs the previous ranking stored by the backend.
 
 ---
 
@@ -1030,9 +1014,26 @@ docker compose down
 - **Career-wide tags**: the tag engine uses every division fights (fixes false *Iron Chin*).
 - **Official UFC rankings and champions** auto-synced from ufc.com; `ufc_rank` column in rankings; **UFC Top 15** view; ELO-vs-UFC comparison on Home.
 - **Visit counter** counts only Home visits.
+- **Style Clash** (matchup notes) added behind one shared probability function; backtest and grid search included. Measured neutral, so it is context only: shown in the UI, never applied to the percentage. See `data/improvement_log.md`.
+- **Sharper Q_opponent** (champion +0.20 down to unranked -0.15, time-correct standing) and **Legacy Decay** (5% per year after 5 years) used for rankings and predictions. Pre-fight accuracy over all fights went from 62.0% to 62.6% (last 100: 66% to 69%); in-sample, so optimistic.
+- **Vercel removed**: `vercel.json` and `api/index.py` are gone; Docker is the only deployment.
 - **UI/UX**: design system applied everywhere, global fuzzy search, trend badges, division-card hierarchy, deep links `/peleador/<slug>`, chart axis labels no longer clipped.
 - **Docker**: nginx image with the static site, healthchecks, gzip and correct cache headers; backend dependencies (`requests`, `beautifulsoup4`, `lxml`) added to `requirements.txt`.
 - `scraper/run_all.py` now does: scrape 8 divisions, unified ELO, UFC rankings sync.
+
+---
+
+## Prediction Blend and Style Clash
+
+Every win probability (`/predict`, `/simulate`, event cards) comes from one function, `_compute_blended_probability` in `backend/services.py`:
+
+1. **ELO**: effective ELO gap clamped to +-250, then the logistic curve (max about 81% on ELO alone).
+2. **Skill**: +-10% of the composite skill gap.
+3. **Style Clash** (context only): four matchup rules (`compute_style_adjustment`): grappling vs poor defence (+-3), striking vs poor defence (+-2), cardio edge in 5-round fights (+-2), finish-rate edge (+-1.5), clamped to +-10 pp. Thresholds live in `STYLE_DEFAULTS`. Because the backtest found it neutral, `STYLE_AFFECTS_PROBABILITY = False`: the adjustment is **not** added to the probability (`style_adjustment` stays `0.0`) but the notes are returned in `style_reasons` and shown in the UI as "Style context (does not affect the %)", naming the favoured fighter.
+
+The result is clipped to [5%, 95%]. `/simulate` uses the same probability; its random draws only sample the winner, method and round.
+
+**Measured effect: neutral.** `python -m models.backtest_style_clash` rebuilds each past fight from earlier data only and compares with and without the adjustment; `python -m models.tune_style_clash` grid-searches all 19,683 threshold/adjustment combinations. With the defaults the adjustment moves accuracy by +0.05 pp over all fights (-0.20 pp in the 20% holdout), and no grid combination beats the defaults in the holdout under the strict selection rule, so the defaults stay and the feature is kept as explanatory context only. Details, per-division tables and the decision are in `data/improvement_log.md`. Known limitations: "Defensa" is a single defence score (rules 1 and 2 are correlated), and historically the 5-round rule only fires for title fights (card position is not in the CSVs).
 
 ---
 
@@ -1058,15 +1059,12 @@ python scraper/run_all.py
 
 It runs, in order: the incremental scraper for the 8 divisions (`data/scrape_checkpoint.json` skips events already scraped), the unified ELO + skill engine, and the official UFC rankings/champions sync. It takes a while because of the scraping.
 
-Then, depending on how you deploy:
+Then:
 
 ```bash
-# Docker: data/ is a mounted volume, so the new files are served right away.
+# data/ is a mounted volume, so the new files are served right away.
 # Rebuild only if you also changed code (backend/, models/, public/, nginx.conf):
 docker compose up --build -d
-
-# Vercel: commit the regenerated data and push (auto-deploys)
-git add data/ && git commit -m "Update data" && git push
 ```
 
 ### Pieces, when you only need one

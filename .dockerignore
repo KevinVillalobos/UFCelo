@@ -10,3 +10,5 @@ __pycache__/
 .env.*
 frontend/
 node_modules/
+
+data_baseline/

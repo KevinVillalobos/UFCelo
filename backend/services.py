@@ -2,10 +2,11 @@ import random as _random
 import sys as _sys
 from datetime import datetime, timedelta
 from pathlib import Path as _Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 _sys.path.insert(0, str(_Path(__file__).parent.parent))
 from models.tag_engine import TAG_GROUPS, TAG_TOOLTIPS, calculate_tags as _calculate_tags
+from models.elo_engine import compute_legacy_decay
 
 from .data_loader import (
     compute_career_record,
@@ -16,6 +17,7 @@ from .data_loader import (
     load_champions,
     load_elo_histories,
     load_fights_csv,
+    parse_date,
     load_rankings,
     load_retired_overrides,
     load_skill_histories,
@@ -287,15 +289,40 @@ def build_ranking_response(division: str, alltime: bool = False) -> List[Dict[st
     return _with_ufc_rank(result, division)
 
 
+def _effective_elo(history: List[Dict[str, object]], as_of: datetime) -> Optional[float]:
+    """Initial rating + each fight's ELO change weighted by its age (Legacy Decay).
+
+    `history` must be one fighter's fights, oldest first. Returns None when the per-fight breakdown
+    needed to rebuild the rating is missing, so callers can fall back to the stored raw ELO.
+    """
+    if not history:
+        return None
+    start = (history[0].get("breakdown") or {}).get("elo_before")
+    if start is None:
+        return None
+    total = float(start)
+    for point in history:
+        delta = (point.get("breakdown") or {}).get("delta")
+        when = parse_date(point.get("date"))
+        if delta is None or when is None:
+            return None
+        total += float(delta) * compute_legacy_decay(when, as_of)
+    return total
+
+
 def _get_current_elo(fighter_id: str, fighter: Dict[str, object], division: str = "heavyweight") -> float:
     elo_value = float(fighter.get("elo", 0) or 0)
     if elo_value > 0:
         return elo_value
-    histories = load_elo_histories(division).get(str(fighter_id), [])
+    # One ELO per fighter: the latest rating may sit in another division's history file
+    histories: List[Dict[str, object]] = []
+    for div in _DIVISIONS_ALL:
+        histories.extend(load_elo_histories(div).get(str(fighter_id), []))
     if not histories:
         return 0.0
-    last_entry = sorted(histories, key=lambda entry: entry.get("date") or "")[-1]
-    raw_elo = float(last_entry.get("elo", 0))
+    histories = sorted(histories, key=lambda entry: entry.get("date") or "")
+    last_entry = histories[-1]
+    raw_elo = _effective_elo(histories, datetime.now()) or float(last_entry.get("elo", 0))
     last_date_str = last_entry.get("date")
     if last_date_str:
         try:
@@ -528,29 +555,158 @@ def _skill_composite(skill: Dict[str, float]) -> float:
     return sum(skill[k] * weights.get(k, 0) for k in skill) / total_w
 
 
-def build_prediction(fighter_a_id: str, fighter_b_id: str, division: str = "heavyweight") -> Optional[Dict[str, object]]:
-    fighter_a = get_fighter_by_id(fighter_a_id, division)
-    fighter_b = get_fighter_by_id(fighter_b_id, division)
+# ── Style Clash ──────────────────────────────────────────────────────────────
+# Matchup-specific nudges on top of the linear ELO + skill blend. Thresholds are skill-score points
+# (0-100); adjustments are probability points. Tuned on historical fights (models/tune_style_clash.py).
+# Note: "Defensa" is one combined defence score (strikes + takedowns), so rules 1 and 2 are correlated.
+STYLE_DEFAULTS: Dict[str, float] = {
+    "grappling_threshold": 20,
+    "striking_threshold": 25,
+    "cardio_threshold": 15,
+    "finish_high": 80,
+    "finish_low": 50,
+    "grappling_adj": 0.03,
+    "striking_adj": 0.02,
+    "cardio_adj": 0.02,
+    "finish_adj": 0.015,
+}
+STYLE_CLAMP = 0.10
+# Backtest verdict (data/improvement_log.md): the adjustment is statistically neutral, so it is NOT added to the
+# win probability. The matchup notes are still computed and returned (style_reasons) as explanatory context.
+STYLE_AFFECTS_PROBABILITY = False
+ELO_DIFF_CLAMP = 250.0   # an ELO gap beyond this never claims more than ~81% on ELO alone
+
+
+def _style_pct(adj: float) -> str:
+    return f"{'+' if adj > 0 else '-'}{round(abs(adj) * 100, 2):g}%"
+
+
+def compute_style_adjustment(
+    skill_a: Dict[str, float],
+    skill_b: Dict[str, float],
+    is_title_fight: bool = False,
+    is_main_event: bool = False,
+    params: Optional[Dict[str, float]] = None,
+) -> Tuple[float, List[str]]:
+    """Probability shift for A (positive favours A) from stylistic matchups, plus the reasons.
+
+    1. Grappling dominance vs poor defence   2. Striking dominance vs poor defence
+    3. Cardio edge in a 5-round fight (title fight or main event)   4. Finish-rate edge.
+    Missing dimensions default to neutral (50); the total is clamped to +-STYLE_CLAMP.
+    """
+    cfg = {**STYLE_DEFAULTS, **(params or {})}
+    a, b = skill_a or {}, skill_b or {}
+    adj = 0.0
+    reasons: List[str] = []
+
+    def rule(delta: float, text: str) -> None:
+        nonlocal adj
+        adj += delta
+        reasons.append(f"{text} ({_style_pct(delta)})")
+
+    if a.get("Grappling", 50.0) - b.get("Defensa", 50.0) > cfg["grappling_threshold"]:
+        rule(+cfg["grappling_adj"], "Grappling dominance vs poor TDD")
+    if b.get("Grappling", 50.0) - a.get("Defensa", 50.0) > cfg["grappling_threshold"]:
+        rule(-cfg["grappling_adj"], "Grappling dominance vs poor TDD")
+
+    if a.get("Striking", 50.0) - b.get("Defensa", 50.0) > cfg["striking_threshold"]:
+        rule(+cfg["striking_adj"], "Striking dominance vs poor defense")
+    if b.get("Striking", 50.0) - a.get("Defensa", 50.0) > cfg["striking_threshold"]:
+        rule(-cfg["striking_adj"], "Striking dominance vs poor defense")
+
+    if is_title_fight or is_main_event:
+        cardio_diff = a.get("Cardio/Durabilidad", 50.0) - b.get("Cardio/Durabilidad", 50.0)
+        if cardio_diff > cfg["cardio_threshold"]:
+            rule(+cfg["cardio_adj"], "Cardio advantage in 5-round fight")
+        elif -cardio_diff > cfg["cardio_threshold"]:
+            rule(-cfg["cardio_adj"], "Cardio advantage in 5-round fight")
+
+    if a.get("Finish Rate", 50.0) > cfg["finish_high"] and b.get("Finish Rate", 50.0) < cfg["finish_low"]:
+        rule(+cfg["finish_adj"], "Finish rate edge")
+    if b.get("Finish Rate", 50.0) > cfg["finish_high"] and a.get("Finish Rate", 50.0) < cfg["finish_low"]:
+        rule(-cfg["finish_adj"], "Finish rate edge")
+
+    return max(-STYLE_CLAMP, min(STYLE_CLAMP, adj)), reasons
+
+
+def _compute_blended_probability(
+    elo_a: float,
+    elo_b: float,
+    skill_a: Dict[str, float],
+    skill_b: Dict[str, float],
+    is_title_fight: bool = False,
+    is_main_event: bool = False,
+    apply_style: bool = STYLE_AFFECTS_PROBABILITY,
+    style_params: Optional[Dict[str, float]] = None,
+) -> Dict[str, object]:
+    """The single place where a win probability for A is built: ELO, then skill, then (optionally) style.
+
+    The style notes are always computed and returned as context; they only move the probability when
+    `apply_style` is true (the backtest scripts pass it explicitly to measure that effect).
+
+    Shared by build_prediction, build_fight_simulation and the backtest/tuning scripts, so every
+    surface (and every measurement) uses the same number.
+    """
+    diff = max(-ELO_DIFF_CLAMP, min(ELO_DIFF_CLAMP, elo_a - elo_b))
+    prob_elo_a = elo_win_probability(diff, 0.0)
+
+    comp_a = _skill_composite(skill_a)
+    comp_b = _skill_composite(skill_b)
+    skill_adjustment = ((comp_a - comp_b) / 100.0) * 0.10   # max about +-10% of the full composite gap
+
+    style_adj, style_reasons = compute_style_adjustment(
+        skill_a, skill_b, is_title_fight, is_main_event, style_params)
+    applied_style = style_adj if apply_style else 0.0
+
+    prob_a = max(0.05, min(0.95, prob_elo_a + skill_adjustment + applied_style))
+    return {
+        "prob_a": prob_a,
+        "prob_elo_a": prob_elo_a,
+        "skill_adjustment": skill_adjustment,
+        "style_adjustment": applied_style,     # what actually moved the probability (0.0 while context-only)
+        "style_reasons": style_reasons,
+        "comp_a": comp_a,
+        "comp_b": comp_b,
+    }
+
+
+def _fighter_or_rated_stub(fighter_id: str, division: str) -> Optional[Dict[str, object]]:
+    """Fighter profile, or a name-only stub for rated fighters missing from the fighters_*.json files."""
+    fighter = get_fighter_by_id(fighter_id, division)
+    if fighter:
+        return fighter
+    for div in _DIVISIONS_ALL:
+        for item in load_rankings(div, alltime=True):
+            if str(item.get("fighter_id") or item.get("id")) == str(fighter_id):
+                return {"id": str(fighter_id), "fighter_id": str(fighter_id), "name": item.get("fighter_name")}
+    return None
+
+
+def build_prediction(
+    fighter_a_id: str,
+    fighter_b_id: str,
+    division: str = "heavyweight",
+    is_title_fight: bool = False,
+    is_main_event: bool = False,
+) -> Optional[Dict[str, object]]:
+    fighter_a = _fighter_or_rated_stub(fighter_a_id, division)
+    fighter_b = _fighter_or_rated_stub(fighter_b_id, division)
     if not fighter_a or not fighter_b:
         return None
 
     elo_a = _get_current_elo(fighter_a_id, fighter_a, division)
     elo_b = _get_current_elo(fighter_b_id, fighter_b, division)
-    prob_elo_a = elo_win_probability(elo_a, elo_b)
 
     skill_item_a = get_skill_score_by_id(fighter_a_id, division) or {}
     skill_item_b = get_skill_score_by_id(fighter_b_id, division) or {}
     skill_a: Dict[str, float] = skill_item_a.get("skill_score", {})
     skill_b: Dict[str, float] = skill_item_b.get("skill_score", {})
 
-    comp_a = _skill_composite(skill_a)
-    comp_b = _skill_composite(skill_b)
-
-    # Blend ELO probability with a skill-derived shift (max ±5%)
-    skill_diff_normalized = (comp_a - comp_b) / 100.0  # range roughly -1 to +1
-    skill_adjustment = skill_diff_normalized * 0.10    # max ±10% of full diff
-    prob_a = max(0.05, min(0.95, prob_elo_a + skill_adjustment))
+    blend = _compute_blended_probability(elo_a, elo_b, skill_a, skill_b, is_title_fight, is_main_event)
+    prob_elo_a = blend["prob_elo_a"]
+    prob_a = blend["prob_a"]
     prob_b = 1.0 - prob_a
+    comp_a, comp_b = blend["comp_a"], blend["comp_b"]
 
     # Per-dimension advantages (positive = favors A, negative = favors B)
     dims = set(skill_a) | set(skill_b)
@@ -576,12 +732,16 @@ def build_prediction(fighter_a_id: str, fighter_b_id: str, division: str = "heav
         "probability_b": round(prob_b, 4),
         "elo_probability_a": round(prob_elo_a, 4),
         "elo_difference": round(elo_a - elo_b, 2),
+        "elo_a": round(elo_a, 1),
+        "elo_b": round(elo_b, 1),
         "skill_composite_a": round(comp_a, 2),
         "skill_composite_b": round(comp_b, 2),
         "skill_advantages": skill_advantages,
         "skill_comparison": {"fighter_a": skill_a, "fighter_b": skill_b},
         "method_prediction": method_prediction,
         "key_advantage": key_advantage,
+        "style_adjustment": round(blend["style_adjustment"], 4),
+        "style_reasons": blend["style_reasons"],
     }
 
 
@@ -722,12 +882,11 @@ def build_fight_simulation(
     skill_a: Dict[str, float] = skill_item_a.get("skill_score", {})
     skill_b: Dict[str, float] = skill_item_b.get("skill_score", {})
 
-    # Same blended probability as build_prediction
-    prob_elo_a = elo_win_probability(elo_a, elo_b)
-    comp_a = _skill_composite(skill_a)
-    comp_b = _skill_composite(skill_b)
-    skill_diff = (comp_a - comp_b) / 100.0
-    prob_a = max(0.05, min(0.95, prob_elo_a + skill_diff * 0.10))
+    # Same blended probability as build_prediction (shared helper). A 5-round bout is a title fight or
+    # main event, so it also switches on the cardio rule. The random draws below only sample who wins,
+    # the method and the round; they never change this base probability.
+    blend = _compute_blended_probability(elo_a, elo_b, skill_a, skill_b, is_main_event=rounds >= 5)
+    prob_a = blend["prob_a"]
 
     rng = _random.Random(seed)
     a_wins = 0
@@ -903,36 +1062,146 @@ def build_fight_simulator_data(
 
 
 def build_upcoming_events(division: str = "heavyweight") -> List[Dict[str, object]]:
-    events = get_upcoming_events()
+    """Next cards with an ELO + skill prediction for every fight whose fighters we rate.
+
+    `division` is only a fallback: each fight is predicted in its own weight class.
+    Women's fights and debutants we have no data for come back with prediction=None.
+    """
     response = []
-    for event in events:
+    for event in get_upcoming_events():
         fights = []
         for fight in event.get("fights", []):
-            fight_id = str(fight.get("id") or fight.get("fight_id") or f"{fight.get('fighter_a')}-{fight.get('fighter_b')}")
-            fighter_a_id = str(fight.get("fighter_a") or fight.get("fighter_a_id") or fight.get("a_id"))
-            fighter_b_id = str(fight.get("fighter_b") or fight.get("fighter_b_id") or fight.get("b_id"))
-            prediction = None
-            if fighter_a_id and fighter_b_id:
-                prediction = build_prediction(fighter_a_id, fighter_b_id, division)
+            a_id = str(fight.get("fighter_a_id") or "")
+            b_id = str(fight.get("fighter_b_id") or "")
+            prediction = (
+                build_prediction(a_id, b_id, fight.get("division") or division,
+                                 is_main_event=bool(fight.get("is_main_event")))
+                if a_id and b_id else None
+            )
             fights.append(
                 {
-                    "fight_id": fight_id,
-                    "fighter_a_id": fighter_a_id,
-                    "fighter_b_id": fighter_b_id,
-                    "fighter_a_name": fight.get("fighter_a_name") or fight.get("fighter_a") or "Unknown",
-                    "fighter_b_name": fight.get("fighter_b_name") or fight.get("fighter_b") or "Unknown",
-                    "scheduled_round": fight.get("round"),
-                    "scheduled_time": fight.get("time"),
+                    "fight_id": str(fight.get("fight_id") or f"{a_id}-{b_id}"),
+                    "fighter_a_id": a_id,
+                    "fighter_b_id": b_id,
+                    "fighter_a_name": fight.get("fighter_a_name") or "Unknown",
+                    "fighter_b_name": fight.get("fighter_b_name") or "Unknown",
+                    "card": fight.get("card"),
+                    "order": fight.get("order"),
+                    "is_main_event": bool(fight.get("is_main_event")),
+                    "weight_class": fight.get("weight_class"),
+                    "division": fight.get("division"),
+                    "womens": bool(fight.get("womens")),
                     "prediction": prediction,
                 }
             )
         response.append(
             {
-                "event_id": str(event.get("id") or event.get("event_id") or event.get("name")),
+                "event_id": str(event.get("event_id") or event.get("slug") or event.get("name")),
+                "slug": event.get("slug"),
                 "name": event.get("name"),
                 "date": event.get("parsed_date"),
                 "venue": event.get("venue"),
+                "url": event.get("url"),
                 "fights": fights,
             }
         )
     return response
+
+
+def _accuracy_bucket(flags: List[bool]) -> Dict[str, object]:
+    correct = sum(1 for ok in flags if ok)
+    return {
+        "pct": round(100.0 * correct / len(flags), 1) if flags else 0.0,
+        "correct": correct,
+        "n": len(flags),
+    }
+
+
+_accuracy_cache: Dict[str, object] = {"key": None, "value": None}
+
+
+def build_accuracy() -> Dict[str, object]:
+    """How often the higher-rated fighter won, using each fighter's effective ELO BEFORE the fight.
+
+    Read-only over elo_histories. Each fighter's pre-fight rating is rebuilt from their own earlier
+    fights only (initial rating + ELO changes weighted by Legacy Decay as of the fight date), which is
+    exactly how the site rates a fighter today. Caveat: the model parameters were tuned on these same
+    fights and the starting rating of a debutant uses their career record, so this is an in-sample,
+    optimistic figure. data/predictions_history.json (Phase 4) will replace it.
+    """
+    import os
+    from .data_loader import DATA_DIR
+    key = tuple(
+        os.stat(DATA_DIR / f"elo_histories_{div.replace(' ', '_')}.json").st_mtime_ns
+        for div in _DIVISIONS_ALL
+        if (DATA_DIR / f"elo_histories_{div.replace(' ', '_')}.json").exists()
+    )
+    if _accuracy_cache["key"] == key and _accuracy_cache["value"] is not None:
+        return _accuracy_cache["value"]  # type: ignore[return-value]
+
+    # one fighter's whole career, deduped, oldest first; remember which division each fight belongs to
+    careers: Dict[str, List[Dict[str, object]]] = {}
+    seen = set()
+    for div in _DIVISIONS_ALL:
+        for fighter_id, hist in load_elo_histories(div).items():
+            for point in hist:
+                marker = (fighter_id, point.get("fight_id"))
+                if marker in seen or not point.get("fight_id"):
+                    continue
+                seen.add(marker)
+                careers.setdefault(fighter_id, []).append({**point, "_division": div})
+    for hist in careers.values():
+        hist.sort(key=lambda point: point.get("date") or "")
+
+    fights: Dict[str, List[tuple]] = {}
+    for fighter_id, hist in careers.items():
+        for index, point in enumerate(hist):
+            fights.setdefault(point["fight_id"], []).append((fighter_id, index, point))
+
+    results: List[Dict[str, object]] = []
+    for sides in fights.values():
+        if len(sides) != 2:
+            continue
+        (id_a, idx_a, pt_a), (id_b, idx_b, pt_b) = sides
+        if {pt_a.get("result"), pt_b.get("result")} != {"Win", "Loss"}:
+            continue
+        win, lose = ((id_a, idx_a, pt_a), (id_b, idx_b, pt_b)) if pt_a.get("result") == "Win" else ((id_b, idx_b, pt_b), (id_a, idx_a, pt_a))
+        when = parse_date(win[2].get("date"))
+        if when is None:
+            continue
+        # pre-fight rating = initial rating + earlier fights only
+        rating_w = _pre_fight_rating(careers[win[0]], win[1], when)
+        rating_l = _pre_fight_rating(careers[lose[0]], lose[1], when)
+        if rating_w is None or rating_l is None or abs(rating_w - rating_l) < 1e-9:
+            continue
+        results.append({"date": win[2].get("date", ""), "ok": rating_w > rating_l, "division": win[2]["_division"]})
+
+    results.sort(key=lambda r: r["date"])
+
+    def flags(rows):
+        return [bool(r["ok"]) for r in rows]
+
+    value = {
+        "overall": _accuracy_bucket(flags(results)),
+        "last_100": _accuracy_bucket(flags(results[-100:])),
+        "last_500": _accuracy_bucket(flags(results[-500:])),
+        "by_division": {
+            div: _accuracy_bucket(flags([r for r in results if r["division"] == div]))
+            for div in _DIVISIONS_ALL
+        },
+        "as_of": results[-1]["date"] if results else None,
+        "method": "The fighter with the higher pre-fight ELO (Legacy Decay applied) is the pick; draws and no-contests excluded.",
+        "caveat": "In-sample: parameters were tuned on these same fights, so real-world accuracy is likely lower.",
+    }
+    _accuracy_cache["key"], _accuracy_cache["value"] = key, value
+    return value
+
+
+def _pre_fight_rating(career: List[Dict[str, object]], index: int, when: datetime) -> Optional[float]:
+    """Effective rating of a fighter just before their `index`-th fight (debut = initial rating)."""
+    start = (career[0].get("breakdown") or {}).get("elo_before")
+    if start is None:
+        return None
+    if index == 0:
+        return float(start)
+    return _effective_elo(career[:index], when)
