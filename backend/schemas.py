@@ -120,6 +120,7 @@ class RankingEntry(BaseModel):
     is_champion:        Optional[bool]  = None
     visitor:            Optional[bool]  = None
     visitor_label:      Optional[str]   = None
+    ufc_rank:           Optional[int]   = None  # official UFC rank: 0 = champion, 1-15
 
 
 class FighterProfile(BaseModel):

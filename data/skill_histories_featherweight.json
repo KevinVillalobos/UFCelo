@@ -1331,6 +1331,28 @@
       "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-09-12",
+      "fight_id": "034c04e480d87b8f",
+      "opponent_id": "7d6ceff6747f2de2",
+      "opponent_name": "Jose Delgado",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 71.39,
+        "Grappling": 57.76,
+        "Defensa": 72.27,
+        "Consistencia": 64.43,
+        "Finish Rate": 68.78,
+        "Cardio/Durabilidad": 82.28,
+        "Presión": 31.93
+      },
+      "event": "Noche UFC: Silva vs. Delgado",
+      "method": "SUB",
+      "round": 3,
+      "time": "2:57",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "dbac0a413af64bbe": [
@@ -3213,6 +3235,28 @@
       "method": "KO/TKO",
       "round": 2,
       "time": "0:30",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-08-01",
+      "fight_id": "13aa6688d0538095",
+      "opponent_id": "c4d039123e62f6a9",
+      "opponent_name": "Dennis Buzukja",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 67.51,
+        "Grappling": 57.89,
+        "Defensa": 65.89,
+        "Consistencia": 57.02,
+        "Finish Rate": 58.26,
+        "Cardio/Durabilidad": 72.68,
+        "Presión": 52.82
+      },
+      "event": "UFC Fight Night: Medic vs. Rodriguez",
+      "method": "SUB",
+      "round": 2,
+      "time": "4:33",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -5975,6 +6019,28 @@
       "time": "1:29",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-09-19",
+      "fight_id": "2e35163040eb3189",
+      "opponent_id": "791c8437b341fba5",
+      "opponent_name": "Joanderson Brito",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 65.44,
+        "Grappling": 28.53,
+        "Defensa": 66.01,
+        "Consistencia": 54.61,
+        "Finish Rate": 37.55,
+        "Cardio/Durabilidad": 83.85,
+        "Presión": 22.31
+      },
+      "event": "UFC 331: Van vs. Pantoja 2",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "1:57",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "70380ccdc81915b8": [
@@ -6041,6 +6107,28 @@
       "method": "DEC U",
       "round": 3,
       "time": "5:00",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-08-08",
+      "fight_id": "06bfde3e3577906f",
+      "opponent_id": "92a9aa9c93192871",
+      "opponent_name": "Darren Elkins",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 76.26,
+        "Grappling": 46.17,
+        "Defensa": 69.45,
+        "Consistencia": 53.82,
+        "Finish Rate": 67.84,
+        "Cardio/Durabilidad": 72.2,
+        "Presión": 44.83
+      },
+      "event": "UFC Fight Night: Gamrot vs. Salkilld",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "0:35",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -6263,6 +6351,28 @@
       "method": "SUB",
       "round": 1,
       "time": "4:19",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-09-19",
+      "fight_id": "2e35163040eb3189",
+      "opponent_id": "9560ff14eb3129f7",
+      "opponent_name": "Giga Chikadze",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 80.74,
+        "Grappling": 53.19,
+        "Defensa": 65.07,
+        "Consistencia": 57.35,
+        "Finish Rate": 71.73,
+        "Cardio/Durabilidad": 87.02,
+        "Presión": 44.94
+      },
+      "event": "UFC 331: Van vs. Pantoja 2",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "1:57",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -6667,6 +6777,28 @@
       "method": "KO/TKO",
       "round": 3,
       "time": "1:12",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-08-29",
+      "fight_id": "8a980234dab7ae43",
+      "opponent_id": "a9da3158dd2c2b5a",
+      "opponent_name": "Jack Jenkins",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 86.3,
+        "Grappling": 39.72,
+        "Defensa": 82.59,
+        "Consistencia": 63.43,
+        "Finish Rate": 42.84,
+        "Cardio/Durabilidad": 87.74,
+        "Presión": 52.91
+      },
+      "event": "UFC Fight Night: Nurmagomedov vs. Song",
+      "method": "DEC S",
+      "round": 3,
+      "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -7653,6 +7785,28 @@
       "method": "DEC U",
       "round": 3,
       "time": "5:00",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-07-11",
+      "fight_id": "930317fde9dbc55e",
+      "opponent_id": "eee0ef3e2b14816b",
+      "opponent_name": "Kai Kamaka III",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 72.66,
+        "Grappling": 34.99,
+        "Defensa": 51.2,
+        "Consistencia": 64.17,
+        "Finish Rate": 63.2,
+        "Cardio/Durabilidad": 70.1,
+        "Presión": 46.71
+      },
+      "event": "UFC 329: McGregor vs. Holloway 2",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "3:03",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -9771,6 +9925,28 @@
       "time": "4:29",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-09-19",
+      "fight_id": "f7810c98786c3dd8",
+      "opponent_id": "98a58c26c5b1ed17",
+      "opponent_name": "Patricio Pitbull",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 80.36,
+        "Grappling": 42.2,
+        "Defensa": 68.96,
+        "Consistencia": 61.27,
+        "Finish Rate": 63.22,
+        "Cardio/Durabilidad": 81.6,
+        "Presión": 41.08
+      },
+      "event": "UFC 331: Van vs. Pantoja 2",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "3:28",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "e363b21261814830": [
@@ -10071,6 +10247,28 @@
       "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-09-05",
+      "fight_id": "b90b099c1f47bb93",
+      "opponent_id": "8d11d9c13e2ccdf7",
+      "opponent_name": "Muhammad Naimov",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 61.32,
+        "Grappling": 43.95,
+        "Defensa": 65.25,
+        "Consistencia": 53.8,
+        "Finish Rate": 56.32,
+        "Cardio/Durabilidad": 64.6,
+        "Presión": 41.39
+      },
+      "event": "UFC Fight Night: Hooker vs. Parnasse",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "2:54",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "a44020ea2e8cd026": [
@@ -10093,6 +10291,28 @@
       "method": "KO/TKO",
       "round": 1,
       "time": "0:28",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-09-19",
+      "fight_id": "d89cc2cb92cd8407",
+      "opponent_id": "01c9e4013afce141",
+      "opponent_name": "Michael Aswell Jr.",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 56.88,
+        "Grappling": 47.16,
+        "Defensa": 62.92,
+        "Consistencia": 52.34,
+        "Finish Rate": 53.4,
+        "Cardio/Durabilidad": 65.28,
+        "Presión": 39.8
+      },
+      "event": "UFC 331: Van vs. Pantoja 2",
+      "method": "DEC S",
+      "round": 3,
+      "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -14029,6 +14249,28 @@
       "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-08-22",
+      "fight_id": "2bbacf9ed3c64184",
+      "opponent_id": "640a0f838f057a81",
+      "opponent_name": "Lerryan Douglas",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 86.25,
+        "Grappling": 46.29,
+        "Defensa": 74.05,
+        "Consistencia": 64.11,
+        "Finish Rate": 59.98,
+        "Cardio/Durabilidad": 82.49,
+        "Presión": 46.76
+      },
+      "event": "UFC Fight Night: Hernandez vs. Rodrigues",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "3:38",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "a20d7dfaba74c067": [
@@ -14655,6 +14897,28 @@
       "method": "KO/TKO",
       "round": 1,
       "time": "1:14",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-09-05",
+      "fight_id": "ad17c34e0cc7d702",
+      "opponent_id": "9256f591b30c073e",
+      "opponent_name": "Felipe Lima",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 62.54,
+        "Grappling": 42.1,
+        "Defensa": 59.32,
+        "Consistencia": 54.23,
+        "Finish Rate": 50.74,
+        "Cardio/Durabilidad": 82.13,
+        "Presión": 30.98
+      },
+      "event": "UFC Fight Night: Hooker vs. Parnasse",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -16667,6 +16931,28 @@
       "time": "4:15",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-08-08",
+      "fight_id": "06bfde3e3577906f",
+      "opponent_id": "70380ccdc81915b8",
+      "opponent_name": "Yadier del Valle",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 62.25,
+        "Grappling": 44.53,
+        "Defensa": 62.4,
+        "Consistencia": 40.46,
+        "Finish Rate": 41.38,
+        "Cardio/Durabilidad": 83.82,
+        "Presión": 46.02
+      },
+      "event": "UFC Fight Night: Gamrot vs. Salkilld",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "0:35",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "9d51798e61f2e0c7": [
@@ -16689,6 +16975,28 @@
       "method": "KO/TKO",
       "round": 2,
       "time": "0:31",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-09-05",
+      "fight_id": "cbf9063d23513661",
+      "opponent_id": "0bc697c5936a2d0a",
+      "opponent_name": "Trevor Peek",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 57.86,
+        "Grappling": 55.6,
+        "Defensa": 51.84,
+        "Consistencia": 50.71,
+        "Finish Rate": 56.08,
+        "Cardio/Durabilidad": 63.28,
+        "Presión": 51.29
+      },
+      "event": "UFC Fight Night: Hooker vs. Parnasse",
+      "method": "SUB",
+      "round": 3,
+      "time": "3:07",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -17029,6 +17337,28 @@
       "method": "SUB",
       "round": 2,
       "time": "0:40",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-07-18",
+      "fight_id": "c64c6ba6eb1e1d06",
+      "opponent_id": "6b0a6def604de298",
+      "opponent_name": "Tommy McMillen",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 54.87,
+        "Grappling": 44.29,
+        "Defensa": 60.44,
+        "Consistencia": 52.62,
+        "Finish Rate": 52.5,
+        "Cardio/Durabilidad": 61.88,
+        "Presión": 39.98
+      },
+      "event": "UFC Fight Night: Du Plessis vs. Usman",
+      "method": "KO/TKO",
+      "round": 3,
+      "time": "3:29",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -20815,6 +21145,28 @@
       "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-09-19",
+      "fight_id": "f7810c98786c3dd8",
+      "opponent_id": "e93b04e308913c2e",
+      "opponent_name": "Dooho Choi",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 66.22,
+        "Grappling": 41.71,
+        "Defensa": 59.27,
+        "Consistencia": 59.31,
+        "Finish Rate": 51.41,
+        "Cardio/Durabilidad": 76.12,
+        "Presión": 40.76
+      },
+      "event": "UFC 331: Van vs. Pantoja 2",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "3:28",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "9e92e1ca498d7244": [
@@ -20953,6 +21305,28 @@
       "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-09-05",
+      "fight_id": "ad17c34e0cc7d702",
+      "opponent_id": "5b03b61f9d90125e",
+      "opponent_name": "Morgan Charriere",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 67.59,
+        "Grappling": 66.61,
+        "Defensa": 69.37,
+        "Consistencia": 58.04,
+        "Finish Rate": 49.2,
+        "Cardio/Durabilidad": 74.4,
+        "Presión": 46.4
+      },
+      "event": "UFC Fight Night: Hooker vs. Parnasse",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "640a0f838f057a81": [
@@ -20975,6 +21349,28 @@
       "method": "KO/TKO",
       "round": 1,
       "time": "3:33",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-08-22",
+      "fight_id": "2bbacf9ed3c64184",
+      "opponent_id": "e00a3dee329a51f7",
+      "opponent_name": "Jamall Emmers",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 58.23,
+        "Grappling": 43.31,
+        "Defensa": 61.1,
+        "Consistencia": 54.98,
+        "Finish Rate": 53.1,
+        "Cardio/Durabilidad": 57.88,
+        "Presión": 41.54
+      },
+      "event": "UFC Fight Night: Hernandez vs. Rodrigues",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "3:38",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -23495,6 +23891,28 @@
       "time": "1:20",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-08-22",
+      "fight_id": "7e86f774f19e5e59",
+      "opponent_id": "d958ed9e5a08c849",
+      "opponent_name": "Ryan Kuse",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 55.9,
+        "Grappling": 44.96,
+        "Defensa": 66.9,
+        "Consistencia": 44.83,
+        "Finish Rate": 68.0,
+        "Cardio/Durabilidad": 61.88,
+        "Presión": 37.05
+      },
+      "event": "UFC Fight Night: Hernandez vs. Rodrigues",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "2:47",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "2dc1bc1a02961656": [
@@ -25307,6 +25725,28 @@
       "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-08-29",
+      "fight_id": "8a980234dab7ae43",
+      "opponent_id": "4682bc59d5f55145",
+      "opponent_name": "Sean Woodson",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 75.21,
+        "Grappling": 43.12,
+        "Defensa": 61.12,
+        "Consistencia": 68.59,
+        "Finish Rate": 39.62,
+        "Cardio/Durabilidad": 84.54,
+        "Presión": 45.37
+      },
+      "event": "UFC Fight Night: Nurmagomedov vs. Song",
+      "method": "DEC S",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "cc351e408bbb7d43": [
@@ -25487,6 +25927,28 @@
       "method": "KO/TKO",
       "round": 1,
       "time": "2:47",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-09-12",
+      "fight_id": "1fca7dfa9e1e15cb",
+      "opponent_id": "6b0a6def604de298",
+      "opponent_name": "Tommy McMillen",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 69.41,
+        "Grappling": 42.9,
+        "Defensa": 55.07,
+        "Consistencia": 57.76,
+        "Finish Rate": 59.8,
+        "Cardio/Durabilidad": 70.78,
+        "Presión": 45.84
+      },
+      "event": "Noche UFC: Silva vs. Delgado",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -26193,6 +26655,28 @@
       "time": "0:21",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-09-05",
+      "fight_id": "b90b099c1f47bb93",
+      "opponent_id": "5b43d68174b6e2ab",
+      "opponent_name": "Losene Keita",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 56.99,
+        "Grappling": 47.04,
+        "Defensa": 65.32,
+        "Consistencia": 48.4,
+        "Finish Rate": 38.28,
+        "Cardio/Durabilidad": 77.16,
+        "Presión": 32.75
+      },
+      "event": "UFC Fight Night: Hooker vs. Parnasse",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "2:54",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "2af2f2e26c4c0402": [
@@ -26643,6 +27127,28 @@
       "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-09-19",
+      "fight_id": "d89cc2cb92cd8407",
+      "opponent_id": "a44020ea2e8cd026",
+      "opponent_name": "JooSang Yoo",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 79.66,
+        "Grappling": 41.35,
+        "Defensa": 64.71,
+        "Consistencia": 53.96,
+        "Finish Rate": 42.62,
+        "Cardio/Durabilidad": 81.87,
+        "Presión": 49.65
+      },
+      "event": "UFC 331: Van vs. Pantoja 2",
+      "method": "DEC S",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "f5f6419c5f00abad": [
@@ -26781,6 +27287,50 @@
       "method": "KO/TKO",
       "round": 1,
       "time": "3:57",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-07-18",
+      "fight_id": "c64c6ba6eb1e1d06",
+      "opponent_id": "a112097ad877a48f",
+      "opponent_name": "Alberto Montes",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 68.0,
+        "Grappling": 44.36,
+        "Defensa": 65.91,
+        "Consistencia": 52.14,
+        "Finish Rate": 68.0,
+        "Cardio/Durabilidad": 65.28,
+        "Presión": 67.3
+      },
+      "event": "UFC Fight Night: Du Plessis vs. Usman",
+      "method": "KO/TKO",
+      "round": 3,
+      "time": "3:29",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-09-12",
+      "fight_id": "1fca7dfa9e1e15cb",
+      "opponent_id": "6eedb757f13b9978",
+      "opponent_name": "Marwan Rahiki",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 74.4,
+        "Grappling": 54.19,
+        "Defensa": 62.94,
+        "Consistencia": 56.05,
+        "Finish Rate": 60.4,
+        "Cardio/Durabilidad": 72.22,
+        "Presión": 70.12
+      },
+      "event": "Noche UFC: Silva vs. Delgado",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -28531,6 +29081,28 @@
       "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-09-05",
+      "fight_id": "ac3af13ffe39b1d8",
+      "opponent_id": "93f9c19ae41d2a97",
+      "opponent_name": "Pavel Andrusca",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 83.32,
+        "Grappling": 46.44,
+        "Defensa": 73.4,
+        "Consistencia": 67.59,
+        "Finish Rate": 32.86,
+        "Cardio/Durabilidad": 97.07,
+        "Presión": 42.09
+      },
+      "event": "UFC Fight Night: Hooker vs. Parnasse",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "da4628f173337902": [
@@ -29295,6 +29867,28 @@
       "method": "SUB",
       "round": 1,
       "time": "3:39",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-07-18",
+      "fight_id": "3bd159c1bed14700",
+      "opponent_id": "7d6ceff6747f2de2",
+      "opponent_name": "Jose Delgado",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 60.91,
+        "Grappling": 51.91,
+        "Defensa": 58.12,
+        "Consistencia": 46.92,
+        "Finish Rate": 50.46,
+        "Cardio/Durabilidad": 71.68,
+        "Presión": 53.79
+      },
+      "event": "UFC Fight Night: Du Plessis vs. Usman",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -30079,6 +30673,28 @@
       "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-08-08",
+      "fight_id": "1168a8e59aacfd72",
+      "opponent_id": "51ec9dc3b4964f19",
+      "opponent_name": "Gianni Vazquez",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 62.65,
+        "Grappling": 35.77,
+        "Defensa": 78.38,
+        "Consistencia": 58.11,
+        "Finish Rate": 49.97,
+        "Cardio/Durabilidad": 90.06,
+        "Presión": 30.24
+      },
+      "event": "UFC Fight Night: Gamrot vs. Salkilld",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "3:09",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "ed2a8cc402173781": [
@@ -30307,6 +30923,50 @@
       "method": "DEC S",
       "round": 3,
       "time": "5:00",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-07-18",
+      "fight_id": "3bd159c1bed14700",
+      "opponent_id": "d3f89fa685bd8420",
+      "opponent_name": "Austin Bashi",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 79.3,
+        "Grappling": 38.67,
+        "Defensa": 54.0,
+        "Consistencia": 67.75,
+        "Finish Rate": 49.07,
+        "Cardio/Durabilidad": 80.48,
+        "Presión": 44.27
+      },
+      "event": "UFC Fight Night: Du Plessis vs. Usman",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-09-12",
+      "fight_id": "034c04e480d87b8f",
+      "opponent_id": "52ef95b5860fb28c",
+      "opponent_name": "Jean Silva",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 71.97,
+        "Grappling": 33.58,
+        "Defensa": 51.16,
+        "Consistencia": 63.52,
+        "Finish Rate": 44.06,
+        "Cardio/Durabilidad": 80.38,
+        "Presión": 38.3
+      },
+      "event": "Noche UFC: Silva vs. Delgado",
+      "method": "SUB",
+      "round": 3,
+      "time": "2:57",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -32821,6 +33481,28 @@
       "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-06-27",
+      "fight_id": "1a7119f3996b5635",
+      "opponent_id": "4a574b8512fc1b30",
+      "opponent_name": "Javier Reyes",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 68.37,
+        "Grappling": 40.96,
+        "Defensa": 57.28,
+        "Consistencia": 59.82,
+        "Finish Rate": 59.17,
+        "Cardio/Durabilidad": 75.95,
+        "Presión": 44.66
+      },
+      "event": "UFC Fight Night: Fiziev vs. Torres",
+      "method": "SUB",
+      "round": 1,
+      "time": "4:16",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "1cecc8fe6748a532": [
@@ -33779,6 +34461,28 @@
       "time": "5:00",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-07-11",
+      "fight_id": "930317fde9dbc55e",
+      "opponent_id": "b1de86d835638319",
+      "opponent_name": "Luke Riley",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 70.07,
+        "Grappling": 47.7,
+        "Defensa": 56.54,
+        "Consistencia": 60.61,
+        "Finish Rate": 34.33,
+        "Cardio/Durabilidad": 73.19,
+        "Presión": 46.41
+      },
+      "event": "UFC 329: McGregor vs. Holloway 2",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "3:03",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "4a574b8512fc1b30": [
@@ -33801,6 +34505,28 @@
       "method": "KO/TKO",
       "round": 1,
       "time": "4:59",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-06-27",
+      "fight_id": "1a7119f3996b5635",
+      "opponent_id": "7facc9c45d792985",
+      "opponent_name": "Kaan Ofli",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 53.05,
+        "Grappling": 49.8,
+        "Defensa": 60.45,
+        "Consistencia": 49.14,
+        "Finish Rate": 53.4,
+        "Cardio/Durabilidad": 58.68,
+        "Presión": 49.94
+      },
+      "event": "UFC Fight Night: Fiziev vs. Torres",
+      "method": "SUB",
+      "round": 1,
+      "time": "4:16",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -35817,6 +36543,28 @@
       "method": "KO/TKO",
       "round": 1,
       "time": "1:20",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-08-01",
+      "fight_id": "13aa6688d0538095",
+      "opponent_id": "fb37795db81f93f3",
+      "opponent_name": "Bogdan Grad",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 58.05,
+        "Grappling": 31.09,
+        "Defensa": 54.63,
+        "Consistencia": 51.14,
+        "Finish Rate": 43.49,
+        "Cardio/Durabilidad": 68.9,
+        "Presión": 32.1
+      },
+      "event": "UFC Fight Night: Medic vs. Rodriguez",
+      "method": "SUB",
+      "round": 2,
+      "time": "4:33",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }
@@ -39022,6 +39770,246 @@
         "Presión": 38.37
       },
       "event": "UFC Fight Night: Kape vs. Horiguchi",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    }
+  ],
+  "41523699f37d400c": [
+    {
+      "date": "2026-09-12",
+      "fight_id": "5a91827fe8c1dc26",
+      "opponent_id": "d1026588fa65693f",
+      "opponent_name": "Jessie Rosas",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 54.17,
+        "Grappling": 60.0,
+        "Defensa": 58.6,
+        "Consistencia": 51.71,
+        "Finish Rate": 60.0,
+        "Cardio/Durabilidad": 56.6,
+        "Presión": 42.47
+      },
+      "event": "Noche UFC: Silva vs. Delgado",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "0:36",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    }
+  ],
+  "d958ed9e5a08c849": [
+    {
+      "date": "2026-08-22",
+      "fight_id": "7e86f774f19e5e59",
+      "opponent_id": "c85bad793cd14e28",
+      "opponent_name": "Marcio Barbosa",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 44.61,
+        "Grappling": 45.55,
+        "Defensa": 54.28,
+        "Consistencia": 46.78,
+        "Finish Rate": 45.1,
+        "Cardio/Durabilidad": 52.6,
+        "Presión": 41.5
+      },
+      "event": "UFC Fight Night: Hernandez vs. Rodrigues",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "2:47",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    }
+  ],
+  "b852ad2b35354fcb": [
+    {
+      "date": "2026-07-18",
+      "fight_id": "9e525f939fba3e73",
+      "opponent_id": "df619b9a86ce0a9a",
+      "opponent_name": "Damien Anderson",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 53.12,
+        "Grappling": 56.87,
+        "Defensa": 57.51,
+        "Consistencia": 56.0,
+        "Finish Rate": 46.0,
+        "Cardio/Durabilidad": 60.0,
+        "Presión": 53.16
+      },
+      "event": "UFC Fight Night: Du Plessis vs. Usman",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    }
+  ],
+  "4419acb81e6f0ea4": [
+    {
+      "date": "2026-10-03",
+      "fight_id": "041f9b7dd3542fa6",
+      "opponent_id": "c0ac37a4a1133da9",
+      "opponent_name": "Marcus McGhee",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 48.14,
+        "Grappling": 55.6,
+        "Defensa": 54.22,
+        "Consistencia": 50.22,
+        "Finish Rate": 45.1,
+        "Cardio/Durabilidad": 52.6,
+        "Presión": 43.08
+      },
+      "event": "UFC 332: Silva vs. Wang",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "4:58",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    }
+  ],
+  "df619b9a86ce0a9a": [
+    {
+      "date": "2026-07-18",
+      "fight_id": "9e525f939fba3e73",
+      "opponent_id": "b852ad2b35354fcb",
+      "opponent_name": "Ezra Elliott",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 50.71,
+        "Grappling": 41.98,
+        "Defensa": 45.79,
+        "Consistencia": 49.45,
+        "Finish Rate": 45.4,
+        "Cardio/Durabilidad": 60.0,
+        "Presión": 42.55
+      },
+      "event": "UFC Fight Night: Du Plessis vs. Usman",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    }
+  ],
+  "c0ac37a4a1133da9": [
+    {
+      "date": "2026-10-03",
+      "fight_id": "041f9b7dd3542fa6",
+      "opponent_id": "4419acb81e6f0ea4",
+      "opponent_name": "Anthony Romero",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 76.81,
+        "Grappling": 32.31,
+        "Defensa": 61.49,
+        "Consistencia": 60.95,
+        "Finish Rate": 59.18,
+        "Cardio/Durabilidad": 81.8,
+        "Presión": 44.61
+      },
+      "event": "UFC 332: Silva vs. Wang",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "4:58",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    }
+  ],
+  "0bc697c5936a2d0a": [
+    {
+      "date": "2026-09-05",
+      "fight_id": "cbf9063d23513661",
+      "opponent_id": "9d51798e61f2e0c7",
+      "opponent_name": "Kurtis Campbell",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 62.48,
+        "Grappling": 33.14,
+        "Defensa": 41.07,
+        "Consistencia": 64.24,
+        "Finish Rate": 37.52,
+        "Cardio/Durabilidad": 81.78,
+        "Presión": 37.16
+      },
+      "event": "UFC Fight Night: Hooker vs. Parnasse",
+      "method": "SUB",
+      "round": 3,
+      "time": "3:07",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    }
+  ],
+  "51ec9dc3b4964f19": [
+    {
+      "date": "2026-08-08",
+      "fight_id": "1168a8e59aacfd72",
+      "opponent_id": "46e0d677f91bacc0",
+      "opponent_name": "Miles Johns",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 44.64,
+        "Grappling": 40.52,
+        "Defensa": 54.54,
+        "Consistencia": 47.84,
+        "Finish Rate": 41.42,
+        "Cardio/Durabilidad": 60.6,
+        "Presión": 36.76
+      },
+      "event": "UFC Fight Night: Gamrot vs. Salkilld",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "3:09",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    }
+  ],
+  "d1026588fa65693f": [
+    {
+      "date": "2026-09-12",
+      "fight_id": "5a91827fe8c1dc26",
+      "opponent_id": "41523699f37d400c",
+      "opponent_name": "Sean King III",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 46.86,
+        "Grappling": 40.6,
+        "Defensa": 41.98,
+        "Consistencia": 48.1,
+        "Finish Rate": 45.1,
+        "Cardio/Durabilidad": 52.6,
+        "Presión": 41.14
+      },
+      "event": "Noche UFC: Silva vs. Delgado",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "0:36",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    }
+  ],
+  "93f9c19ae41d2a97": [
+    {
+      "date": "2026-09-05",
+      "fight_id": "ac3af13ffe39b1d8",
+      "opponent_id": "329e403448756217",
+      "opponent_name": "Nathaniel Wood",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 56.42,
+        "Grappling": 49.84,
+        "Defensa": 58.07,
+        "Consistencia": 54.74,
+        "Finish Rate": 46.0,
+        "Cardio/Durabilidad": 60.0,
+        "Presión": 52.33
+      },
+      "event": "UFC Fight Night: Hooker vs. Parnasse",
       "method": "DEC U",
       "round": 3,
       "time": "5:00",

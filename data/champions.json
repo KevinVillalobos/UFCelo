@@ -1,11 +1,35 @@
 {
-  "_comment": "Current UFC champions per division. Update fighter_id + name when belts change.",
-  "heavyweight":       { "fighter_id": "399afbabc02376b5", "fighter_name": "Tom Aspinall" },
-  "lightweight":       { "fighter_id": "9e8f6c728eb01124", "fighter_name": "Justin Gaethje" },
-  "welterweight":      { "fighter_id": "275aca31f61ba28c", "fighter_name": "Islam Makhachev" },
-  "featherweight":     { "fighter_id": "e1248941344b3288", "fighter_name": "Alexander Volkanovski" },
-  "middleweight":      { "fighter_id": "0d8011111be000b2", "fighter_name": "Sean Strickland" },
-  "flyweight":         { "fighter_id": "17e97649403ba428", "fighter_name": "Joshua Van" },
-  "light heavyweight": { "fighter_id": "9014c02eff8b3d62", "fighter_name": "Carlos Ulberg" },
-  "bantamweight":      { "fighter_id": "d661ce4da776fc20", "fighter_name": "Petr Yan" }
+  "_comment": "Auto-synced from ufc.com/rankings by backend/ufc_rankings.py. Do not edit by hand.",
+  "flyweight": {
+    "fighter_id": "17e97649403ba428",
+    "fighter_name": "Joshua Van"
+  },
+  "bantamweight": {
+    "fighter_id": "d661ce4da776fc20",
+    "fighter_name": "Petr Yan"
+  },
+  "featherweight": {
+    "fighter_id": "e1248941344b3288",
+    "fighter_name": "Alexander Volkanovski"
+  },
+  "lightweight": {
+    "fighter_id": "9e8f6c728eb01124",
+    "fighter_name": "Justin Gaethje"
+  },
+  "welterweight": {
+    "fighter_id": "275aca31f61ba28c",
+    "fighter_name": "Islam Makhachev"
+  },
+  "middleweight": {
+    "fighter_id": "0d8011111be000b2",
+    "fighter_name": "Sean Strickland"
+  },
+  "light heavyweight": {
+    "fighter_id": "9014c02eff8b3d62",
+    "fighter_name": "Carlos Ulberg"
+  },
+  "heavyweight": {
+    "fighter_id": "787bb1f087ccff8a",
+    "fighter_name": "Ciryl Gane"
+  }
 }

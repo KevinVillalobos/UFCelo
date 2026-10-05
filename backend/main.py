@@ -66,6 +66,7 @@ from .schemas import (  # noqa: F401
     RetireBody,
     UpcomingEvent,
 )
+from .ufc_rankings import load_ufc_rankings, refresh as refresh_ufc_rankings, start_background_refresh
 from .services import (
     build_fighter_profile,
     build_fight_simulation,
@@ -82,6 +83,13 @@ app = FastAPI(
     description="Backend API para rankings Elo de peleadores de UFC/MMA.",
     version="0.1.0",
 )
+
+
+@app.on_event("startup")
+def _sync_ufc_rankings() -> None:
+    # Keeps data/ufc_rankings.json and data/champions.json aligned with ufc.com
+    start_background_refresh()
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -179,6 +187,23 @@ def get_simulator_data(
     if not data:
         raise HTTPException(status_code=404, detail="Uno o ambos peleadores no fueron encontrados.")
     return data
+
+
+@app.get("/ufc-rankings")
+def get_ufc_rankings():
+    data = load_ufc_rankings()
+    if not data["divisions"]:
+        raise HTTPException(status_code=404, detail="Rankings oficiales de UFC aun no disponibles.")
+    return data
+
+
+@app.get("/ufc-rankings/{division}")
+def get_ufc_rankings_division(division: str):
+    data = load_ufc_rankings()
+    info = data["divisions"].get(division.lower())
+    if not info:
+        raise HTTPException(status_code=404, detail=f"Sin rankings oficiales para division '{division}'.")
+    return {"updated_at": data["updated_at"], "division": division.lower(), **info}
 
 
 @app.get("/visits")

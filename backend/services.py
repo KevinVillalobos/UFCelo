@@ -22,6 +22,7 @@ from .data_loader import (
     load_skill_scores,
 )
 from .stats import compute_fighter_stats, parse_physical
+from .ufc_rankings import ufc_rank_map
 
 _K_BASE = 32.0
 _DIVISION_K_MULT: Dict[str, float] = {
@@ -157,10 +158,20 @@ def _division_elo_index() -> tuple:
     return best_div, best_elo
 
 
+def _with_ufc_rank(entries: List[Dict[str, object]], division: str) -> List[Dict[str, object]]:
+    ranks = ufc_rank_map(division)
+    for entry in entries:
+        entry["ufc_rank"] = ranks.get(entry["fighter_id"])
+    return entries
+
+
 def build_ranking_response(division: str, alltime: bool = False) -> List[Dict[str, object]]:
     rankings = load_rankings(division, alltime=alltime)
     if alltime:
-        return [_ranking_entry(item, division, item.get("alltime_rank", i + 1)) for i, item in enumerate(rankings)]
+        return _with_ufc_rank(
+            [_ranking_entry(item, division, item.get("alltime_rank", i + 1)) for i, item in enumerate(rankings)],
+            division,
+        )
 
     retired_overrides = load_retired_overrides()
     primary_map, max_elo_map = _division_elo_index()
@@ -273,7 +284,7 @@ def build_ranking_response(division: str, alltime: bool = False) -> List[Dict[st
         result.append(_ranking_entry(_enrich(item), division, rank, visitor=True, visitor_label=v_label))
         rank += 1
 
-    return result
+    return _with_ufc_rank(result, division)
 
 
 def _get_current_elo(fighter_id: str, fighter: Dict[str, object], division: str = "heavyweight") -> float:

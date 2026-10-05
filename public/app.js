@@ -113,8 +113,9 @@ function divSlug(d) { return d.replace(/ /g, '%20'); }
     if (homeEl) homeEl.textContent = n.toLocaleString();
   }
 
-  // Global visit counter — backed by Vercel KV (Redis) on the server
-  fetch(API + '/visits', { method: 'POST' })
+  // Only landing on Home counts as a visit; every other page just reads the total.
+  const isHome = page === 'index.html' || page === 'index';
+  fetch(API + '/visits', { method: isHome ? 'POST' : 'GET' })
     .then(r => r.ok ? r.json() : null)
     .then(d => { if (d && d.total) _showVisits(d.total); })
     .catch(() => {});

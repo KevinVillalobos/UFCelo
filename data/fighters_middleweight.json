@@ -6620,5 +6620,33 @@
     "losses": 2,
     "draws": 0,
     "url": "http://ufcstats.com/fighter-details/e6666480a830f764"
+  },
+  {
+    "fighter_id": "025c1ee70b2cedf4",
+    "name": "Vlasto Cepo",
+    "nickname": "",
+    "height": "6' 0\"",
+    "weight": "185 lbs.",
+    "reach": "73\"",
+    "stance": "Orthodox",
+    "dob": "Jan 25, 1995",
+    "wins": 14,
+    "losses": 4,
+    "draws": 0,
+    "url": "http://ufcstats.com/fighter-details/025c1ee70b2cedf4"
+  },
+  {
+    "fighter_id": "ec322adbabbfa6e7",
+    "name": "Matthieu Duclos",
+    "nickname": "",
+    "height": "6' 3\"",
+    "weight": "185 lbs.",
+    "reach": "76\"",
+    "stance": "Orthodox",
+    "dob": "Apr 04, 1995",
+    "wins": 11,
+    "losses": 3,
+    "draws": 0,
+    "url": "http://ufcstats.com/fighter-details/ec322adbabbfa6e7"
   }
 ]

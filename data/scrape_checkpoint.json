@@ -8,27 +8,27 @@
     "last_run": "2026-10-04T18:23:24"
   },
   "middleweight": {
-    "last_event_date": "2026-06-20",
-    "last_run": "2026-06-23T14:19:30"
+    "last_event_date": "2026-10-03",
+    "last_run": "2026-10-04T18:25:10"
   },
   "welterweight": {
-    "last_event_date": "2026-06-20",
-    "last_run": "2026-06-23T14:20:13"
+    "last_event_date": "2026-10-03",
+    "last_run": "2026-10-04T18:27:18"
   },
   "lightweight": {
-    "last_event_date": "2026-06-20",
-    "last_run": "2026-06-23T14:20:59"
+    "last_event_date": "2026-10-03",
+    "last_run": "2026-10-04T18:31:09"
   },
   "featherweight": {
-    "last_event_date": "2026-06-20",
-    "last_run": "2026-06-23T14:22:01"
+    "last_event_date": "2026-10-03",
+    "last_run": "2026-10-04T18:33:11"
   },
   "bantamweight": {
-    "last_event_date": "2026-06-20",
-    "last_run": "2026-06-23T14:22:54"
+    "last_event_date": "2026-10-03",
+    "last_run": "2026-10-04T18:34:59"
   },
   "flyweight": {
-    "last_event_date": "2026-06-20",
-    "last_run": "2026-06-23T14:23:27"
+    "last_event_date": "2026-10-03",
+    "last_run": "2026-10-04T18:36:24"
   }
 }

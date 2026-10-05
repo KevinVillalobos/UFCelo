@@ -3,8 +3,8 @@
     "fighter_id": "c03520b5c88ed6b4",
     "fighter_name": "Merab Dvalishvili",
     "division": "Bantamweight",
-    "elo": 1830.18,
-    "peak_elo": 1861.38,
+    "elo": 1824.39,
+    "peak_elo": 1861.37,
     "peak_elo_date": "2025-10-04",
     "peak_elo_opponent": "Cory Sandhagen",
     "record": "21-5-0",
@@ -19,15 +19,15 @@
     "fighter_id": "aa72b0f831d0bfe5",
     "fighter_name": "Deiveson Figueiredo",
     "division": "Bantamweight",
-    "elo": 1747.58,
-    "peak_elo": 1848.2,
+    "elo": 1720.78,
+    "peak_elo": 1848.33,
     "peak_elo_date": "2024-08-03",
     "peak_elo_opponent": "Marlon Vera",
     "record": "25-6-1",
-    "fight_count": 8,
-    "last_fight_date": "2026-05-30",
+    "fight_count": 9,
+    "last_fight_date": "2026-10-03",
     "active": true,
-    "streak": -2,
+    "streak": -3,
     "division_elo_entry": 1779.07,
     "alltime_rank": 2
   },
@@ -35,8 +35,8 @@
     "fighter_id": "c849740a3ff51931",
     "fighter_name": "TJ Dillashaw",
     "division": "Bantamweight",
-    "elo": 1769.67,
-    "peak_elo": 1822.58,
+    "elo": 1769.89,
+    "peak_elo": 1822.85,
     "peak_elo_date": "2021-07-24",
     "peak_elo_opponent": "Cory Sandhagen",
     "record": "18-5-0",
@@ -51,15 +51,15 @@
     "fighter_id": "2b6fc1c02736833d",
     "fighter_name": "Umar Nurmagomedov",
     "division": "Bantamweight",
-    "elo": 1813.47,
+    "elo": 1796.77,
     "peak_elo": 1821.39,
     "peak_elo_date": "2026-01-24",
     "peak_elo_opponent": "Deiveson Figueiredo",
     "record": "20-1-0",
-    "fight_count": 8,
-    "last_fight_date": "2026-01-24",
+    "fight_count": 9,
+    "last_fight_date": "2026-08-29",
     "active": true,
-    "streak": 2,
+    "streak": -1,
     "division_elo_entry": 1680.95,
     "alltime_rank": 4
   },
@@ -67,8 +67,8 @@
     "fighter_id": "d661ce4da776fc20",
     "fighter_name": "Petr Yan",
     "division": "Bantamweight",
-    "elo": 1810.46,
-    "peak_elo": 1820.95,
+    "elo": 1805.01,
+    "peak_elo": 1820.93,
     "peak_elo_date": "2025-12-06",
     "peak_elo_opponent": "Merab Dvalishvili",
     "record": "20-5-0",
@@ -80,10 +80,26 @@
     "alltime_rank": 5
   },
   {
+    "fighter_id": "a09ed60aa67a3f67",
+    "fighter_name": "Farid Basharat",
+    "division": "Bantamweight",
+    "elo": 1815.87,
+    "peak_elo": 1820.34,
+    "peak_elo_date": "2026-07-11",
+    "peak_elo_opponent": "John Garza",
+    "record": "15-0-0",
+    "fight_count": 6,
+    "last_fight_date": "2026-07-11",
+    "active": true,
+    "streak": 6,
+    "division_elo_entry": 1700.0,
+    "alltime_rank": 6
+  },
+  {
     "fighter_id": "10f3ba6cd2f44a97",
     "fighter_name": "Dominick Cruz",
     "division": "Bantamweight",
-    "elo": 1726.81,
+    "elo": 1726.92,
     "peak_elo": 1812.72,
     "peak_elo_date": "2016-06-04",
     "peak_elo_opponent": "Urijah Faber",
@@ -93,22 +109,6 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1642.86,
-    "alltime_rank": 6
-  },
-  {
-    "fighter_id": "a09ed60aa67a3f67",
-    "fighter_name": "Farid Basharat",
-    "division": "Bantamweight",
-    "elo": 1805.63,
-    "peak_elo": 1812.61,
-    "peak_elo_date": "2026-02-07",
-    "peak_elo_opponent": "Jean Matsumoto",
-    "record": "15-0-0",
-    "fight_count": 5,
-    "last_fight_date": "2026-02-07",
-    "active": true,
-    "streak": 5,
-    "division_elo_entry": 1700.0,
     "alltime_rank": 7
   },
   {
@@ -116,7 +116,7 @@
     "fighter_name": "John Lineker",
     "division": "Bantamweight",
     "elo": 1739.07,
-    "peak_elo": 1801.53,
+    "peak_elo": 1801.52,
     "peak_elo_date": "2016-10-01",
     "peak_elo_opponent": "John Dodson",
     "record": "31-9-0",
@@ -131,7 +131,7 @@
     "fighter_id": "fea79f9bc8c68769",
     "fighter_name": "Marlon Moraes",
     "division": "Bantamweight",
-    "elo": 1636.81,
+    "elo": 1636.8,
     "peak_elo": 1800.26,
     "peak_elo_date": "2019-02-02",
     "peak_elo_opponent": "Raphael Assuncao",
@@ -144,10 +144,26 @@
     "alltime_rank": 9
   },
   {
+    "fighter_id": "d8c7c61b176e3994",
+    "fighter_name": "Cody Garbrandt",
+    "division": "Bantamweight",
+    "elo": 1706.85,
+    "peak_elo": 1792.18,
+    "peak_elo_date": "2016-12-30",
+    "peak_elo_opponent": "Dominick Cruz",
+    "record": "15-7-0",
+    "fight_count": 16,
+    "last_fight_date": "2026-07-11",
+    "active": true,
+    "streak": -1,
+    "division_elo_entry": 1572.73,
+    "alltime_rank": 10
+  },
+  {
     "fighter_id": "b50a426a33da0012",
     "fighter_name": "Sean O'Malley",
     "division": "Bantamweight",
-    "elo": 1778.94,
+    "elo": 1774.21,
     "peak_elo": 1789.98,
     "peak_elo_date": "2024-03-09",
     "peak_elo_opponent": "Marlon Vera",
@@ -157,29 +173,29 @@
     "active": true,
     "streak": 2,
     "division_elo_entry": 1645.45,
-    "alltime_rank": 10
+    "alltime_rank": 11
   },
   {
-    "fighter_id": "d8c7c61b176e3994",
-    "fighter_name": "Cody Garbrandt",
+    "fighter_id": "fe2babf95de24fb1",
+    "fighter_name": "Raul Rosas Jr.",
     "division": "Bantamweight",
-    "elo": 1718.84,
-    "peak_elo": 1789.97,
-    "peak_elo_date": "2016-12-30",
-    "peak_elo_opponent": "Dominick Cruz",
-    "record": "15-7-0",
-    "fight_count": 15,
-    "last_fight_date": "2026-03-07",
+    "elo": 1778.78,
+    "peak_elo": 1779.15,
+    "peak_elo_date": "2026-09-26",
+    "peak_elo_opponent": "Raoni Barcelos",
+    "record": "12-1-0",
+    "fight_count": 8,
+    "last_fight_date": "2026-09-26",
     "active": true,
-    "streak": 1,
-    "division_elo_entry": 1572.73,
-    "alltime_rank": 11
+    "streak": 6,
+    "division_elo_entry": 1669.23,
+    "alltime_rank": 12
   },
   {
     "fighter_id": "0fd5f4b838e890cc",
     "fighter_name": "Said Nurmagomedov",
     "division": "Bantamweight",
-    "elo": 1722.11,
+    "elo": 1718.15,
     "peak_elo": 1778.25,
     "peak_elo_date": "2022-12-17",
     "peak_elo_opponent": "Saidyokub Kakhramonov",
@@ -189,30 +205,62 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1632.89,
-    "alltime_rank": 12
+    "alltime_rank": 13
   },
   {
     "fighter_id": "65f09bacd3957381",
     "fighter_name": "Cory Sandhagen",
     "division": "Bantamweight",
-    "elo": 1754.93,
-    "peak_elo": 1777.85,
+    "elo": 1743.62,
+    "peak_elo": 1777.79,
     "peak_elo_date": "2025-05-03",
     "peak_elo_opponent": "Deiveson Figueiredo",
     "record": "18-6-0",
-    "fight_count": 14,
-    "last_fight_date": "2025-10-04",
+    "fight_count": 15,
+    "last_fight_date": "2026-07-11",
     "active": true,
-    "streak": -1,
+    "streak": -2,
     "division_elo_entry": 1629.8,
-    "alltime_rank": 13
+    "alltime_rank": 14
+  },
+  {
+    "fighter_id": "6e743a33d56bdaa4",
+    "fighter_name": "Payton Talbott",
+    "division": "Bantamweight",
+    "elo": 1773.4,
+    "peak_elo": 1773.45,
+    "peak_elo_date": "2026-10-03",
+    "peak_elo_opponent": "Deiveson Figueiredo",
+    "record": "11-1-0",
+    "fight_count": 7,
+    "last_fight_date": "2026-10-03",
+    "active": true,
+    "streak": 3,
+    "division_elo_entry": 1666.67,
+    "alltime_rank": 15
+  },
+  {
+    "fighter_id": "9a97acbfd5a08bfa",
+    "fighter_name": "David Martinez",
+    "division": "Bantamweight",
+    "elo": 1772.16,
+    "peak_elo": 1773.15,
+    "peak_elo_date": "2026-09-12",
+    "peak_elo_opponent": "Dan Ige",
+    "record": "14-1-0",
+    "fight_count": 4,
+    "last_fight_date": "2026-09-12",
+    "active": true,
+    "streak": 4,
+    "division_elo_entry": 1673.33,
+    "alltime_rank": 16
   },
   {
     "fighter_id": "d9c6f19f958643e9",
     "fighter_name": "Bryce Mitchell",
     "division": "Bantamweight",
-    "elo": 1768.48,
-    "peak_elo": 1769.23,
+    "elo": 1764.33,
+    "peak_elo": 1769.64,
     "peak_elo_date": "2026-06-06",
     "peak_elo_opponent": "Santiago Luna",
     "record": "18-4-0",
@@ -220,15 +268,31 @@
     "last_fight_date": "2026-06-06",
     "active": true,
     "streak": 2,
-    "division_elo_entry": 1710.26,
-    "alltime_rank": 14
+    "division_elo_entry": 1710.74,
+    "alltime_rank": 17
+  },
+  {
+    "fighter_id": "bc711b6dd95c1af6",
+    "fighter_name": "Mario Bautista",
+    "division": "Bantamweight",
+    "elo": 1765.29,
+    "peak_elo": 1769.05,
+    "peak_elo_date": "2026-07-11",
+    "peak_elo_opponent": "Cory Sandhagen",
+    "record": "17-3-0",
+    "fight_count": 15,
+    "last_fight_date": "2026-07-11",
+    "active": true,
+    "streak": 2,
+    "division_elo_entry": 1640.0,
+    "alltime_rank": 18
   },
   {
     "fighter_id": "9c907996820d2d69",
     "fighter_name": "Jimmie Rivera",
     "division": "Bantamweight",
-    "elo": 1661.42,
-    "peak_elo": 1766.4,
+    "elo": 1661.41,
+    "peak_elo": 1766.38,
     "peak_elo_date": "2017-07-22",
     "peak_elo_opponent": "Thomas Almeida",
     "record": "23-5-0",
@@ -237,29 +301,13 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1628.57,
-    "alltime_rank": 15
-  },
-  {
-    "fighter_id": "fe2babf95de24fb1",
-    "fighter_name": "Raul Rosas Jr.",
-    "division": "Bantamweight",
-    "elo": 1755.04,
-    "peak_elo": 1759.65,
-    "peak_elo_date": "2026-03-07",
-    "peak_elo_opponent": "Rob Font",
-    "record": "12-1-0",
-    "fight_count": 7,
-    "last_fight_date": "2026-03-07",
-    "active": true,
-    "streak": 5,
-    "division_elo_entry": 1669.23,
-    "alltime_rank": 16
+    "alltime_rank": 19
   },
   {
     "fighter_id": "2f13e4020cea5b38",
     "fighter_name": "Raphael Assuncao",
     "division": "Bantamweight",
-    "elo": 1644.37,
+    "elo": 1644.44,
     "peak_elo": 1756.26,
     "peak_elo_date": "2018-07-07",
     "peak_elo_opponent": "Rob Font",
@@ -269,14 +317,14 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1556.24,
-    "alltime_rank": 17
+    "alltime_rank": 20
   },
   {
     "fighter_id": "850266b3dc4e506e",
     "fighter_name": "Daniel Marcos",
     "division": "Bantamweight",
-    "elo": 1742.19,
-    "peak_elo": 1756.07,
+    "elo": 1737.93,
+    "peak_elo": 1756.08,
     "peak_elo_date": "2024-12-14",
     "peak_elo_opponent": "Adrian Yanez",
     "record": "18-1-0",
@@ -285,46 +333,30 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1678.95,
-    "alltime_rank": 18
+    "alltime_rank": 21
   },
   {
-    "fighter_id": "6e743a33d56bdaa4",
-    "fighter_name": "Payton Talbott",
+    "fighter_id": "cc1a8b4b38b92c6d",
+    "fighter_name": "Montel Jackson",
     "division": "Bantamweight",
-    "elo": 1745.28,
-    "peak_elo": 1753.57,
-    "peak_elo_date": "2025-12-06",
-    "peak_elo_opponent": "Henry Cejudo",
-    "record": "11-1-0",
-    "fight_count": 6,
-    "last_fight_date": "2025-12-06",
-    "active": true,
-    "streak": 2,
-    "division_elo_entry": 1666.67,
-    "alltime_rank": 19
-  },
-  {
-    "fighter_id": "bc711b6dd95c1af6",
-    "fighter_name": "Mario Bautista",
-    "division": "Bantamweight",
-    "elo": 1746.42,
-    "peak_elo": 1752.06,
-    "peak_elo_date": "2026-02-07",
-    "peak_elo_opponent": "Vinicius Oliveira",
-    "record": "17-3-0",
+    "elo": 1743.2,
+    "peak_elo": 1750.1,
+    "peak_elo_date": "2025-05-03",
+    "peak_elo_opponent": "Daniel Marcos",
+    "record": "15-4-0",
     "fight_count": 14,
-    "last_fight_date": "2026-02-07",
+    "last_fight_date": "2026-09-26",
     "active": true,
     "streak": 1,
-    "division_elo_entry": 1640.0,
-    "alltime_rank": 20
+    "division_elo_entry": 1615.79,
+    "alltime_rank": 22
   },
   {
     "fighter_id": "f2688492b9a525a3",
     "fighter_name": "Frankie Edgar",
     "division": "Bantamweight",
-    "elo": 1598.01,
-    "peak_elo": 1750.6,
+    "elo": 1597.45,
+    "peak_elo": 1749.6,
     "peak_elo_date": "2020-08-22",
     "peak_elo_opponent": "Pedro Munhoz",
     "record": "23-11-1",
@@ -332,39 +364,7 @@
     "last_fight_date": "2022-11-12",
     "active": false,
     "streak": -3,
-    "division_elo_entry": 1732.11,
-    "alltime_rank": 21
-  },
-  {
-    "fighter_id": "cc1a8b4b38b92c6d",
-    "fighter_name": "Montel Jackson",
-    "division": "Bantamweight",
-    "elo": 1722.54,
-    "peak_elo": 1750.11,
-    "peak_elo_date": "2025-05-03",
-    "peak_elo_opponent": "Daniel Marcos",
-    "record": "15-4-0",
-    "fight_count": 13,
-    "last_fight_date": "2026-04-25",
-    "active": true,
-    "streak": -2,
-    "division_elo_entry": 1615.79,
-    "alltime_rank": 22
-  },
-  {
-    "fighter_id": "9a97acbfd5a08bfa",
-    "fighter_name": "David Martinez",
-    "division": "Bantamweight",
-    "elo": 1744.01,
-    "peak_elo": 1748.71,
-    "peak_elo_date": "2026-02-28",
-    "peak_elo_opponent": "Marlon Vera",
-    "record": "14-1-0",
-    "fight_count": 3,
-    "last_fight_date": "2026-02-28",
-    "active": true,
-    "streak": 3,
-    "division_elo_entry": 1673.33,
+    "division_elo_entry": 1731.04,
     "alltime_rank": 23
   },
   {
@@ -387,15 +387,15 @@
     "fighter_id": "b9f28e7045fdfce7",
     "fighter_name": "Raoni Barcelos",
     "division": "Bantamweight",
-    "elo": 1740.41,
+    "elo": 1724.1,
     "peak_elo": 1747.21,
     "peak_elo_date": "2020-11-07",
     "peak_elo_opponent": "Khalid Taha",
     "record": "22-5-0",
-    "fight_count": 14,
-    "last_fight_date": "2026-04-25",
+    "fight_count": 15,
+    "last_fight_date": "2026-09-26",
     "active": true,
-    "streak": 5,
+    "streak": -1,
     "division_elo_entry": 1649.7,
     "alltime_rank": 25
   },
@@ -419,8 +419,8 @@
     "fighter_id": "7478b7f959ba61f5",
     "fighter_name": "Elijah Smith",
     "division": "Bantamweight",
-    "elo": 1738.98,
-    "peak_elo": 1743.01,
+    "elo": 1734.88,
+    "peak_elo": 1743.02,
     "peak_elo_date": "2026-03-14",
     "peak_elo_opponent": "SuYoung You",
     "record": "10-1-0",
@@ -435,8 +435,8 @@
     "fighter_id": "05339613bf8e9808",
     "fighter_name": "Rob Font",
     "division": "Bantamweight",
-    "elo": 1714.61,
-    "peak_elo": 1741.17,
+    "elo": 1710.96,
+    "peak_elo": 1741.24,
     "peak_elo_date": "2021-05-22",
     "peak_elo_opponent": "Cody Garbrandt",
     "record": "22-10-0",
@@ -448,26 +448,42 @@
     "alltime_rank": 28
   },
   {
+    "fighter_id": "efb96bf3e9ada36f",
+    "fighter_name": "Song Yadong",
+    "division": "Bantamweight",
+    "elo": 1739.64,
+    "peak_elo": 1741.06,
+    "peak_elo_date": "2026-08-29",
+    "peak_elo_opponent": "Umar Nurmagomedov",
+    "record": "22-9-1",
+    "fight_count": 16,
+    "last_fight_date": "2026-08-29",
+    "active": true,
+    "streak": 2,
+    "division_elo_entry": 1614.81,
+    "alltime_rank": 29
+  },
+  {
     "fighter_id": "0232cabbc30a2372",
     "fighter_name": "Adrian Yanez",
     "division": "Bantamweight",
-    "elo": 1672.49,
+    "elo": 1695.22,
     "peak_elo": 1740.86,
     "peak_elo_date": "2022-06-18",
     "peak_elo_opponent": "Tony Kelley",
     "record": "17-6-1",
-    "fight_count": 10,
-    "last_fight_date": "2026-03-28",
+    "fight_count": 11,
+    "last_fight_date": "2026-07-11",
     "active": true,
-    "streak": -2,
+    "streak": 1,
     "division_elo_entry": 1595.65,
-    "alltime_rank": 29
+    "alltime_rank": 30
   },
   {
     "fighter_id": "d0314416a7f26527",
     "fighter_name": "Michael McDonald",
     "division": "Bantamweight",
-    "elo": 1660.77,
+    "elo": 1660.76,
     "peak_elo": 1740.7,
     "peak_elo_date": "2012-04-21",
     "peak_elo_opponent": "Miguel Torres",
@@ -477,13 +493,13 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1623.81,
-    "alltime_rank": 30
+    "alltime_rank": 31
   },
   {
     "fighter_id": "faf317c665546a36",
     "fighter_name": "Santiago Luna",
     "division": "Bantamweight",
-    "elo": 1710.53,
+    "elo": 1707.0,
     "peak_elo": 1740.47,
     "peak_elo_date": "2026-02-28",
     "peak_elo_opponent": "Angel Pacheco",
@@ -493,13 +509,13 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1700.0,
-    "alltime_rank": 31
+    "alltime_rank": 32
   },
   {
     "fighter_id": "83455a9d17f57dae",
     "fighter_name": "Rafael Estevam",
     "division": "Bantamweight",
-    "elo": 1698.01,
+    "elo": 1694.61,
     "peak_elo": 1738.96,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -509,14 +525,14 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1738.96,
-    "alltime_rank": 32
+    "alltime_rank": 33
   },
   {
     "fighter_id": "056c493bbd76a918",
     "fighter_name": "Henry Cejudo",
     "division": "Bantamweight",
-    "elo": 1644.37,
-    "peak_elo": 1738.53,
+    "elo": 1641.06,
+    "peak_elo": 1738.55,
     "peak_elo_date": "2020-05-09",
     "peak_elo_opponent": "Dominick Cruz",
     "record": "16-6-0",
@@ -525,29 +541,29 @@
     "active": true,
     "streak": -4,
     "division_elo_entry": 1590.91,
-    "alltime_rank": 33
+    "alltime_rank": 34
   },
   {
     "fighter_id": "d8c811df0386d5e8",
     "fighter_name": "Rinya Nakamura",
     "division": "Bantamweight",
-    "elo": 1718.84,
+    "elo": 1711.55,
     "peak_elo": 1737.09,
     "peak_elo_date": "2024-02-17",
     "peak_elo_opponent": "Carlos Vera",
     "record": "10-1-0",
-    "fight_count": 5,
-    "last_fight_date": "2025-08-02",
+    "fight_count": 6,
+    "last_fight_date": "2026-09-26",
     "active": true,
-    "streak": 1,
+    "streak": -1,
     "division_elo_entry": 1663.64,
-    "alltime_rank": 34
+    "alltime_rank": 35
   },
   {
     "fighter_id": "2b074403b7c6cdb4",
     "fighter_name": "Thomas Almeida",
     "division": "Bantamweight",
-    "elo": 1612.03,
+    "elo": 1612.02,
     "peak_elo": 1731.87,
     "peak_elo_date": "2015-11-07",
     "peak_elo_opponent": "Anthony Birchak",
@@ -557,7 +573,7 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1625.93,
-    "alltime_rank": 35
+    "alltime_rank": 36
   },
   {
     "fighter_id": "ec52462a1b41f714",
@@ -573,30 +589,30 @@
     "active": false,
     "streak": 2,
     "division_elo_entry": 1657.89,
-    "alltime_rank": 36
+    "alltime_rank": 37
   },
   {
-    "fighter_id": "efb96bf3e9ada36f",
-    "fighter_name": "Song Yadong",
+    "fighter_id": "ffd3224638c01b57",
+    "fighter_name": "Jean Matsumoto",
     "division": "Bantamweight",
-    "elo": 1724.47,
-    "peak_elo": 1725.35,
-    "peak_elo_date": "2026-05-30",
-    "peak_elo_opponent": "Deiveson Figueiredo",
-    "record": "22-9-1",
-    "fight_count": 15,
-    "last_fight_date": "2026-05-30",
+    "elo": 1719.67,
+    "peak_elo": 1723.3,
+    "peak_elo_date": "2026-06-27",
+    "peak_elo_opponent": "Bekzat Almakhan",
+    "record": "17-2-0",
+    "fight_count": 5,
+    "last_fight_date": "2026-06-27",
     "active": true,
     "streak": 1,
-    "division_elo_entry": 1614.81,
-    "alltime_rank": 37
+    "division_elo_entry": 1657.89,
+    "alltime_rank": 38
   },
   {
     "fighter_id": "78114b7199cef90c",
     "fighter_name": "Urijah Faber",
     "division": "Bantamweight",
-    "elo": 1686.0,
-    "peak_elo": 1723.08,
+    "elo": 1685.98,
+    "peak_elo": 1723.06,
     "peak_elo_date": "2015-12-12",
     "peak_elo_opponent": "Frankie Saenz",
     "record": "35-11-0",
@@ -605,45 +621,45 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1604.35,
-    "alltime_rank": 38
+    "alltime_rank": 39
   },
   {
-    "fighter_id": "ffd3224638c01b57",
-    "fighter_name": "Jean Matsumoto",
+    "fighter_id": "7af33fc4435017f1",
+    "fighter_name": "Brady Hiestand",
     "division": "Bantamweight",
-    "elo": 1697.6,
-    "peak_elo": 1723.05,
-    "peak_elo_date": "2025-08-09",
-    "peak_elo_opponent": "Miles Johns",
-    "record": "17-2-0",
-    "fight_count": 4,
-    "last_fight_date": "2026-02-07",
+    "elo": 1722.49,
+    "peak_elo": 1722.78,
+    "peak_elo_date": "2026-09-26",
+    "peak_elo_opponent": "Rinya Nakamura",
+    "record": "9-2-0",
+    "fight_count": 5,
+    "last_fight_date": "2026-09-26",
     "active": true,
-    "streak": -1,
-    "division_elo_entry": 1657.89,
-    "alltime_rank": 39
+    "streak": 4,
+    "division_elo_entry": 1627.27,
+    "alltime_rank": 40
   },
   {
     "fighter_id": "7c7332319c14094c",
     "fighter_name": "Marlon Vera",
     "division": "Bantamweight",
-    "elo": 1678.39,
-    "peak_elo": 1721.9,
+    "elo": 1695.74,
+    "peak_elo": 1721.85,
     "peak_elo_date": "2023-08-19",
     "peak_elo_opponent": "Pedro Munhoz",
     "record": "23-12-1",
-    "fight_count": 23,
-    "last_fight_date": "2026-02-28",
+    "fight_count": 24,
+    "last_fight_date": "2026-09-19",
     "active": true,
-    "streak": -4,
+    "streak": 1,
     "division_elo_entry": 1562.86,
-    "alltime_rank": 40
+    "alltime_rank": 41
   },
   {
     "fighter_id": "24656ef4d605c96f",
     "fighter_name": "Aiemann Zahabi",
     "division": "Bantamweight",
-    "elo": 1704.03,
+    "elo": 1700.57,
     "peak_elo": 1720.8,
     "peak_elo_date": "2025-10-18",
     "peak_elo_opponent": "Marlon Vera",
@@ -653,13 +669,13 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1650.0,
-    "alltime_rank": 41
+    "alltime_rank": 42
   },
   {
     "fighter_id": "bbab3baf66128ae2",
     "fighter_name": "Javid Basharat",
     "division": "Bantamweight",
-    "elo": 1662.68,
+    "elo": 1659.87,
     "peak_elo": 1717.04,
     "peak_elo_date": "2023-01-14",
     "peak_elo_opponent": "Mateus Mendonca",
@@ -669,13 +685,13 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1652.94,
-    "alltime_rank": 42
+    "alltime_rank": 43
   },
   {
     "fighter_id": "2e45d08b3f2f02c8",
     "fighter_name": "Malcolm Wellmaker",
     "division": "Bantamweight",
-    "elo": 1683.02,
+    "elo": 1679.91,
     "peak_elo": 1716.96,
     "peak_elo_date": "2025-06-14",
     "peak_elo_opponent": "Kris Moutinho",
@@ -685,14 +701,14 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1663.64,
-    "alltime_rank": 43
+    "alltime_rank": 44
   },
   {
     "fighter_id": "45f0cc9d18f35137",
     "fighter_name": "Chris Gutierrez",
     "division": "Bantamweight",
-    "elo": 1684.87,
-    "peak_elo": 1716.17,
+    "elo": 1681.55,
+    "peak_elo": 1716.11,
     "peak_elo_date": "2022-11-12",
     "peak_elo_opponent": "Frankie Edgar",
     "record": "22-7-2",
@@ -701,13 +717,13 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1603.45,
-    "alltime_rank": 44
+    "alltime_rank": 45
   },
   {
     "fighter_id": "74939a16c7b56f33",
     "fighter_name": "Juan Diaz",
     "division": "Bantamweight",
-    "elo": 1711.3,
+    "elo": 1707.7,
     "peak_elo": 1712.63,
     "peak_elo_date": "2026-05-16",
     "peak_elo_opponent": "Malcolm Wellmaker",
@@ -717,14 +733,14 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1676.47,
-    "alltime_rank": 45
+    "alltime_rank": 46
   },
   {
     "fighter_id": "6bd02119599741a4",
     "fighter_name": "Pedro Munhoz",
     "division": "Bantamweight",
-    "elo": 1646.65,
-    "peak_elo": 1710.43,
+    "elo": 1642.99,
+    "peak_elo": 1710.53,
     "peak_elo_date": "2019-03-02",
     "peak_elo_opponent": "Cody Garbrandt",
     "record": "20-10-0",
@@ -733,29 +749,13 @@
     "active": true,
     "streak": -3,
     "division_elo_entry": 1566.67,
-    "alltime_rank": 46
-  },
-  {
-    "fighter_id": "c0ac37a4a1133da9",
-    "fighter_name": "Marcus McGhee",
-    "division": "Bantamweight",
-    "elo": 1708.55,
-    "peak_elo": 1710.27,
-    "peak_elo_date": "2024-11-16",
-    "peak_elo_opponent": "Jonathan Martinez",
-    "record": "10-2-0",
-    "fight_count": 5,
-    "last_fight_date": "2026-06-06",
-    "active": true,
-    "streak": 1,
-    "division_elo_entry": 1633.33,
     "alltime_rank": 47
   },
   {
     "fighter_id": "f2477cf43c4975cc",
     "fighter_name": "Jonathan Martinez",
     "division": "Bantamweight",
-    "elo": 1662.08,
+    "elo": 1659.04,
     "peak_elo": 1708.18,
     "peak_elo_date": "2023-10-14",
     "peak_elo_opponent": "Adrian Yanez",
@@ -771,14 +771,14 @@
     "fighter_id": "8b1ed83b02303075",
     "fighter_name": "Taylor Lapilus",
     "division": "Bantamweight",
-    "elo": 1684.27,
-    "peak_elo": 1705.65,
+    "elo": 1680.96,
+    "peak_elo": 1705.64,
     "peak_elo_date": "2024-09-28",
     "peak_elo_opponent": "Vince Morales",
     "record": "21-4-0",
     "fight_count": 7,
     "last_fight_date": "2024-09-28",
-    "active": true,
+    "active": false,
     "streak": 2,
     "division_elo_entry": 1654.78,
     "alltime_rank": 49
@@ -787,7 +787,7 @@
     "fighter_id": "8e6654e9f0461b8f",
     "fighter_name": "Cody Haddon",
     "division": "Bantamweight",
-    "elo": 1704.36,
+    "elo": 1700.89,
     "peak_elo": 1705.17,
     "peak_elo_date": "2026-05-30",
     "peak_elo_opponent": "Aoriqileng",
@@ -803,7 +803,7 @@
     "fighter_id": "d776b5814f2400b4",
     "fighter_name": "Ethyn Ewing",
     "division": "Bantamweight",
-    "elo": 1700.75,
+    "elo": 1697.31,
     "peak_elo": 1703.42,
     "peak_elo_date": "2026-04-04",
     "peak_elo_opponent": "Rafael Estevam",
@@ -819,7 +819,7 @@
     "fighter_id": "4a6dff1b260bcf61",
     "fighter_name": "Aleksandre Topuria",
     "division": "Bantamweight",
-    "elo": 1695.72,
+    "elo": 1692.29,
     "peak_elo": 1702.81,
     "peak_elo_date": "2025-11-22",
     "peak_elo_opponent": "Bekzat Almakhan",
@@ -835,7 +835,7 @@
     "fighter_id": "bf7ad5628363eec9",
     "fighter_name": "Cody Stamann",
     "division": "Bantamweight",
-    "elo": 1642.38,
+    "elo": 1639.71,
     "peak_elo": 1702.63,
     "peak_elo_date": "2019-12-07",
     "peak_elo_opponent": "Song Yadong",
@@ -848,27 +848,11 @@
     "alltime_rank": 53
   },
   {
-    "fighter_id": "9256f591b30c073e",
-    "fighter_name": "Felipe Lima",
-    "division": "Bantamweight",
-    "elo": 1665.6,
-    "peak_elo": 1700.41,
-    "peak_elo_date": null,
-    "peak_elo_opponent": null,
-    "record": "14-2-0",
-    "fight_count": 1,
-    "last_fight_date": "2025-06-28",
-    "active": true,
-    "streak": -1,
-    "division_elo_entry": 1700.41,
-    "alltime_rank": 54
-  },
-  {
     "fighter_id": "2f95a3c6d58b2aad",
     "fighter_name": "Iuri Alcantara",
     "division": "Bantamweight",
-    "elo": 1636.34,
-    "peak_elo": 1700.06,
+    "elo": 1636.13,
+    "peak_elo": 1699.76,
     "peak_elo_date": "2017-03-04",
     "peak_elo_opponent": "Luke Sanders",
     "record": "35-10-0",
@@ -876,47 +860,47 @@
     "last_fight_date": "2018-08-25",
     "active": false,
     "streak": -1,
-    "division_elo_entry": 1619.79,
-    "alltime_rank": 55
+    "division_elo_entry": 1619.18,
+    "alltime_rank": 54
   },
   {
     "fighter_id": "5987b2458f4b5290",
     "fighter_name": "Ricky Simon",
     "division": "Bantamweight",
-    "elo": 1676.77,
+    "elo": 1667.37,
     "peak_elo": 1698.82,
     "peak_elo_date": "2022-07-16",
     "peak_elo_opponent": "Jack Shore",
     "record": "22-7-1",
-    "fight_count": 16,
-    "last_fight_date": "2026-03-28",
+    "fight_count": 17,
+    "last_fight_date": "2026-09-26",
     "active": true,
-    "streak": 1,
+    "streak": -1,
     "division_elo_entry": 1603.45,
-    "alltime_rank": 56
+    "alltime_rank": 55
   },
   {
     "fighter_id": "f1d64ae34e088832",
     "fighter_name": "Charles Jourdain",
     "division": "Bantamweight",
-    "elo": 1695.97,
-    "peak_elo": 1698.11,
+    "elo": 1668.9,
+    "peak_elo": 1698.44,
     "peak_elo_date": "2026-04-18",
     "peak_elo_opponent": "Kyler Phillips",
     "record": "18-8-1",
-    "fight_count": 3,
-    "last_fight_date": "2026-04-18",
+    "fight_count": 4,
+    "last_fight_date": "2026-09-19",
     "active": true,
-    "streak": 3,
-    "division_elo_entry": 1591.67,
-    "alltime_rank": 57
+    "streak": -1,
+    "division_elo_entry": 1592.1,
+    "alltime_rank": 56
   },
   {
     "fighter_id": "af62f99eb7606308",
     "fighter_name": "Erik Perez",
     "division": "Bantamweight",
-    "elo": 1673.63,
-    "peak_elo": 1697.3,
+    "elo": 1673.56,
+    "peak_elo": 1697.23,
     "peak_elo_date": "2016-11-05",
     "peak_elo_opponent": "Felipe Arantes",
     "record": "17-6-0",
@@ -925,13 +909,13 @@
     "active": false,
     "streak": 3,
     "division_elo_entry": 1595.65,
-    "alltime_rank": 58
+    "alltime_rank": 57
   },
   {
     "fighter_id": "ec3bd30378d63dd1",
     "fighter_name": "Hecher Sosa",
     "division": "Bantamweight",
-    "elo": 1690.96,
+    "elo": 1687.68,
     "peak_elo": 1694.19,
     "peak_elo_date": "2026-03-14",
     "peak_elo_opponent": "Luan Lacerda",
@@ -941,13 +925,13 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1675.0,
-    "alltime_rank": 59
+    "alltime_rank": 58
   },
   {
     "fighter_id": "60425d07ef4b91a7",
     "fighter_name": "Kyler Phillips",
     "division": "Bantamweight",
-    "elo": 1643.21,
+    "elo": 1640.04,
     "peak_elo": 1691.1,
     "peak_elo_date": "2024-03-09",
     "peak_elo_opponent": "Pedro Munhoz",
@@ -957,7 +941,7 @@
     "active": true,
     "streak": -3,
     "division_elo_entry": 1582.35,
-    "alltime_rank": 60
+    "alltime_rank": 59
   },
   {
     "fighter_id": "45e738622ea2c02c",
@@ -973,7 +957,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1655.51,
-    "alltime_rank": 61
+    "alltime_rank": 60
   },
   {
     "fighter_id": "b8592b4a383696cd",
@@ -989,13 +973,13 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1582.35,
-    "alltime_rank": 62
+    "alltime_rank": 61
   },
   {
     "fighter_id": "6902fcf0610dd303",
     "fighter_name": "Jakub Wiklacz",
     "division": "Bantamweight",
-    "elo": 1684.46,
+    "elo": 1681.27,
     "peak_elo": 1688.68,
     "peak_elo_date": "2026-02-07",
     "peak_elo_opponent": "Muin Gafurov",
@@ -1005,13 +989,29 @@
     "active": true,
     "streak": 2,
     "division_elo_entry": 1642.86,
+    "alltime_rank": 62
+  },
+  {
+    "fighter_id": "8e4902b4a8045070",
+    "fighter_name": "Hector Santiago",
+    "division": "Bantamweight",
+    "elo": 1687.52,
+    "peak_elo": 1688.64,
+    "peak_elo_date": "2026-08-29",
+    "peak_elo_opponent": "Lawrence Lui",
+    "record": "7-1-0",
+    "fight_count": 1,
+    "last_fight_date": "2026-08-29",
+    "active": true,
+    "streak": 1,
+    "division_elo_entry": 1650.0,
     "alltime_rank": 63
   },
   {
     "fighter_id": "3c8a5200436e19f3",
     "fighter_name": "Cameron Saaiman",
     "division": "Bantamweight",
-    "elo": 1583.67,
+    "elo": 1581.65,
     "peak_elo": 1688.28,
     "peak_elo_date": "2023-07-08",
     "peak_elo_opponent": "Terrence Mitchell",
@@ -1024,27 +1024,11 @@
     "alltime_rank": 64
   },
   {
-    "fighter_id": "2f43a3e82661fa99",
-    "fighter_name": "Rei Tsuruya",
-    "division": "Bantamweight",
-    "elo": 1685.72,
-    "peak_elo": 1686.46,
-    "peak_elo_date": "2026-05-30",
-    "peak_elo_opponent": "Luis Gurule",
-    "record": "11-1-0",
-    "fight_count": 1,
-    "last_fight_date": "2026-05-30",
-    "active": true,
-    "streak": 1,
-    "division_elo_entry": 1657.87,
-    "alltime_rank": 65
-  },
-  {
     "fighter_id": "eb8d8c2a95cfccb8",
     "fighter_name": "Victor Henry",
     "division": "Bantamweight",
-    "elo": 1664.24,
-    "peak_elo": 1685.4,
+    "elo": 1661.26,
+    "peak_elo": 1685.41,
     "peak_elo_date": "2024-04-27",
     "peak_elo_opponent": "Rani Yahya",
     "record": "25-7-0",
@@ -1053,13 +1037,13 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1612.5,
-    "alltime_rank": 66
+    "alltime_rank": 65
   },
   {
     "fighter_id": "e7bba7ce4d6c7b07",
     "fighter_name": "Casey Kenney",
     "division": "Bantamweight",
-    "elo": 1637.83,
+    "elo": 1637.84,
     "peak_elo": 1684.65,
     "peak_elo_date": "2020-10-03",
     "peak_elo_opponent": "Alatengheili",
@@ -1069,14 +1053,14 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1620.0,
-    "alltime_rank": 67
+    "alltime_rank": 66
   },
   {
     "fighter_id": "a474aade8eb3a8f0",
     "fighter_name": "SuYoung You",
     "division": "Bantamweight",
-    "elo": 1642.77,
-    "peak_elo": 1682.44,
+    "elo": 1640.35,
+    "peak_elo": 1682.48,
     "peak_elo_date": "2025-08-23",
     "peak_elo_opponent": "Xiao Long",
     "record": "16-4-0",
@@ -1085,14 +1069,14 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1620.0,
-    "alltime_rank": 68
+    "alltime_rank": 67
   },
   {
     "fighter_id": "5ef0088c1b19beeb",
     "fighter_name": "Bryan Caraway",
     "division": "Bantamweight",
-    "elo": 1627.3,
-    "peak_elo": 1681.97,
+    "elo": 1627.29,
+    "peak_elo": 1681.96,
     "peak_elo_date": "2014-06-07",
     "peak_elo_opponent": "Erik Perez",
     "record": "21-9-0",
@@ -1101,7 +1085,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1605.14,
-    "alltime_rank": 69
+    "alltime_rank": 68
   },
   {
     "fighter_id": "e979c76341f19b22",
@@ -1117,23 +1101,7 @@
     "active": false,
     "streak": 1,
     "division_elo_entry": 1655.56,
-    "alltime_rank": 70
-  },
-  {
-    "fighter_id": "7af33fc4435017f1",
-    "fighter_name": "Brady Hiestand",
-    "division": "Bantamweight",
-    "elo": 1658.43,
-    "peak_elo": 1680.03,
-    "peak_elo_date": "2024-06-15",
-    "peak_elo_opponent": "Garrett Armfield",
-    "record": "9-2-0",
-    "fight_count": 4,
-    "last_fight_date": "2024-06-15",
-    "active": false,
-    "streak": 3,
-    "division_elo_entry": 1627.27,
-    "alltime_rank": 71
+    "alltime_rank": 69
   },
   {
     "fighter_id": "09f579be4520394a",
@@ -1149,7 +1117,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1679.48,
-    "alltime_rank": 72
+    "alltime_rank": 70
   },
   {
     "fighter_id": "2af2f2e26c4c0402",
@@ -1165,13 +1133,29 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1627.27,
-    "alltime_rank": 73
+    "alltime_rank": 71
+  },
+  {
+    "fighter_id": "5f926979c980b87e",
+    "fighter_name": "Borislav Nikolic",
+    "division": "Bantamweight",
+    "elo": 1677.4,
+    "peak_elo": 1679.28,
+    "peak_elo_date": "2026-08-01",
+    "peak_elo_opponent": "Mark Vologdin",
+    "record": "17-2-0",
+    "fight_count": 1,
+    "last_fight_date": "2026-08-01",
+    "active": true,
+    "streak": 1,
+    "division_elo_entry": 1657.89,
+    "alltime_rank": 72
   },
   {
     "fighter_id": "117a06469813e4ef",
     "fighter_name": "ChangHo Lee",
     "division": "Bantamweight",
-    "elo": 1635.08,
+    "elo": 1632.71,
     "peak_elo": 1678.71,
     "peak_elo_date": "2025-04-05",
     "peak_elo_opponent": "Cortavious Romious",
@@ -1181,21 +1165,37 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1638.46,
+    "alltime_rank": 73
+  },
+  {
+    "fighter_id": "874cfc98877daecd",
+    "fighter_name": "Francesco Nuzzi",
+    "division": "Bantamweight",
+    "elo": 1677.3,
+    "peak_elo": 1678.36,
+    "peak_elo_date": "2026-08-29",
+    "peak_elo_opponent": "Xiao Long",
+    "record": "12-2-0",
+    "fight_count": 1,
+    "last_fight_date": "2026-08-29",
+    "active": true,
+    "streak": 1,
+    "division_elo_entry": 1642.86,
     "alltime_rank": 74
   },
   {
     "fighter_id": "a1ad35b98a9136e5",
     "fighter_name": "Lawrence Lui",
     "division": "Bantamweight",
-    "elo": 1671.38,
+    "elo": 1636.06,
     "peak_elo": 1675.5,
     "peak_elo_date": "2026-01-31",
     "peak_elo_opponent": "Sulangrangbo",
     "record": "8-1-0",
-    "fight_count": 1,
-    "last_fight_date": "2026-01-31",
+    "fight_count": 2,
+    "last_fight_date": "2026-08-29",
     "active": true,
-    "streak": 1,
+    "streak": -1,
     "division_elo_entry": 1655.56,
     "alltime_rank": 75
   },
@@ -1203,7 +1203,7 @@
     "fighter_id": "ed7d329d7c29428d",
     "fighter_name": "Colby Thicknesse",
     "division": "Bantamweight",
-    "elo": 1671.49,
+    "elo": 1668.56,
     "peak_elo": 1672.97,
     "peak_elo_date": "2026-05-02",
     "peak_elo_opponent": "Vince Morales",
@@ -1214,6 +1214,22 @@
     "streak": 2,
     "division_elo_entry": 1660.0,
     "alltime_rank": 76
+  },
+  {
+    "fighter_id": "0e6bc8d1d6c0ad90",
+    "fighter_name": "Abdul Hussein",
+    "division": "Bantamweight",
+    "elo": 1670.05,
+    "peak_elo": 1672.06,
+    "peak_elo_date": "2026-07-25",
+    "peak_elo_opponent": "Cody Gibson",
+    "record": "16-2-0",
+    "fight_count": 1,
+    "last_fight_date": "2026-07-25",
+    "active": true,
+    "streak": 1,
+    "division_elo_entry": 1655.56,
+    "alltime_rank": 77
   },
   {
     "fighter_id": "41498c2d1a87b154",
@@ -1229,13 +1245,29 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1671.43,
-    "alltime_rank": 77
+    "alltime_rank": 78
+  },
+  {
+    "fighter_id": "82a5152216251682",
+    "fighter_name": "Dan Ige",
+    "division": "Bantamweight",
+    "elo": 1647.71,
+    "peak_elo": 1671.33,
+    "peak_elo_date": null,
+    "peak_elo_opponent": null,
+    "record": "19-12-0",
+    "fight_count": 1,
+    "last_fight_date": "2026-09-12",
+    "active": true,
+    "streak": -1,
+    "division_elo_entry": 1671.33,
+    "alltime_rank": 79
   },
   {
     "fighter_id": "65adf3856c4d9256",
     "fighter_name": "Jafel Filho",
     "division": "Bantamweight",
-    "elo": 1633.31,
+    "elo": 1631.03,
     "peak_elo": 1666.85,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -1245,7 +1277,7 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1666.85,
-    "alltime_rank": 78
+    "alltime_rank": 80
   },
   {
     "fighter_id": "e7e01e266a9d4342",
@@ -1261,7 +1293,7 @@
     "active": false,
     "streak": 0,
     "division_elo_entry": 1620.0,
-    "alltime_rank": 79
+    "alltime_rank": 81
   },
   {
     "fighter_id": "b26d3e3746fb4024",
@@ -1277,7 +1309,23 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1607.69,
-    "alltime_rank": 80
+    "alltime_rank": 82
+  },
+  {
+    "fighter_id": "5fa2974cbd18e05c",
+    "fighter_name": "John Castaneda",
+    "division": "Bantamweight",
+    "elo": 1624.86,
+    "peak_elo": 1663.93,
+    "peak_elo_date": "2023-06-03",
+    "peak_elo_opponent": "Muin Gafurov",
+    "record": "21-8-1",
+    "fight_count": 6,
+    "last_fight_date": "2026-09-26",
+    "active": true,
+    "streak": -2,
+    "division_elo_entry": 1589.66,
+    "alltime_rank": 83
   },
   {
     "fighter_id": "50a28b9f8314e008",
@@ -1293,7 +1341,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1607.69,
-    "alltime_rank": 81
+    "alltime_rank": 84
   },
   {
     "fighter_id": "99506df1af6c8b3b",
@@ -1309,13 +1357,13 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1558.82,
-    "alltime_rank": 82
+    "alltime_rank": 85
   },
   {
     "fighter_id": "7b433309b0fd12aa",
     "fighter_name": "Brad Katona",
     "division": "Bantamweight",
-    "elo": 1566.27,
+    "elo": 1565.11,
     "peak_elo": 1662.9,
     "peak_elo_date": "2018-12-08",
     "peak_elo_opponent": "Matthew Lopez",
@@ -1325,14 +1373,14 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1640.08,
-    "alltime_rank": 83
+    "alltime_rank": 86
   },
   {
     "fighter_id": "1a2bf44edb8055b6",
     "fighter_name": "Serhiy Sidey",
     "division": "Bantamweight",
-    "elo": 1651.05,
-    "peak_elo": 1662.13,
+    "elo": 1648.33,
+    "peak_elo": 1662.15,
     "peak_elo_date": "2025-05-03",
     "peak_elo_opponent": "Cameron Smotherman",
     "record": "12-2-0",
@@ -1341,14 +1389,14 @@
     "active": true,
     "streak": 2,
     "division_elo_entry": 1642.86,
-    "alltime_rank": 84
+    "alltime_rank": 87
   },
   {
     "fighter_id": "36549928f90f1d36",
     "fighter_name": "Jose Quinonez",
     "division": "Bantamweight",
     "elo": 1595.73,
-    "peak_elo": 1660.57,
+    "peak_elo": 1660.56,
     "peak_elo_date": "2018-02-10",
     "peak_elo_opponent": "Teruto Ishihara",
     "record": "9-5-0",
@@ -1357,7 +1405,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1557.14,
-    "alltime_rank": 85
+    "alltime_rank": 88
   },
   {
     "fighter_id": "3b0a516d2921e0d6",
@@ -1373,14 +1421,14 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1582.35,
-    "alltime_rank": 86
+    "alltime_rank": 89
   },
   {
     "fighter_id": "a7897d200692ab64",
     "fighter_name": "Kyung Ho Kang",
     "division": "Bantamweight",
     "elo": 1624.61,
-    "peak_elo": 1658.19,
+    "peak_elo": 1658.18,
     "peak_elo_date": "2023-06-17",
     "peak_elo_opponent": "Cristian Quinonez",
     "record": "19-11-0",
@@ -1389,13 +1437,13 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1553.33,
-    "alltime_rank": 87
+    "alltime_rank": 90
   },
   {
     "fighter_id": "e3b30b573e7f0d19",
     "fighter_name": "Adrian Luna Martinetti",
     "division": "Bantamweight",
-    "elo": 1627.02,
+    "elo": 1624.85,
     "peak_elo": 1657.89,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -1405,7 +1453,7 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1657.89,
-    "alltime_rank": 88
+    "alltime_rank": 91
   },
   {
     "fighter_id": "b9c03e7a4557e542",
@@ -1421,7 +1469,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1620.0,
-    "alltime_rank": 89
+    "alltime_rank": 92
   },
   {
     "fighter_id": "bc7230f231701d66",
@@ -1437,7 +1485,7 @@
     "active": false,
     "streak": -4,
     "division_elo_entry": 1573.68,
-    "alltime_rank": 90
+    "alltime_rank": 93
   },
   {
     "fighter_id": "33b2f68ef95252e0",
@@ -1453,7 +1501,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1632.08,
-    "alltime_rank": 91
+    "alltime_rank": 94
   },
   {
     "fighter_id": "773f7feacf96153e",
@@ -1469,7 +1517,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1633.33,
-    "alltime_rank": 92
+    "alltime_rank": 95
   },
   {
     "fighter_id": "71002dbc1743b9a7",
@@ -1485,13 +1533,13 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1594.17,
-    "alltime_rank": 93
+    "alltime_rank": 96
   },
   {
     "fighter_id": "7debc13b36343605",
     "fighter_name": "Cristian Quinonez",
     "division": "Bantamweight",
-    "elo": 1599.11,
+    "elo": 1597.4,
     "peak_elo": 1650.31,
     "peak_elo_date": "2022-09-03",
     "peak_elo_opponent": "Khalid Taha",
@@ -1501,7 +1549,23 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1616.67,
-    "alltime_rank": 94
+    "alltime_rank": 97
+  },
+  {
+    "fighter_id": "130b65b53f30f33c",
+    "fighter_name": "Ilimbek Akylbek",
+    "division": "Bantamweight",
+    "elo": 1649.57,
+    "peak_elo": 1649.77,
+    "peak_elo_date": "2026-09-26",
+    "peak_elo_opponent": "Mahammadali Osmanli",
+    "record": "12-3-0",
+    "fight_count": 1,
+    "last_fight_date": "2026-09-26",
+    "active": true,
+    "streak": 1,
+    "division_elo_entry": 1620.0,
+    "alltime_rank": 98
   },
   {
     "fighter_id": "a4de54ea806fb525",
@@ -1517,13 +1581,13 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1647.94,
-    "alltime_rank": 95
+    "alltime_rank": 99
   },
   {
     "fighter_id": "2cfba6c837c03ed0",
     "fighter_name": "Patchy Mix",
     "division": "Bantamweight",
-    "elo": 1598.65,
+    "elo": 1596.91,
     "peak_elo": 1647.83,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -1533,14 +1597,14 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1647.83,
-    "alltime_rank": 96
+    "alltime_rank": 100
   },
   {
     "fighter_id": "173acb3f920082b8",
     "fighter_name": "Roland Delorme",
     "division": "Bantamweight",
-    "elo": 1572.14,
-    "peak_elo": 1647.54,
+    "elo": 1572.06,
+    "peak_elo": 1647.44,
     "peak_elo_date": "2013-06-15",
     "peak_elo_opponent": "Edwin Figueroa",
     "record": "9-5-0",
@@ -1549,29 +1613,29 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1557.14,
-    "alltime_rank": 97
+    "alltime_rank": 101
   },
   {
     "fighter_id": "a4dc0f2b95df4cc1",
     "fighter_name": "Bekzat Almakhan",
     "division": "Bantamweight",
-    "elo": 1619.48,
+    "elo": 1598.18,
     "peak_elo": 1647.25,
     "peak_elo_date": "2025-05-10",
     "peak_elo_opponent": "Brad Katona",
     "record": "12-3-0",
-    "fight_count": 3,
-    "last_fight_date": "2025-11-22",
+    "fight_count": 4,
+    "last_fight_date": "2026-06-27",
     "active": true,
-    "streak": -1,
+    "streak": -2,
     "division_elo_entry": 1620.0,
-    "alltime_rank": 98
+    "alltime_rank": 102
   },
   {
     "fighter_id": "b6c37948cb226e8c",
     "fighter_name": "Benardo Sopaj",
     "division": "Bantamweight",
-    "elo": 1646.11,
+    "elo": 1643.63,
     "peak_elo": 1647.03,
     "peak_elo_date": "2026-05-16",
     "peak_elo_opponent": "Timmy Cuamba",
@@ -1581,7 +1645,23 @@
     "active": true,
     "streak": 2,
     "division_elo_entry": 1620.0,
-    "alltime_rank": 99
+    "alltime_rank": 103
+  },
+  {
+    "fighter_id": "2bbdbc925f4323ac",
+    "fighter_name": "Mahammadali Osmanli",
+    "division": "Bantamweight",
+    "elo": 1616.75,
+    "peak_elo": 1646.67,
+    "peak_elo_date": null,
+    "peak_elo_opponent": null,
+    "record": "13-2-0",
+    "fight_count": 1,
+    "last_fight_date": "2026-09-26",
+    "active": true,
+    "streak": -1,
+    "division_elo_entry": 1646.67,
+    "alltime_rank": 104
   },
   {
     "fighter_id": "82b4e942781b1046",
@@ -1597,7 +1677,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1614.58,
-    "alltime_rank": 100
+    "alltime_rank": 105
   },
   {
     "fighter_id": "8270c00fae24c922",
@@ -1613,7 +1693,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1645.45,
-    "alltime_rank": 101
+    "alltime_rank": 106
   },
   {
     "fighter_id": "fe91d254db77a7fc",
@@ -1629,14 +1709,14 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1614.29,
-    "alltime_rank": 102
+    "alltime_rank": 107
   },
   {
     "fighter_id": "9ba2226646046b63",
     "fighter_name": "Frankie Saenz",
     "division": "Bantamweight",
-    "elo": 1545.23,
-    "peak_elo": 1644.91,
+    "elo": 1545.21,
+    "peak_elo": 1644.88,
     "peak_elo_date": "2015-08-08",
     "peak_elo_opponent": "Sirwan Kakai",
     "record": "13-7-0",
@@ -1645,14 +1725,14 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1560.0,
-    "alltime_rank": 103
+    "alltime_rank": 108
   },
   {
     "fighter_id": "48e093ea1f43a053",
     "fighter_name": "Takeya Mizugaki",
     "division": "Bantamweight",
-    "elo": 1567.55,
-    "peak_elo": 1644.34,
+    "elo": 1567.69,
+    "peak_elo": 1644.33,
     "peak_elo_date": "2014-05-24",
     "peak_elo_opponent": "Francisco Rivera",
     "record": "21-11-2",
@@ -1661,7 +1741,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1562.5,
-    "alltime_rank": 104
+    "alltime_rank": 109
   },
   {
     "fighter_id": "84512339473dd300",
@@ -1677,7 +1757,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1642.86,
-    "alltime_rank": 105
+    "alltime_rank": 110
   },
   {
     "fighter_id": "38ed5a2299230227",
@@ -1693,30 +1773,14 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1642.86,
-    "alltime_rank": 106
-  },
-  {
-    "fighter_id": "46e0d677f91bacc0",
-    "fighter_name": "Miles Johns",
-    "division": "Bantamweight",
-    "elo": 1615.02,
-    "peak_elo": 1642.78,
-    "peak_elo_date": "2021-08-07",
-    "peak_elo_opponent": "Anderson Dos Santos",
-    "record": "15-5-0",
-    "fight_count": 11,
-    "last_fight_date": "2025-11-08",
-    "active": true,
-    "streak": -2,
-    "division_elo_entry": 1600.0,
-    "alltime_rank": 107
+    "alltime_rank": 111
   },
   {
     "fighter_id": "64788ee44b062ded",
     "fighter_name": "Michinori Tanaka",
     "division": "Bantamweight",
-    "elo": 1566.25,
-    "peak_elo": 1642.17,
+    "elo": 1566.24,
+    "peak_elo": 1642.16,
     "peak_elo_date": "2014-06-14",
     "peak_elo_opponent": "Roland Delorme",
     "record": "11-3-0",
@@ -1725,7 +1789,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1614.29,
-    "alltime_rank": 108
+    "alltime_rank": 112
   },
   {
     "fighter_id": "56709e66f1c6008f",
@@ -1741,7 +1805,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1611.11,
-    "alltime_rank": 109
+    "alltime_rank": 113
   },
   {
     "fighter_id": "2fc7e9701642ca38",
@@ -1757,7 +1821,7 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1585.71,
-    "alltime_rank": 110
+    "alltime_rank": 114
   },
   {
     "fighter_id": "2f6a993c7f547c13",
@@ -1773,7 +1837,7 @@
     "active": false,
     "streak": 2,
     "division_elo_entry": 1616.67,
-    "alltime_rank": 111
+    "alltime_rank": 115
   },
   {
     "fighter_id": "e4aaaa34535e32b6",
@@ -1789,7 +1853,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1614.29,
-    "alltime_rank": 112
+    "alltime_rank": 116
   },
   {
     "fighter_id": "601964f9654f911a",
@@ -1805,13 +1869,13 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1587.5,
-    "alltime_rank": 113
+    "alltime_rank": 117
   },
   {
     "fighter_id": "42ac4020cba261ad",
     "fighter_name": "Caolan Loughran",
     "division": "Bantamweight",
-    "elo": 1617.34,
+    "elo": 1615.19,
     "peak_elo": 1634.02,
     "peak_elo_date": "2024-03-30",
     "peak_elo_opponent": "Angel Pacheco",
@@ -1821,13 +1885,13 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1633.33,
-    "alltime_rank": 114
+    "alltime_rank": 118
   },
   {
     "fighter_id": "a2d342ffc83913ed",
     "fighter_name": "Nathan Fletcher",
     "division": "Bantamweight",
-    "elo": 1575.17,
+    "elo": 1573.82,
     "peak_elo": 1634.0,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -1837,13 +1901,13 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1634.0,
-    "alltime_rank": 115
+    "alltime_rank": 119
   },
   {
     "fighter_id": "a54660deb6a8489c",
     "fighter_name": "Muin Gafurov",
     "division": "Bantamweight",
-    "elo": 1604.08,
+    "elo": 1602.28,
     "peak_elo": 1633.38,
     "peak_elo_date": "2025-01-18",
     "peak_elo_opponent": "Rinya Nakamura",
@@ -1853,7 +1917,7 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1596.3,
-    "alltime_rank": 116
+    "alltime_rank": 120
   },
   {
     "fighter_id": "0876d21328cf4a45",
@@ -1869,7 +1933,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1633.33,
-    "alltime_rank": 117
+    "alltime_rank": 121
   },
   {
     "fighter_id": "35e1f9984ed64206",
@@ -1885,23 +1949,23 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1633.33,
-    "alltime_rank": 118
+    "alltime_rank": 122
   },
   {
     "fighter_id": "7be14eaed4c74856",
     "fighter_name": "Brian Kelleher",
     "division": "Bantamweight",
-    "elo": 1553.1,
-    "peak_elo": 1632.65,
+    "elo": 1552.8,
+    "peak_elo": 1632.62,
     "peak_elo_date": "2018-02-24",
     "peak_elo_opponent": "Renan Barao",
     "record": "24-16-0",
     "fight_count": 11,
     "last_fight_date": "2024-07-20",
-    "active": true,
+    "active": false,
     "streak": -3,
     "division_elo_entry": 1540.0,
-    "alltime_rank": 119
+    "alltime_rank": 123
   },
   {
     "fighter_id": "d2bc285ead803db0",
@@ -1917,13 +1981,13 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1595.04,
-    "alltime_rank": 120
+    "alltime_rank": 124
   },
   {
     "fighter_id": "07f959e6596307bb",
     "fighter_name": "Carlos Vera",
     "division": "Bantamweight",
-    "elo": 1617.66,
+    "elo": 1615.5,
     "peak_elo": 1627.39,
     "peak_elo_date": "2025-03-15",
     "peak_elo_opponent": "Josias Musasa",
@@ -1933,13 +1997,13 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1600.0,
-    "alltime_rank": 121
+    "alltime_rank": 125
   },
   {
     "fighter_id": "e983c62faf677ab2",
     "fighter_name": "Pedro Nobre",
     "division": "Bantamweight",
-    "elo": 1611.56,
+    "elo": 1611.53,
     "peak_elo": 1627.27,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -1949,7 +2013,7 @@
     "active": false,
     "streak": 0,
     "division_elo_entry": 1627.27,
-    "alltime_rank": 122
+    "alltime_rank": 126
   },
   {
     "fighter_id": "c13042265355a290",
@@ -1965,7 +2029,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1627.27,
-    "alltime_rank": 123
+    "alltime_rank": 127
   },
   {
     "fighter_id": "f9081770e28ea2e1",
@@ -1981,7 +2045,23 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1588.89,
-    "alltime_rank": 124
+    "alltime_rank": 128
+  },
+  {
+    "fighter_id": "d33da8a3d82bdb62",
+    "fighter_name": "Kai Asakura",
+    "division": "Bantamweight",
+    "elo": 1624.35,
+    "peak_elo": 1625.09,
+    "peak_elo_date": "2026-08-29",
+    "peak_elo_opponent": "Aoriqileng",
+    "record": "22-6-0",
+    "fight_count": 2,
+    "last_fight_date": "2026-08-29",
+    "active": true,
+    "streak": 2,
+    "division_elo_entry": 1548.64,
+    "alltime_rank": 129
   },
   {
     "fighter_id": "d3fa5c5955397532",
@@ -1997,13 +2077,13 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1625.0,
-    "alltime_rank": 125
+    "alltime_rank": 130
   },
   {
     "fighter_id": "f95381efb3051d81",
     "fighter_name": "Hugo Viana",
     "division": "Bantamweight",
-    "elo": 1542.36,
+    "elo": 1542.38,
     "peak_elo": 1624.57,
     "peak_elo_date": "2012-12-15",
     "peak_elo_opponent": "Reuben Duran",
@@ -2013,7 +2093,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1591.66,
-    "alltime_rank": 126
+    "alltime_rank": 131
   },
   {
     "fighter_id": "55f446032177b119",
@@ -2029,14 +2109,14 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1566.67,
-    "alltime_rank": 127
+    "alltime_rank": 132
   },
   {
     "fighter_id": "113df4fde64735c6",
     "fighter_name": "Davey Grant",
     "division": "Bantamweight",
-    "elo": 1613.07,
-    "peak_elo": 1621.07,
+    "elo": 1611.15,
+    "peak_elo": 1621.08,
     "peak_elo_date": "2025-07-26",
     "peak_elo_opponent": "Da'Mon Blackshear",
     "record": "18-8-0",
@@ -2045,7 +2125,7 @@
     "active": true,
     "streak": 1,
     "division_elo_entry": 1576.92,
-    "alltime_rank": 128
+    "alltime_rank": 133
   },
   {
     "fighter_id": "1a08b01fdabb6ae2",
@@ -2061,7 +2141,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1566.43,
-    "alltime_rank": 129
+    "alltime_rank": 134
   },
   {
     "fighter_id": "002ca196477ce572",
@@ -2077,13 +2157,13 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1620.0,
-    "alltime_rank": 130
+    "alltime_rank": 135
   },
   {
     "fighter_id": "723b64c0e9a8f348",
     "fighter_name": "Josias Musasa",
     "division": "Bantamweight",
-    "elo": 1553.02,
+    "elo": 1552.08,
     "peak_elo": 1620.0,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -2093,13 +2173,13 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1620.0,
-    "alltime_rank": 131
+    "alltime_rank": 136
   },
   {
     "fighter_id": "da22387a0407a2dc",
     "fighter_name": "Da'Mon Blackshear",
     "division": "Bantamweight",
-    "elo": 1598.4,
+    "elo": 1596.64,
     "peak_elo": 1619.48,
     "peak_elo_date": "2025-04-26",
     "peak_elo_opponent": "Alatengheili",
@@ -2109,7 +2189,7 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1572.0,
-    "alltime_rank": 132
+    "alltime_rank": 137
   },
   {
     "fighter_id": "3d5b1ce6097dbb49",
@@ -2125,7 +2205,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1600.0,
-    "alltime_rank": 133
+    "alltime_rank": 138
   },
   {
     "fighter_id": "8cb76103cd8a1562",
@@ -2141,7 +2221,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1590.91,
-    "alltime_rank": 134
+    "alltime_rank": 139
   },
   {
     "fighter_id": "ffc3e6daaa6da0b7",
@@ -2157,13 +2237,13 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1547.06,
-    "alltime_rank": 135
+    "alltime_rank": 140
   },
   {
     "fighter_id": "c945adc22c2bfe8f",
     "fighter_name": "Brad Pickett",
     "division": "Bantamweight",
-    "elo": 1564.83,
+    "elo": 1564.81,
     "peak_elo": 1617.99,
     "peak_elo_date": "2012-09-29",
     "peak_elo_opponent": "Yves Jabouin",
@@ -2173,13 +2253,13 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1556.41,
-    "alltime_rank": 136
+    "alltime_rank": 141
   },
   {
     "fighter_id": "d1e1fdcea7c8a90a",
     "fighter_name": "Leandro Issa",
     "division": "Bantamweight",
-    "elo": 1561.18,
+    "elo": 1561.16,
     "peak_elo": 1616.26,
     "peak_elo_date": "2014-12-20",
     "peak_elo_opponent": "Yuta Sasaki",
@@ -2189,7 +2269,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1573.68,
-    "alltime_rank": 137
+    "alltime_rank": 142
   },
   {
     "fighter_id": "69888118d968ba52",
@@ -2205,14 +2285,14 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1614.29,
-    "alltime_rank": 138
+    "alltime_rank": 143
   },
   {
     "fighter_id": "7ea4a9f07df33a45",
     "fighter_name": "Francisco Rivera",
     "division": "Bantamweight",
-    "elo": 1557.83,
-    "peak_elo": 1614.18,
+    "elo": 1557.74,
+    "peak_elo": 1614.06,
     "peak_elo_date": "2013-11-06",
     "peak_elo_opponent": "George Roop",
     "record": "11-7-0",
@@ -2221,13 +2301,13 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1544.44,
-    "alltime_rank": 139
+    "alltime_rank": 144
   },
   {
     "fighter_id": "f50d95223751e6ca",
     "fighter_name": "Russell Doane",
     "division": "Bantamweight",
-    "elo": 1523.66,
+    "elo": 1523.65,
     "peak_elo": 1612.65,
     "peak_elo_date": "2014-07-05",
     "peak_elo_opponent": "Marcus Brimage",
@@ -2237,7 +2317,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1560.87,
-    "alltime_rank": 140
+    "alltime_rank": 145
   },
   {
     "fighter_id": "b4537562f88ac582",
@@ -2253,13 +2333,13 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1565.39,
-    "alltime_rank": 141
+    "alltime_rank": 146
   },
   {
     "fighter_id": "60a42bf82447c919",
     "fighter_name": "Jake Hadley",
     "division": "Bantamweight",
-    "elo": 1574.43,
+    "elo": 1573.03,
     "peak_elo": 1611.77,
     "peak_elo_date": "2024-07-27",
     "peak_elo_opponent": "Caolan Loughran",
@@ -2269,13 +2349,13 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1580.39,
-    "alltime_rank": 142
+    "alltime_rank": 147
   },
   {
     "fighter_id": "e6679e38e7fab7a8",
     "fighter_name": "Jamie Siraj",
     "division": "Bantamweight",
-    "elo": 1564.0,
+    "elo": 1562.91,
     "peak_elo": 1611.11,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -2285,7 +2365,7 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1611.11,
-    "alltime_rank": 143
+    "alltime_rank": 148
   },
   {
     "fighter_id": "f3ca6908f78efebe",
@@ -2301,29 +2381,13 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1611.11,
-    "alltime_rank": 144
-  },
-  {
-    "fighter_id": "7f6ed67d3ed3c036",
-    "fighter_name": "Cody Durden",
-    "division": "Bantamweight",
-    "elo": 1609.65,
-    "peak_elo": 1610.73,
-    "peak_elo_date": "2026-04-25",
-    "peak_elo_opponent": "Jafel Filho",
-    "record": "18-10-1",
-    "fight_count": 3,
-    "last_fight_date": "2026-04-25",
-    "active": true,
-    "streak": 2,
-    "division_elo_entry": 1557.14,
-    "alltime_rank": 145
+    "alltime_rank": 149
   },
   {
     "fighter_id": "37098a6e6c27fb66",
     "fighter_name": "Vince Morales",
     "division": "Bantamweight",
-    "elo": 1513.05,
+    "elo": 1512.76,
     "peak_elo": 1610.25,
     "peak_elo_date": "2021-12-04",
     "peak_elo_opponent": "Louis Smolka",
@@ -2333,7 +2397,7 @@
     "active": true,
     "streak": -6,
     "division_elo_entry": 1537.04,
-    "alltime_rank": 146
+    "alltime_rank": 150
   },
   {
     "fighter_id": "528c24b99fbaab79",
@@ -2349,7 +2413,7 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1573.17,
-    "alltime_rank": 147
+    "alltime_rank": 151
   },
   {
     "fighter_id": "f6bcbd91b114ff58",
@@ -2365,7 +2429,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1578.29,
-    "alltime_rank": 148
+    "alltime_rank": 152
   },
   {
     "fighter_id": "93b62c5f2ba18e51",
@@ -2381,7 +2445,7 @@
     "active": false,
     "streak": 1,
     "division_elo_entry": 1566.67,
-    "alltime_rank": 149
+    "alltime_rank": 153
   },
   {
     "fighter_id": "b4eeac608fc82f88",
@@ -2397,7 +2461,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1536.71,
-    "alltime_rank": 150
+    "alltime_rank": 154
   },
   {
     "fighter_id": "42a7e90605df3c8a",
@@ -2413,13 +2477,13 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1524.61,
-    "alltime_rank": 151
+    "alltime_rank": 155
   },
   {
     "fighter_id": "6fc506e1099afe20",
     "fighter_name": "Luan Lacerda",
     "division": "Bantamweight",
-    "elo": 1550.38,
+    "elo": 1549.51,
     "peak_elo": 1605.88,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -2429,7 +2493,7 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1605.88,
-    "alltime_rank": 152
+    "alltime_rank": 156
   },
   {
     "fighter_id": "2525a853486ee670",
@@ -2445,13 +2509,13 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1582.35,
-    "alltime_rank": 153
+    "alltime_rank": 157
   },
   {
     "fighter_id": "e4ba58725825412d",
     "fighter_name": "Dan Argueta",
     "division": "Bantamweight",
-    "elo": 1550.42,
+    "elo": 1549.47,
     "peak_elo": 1605.37,
     "peak_elo_date": "2023-09-23",
     "peak_elo_opponent": "Miles Johns",
@@ -2461,23 +2525,23 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1602.31,
-    "alltime_rank": 154
+    "alltime_rank": 158
   },
   {
     "fighter_id": "1897b7b913736a7c",
     "fighter_name": "Alatengheili",
     "division": "Bantamweight",
-    "elo": 1585.95,
+    "elo": 1603.96,
     "peak_elo": 1605.19,
     "peak_elo_date": "2024-05-18",
     "peak_elo_opponent": "Kleydson Rodrigues",
     "record": "17-10-2",
-    "fight_count": 9,
-    "last_fight_date": "2025-04-26",
+    "fight_count": 10,
+    "last_fight_date": "2026-09-26",
     "active": true,
-    "streak": -1,
+    "streak": 1,
     "division_elo_entry": 1551.85,
-    "alltime_rank": 155
+    "alltime_rank": 159
   },
   {
     "fighter_id": "fbf0947399d14323",
@@ -2493,13 +2557,13 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1593.33,
-    "alltime_rank": 156
+    "alltime_rank": 160
   },
   {
     "fighter_id": "f7be1db194e03d7e",
     "fighter_name": "Pedro Falcao",
     "division": "Bantamweight",
-    "elo": 1553.56,
+    "elo": 1552.59,
     "peak_elo": 1604.76,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -2509,13 +2573,13 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1604.76,
-    "alltime_rank": 157
+    "alltime_rank": 161
   },
   {
     "fighter_id": "450bcab0968562c4",
     "fighter_name": "John Yannis",
     "division": "Bantamweight",
-    "elo": 1584.81,
+    "elo": 1583.37,
     "peak_elo": 1604.68,
     "peak_elo_date": "2026-04-18",
     "peak_elo_opponent": "Jamie Siraj",
@@ -2525,7 +2589,7 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1558.27,
-    "alltime_rank": 158
+    "alltime_rank": 162
   },
   {
     "fighter_id": "be0b310a12eb80b4",
@@ -2541,7 +2605,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1604.66,
-    "alltime_rank": 159
+    "alltime_rank": 163
   },
   {
     "fighter_id": "d7adfcfdf7c6c1f8",
@@ -2557,14 +2621,14 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1556.76,
-    "alltime_rank": 160
+    "alltime_rank": 164
   },
   {
     "fighter_id": "1effd880e1f1bb30",
     "fighter_name": "Garrett Armfield",
     "division": "Bantamweight",
-    "elo": 1548.38,
-    "peak_elo": 1603.78,
+    "elo": 1547.86,
+    "peak_elo": 1604.3,
     "peak_elo_date": "2024-01-20",
     "peak_elo_opponent": "Brad Katona",
     "record": "10-5-0",
@@ -2572,8 +2636,8 @@
     "last_fight_date": "2024-11-02",
     "active": true,
     "streak": -2,
-    "division_elo_entry": 1535.1,
-    "alltime_rank": 161
+    "division_elo_entry": 1535.73,
+    "alltime_rank": 165
   },
   {
     "fighter_id": "31bbd39c0a075d4e",
@@ -2589,7 +2653,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1560.0,
-    "alltime_rank": 162
+    "alltime_rank": 166
   },
   {
     "fighter_id": "1ed32eaaba9ffe10",
@@ -2605,7 +2669,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1601.75,
-    "alltime_rank": 163
+    "alltime_rank": 167
   },
   {
     "fighter_id": "c0386644627a7ee5",
@@ -2621,7 +2685,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1585.71,
-    "alltime_rank": 164
+    "alltime_rank": 168
   },
   {
     "fighter_id": "f3a078277b3b8ff4",
@@ -2637,55 +2701,55 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1573.68,
-    "alltime_rank": 165
+    "alltime_rank": 169
   },
   {
     "fighter_id": "86bace9e4ad85542",
     "fighter_name": "Xiao Long",
     "division": "Bantamweight",
-    "elo": 1558.72,
+    "elo": 1520.83,
     "peak_elo": 1600.57,
     "peak_elo_date": "2024-11-23",
     "peak_elo_opponent": "Quang Le",
     "record": "27-11-0",
-    "fight_count": 4,
-    "last_fight_date": "2026-03-07",
+    "fight_count": 5,
+    "last_fight_date": "2026-08-29",
     "active": true,
-    "streak": -2,
+    "streak": -3,
     "division_elo_entry": 1584.21,
-    "alltime_rank": 166
+    "alltime_rank": 170
   },
   {
     "fighter_id": "7d420039bbfe7c1a",
     "fighter_name": "Aoriqileng",
     "division": "Bantamweight",
-    "elo": 1585.99,
+    "elo": 1564.54,
     "peak_elo": 1600.43,
     "peak_elo_date": "2025-10-18",
     "peak_elo_opponent": "Cody Gibson",
     "record": "26-12-0",
-    "fight_count": 8,
-    "last_fight_date": "2026-05-30",
+    "fight_count": 9,
+    "last_fight_date": "2026-08-29",
     "active": true,
-    "streak": -1,
+    "streak": -2,
     "division_elo_entry": 1517.63,
-    "alltime_rank": 167
+    "alltime_rank": 171
   },
   {
-    "fighter_id": "32feae6d9a1e5047",
-    "fighter_name": "Quang Le",
+    "fighter_id": "a54b961a1f8be1d5",
+    "fighter_name": "John Garza",
     "division": "Bantamweight",
-    "elo": 1551.7,
+    "elo": 1586.02,
     "peak_elo": 1600.0,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
-    "record": "9-3-0",
-    "fight_count": 4,
-    "last_fight_date": "2025-09-13",
+    "record": "6-2-0",
+    "fight_count": 1,
+    "last_fight_date": "2026-07-11",
     "active": true,
     "streak": -1,
     "division_elo_entry": 1600.0,
-    "alltime_rank": 168
+    "alltime_rank": 172
   },
   {
     "fighter_id": "b57edace7b647f07",
@@ -2701,7 +2765,23 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1600.0,
-    "alltime_rank": 169
+    "alltime_rank": 173
+  },
+  {
+    "fighter_id": "32feae6d9a1e5047",
+    "fighter_name": "Quang Le",
+    "division": "Bantamweight",
+    "elo": 1550.78,
+    "peak_elo": 1600.0,
+    "peak_elo_date": null,
+    "peak_elo_opponent": null,
+    "record": "9-3-0",
+    "fight_count": 4,
+    "last_fight_date": "2025-09-13",
+    "active": true,
+    "streak": -1,
+    "division_elo_entry": 1600.0,
+    "alltime_rank": 174
   },
   {
     "fighter_id": "0778f94eb5d588a5",
@@ -2717,7 +2797,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1600.0,
-    "alltime_rank": 170
+    "alltime_rank": 175
   },
   {
     "fighter_id": "4834ff149dc9542a",
@@ -2733,7 +2813,7 @@
     "active": false,
     "streak": 0,
     "division_elo_entry": 1600.0,
-    "alltime_rank": 171
+    "alltime_rank": 176
   },
   {
     "fighter_id": "01fcef7e3d051722",
@@ -2749,13 +2829,13 @@
     "active": false,
     "streak": -4,
     "division_elo_entry": 1566.67,
-    "alltime_rank": 172
+    "alltime_rank": 177
   },
   {
     "fighter_id": "5c84f673b7bb7c15",
     "fighter_name": "Cameron Smotherman",
     "division": "Bantamweight",
-    "elo": 1495.48,
+    "elo": 1495.58,
     "peak_elo": 1597.4,
     "peak_elo_date": "2024-10-19",
     "peak_elo_opponent": "Jake Hadley",
@@ -2765,23 +2845,23 @@
     "active": true,
     "streak": -3,
     "division_elo_entry": 1566.67,
-    "alltime_rank": 173
+    "alltime_rank": 178
   },
   {
     "fighter_id": "eb70e786bbdf1d16",
     "fighter_name": "Yanis Ghemmouri",
     "division": "Bantamweight",
-    "elo": 1564.72,
+    "elo": 1564.64,
     "peak_elo": 1597.12,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
     "record": "12-3-0",
     "fight_count": 1,
     "last_fight_date": "2024-06-29",
-    "active": true,
+    "active": false,
     "streak": -1,
     "division_elo_entry": 1597.12,
-    "alltime_rank": 174
+    "alltime_rank": 179
   },
   {
     "fighter_id": "9cfbfae5fa1fdd93",
@@ -2797,29 +2877,29 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1593.78,
-    "alltime_rank": 175
+    "alltime_rank": 180
   },
   {
     "fighter_id": "700a674c042b7a96",
     "fighter_name": "Cody Gibson",
     "division": "Bantamweight",
-    "elo": 1499.54,
+    "elo": 1487.81,
     "peak_elo": 1592.04,
     "peak_elo_date": "2014-06-28",
     "peak_elo_opponent": "Johnny Bedford",
     "record": "22-12-0",
-    "fight_count": 10,
-    "last_fight_date": "2025-10-18",
+    "fight_count": 11,
+    "last_fight_date": "2026-07-25",
     "active": true,
-    "streak": -2,
+    "streak": -3,
     "division_elo_entry": 1558.82,
-    "alltime_rank": 176
+    "alltime_rank": 181
   },
   {
     "fighter_id": "a4e85a58fbce64b2",
     "fighter_name": "Joe Soto",
     "division": "Bantamweight",
-    "elo": 1556.15,
+    "elo": 1556.13,
     "peak_elo": 1591.78,
     "peak_elo_date": "2017-03-11",
     "peak_elo_opponent": "Rani Yahya",
@@ -2829,7 +2909,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1588.0,
-    "alltime_rank": 177
+    "alltime_rank": 182
   },
   {
     "fighter_id": "325ad0dd9126d3df",
@@ -2845,7 +2925,7 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1540.0,
-    "alltime_rank": 178
+    "alltime_rank": 183
   },
   {
     "fighter_id": "4bf6b225ff6099c4",
@@ -2861,7 +2941,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1590.91,
-    "alltime_rank": 179
+    "alltime_rank": 184
   },
   {
     "fighter_id": "d18dbcb0f8e2b55d",
@@ -2877,7 +2957,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1590.91,
-    "alltime_rank": 180
+    "alltime_rank": 185
   },
   {
     "fighter_id": "102a8fdf8cbf7467",
@@ -2893,45 +2973,13 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1589.97,
-    "alltime_rank": 181
-  },
-  {
-    "fighter_id": "d33da8a3d82bdb62",
-    "fighter_name": "Kai Asakura",
-    "division": "Bantamweight",
-    "elo": 1589.06,
-    "peak_elo": 1589.41,
-    "peak_elo_date": "2026-05-30",
-    "peak_elo_opponent": "Cameron Smotherman",
-    "record": "22-6-0",
-    "fight_count": 1,
-    "last_fight_date": "2026-05-30",
-    "active": true,
-    "streak": 1,
-    "division_elo_entry": 1548.64,
-    "alltime_rank": 182
-  },
-  {
-    "fighter_id": "51ec9dc3b4964f19",
-    "fighter_name": "Gianni Vazquez",
-    "division": "Bantamweight",
-    "elo": 1566.52,
-    "peak_elo": 1588.89,
-    "peak_elo_date": null,
-    "peak_elo_opponent": null,
-    "record": "13-5-1",
-    "fight_count": 1,
-    "last_fight_date": "2026-02-07",
-    "active": true,
-    "streak": -1,
-    "division_elo_entry": 1588.89,
-    "alltime_rank": 183
+    "alltime_rank": 186
   },
   {
     "fighter_id": "8677e67a75d65b8e",
     "fighter_name": "Baergeng Jieleyisi",
     "division": "Bantamweight",
-    "elo": 1558.53,
+    "elo": 1557.43,
     "peak_elo": 1588.0,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -2941,13 +2989,13 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1588.0,
-    "alltime_rank": 184
+    "alltime_rank": 187
   },
   {
     "fighter_id": "72ea1984c52019b5",
     "fighter_name": "Saimon Oliveira",
     "division": "Bantamweight",
-    "elo": 1454.01,
+    "elo": 1455.08,
     "peak_elo": 1588.0,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -2957,13 +3005,13 @@
     "active": true,
     "streak": -4,
     "division_elo_entry": 1588.0,
-    "alltime_rank": 185
+    "alltime_rank": 188
   },
   {
     "fighter_id": "1dd1a3aacde66f72",
     "fighter_name": "Sulangrangbo",
     "division": "Bantamweight",
-    "elo": 1568.37,
+    "elo": 1567.19,
     "peak_elo": 1585.71,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -2973,7 +3021,7 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1585.71,
-    "alltime_rank": 186
+    "alltime_rank": 189
   },
   {
     "fighter_id": "0b64d0fed453ef7f",
@@ -2989,7 +3037,7 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1522.22,
-    "alltime_rank": 187
+    "alltime_rank": 190
   },
   {
     "fighter_id": "0978385b2bd9ef9b",
@@ -3005,7 +3053,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1584.24,
-    "alltime_rank": 188
+    "alltime_rank": 191
   },
   {
     "fighter_id": "eea0274e153256a0",
@@ -3021,14 +3069,14 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1584.0,
-    "alltime_rank": 189
+    "alltime_rank": 192
   },
   {
     "fighter_id": "bbfca6d5c27d9cd8",
     "fighter_name": "Edwin Figueroa",
     "division": "Bantamweight",
-    "elo": 1512.28,
-    "peak_elo": 1583.86,
+    "elo": 1511.31,
+    "peak_elo": 1582.41,
     "peak_elo_date": "2012-02-04",
     "peak_elo_opponent": "Alex Caceres",
     "record": "9-5-0",
@@ -3037,7 +3085,23 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1557.14,
-    "alltime_rank": 190
+    "alltime_rank": 193
+  },
+  {
+    "fighter_id": "0e6b611451a9a7d8",
+    "fighter_name": "Mark Vologdin",
+    "division": "Bantamweight",
+    "elo": 1561.5,
+    "peak_elo": 1582.35,
+    "peak_elo_date": null,
+    "peak_elo_opponent": null,
+    "record": "12-5-2",
+    "fight_count": 1,
+    "last_fight_date": "2026-08-01",
+    "active": true,
+    "streak": -1,
+    "division_elo_entry": 1582.35,
+    "alltime_rank": 194
   },
   {
     "fighter_id": "6c011be66326ad97",
@@ -3053,13 +3117,13 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1580.0,
-    "alltime_rank": 191
+    "alltime_rank": 195
   },
   {
     "fighter_id": "d34636a85f0f4c90",
     "fighter_name": "Motonobu Tezuka",
     "division": "Bantamweight",
-    "elo": 1519.41,
+    "elo": 1519.4,
     "peak_elo": 1580.0,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -3069,7 +3133,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1580.0,
-    "alltime_rank": 192
+    "alltime_rank": 196
   },
   {
     "fighter_id": "dc3b9cf7641b7ab6",
@@ -3085,7 +3149,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1580.0,
-    "alltime_rank": 193
+    "alltime_rank": 197
   },
   {
     "fighter_id": "2a4200ead401a9ce",
@@ -3101,7 +3165,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1579.17,
-    "alltime_rank": 194
+    "alltime_rank": 198
   },
   {
     "fighter_id": "c5a126ace82a6025",
@@ -3117,7 +3181,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1566.67,
-    "alltime_rank": 195
+    "alltime_rank": 199
   },
   {
     "fighter_id": "81801f57bd0a7c41",
@@ -3133,14 +3197,14 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1551.52,
-    "alltime_rank": 196
+    "alltime_rank": 200
   },
   {
     "fighter_id": "fc9a9559a05f2704",
     "fighter_name": "Eddie Wineland",
     "division": "Bantamweight",
-    "elo": 1525.52,
-    "peak_elo": 1576.95,
+    "elo": 1525.53,
+    "peak_elo": 1576.96,
     "peak_elo_date": "2016-12-17",
     "peak_elo_opponent": "Takeya Mizugaki",
     "record": "24-16-1",
@@ -3149,7 +3213,7 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1540.0,
-    "alltime_rank": 197
+    "alltime_rank": 201
   },
   {
     "fighter_id": "c10eb2f12c489f6d",
@@ -3165,7 +3229,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1576.92,
-    "alltime_rank": 198
+    "alltime_rank": 202
   },
   {
     "fighter_id": "7c9c6a884be167fe",
@@ -3181,7 +3245,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1576.92,
-    "alltime_rank": 199
+    "alltime_rank": 203
   },
   {
     "fighter_id": "1a54231796e24a3f",
@@ -3197,13 +3261,13 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1576.92,
-    "alltime_rank": 200
+    "alltime_rank": 204
   },
   {
     "fighter_id": "8173f134396cb971",
     "fighter_name": "Cortavious Romious",
     "division": "Bantamweight",
-    "elo": 1521.54,
+    "elo": 1521.15,
     "peak_elo": 1576.92,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -3213,7 +3277,7 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1576.92,
-    "alltime_rank": 201
+    "alltime_rank": 205
   },
   {
     "fighter_id": "f97c5433c77522d3",
@@ -3229,7 +3293,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1576.92,
-    "alltime_rank": 202
+    "alltime_rank": 206
   },
   {
     "fighter_id": "0c258d1d8e16e5f1",
@@ -3245,7 +3309,7 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1576.92,
-    "alltime_rank": 203
+    "alltime_rank": 207
   },
   {
     "fighter_id": "45230be0641f3f53",
@@ -3261,7 +3325,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1576.5,
-    "alltime_rank": 204
+    "alltime_rank": 208
   },
   {
     "fighter_id": "97a8f39186f489db",
@@ -3277,13 +3341,13 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1550.0,
-    "alltime_rank": 205
+    "alltime_rank": 209
   },
   {
     "fighter_id": "ec23c1be628d8057",
     "fighter_name": "Trevin Jones",
     "division": "Bantamweight",
-    "elo": 1486.93,
+    "elo": 1487.07,
     "peak_elo": 1575.92,
     "peak_elo_date": "2021-03-06",
     "peak_elo_opponent": "Mario Bautista",
@@ -3293,7 +3357,7 @@
     "active": false,
     "streak": -4,
     "division_elo_entry": 1526.09,
-    "alltime_rank": 206
+    "alltime_rank": 210
   },
   {
     "fighter_id": "92aafa8f4b26269b",
@@ -3309,13 +3373,13 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1533.33,
-    "alltime_rank": 207
+    "alltime_rank": 211
   },
   {
     "fighter_id": "148bb103cfbf123e",
     "fighter_name": "Toshiomi Kazama",
     "division": "Bantamweight",
-    "elo": 1520.13,
+    "elo": 1519.82,
     "peak_elo": 1575.0,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -3325,7 +3389,7 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1575.0,
-    "alltime_rank": 208
+    "alltime_rank": 212
   },
   {
     "fighter_id": "f57dd0bfa8c17813",
@@ -3341,13 +3405,13 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1575.0,
-    "alltime_rank": 209
+    "alltime_rank": 213
   },
   {
     "fighter_id": "c7c39e2fb70248b3",
     "fighter_name": "Chad Anheliger",
     "division": "Bantamweight",
-    "elo": 1511.63,
+    "elo": 1511.41,
     "peak_elo": 1573.93,
     "peak_elo_date": "2022-02-19",
     "peak_elo_opponent": "Jesse Strader",
@@ -3357,7 +3421,7 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1547.62,
-    "alltime_rank": 210
+    "alltime_rank": 214
   },
   {
     "fighter_id": "8765559b6a29a421",
@@ -3373,13 +3437,13 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1572.73,
-    "alltime_rank": 211
+    "alltime_rank": 215
   },
   {
     "fighter_id": "915c8d39d4a0e7d1",
     "fighter_name": "Ramiro Hernandez",
     "division": "Bantamweight",
-    "elo": 1506.73,
+    "elo": 1506.93,
     "peak_elo": 1571.43,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -3389,7 +3453,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1571.43,
-    "alltime_rank": 212
+    "alltime_rank": 216
   },
   {
     "fighter_id": "d0e50a3d1b250708",
@@ -3405,7 +3469,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1547.62,
-    "alltime_rank": 213
+    "alltime_rank": 217
   },
   {
     "fighter_id": "225def29ecfe0fc1",
@@ -3421,7 +3485,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1566.67,
-    "alltime_rank": 214
+    "alltime_rank": 218
   },
   {
     "fighter_id": "78f485f851891d68",
@@ -3437,7 +3501,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1566.67,
-    "alltime_rank": 215
+    "alltime_rank": 219
   },
   {
     "fighter_id": "ecdf14f4f8643d39",
@@ -3453,7 +3517,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1566.67,
-    "alltime_rank": 216
+    "alltime_rank": 220
   },
   {
     "fighter_id": "98e946879ba20c0f",
@@ -3469,14 +3533,14 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1566.67,
-    "alltime_rank": 217
+    "alltime_rank": 221
   },
   {
     "fighter_id": "cc6f9d1e89f3449a",
     "fighter_name": "Manvel Gamburyan",
     "division": "Bantamweight",
-    "elo": 1497.32,
-    "peak_elo": 1566.11,
+    "elo": 1497.33,
+    "peak_elo": 1566.13,
     "peak_elo_date": "2015-07-15",
     "peak_elo_opponent": "Scott Jorgensen",
     "record": "15-10-0",
@@ -3484,8 +3548,8 @@
     "last_fight_date": "2016-11-19",
     "active": false,
     "streak": -2,
-    "division_elo_entry": 1497.34,
-    "alltime_rank": 218
+    "division_elo_entry": 1497.36,
+    "alltime_rank": 222
   },
   {
     "fighter_id": "bbc9ab95fa766493",
@@ -3501,14 +3565,14 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1558.84,
-    "alltime_rank": 219
+    "alltime_rank": 223
   },
   {
     "fighter_id": "57bf89d42364d39e",
     "fighter_name": "Issei Tamura",
     "division": "Bantamweight",
-    "elo": 1498.53,
-    "peak_elo": 1564.76,
+    "elo": 1498.52,
+    "peak_elo": 1564.75,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
     "record": "10-8-0",
@@ -3516,8 +3580,8 @@
     "last_fight_date": "2013-03-16",
     "active": false,
     "streak": -2,
-    "division_elo_entry": 1564.76,
-    "alltime_rank": 220
+    "division_elo_entry": 1564.75,
+    "alltime_rank": 224
   },
   {
     "fighter_id": "7bd94b60d7521e4a",
@@ -3533,13 +3597,13 @@
     "active": false,
     "streak": -4,
     "division_elo_entry": 1518.18,
-    "alltime_rank": 221
+    "alltime_rank": 225
   },
   {
     "fighter_id": "c96e2ae6021144a1",
     "fighter_name": "Damacio Page",
     "division": "Bantamweight",
-    "elo": 1456.19,
+    "elo": 1456.18,
     "peak_elo": 1562.07,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -3549,7 +3613,7 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1562.07,
-    "alltime_rank": 222
+    "alltime_rank": 226
   },
   {
     "fighter_id": "5df17b3620145578",
@@ -3565,14 +3629,14 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1561.54,
-    "alltime_rank": 223
+    "alltime_rank": 227
   },
   {
     "fighter_id": "3c0437fbeda06962",
     "fighter_name": "George Roop",
     "division": "Bantamweight",
-    "elo": 1508.83,
-    "peak_elo": 1560.17,
+    "elo": 1508.82,
+    "peak_elo": 1560.16,
     "peak_elo_date": "2014-04-16",
     "peak_elo_opponent": "Dustin Kimura",
     "record": "15-13-1",
@@ -3581,7 +3645,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1479.02,
-    "alltime_rank": 224
+    "alltime_rank": 228
   },
   {
     "fighter_id": "4417980b3e798abf",
@@ -3597,13 +3661,13 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1544.44,
-    "alltime_rank": 225
+    "alltime_rank": 229
   },
   {
     "fighter_id": "39330403ad27c2bb",
     "fighter_name": "Patrick Williams",
     "division": "Bantamweight",
-    "elo": 1502.61,
+    "elo": 1502.6,
     "peak_elo": 1558.37,
     "peak_elo_date": "2015-06-13",
     "peak_elo_opponent": "Alejandro Perez",
@@ -3613,7 +3677,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1528.57,
-    "alltime_rank": 226
+    "alltime_rank": 230
   },
   {
     "fighter_id": "9ddfb3369a3b0394",
@@ -3629,13 +3693,13 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1558.06,
-    "alltime_rank": 227
+    "alltime_rank": 231
   },
   {
     "fighter_id": "07797f10b9569cfc",
     "fighter_name": "Angel Pacheco",
     "division": "Bantamweight",
-    "elo": 1517.45,
+    "elo": 1517.15,
     "peak_elo": 1554.55,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -3645,7 +3709,7 @@
     "active": true,
     "streak": -2,
     "division_elo_entry": 1554.55,
-    "alltime_rank": 228
+    "alltime_rank": 232
   },
   {
     "fighter_id": "544d7460b3e44393",
@@ -3661,13 +3725,13 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1554.55,
-    "alltime_rank": 229
+    "alltime_rank": 233
   },
   {
     "fighter_id": "9c27f3217891f3f0",
     "fighter_name": "Kris Moutinho",
     "division": "Bantamweight",
-    "elo": 1429.47,
+    "elo": 1431.06,
     "peak_elo": 1554.55,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -3677,13 +3741,13 @@
     "active": true,
     "streak": -4,
     "division_elo_entry": 1554.55,
-    "alltime_rank": 230
+    "alltime_rank": 234
   },
   {
     "fighter_id": "29162be25ebef5f0",
     "fighter_name": "Luis Gurule",
     "division": "Bantamweight",
-    "elo": 1529.16,
+    "elo": 1528.66,
     "peak_elo": 1553.78,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
@@ -3693,7 +3757,7 @@
     "active": true,
     "streak": -1,
     "division_elo_entry": 1553.78,
-    "alltime_rank": 231
+    "alltime_rank": 235
   },
   {
     "fighter_id": "8a0be41c0380188d",
@@ -3709,7 +3773,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1552.63,
-    "alltime_rank": 232
+    "alltime_rank": 236
   },
   {
     "fighter_id": "34c2b3656f88f7ef",
@@ -3725,7 +3789,7 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1552.26,
-    "alltime_rank": 233
+    "alltime_rank": 237
   },
   {
     "fighter_id": "06a80a685ea98573",
@@ -3741,7 +3805,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1530.52,
-    "alltime_rank": 234
+    "alltime_rank": 238
   },
   {
     "fighter_id": "10657c60ce349e0f",
@@ -3757,7 +3821,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1550.0,
-    "alltime_rank": 235
+    "alltime_rank": 239
   },
   {
     "fighter_id": "8c39367b53eadf8a",
@@ -3773,7 +3837,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1550.0,
-    "alltime_rank": 236
+    "alltime_rank": 240
   },
   {
     "fighter_id": "72c4b253d2f5ebf2",
@@ -3789,7 +3853,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1550.0,
-    "alltime_rank": 237
+    "alltime_rank": 241
   },
   {
     "fighter_id": "5f3da9a9610d8969",
@@ -3805,7 +3869,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1550.0,
-    "alltime_rank": 238
+    "alltime_rank": 242
   },
   {
     "fighter_id": "e87a13e02c01331d",
@@ -3821,23 +3885,23 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1546.15,
-    "alltime_rank": 239
+    "alltime_rank": 243
   },
   {
     "fighter_id": "68b8ebdfce9dbb61",
     "fighter_name": "Charalampos Grigoriou",
     "division": "Bantamweight",
-    "elo": 1477.66,
+    "elo": 1477.86,
     "peak_elo": 1546.15,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
     "record": "8-5-0",
     "fight_count": 2,
     "last_fight_date": "2024-08-10",
-    "active": true,
+    "active": false,
     "streak": -2,
     "division_elo_entry": 1546.15,
-    "alltime_rank": 240
+    "alltime_rank": 244
   },
   {
     "fighter_id": "2296125b6c362355",
@@ -3853,7 +3917,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1544.32,
-    "alltime_rank": 241
+    "alltime_rank": 245
   },
   {
     "fighter_id": "90e0985df05e51bc",
@@ -3869,7 +3933,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1541.71,
-    "alltime_rank": 242
+    "alltime_rank": 246
   },
   {
     "fighter_id": "d05412b513b19621",
@@ -3885,7 +3949,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1522.22,
-    "alltime_rank": 243
+    "alltime_rank": 247
   },
   {
     "fighter_id": "e6147d5ab3685899",
@@ -3901,7 +3965,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1540.0,
-    "alltime_rank": 244
+    "alltime_rank": 248
   },
   {
     "fighter_id": "ba5e253af86db1a8",
@@ -3917,7 +3981,7 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1539.22,
-    "alltime_rank": 245
+    "alltime_rank": 249
   },
   {
     "fighter_id": "cc351e408bbb7d43",
@@ -3933,7 +3997,7 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1496.6,
-    "alltime_rank": 246
+    "alltime_rank": 250
   },
   {
     "fighter_id": "01fed6f61ebea01f",
@@ -3949,14 +4013,14 @@
     "active": false,
     "streak": -3,
     "division_elo_entry": 1535.29,
-    "alltime_rank": 247
+    "alltime_rank": 251
   },
   {
     "fighter_id": "0e46690e55a8df75",
     "fighter_name": "Timmy Cuamba",
     "division": "Bantamweight",
-    "elo": 1507.87,
-    "peak_elo": 1534.13,
+    "elo": 1507.78,
+    "peak_elo": 1534.18,
     "peak_elo_date": "2025-11-01",
     "peak_elo_opponent": "ChangHo Lee",
     "record": "10-3-0",
@@ -3964,15 +4028,15 @@
     "last_fight_date": "2026-05-16",
     "active": true,
     "streak": -1,
-    "division_elo_entry": 1493.65,
-    "alltime_rank": 248
+    "division_elo_entry": 1493.7,
+    "alltime_rank": 252
   },
   {
     "fighter_id": "88cd34d836b4ebcd",
     "fighter_name": "Teruto Ishihara",
     "division": "Bantamweight",
-    "elo": 1455.47,
-    "peak_elo": 1533.65,
+    "elo": 1455.46,
+    "peak_elo": 1533.63,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
     "record": "10-7-2",
@@ -3980,8 +4044,8 @@
     "last_fight_date": "2019-02-09",
     "active": false,
     "streak": -3,
-    "division_elo_entry": 1533.65,
-    "alltime_rank": 249
+    "division_elo_entry": 1533.63,
+    "alltime_rank": 253
   },
   {
     "fighter_id": "ed2a8cc402173781",
@@ -3997,7 +4061,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1531.71,
-    "alltime_rank": 250
+    "alltime_rank": 254
   },
   {
     "fighter_id": "f0fad0e9f3b65752",
@@ -4013,7 +4077,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1523.96,
-    "alltime_rank": 251
+    "alltime_rank": 255
   },
   {
     "fighter_id": "55f80a8aeffcdb33",
@@ -4029,7 +4093,7 @@
     "active": false,
     "streak": -4,
     "division_elo_entry": 1508.7,
-    "alltime_rank": 252
+    "alltime_rank": 256
   },
   {
     "fighter_id": "b12fc8a41e82d3a2",
@@ -4045,7 +4109,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1516.87,
-    "alltime_rank": 253
+    "alltime_rank": 257
   },
   {
     "fighter_id": "65cdf4ec31143d86",
@@ -4061,13 +4125,13 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1512.92,
-    "alltime_rank": 254
+    "alltime_rank": 258
   },
   {
     "fighter_id": "12f1b140e248bdb9",
     "fighter_name": "Jerrod Sanders",
     "division": "Bantamweight",
-    "elo": 1487.76,
+    "elo": 1487.75,
     "peak_elo": 1509.43,
     "peak_elo_date": "2015-07-12",
     "peak_elo_opponent": "Russell Doane",
@@ -4077,7 +4141,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1465.91,
-    "alltime_rank": 255
+    "alltime_rank": 259
   },
   {
     "fighter_id": "35b3772629e27a49",
@@ -4093,7 +4157,7 @@
     "active": false,
     "streak": -1,
     "division_elo_entry": 1505.01,
-    "alltime_rank": 256
+    "alltime_rank": 260
   },
   {
     "fighter_id": "80dbeb1dd5b53e64",
@@ -4109,7 +4173,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1504.22,
-    "alltime_rank": 257
+    "alltime_rank": 261
   },
   {
     "fighter_id": "0b362247806341e5",
@@ -4125,7 +4189,7 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1501.82,
-    "alltime_rank": 258
+    "alltime_rank": 262
   },
   {
     "fighter_id": "696002b59f09d73b",
@@ -4141,30 +4205,14 @@
     "active": false,
     "streak": -2,
     "division_elo_entry": 1500.0,
-    "alltime_rank": 259
-  },
-  {
-    "fighter_id": "02500fb9fd79a974",
-    "fighter_name": "Jason Reinhardt",
-    "division": "Bantamweight",
-    "elo": 1455.34,
-    "peak_elo": 1479.41,
-    "peak_elo_date": null,
-    "peak_elo_opponent": null,
-    "record": "20-3-0",
-    "fight_count": 1,
-    "last_fight_date": "2011-08-14",
-    "active": false,
-    "streak": -1,
-    "division_elo_entry": 1479.41,
-    "alltime_rank": 260
+    "alltime_rank": 263
   },
   {
     "fighter_id": "d1053e55f00e53fe",
     "fighter_name": "AJ Cunningham",
     "division": "Bantamweight",
-    "elo": 1466.97,
-    "peak_elo": 1478.5,
+    "elo": 1468.16,
+    "peak_elo": 1479.19,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
     "record": "11-5-0",
@@ -4172,15 +4220,31 @@
     "last_fight_date": "2025-03-15",
     "active": true,
     "streak": -1,
-    "division_elo_entry": 1478.5,
-    "alltime_rank": 261
+    "division_elo_entry": 1479.19,
+    "alltime_rank": 264
+  },
+  {
+    "fighter_id": "02500fb9fd79a974",
+    "fighter_name": "Jason Reinhardt",
+    "division": "Bantamweight",
+    "elo": 1455.13,
+    "peak_elo": 1479.14,
+    "peak_elo_date": null,
+    "peak_elo_opponent": null,
+    "record": "20-3-0",
+    "fight_count": 1,
+    "last_fight_date": "2011-08-14",
+    "active": false,
+    "streak": -1,
+    "division_elo_entry": 1479.14,
+    "alltime_rank": 265
   },
   {
     "fighter_id": "a8ea84cbe1655f0a",
     "fighter_name": "Jeff Curran",
     "division": "Bantamweight",
     "elo": 1443.03,
-    "peak_elo": 1477.81,
+    "peak_elo": 1477.8,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
     "record": "36-18-1",
@@ -4188,15 +4252,15 @@
     "last_fight_date": "2012-05-15",
     "active": false,
     "streak": -2,
-    "division_elo_entry": 1477.81,
-    "alltime_rank": 262
+    "division_elo_entry": 1477.8,
+    "alltime_rank": 266
   },
   {
     "fighter_id": "a75a48bfe776b2c2",
     "fighter_name": "Jesse Butler",
     "division": "Bantamweight",
-    "elo": 1463.24,
-    "peak_elo": 1475.57,
+    "elo": 1463.32,
+    "peak_elo": 1475.67,
     "peak_elo_date": null,
     "peak_elo_opponent": null,
     "record": "12-6-0",
@@ -4204,7 +4268,7 @@
     "last_fight_date": "2024-06-08",
     "active": false,
     "streak": -1,
-    "division_elo_entry": 1475.57,
-    "alltime_rank": 263
+    "division_elo_entry": 1475.67,
+    "alltime_rank": 267
   }
 ]
