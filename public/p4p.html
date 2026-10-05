@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <td style="color:var(--muted);">${i+1}</td>
         <td>${champ}${f.fighter_name} ${streak}</td>
         <td><span style="border-left:3px solid ${color};padding-left:6px;">${DIV_SHORT[f.division]}</span></td>
-        <td style="color:var(--red);font-weight:700;">${f.elo.toFixed(1)}</td>
+        <td style="color:var(--red-text);font-weight:700;">${f.elo.toFixed(1)}</td>
         <td style="color:var(--muted);">${zStr}</td>
         <td>${f.peak_elo ? (+f.peak_elo).toFixed(1) : '—'}</td>
         <td>${f.record || '—'}</td>
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       title: { text:`Top 10 P4P — ${mode==='raw'?'Raw ELO':'Normalized (z-score)'}`, font:{color:'#F0F2F6',size:13} },
       height: 340,
       xaxis: { showgrid:true, gridcolor:'#2d3250', title: mode==='raw'?'ELO':'Z-score' },
-      yaxis: { showgrid:false },
+      yaxis: { automargin:true, showgrid:false },
       margin: { l:20, r:20, t:50, b:50 },
     }, { displayModeBar:false, responsive:true });
   }
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       return `<tr>
         <td><span style="border-left:3px solid ${DIV_COLORS[d]};padding-left:6px;">${DIV_SHORT[d]}</span></td>
         <td>${s.count}</td>
-        <td style="color:var(--red);">${s.mean.toFixed(1)}</td>
+        <td style="color:var(--red-text);">${s.mean.toFixed(1)}</td>
         <td>${s.std.toFixed(1)}</td>
         <td style="color:var(--muted);">${cv}%</td>
       </tr>`;
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <td style="color:var(--muted);">${i+1}</td>
         <td>${champ}${f.fighter_name}</td>
         <td><span style="border-left:3px solid ${color};padding-left:6px;">${DIV_SHORT[f.division]}</span></td>
-        <td style="color:var(--red);font-weight:700;">${(+f.peak_elo).toFixed(1)}</td>
+        <td style="color:var(--red-text);font-weight:700;">${(+f.peak_elo).toFixed(1)}</td>
         <td style="color:var(--muted);font-size:0.8rem;">${peakDate}</td>
         <td style="color:var(--muted);font-size:0.8rem;">${peakOpp}</td>
         <td style="color:var(--muted);">${curElo}</td>
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       title: { text:'Top 10 — All-Time Peak ELO', font:{color:'#F0F2F6',size:13} },
       height: 340,
       xaxis: { showgrid:true, gridcolor:'#2d3250', title:'Peak ELO' },
-      yaxis: { showgrid:false },
+      yaxis: { automargin:true, showgrid:false },
       margin: { l:20, r:20, t:50, b:50 },
     }, { displayModeBar:false, responsive:true });
   }

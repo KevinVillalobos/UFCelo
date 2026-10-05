@@ -1,33 +1,1068 @@
 [
   {
-    "fighter_id": "0b362247806341e5",
-    "fighter_name": "JP Buys",
+    "fighter_id": "6d68c1afe954f121",
+    "fighter_name": "Ode Osbourne",
     "division": "Flyweight",
     "skill_score": {
-      "Striking": 50.44,
-      "Grappling": 40.01,
-      "Defensa": 51.12,
-      "Consistencia": 50.17,
-      "Finish Rate": 41.18,
-      "Cardio/Durabilidad": 55.88,
-      "Presión": 37.88
+      "Striking": 57.42,
+      "Grappling": 31.64,
+      "Defensa": 57.31,
+      "Consistencia": 47.41,
+      "Finish Rate": 42.84,
+      "Cardio/Durabilidad": 85.74,
+      "Presión": 21.53
     },
-    "skill_composite": 47.33
+    "skill_composite": 49.81
+  },
+  {
+    "fighter_id": "e363b21261814830",
+    "fighter_name": "Marcos Vinicius",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 52.7,
+      "Grappling": 28.06,
+      "Defensa": 34.04,
+      "Consistencia": 48.59,
+      "Finish Rate": 46.98,
+      "Cardio/Durabilidad": 64.68,
+      "Presión": 33.38
+    },
+    "skill_composite": 43.35
+  },
+  {
+    "fighter_id": "6e9f40c706f91f32",
+    "fighter_name": "Nate Maness",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 81.62,
+      "Grappling": 42.22,
+      "Defensa": 62.47,
+      "Consistencia": 62.57,
+      "Finish Rate": 51.49,
+      "Cardio/Durabilidad": 79.38,
+      "Presión": 59.5
+    },
+    "skill_composite": 63.57
+  },
+  {
+    "fighter_id": "c9587d81e1d33925",
+    "fighter_name": "Jerome Rivera",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 48.85,
+      "Grappling": 34.91,
+      "Defensa": 57.44,
+      "Consistencia": 45.13,
+      "Finish Rate": 36.02,
+      "Cardio/Durabilidad": 63.98,
+      "Presión": 30.66
+    },
+    "skill_composite": 46.33
+  },
+  {
+    "fighter_id": "0b64d0fed453ef7f",
+    "fighter_name": "Scott Jorgensen",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 54.55,
+      "Grappling": 43.74,
+      "Defensa": 61.6,
+      "Consistencia": 58.52,
+      "Finish Rate": 32.76,
+      "Cardio/Durabilidad": 80.69,
+      "Presión": 32.05
+    },
+    "skill_composite": 53.12
+  },
+  {
+    "fighter_id": "55f446032177b119",
+    "fighter_name": "Chris Beal",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 62.52,
+      "Grappling": 48.09,
+      "Defensa": 60.67,
+      "Consistencia": 51.32,
+      "Finish Rate": 40.22,
+      "Cardio/Durabilidad": 79.04,
+      "Presión": 43.98
+    },
+    "skill_composite": 55.87
+  },
+  {
+    "fighter_id": "056c493bbd76a918",
+    "fighter_name": "Henry Cejudo",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 81.32,
+      "Grappling": 41.5,
+      "Defensa": 67.94,
+      "Consistencia": 70.32,
+      "Finish Rate": 45.16,
+      "Cardio/Durabilidad": 96.91,
+      "Presión": 41.05
+    },
+    "skill_composite": 64.94
+  },
+  {
+    "fighter_id": "ab2b4ff41d6ebe0f",
+    "fighter_name": "Alex Perez",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 69.35,
+      "Grappling": 43.8,
+      "Defensa": 64.48,
+      "Consistencia": 45.51,
+      "Finish Rate": 46.62,
+      "Cardio/Durabilidad": 85.25,
+      "Presión": 40.18
+    },
+    "skill_composite": 57.37
+  },
+  {
+    "fighter_id": "83455a9d17f57dae",
+    "fighter_name": "Rafael Estevam",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 59.73,
+      "Grappling": 50.25,
+      "Defensa": 64.48,
+      "Consistencia": 48.38,
+      "Finish Rate": 36.69,
+      "Cardio/Durabilidad": 74.52,
+      "Presión": 55.22
+    },
+    "skill_composite": 56.28
+  },
+  {
+    "fighter_id": "c849740a3ff51931",
+    "fighter_name": "TJ Dillashaw",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 69.77,
+      "Grappling": 40.37,
+      "Defensa": 73.81,
+      "Consistencia": 58.47,
+      "Finish Rate": 50.71,
+      "Cardio/Durabilidad": 87.68,
+      "Presión": 43.92
+    },
+    "skill_composite": 61.77
+  },
+  {
+    "fighter_id": "2a4200ead401a9ce",
+    "fighter_name": "Carls John De Tomas",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 47.83,
+      "Grappling": 45.54,
+      "Defensa": 52.53,
+      "Consistencia": 46.5,
+      "Finish Rate": 41.72,
+      "Cardio/Durabilidad": 63.0,
+      "Presión": 38.78
+    },
+    "skill_composite": 48.23
+  },
+  {
+    "fighter_id": "79cb2a690b9ba5e8",
+    "fighter_name": "Zarrukh Adashev",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 50.0,
+      "Grappling": 37.95,
+      "Defensa": 67.09,
+      "Consistencia": 54.74,
+      "Finish Rate": 36.44,
+      "Cardio/Durabilidad": 68.33,
+      "Presión": 30.59
+    },
+    "skill_composite": 50.86
+  },
+  {
+    "fighter_id": "32ab52e5de93092d",
+    "fighter_name": "Steve Erceg",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 63.16,
+      "Grappling": 38.63,
+      "Defensa": 66.09,
+      "Consistencia": 49.3,
+      "Finish Rate": 34.84,
+      "Cardio/Durabilidad": 82.5,
+      "Presión": 36.71
+    },
+    "skill_composite": 54.44
+  },
+  {
+    "fighter_id": "3cf18e01cb6cbde3",
+    "fighter_name": "Sumudaerji",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 78.78,
+      "Grappling": 41.52,
+      "Defensa": 68.08,
+      "Consistencia": 63.84,
+      "Finish Rate": 32.49,
+      "Cardio/Durabilidad": 90.58,
+      "Presión": 35.58
+    },
+    "skill_composite": 61.04
+  },
+  {
+    "fighter_id": "b12fc8a41e82d3a2",
+    "fighter_name": "Joby Sanchez",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 58.23,
+      "Grappling": 34.3,
+      "Defensa": 48.26,
+      "Consistencia": 46.37,
+      "Finish Rate": 34.66,
+      "Cardio/Durabilidad": 74.56,
+      "Presión": 34.73
+    },
+    "skill_composite": 47.79
+  },
+  {
+    "fighter_id": "294aa73dbf37d281",
+    "fighter_name": "Bruno Silva",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 73.19,
+      "Grappling": 40.64,
+      "Defensa": 70.04,
+      "Consistencia": 64.17,
+      "Finish Rate": 51.24,
+      "Cardio/Durabilidad": 83.5,
+      "Presión": 34.91
+    },
+    "skill_composite": 61.33
+  },
+  {
+    "fighter_id": "3a524c6700addc24",
+    "fighter_name": "Tateki Matsuda",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 55.24,
+      "Grappling": 33.19,
+      "Defensa": 38.95,
+      "Consistencia": 51.18,
+      "Finish Rate": 41.72,
+      "Cardio/Durabilidad": 68.0,
+      "Presión": 42.79
+    },
+    "skill_composite": 46.74
+  },
+  {
+    "fighter_id": "8a304bfd6bf04a57",
+    "fighter_name": "Demetrious Johnson",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 95.32,
+      "Grappling": 68.77,
+      "Defensa": 65.4,
+      "Consistencia": 74.32,
+      "Finish Rate": 67.38,
+      "Cardio/Durabilidad": 97.56,
+      "Presión": 62.56
+    },
+    "skill_composite": 76.36
+  },
+  {
+    "fighter_id": "0fd5f4b838e890cc",
+    "fighter_name": "Said Nurmagomedov",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 75.55,
+      "Grappling": 32.31,
+      "Defensa": 61.81,
+      "Consistencia": 69.19,
+      "Finish Rate": 53.41,
+      "Cardio/Durabilidad": 90.9,
+      "Presión": 35.97
+    },
+    "skill_composite": 60.73
+  },
+  {
+    "fighter_id": "6d35bf94f7d30241",
+    "fighter_name": "Amir Albazi",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 58.89,
+      "Grappling": 48.31,
+      "Defensa": 66.95,
+      "Consistencia": 56.51,
+      "Finish Rate": 49.69,
+      "Cardio/Durabilidad": 87.23,
+      "Presión": 41.09
+    },
+    "skill_composite": 58.69
+  },
+  {
+    "fighter_id": "7f6ed67d3ed3c036",
+    "fighter_name": "Cody Durden",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 67.3,
+      "Grappling": 51.31,
+      "Defensa": 58.11,
+      "Consistencia": 58.45,
+      "Finish Rate": 34.22,
+      "Cardio/Durabilidad": 86.48,
+      "Presión": 40.34
+    },
+    "skill_composite": 57.65
+  },
+  {
+    "fighter_id": "c96d9178c9ed9e62",
+    "fighter_name": "Tim Elliott",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 85.74,
+      "Grappling": 60.58,
+      "Defensa": 60.34,
+      "Consistencia": 53.68,
+      "Finish Rate": 49.63,
+      "Cardio/Durabilidad": 92.44,
+      "Presión": 52.98
+    },
+    "skill_composite": 65.86
+  },
+  {
+    "fighter_id": "b0f316c60f8d3b47",
+    "fighter_name": "Josh Ferguson",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 51.07,
+      "Grappling": 39.24,
+      "Defensa": 46.65,
+      "Consistencia": 57.27,
+      "Finish Rate": 41.24,
+      "Cardio/Durabilidad": 64.8,
+      "Presión": 43.72
+    },
+    "skill_composite": 49.0
+  },
+  {
+    "fighter_id": "b72a60a0cadff408",
+    "fighter_name": "Louis Gaudinot",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 53.73,
+      "Grappling": 35.29,
+      "Defensa": 50.47,
+      "Consistencia": 46.77,
+      "Finish Rate": 41.88,
+      "Cardio/Durabilidad": 77.01,
+      "Presión": 31.54
+    },
+    "skill_composite": 48.19
+  },
+  {
+    "fighter_id": "f57dd0bfa8c17813",
+    "fighter_name": "Mark De La Rosa",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 56.61,
+      "Grappling": 29.1,
+      "Defensa": 46.75,
+      "Consistencia": 52.58,
+      "Finish Rate": 36.62,
+      "Cardio/Durabilidad": 83.02,
+      "Presión": 33.91
+    },
+    "skill_composite": 48.28
+  },
+  {
+    "fighter_id": "80eacd4da0617c57",
+    "fighter_name": "Joseph Benavidez",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 74.52,
+      "Grappling": 28.03,
+      "Defensa": 49.55,
+      "Consistencia": 56.29,
+      "Finish Rate": 43.09,
+      "Cardio/Durabilidad": 88.47,
+      "Presión": 38.98
+    },
+    "skill_composite": 54.52
+  },
+  {
+    "fighter_id": "8a9c6c4301f6d088",
+    "fighter_name": "Danny Martinez",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 57.46,
+      "Grappling": 41.25,
+      "Defensa": 42.51,
+      "Consistencia": 47.93,
+      "Finish Rate": 37.02,
+      "Cardio/Durabilidad": 79.52,
+      "Presión": 48.47
+    },
+    "skill_composite": 49.87
+  },
+  {
+    "fighter_id": "102a8fdf8cbf7467",
+    "fighter_name": "Kleydson Rodrigues",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 71.04,
+      "Grappling": 34.65,
+      "Defensa": 53.45,
+      "Consistencia": 62.92,
+      "Finish Rate": 45.77,
+      "Cardio/Durabilidad": 72.06,
+      "Presión": 39.85
+    },
+    "skill_composite": 55.3
+  },
+  {
+    "fighter_id": "ec71a892fada28c7",
+    "fighter_name": "Marco Beltran",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 55.4,
+      "Grappling": 49.76,
+      "Defensa": 51.97,
+      "Consistencia": 53.79,
+      "Finish Rate": 44.19,
+      "Cardio/Durabilidad": 78.0,
+      "Presión": 33.65
+    },
+    "skill_composite": 52.59
+  },
+  {
+    "fighter_id": "8bb6f4479685bbcc",
+    "fighter_name": "Vaughan Lee",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 74.15,
+      "Grappling": 28.69,
+      "Defensa": 60.94,
+      "Consistencia": 60.71,
+      "Finish Rate": 35.08,
+      "Cardio/Durabilidad": 80.08,
+      "Presión": 37.39
+    },
+    "skill_composite": 55.68
+  },
+  {
+    "fighter_id": "aa72b0f831d0bfe5",
+    "fighter_name": "Deiveson Figueiredo",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 57.62,
+      "Grappling": 33.65,
+      "Defensa": 47.4,
+      "Consistencia": 60.14,
+      "Finish Rate": 33.47,
+      "Cardio/Durabilidad": 84.31,
+      "Presión": 19.97
+    },
+    "skill_composite": 48.85
+  },
+  {
+    "fighter_id": "20999e27ddd94bda",
+    "fighter_name": "Ryan Benoit",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 60.77,
+      "Grappling": 37.31,
+      "Defensa": 67.27,
+      "Consistencia": 56.35,
+      "Finish Rate": 40.82,
+      "Cardio/Durabilidad": 90.42,
+      "Presión": 27.6
+    },
+    "skill_composite": 55.54
+  },
+  {
+    "fighter_id": "d8c7c61b176e3994",
+    "fighter_name": "Cody Garbrandt",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 57.62,
+      "Grappling": 30.88,
+      "Defensa": 66.46,
+      "Consistencia": 64.57,
+      "Finish Rate": 38.28,
+      "Cardio/Durabilidad": 82.87,
+      "Presión": 20.06
+    },
+    "skill_composite": 53.25
+  },
+  {
+    "fighter_id": "f6e5972c9d16c40e",
+    "fighter_name": "Victor Rodriguez",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 40.02,
+      "Grappling": 41.99,
+      "Defensa": 57.35,
+      "Consistencia": 36.9,
+      "Finish Rate": 41.18,
+      "Cardio/Durabilidad": 54.68,
+      "Presión": 35.89
+    },
+    "skill_composite": 44.48
+  },
+  {
+    "fighter_id": "d2bc285ead803db0",
+    "fighter_name": "Louis Smolka",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 72.94,
+      "Grappling": 36.16,
+      "Defensa": 58.74,
+      "Consistencia": 53.02,
+      "Finish Rate": 48.48,
+      "Cardio/Durabilidad": 78.83,
+      "Presión": 37.45
+    },
+    "skill_composite": 56.19
+  },
+  {
+    "fighter_id": "60a42bf82447c919",
+    "fighter_name": "Jake Hadley",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 68.32,
+      "Grappling": 36.72,
+      "Defensa": 65.52,
+      "Consistencia": 64.72,
+      "Finish Rate": 43.07,
+      "Cardio/Durabilidad": 87.66,
+      "Presión": 39.51
+    },
+    "skill_composite": 59.01
+  },
+  {
+    "fighter_id": "98aa60cf58071fd6",
+    "fighter_name": "Kyoji Horiguchi",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 80.86,
+      "Grappling": 45.94,
+      "Defensa": 70.05,
+      "Consistencia": 64.43,
+      "Finish Rate": 42.92,
+      "Cardio/Durabilidad": 89.14,
+      "Presión": 51.52
+    },
+    "skill_composite": 65.1
+  },
+  {
+    "fighter_id": "a4de54ea806fb525",
+    "fighter_name": "Ray Borg",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 67.39,
+      "Grappling": 51.15,
+      "Defensa": 56.75,
+      "Consistencia": 58.09,
+      "Finish Rate": 33.51,
+      "Cardio/Durabilidad": 94.9,
+      "Presión": 47.9
+    },
+    "skill_composite": 58.84
+  },
+  {
+    "fighter_id": "5ea918ea81b7dee2",
+    "fighter_name": "Yao Zhikui",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 40.96,
+      "Grappling": 31.88,
+      "Defensa": 41.97,
+      "Consistencia": 43.76,
+      "Finish Rate": 36.57,
+      "Cardio/Durabilidad": 73.6,
+      "Presión": 32.86
+    },
+    "skill_composite": 42.23
+  },
+  {
+    "fighter_id": "b2e3aca4cd363477",
+    "fighter_name": "Chris Cariaso",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 67.69,
+      "Grappling": 29.98,
+      "Defensa": 39.17,
+      "Consistencia": 59.27,
+      "Finish Rate": 34.28,
+      "Cardio/Durabilidad": 93.26,
+      "Presión": 34.96
+    },
+    "skill_composite": 51.01
+  },
+  {
+    "fighter_id": "edad57b3dddf2168",
+    "fighter_name": "Jared Papazian",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 56.34,
+      "Grappling": 31.59,
+      "Defensa": 41.84,
+      "Consistencia": 54.84,
+      "Finish Rate": 38.78,
+      "Cardio/Durabilidad": 69.12,
+      "Presión": 40.69
+    },
+    "skill_composite": 47.46
+  },
+  {
+    "fighter_id": "65cdf4ec31143d86",
+    "fighter_name": "Vinicius Salvador",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 59.62,
+      "Grappling": 40.66,
+      "Defensa": 60.79,
+      "Consistencia": 56.04,
+      "Finish Rate": 38.48,
+      "Cardio/Durabilidad": 67.0,
+      "Presión": 39.32
+    },
+    "skill_composite": 53.07
   },
   {
     "fighter_id": "82b4e942781b1046",
     "fighter_name": "Raulian Paiva",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 59.7,
+      "Grappling": 37.04,
+      "Defensa": 63.61,
+      "Consistencia": 51.52,
+      "Finish Rate": 38.16,
+      "Cardio/Durabilidad": 80.59,
+      "Presión": 34.05
+    },
+    "skill_composite": 53.23
+  },
+  {
+    "fighter_id": "84f727cf0166d6f2",
+    "fighter_name": "Jose Johnson",
     "division": "Flyweight",
     "skill_score": {
-      "Striking": 61.01,
-      "Grappling": 36.1,
-      "Defensa": 62.99,
-      "Consistencia": 52.48,
-      "Finish Rate": 48.51,
-      "Cardio/Durabilidad": 73.66,
-      "Presión": 39.9
+      "Striking": 62.75,
+      "Grappling": 50.42,
+      "Defensa": 52.22,
+      "Consistencia": 55.1,
+      "Finish Rate": 45.77,
+      "Cardio/Durabilidad": 69.54,
+      "Presión": 40.54
     },
-    "skill_composite": 54.29
+    "skill_composite": 54.41
+  },
+  {
+    "fighter_id": "c945adc22c2bfe8f",
+    "fighter_name": "Brad Pickett",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 49.28,
+      "Grappling": 49.72,
+      "Defensa": 55.01,
+      "Consistencia": 43.49,
+      "Finish Rate": 31.58,
+      "Cardio/Durabilidad": 86.96,
+      "Presión": 28.6
+    },
+    "skill_composite": 49.55
+  },
+  {
+    "fighter_id": "de75d1c45a39e221",
+    "fighter_name": "Sergio Pettis",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 76.74,
+      "Grappling": 36.72,
+      "Defensa": 63.75,
+      "Consistencia": 62.72,
+      "Finish Rate": 29.57,
+      "Cardio/Durabilidad": 96.74,
+      "Presión": 37.31
+    },
+    "skill_composite": 59.38
+  },
+  {
+    "fighter_id": "9eb069062a0cfc13",
+    "fighter_name": "Nolan Ticman",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 52.48,
+      "Grappling": 39.06,
+      "Defensa": 53.65,
+      "Consistencia": 56.96,
+      "Finish Rate": 41.72,
+      "Cardio/Durabilidad": 68.0,
+      "Presión": 39.81
+    },
+    "skill_composite": 50.58
+  },
+  {
+    "fighter_id": "dee294e9717012c2",
+    "fighter_name": "Malcolm Gordon",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 52.46,
+      "Grappling": 51.21,
+      "Defensa": 40.62,
+      "Consistencia": 38.75,
+      "Finish Rate": 38.82,
+      "Cardio/Durabilidad": 70.14,
+      "Presión": 35.08
+    },
+    "skill_composite": 46.51
+  },
+  {
+    "fighter_id": "48812daf291a4e23",
+    "fighter_name": "Mateus Mendonca",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 53.69,
+      "Grappling": 44.56,
+      "Defensa": 52.35,
+      "Consistencia": 47.18,
+      "Finish Rate": 38.54,
+      "Cardio/Durabilidad": 68.48,
+      "Presión": 45.84
+    },
+    "skill_composite": 50.26
+  },
+  {
+    "fighter_id": "c268b2cfebccf652",
+    "fighter_name": "John Lineker",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 85.05,
+      "Grappling": 40.36,
+      "Defensa": 68.98,
+      "Consistencia": 56.68,
+      "Finish Rate": 53.1,
+      "Cardio/Durabilidad": 96.12,
+      "Presión": 41.11
+    },
+    "skill_composite": 64.4
+  },
+  {
+    "fighter_id": "7c3c48cf54a2848e",
+    "fighter_name": "Yuta Sasaki",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 62.15,
+      "Grappling": 50.04,
+      "Defensa": 58.96,
+      "Consistencia": 47.13,
+      "Finish Rate": 56.4,
+      "Cardio/Durabilidad": 77.01,
+      "Presión": 36.88
+    },
+    "skill_composite": 55.83
+  },
+  {
+    "fighter_id": "99506df1af6c8b3b",
+    "fighter_name": "John Dodson",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 63.89,
+      "Grappling": 28.24,
+      "Defensa": 57.2,
+      "Consistencia": 72.52,
+      "Finish Rate": 45.6,
+      "Cardio/Durabilidad": 97.81,
+      "Presión": 23.12
+    },
+    "skill_composite": 55.98
+  },
+  {
+    "fighter_id": "5aedf14771ca82d2",
+    "fighter_name": "Wilson Reis",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 47.17,
+      "Grappling": 51.07,
+      "Defensa": 66.47,
+      "Consistencia": 46.98,
+      "Finish Rate": 34.59,
+      "Cardio/Durabilidad": 84.17,
+      "Presión": 36.92
+    },
+    "skill_composite": 53.0
+  },
+  {
+    "fighter_id": "32be4b7f7de1c905",
+    "fighter_name": "Chico Camus",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 66.0,
+      "Grappling": 40.08,
+      "Defensa": 60.61,
+      "Consistencia": 59.34,
+      "Finish Rate": 31.53,
+      "Cardio/Durabilidad": 90.16,
+      "Presión": 38.01
+    },
+    "skill_composite": 56.2
+  },
+  {
+    "fighter_id": "14aa21bc82cac57d",
+    "fighter_name": "Iliarde Santos",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 48.33,
+      "Grappling": 45.86,
+      "Defensa": 59.57,
+      "Consistencia": 49.01,
+      "Finish Rate": 38.28,
+      "Cardio/Durabilidad": 63.76,
+      "Presión": 37.54
+    },
+    "skill_composite": 49.77
+  },
+  {
+    "fighter_id": "0b362247806341e5",
+    "fighter_name": "JP Buys",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 45.26,
+      "Grappling": 34.07,
+      "Defensa": 51.15,
+      "Consistencia": 45.13,
+      "Finish Rate": 35.72,
+      "Cardio/Durabilidad": 63.18,
+      "Presión": 28.62
+    },
+    "skill_composite": 43.91
+  },
+  {
+    "fighter_id": "67c1d46f4ed16f9e",
+    "fighter_name": "Matt Schnell",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 62.21,
+      "Grappling": 39.5,
+      "Defensa": 56.46,
+      "Consistencia": 59.3,
+      "Finish Rate": 35.63,
+      "Cardio/Durabilidad": 78.72,
+      "Presión": 30.22
+    },
+    "skill_composite": 53.01
+  },
+  {
+    "fighter_id": "6e00cfffd54653c4",
+    "fighter_name": "Tyson Nam",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 62.77,
+      "Grappling": 33.71,
+      "Defensa": 77.57,
+      "Consistencia": 57.82,
+      "Finish Rate": 50.97,
+      "Cardio/Durabilidad": 83.75,
+      "Presión": 27.6
+    },
+    "skill_composite": 58.03
+  },
+  {
+    "fighter_id": "1a31ef98efce7a79",
+    "fighter_name": "Matheus Nicolau",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 61.72,
+      "Grappling": 46.6,
+      "Defensa": 76.67,
+      "Consistencia": 57.93,
+      "Finish Rate": 38.3,
+      "Cardio/Durabilidad": 83.98,
+      "Presión": 26.95
+    },
+    "skill_composite": 58.28
+  },
+  {
+    "fighter_id": "6546af7ab545b90c",
+    "fighter_name": "Darren Uyenoyama",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 53.18,
+      "Grappling": 33.74,
+      "Defensa": 37.53,
+      "Consistencia": 54.7,
+      "Finish Rate": 45.83,
+      "Cardio/Durabilidad": 73.9,
+      "Presión": 37.43
+    },
+    "skill_composite": 47.12
+  },
+  {
+    "fighter_id": "a1b0715c4fd2dbd3",
+    "fighter_name": "Azamat Gashimov",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 46.8,
+      "Grappling": 50.83,
+      "Defensa": 57.38,
+      "Consistencia": 45.52,
+      "Finish Rate": 41.42,
+      "Cardio/Durabilidad": 56.82,
+      "Presión": 40.19
+    },
+    "skill_composite": 49.13
+  },
+  {
+    "fighter_id": "9fa568ad2bf2cb0b",
+    "fighter_name": "Justin Scoggins",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 67.71,
+      "Grappling": 58.31,
+      "Defensa": 64.8,
+      "Consistencia": 61.41,
+      "Finish Rate": 33.22,
+      "Cardio/Durabilidad": 83.88,
+      "Presión": 45.13
+    },
+    "skill_composite": 60.68
+  },
+  {
+    "fighter_id": "0d0351c20169a499",
+    "fighter_name": "Jon Delos Reyes",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 52.84,
+      "Grappling": 61.54,
+      "Defensa": 53.58,
+      "Consistencia": 52.13,
+      "Finish Rate": 47.91,
+      "Cardio/Durabilidad": 65.29,
+      "Presión": 40.74
+    },
+    "skill_composite": 53.73
+  },
+  {
+    "fighter_id": "901cddcbfa079097",
+    "fighter_name": "Will Campuzano",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 55.31,
+      "Grappling": 38.33,
+      "Defensa": 46.94,
+      "Consistencia": 51.22,
+      "Finish Rate": 36.11,
+      "Cardio/Durabilidad": 77.47,
+      "Presión": 37.55
+    },
+    "skill_composite": 49.0
+  },
+  {
+    "fighter_id": "215a70f073a7b726",
+    "fighter_name": "Jordan Espinosa",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 54.82,
+      "Grappling": 37.75,
+      "Defensa": 58.56,
+      "Consistencia": 59.85,
+      "Finish Rate": 33.61,
+      "Cardio/Durabilidad": 80.82,
+      "Presión": 33.14
+    },
+    "skill_composite": 52.07
+  },
+  {
+    "fighter_id": "7d420039bbfe7c1a",
+    "fighter_name": "Aoriqileng",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 68.47,
+      "Grappling": 34.16,
+      "Defensa": 63.88,
+      "Consistencia": 50.77,
+      "Finish Rate": 40.6,
+      "Cardio/Durabilidad": 79.2,
+      "Presión": 27.68
+    },
+    "skill_composite": 53.96
+  },
+  {
+    "fighter_id": "65adf3856c4d9256",
+    "fighter_name": "Jafel Filho",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 70.5,
+      "Grappling": 63.5,
+      "Defensa": 58.16,
+      "Consistencia": 50.57,
+      "Finish Rate": 57.97,
+      "Cardio/Durabilidad": 79.73,
+      "Presión": 52.06
+    },
+    "skill_composite": 61.82
+  },
+  {
+    "fighter_id": "07a2bdaa0afdd831",
+    "fighter_name": "Rogerio Bontorin",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 66.24,
+      "Grappling": 65.96,
+      "Defensa": 66.28,
+      "Consistencia": 61.9,
+      "Finish Rate": 39.26,
+      "Cardio/Durabilidad": 79.96,
+      "Presión": 45.08
+    },
+    "skill_composite": 62.11
+  },
+  {
+    "fighter_id": "2f43a3e82661fa99",
+    "fighter_name": "Rei Tsuruya",
+    "division": "Flyweight",
+    "skill_score": {
+      "Striking": 71.57,
+      "Grappling": 62.49,
+      "Defensa": 69.38,
+      "Consistencia": 43.63,
+      "Finish Rate": 63.01,
+      "Cardio/Durabilidad": 73.4,
+      "Presión": 60.66
+    },
+    "skill_composite": 63.81
+  },
+  {
+    "fighter_id": "29162be25ebef5f0",
+    "fighter_name": "Luis Gurule",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 57.21,
+      "Grappling": 38.18,
+      "Defensa": 57.82,
+      "Consistencia": 51.39,
+      "Finish Rate": 34.89,
+      "Cardio/Durabilidad": 74.6,
+      "Presión": 40.81
+    },
+    "skill_composite": 51.47
+  },
+  {
+    "fighter_id": "d33da8a3d82bdb62",
+    "fighter_name": "Kai Asakura",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 63.16,
+      "Grappling": 37.22,
+      "Defensa": 63.21,
+      "Consistencia": 55.84,
+      "Finish Rate": 63.11,
+      "Cardio/Durabilidad": 70.05,
+      "Presión": 32.94
+    },
+    "skill_composite": 55.84
   },
   {
     "fighter_id": "bffeb123b21c9aad",
@@ -75,21 +1110,6 @@
     "skill_composite": 48.04
   },
   {
-    "fighter_id": "6e9f40c706f91f32",
-    "fighter_name": "Nate Maness",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 77.28,
-      "Grappling": 44.33,
-      "Defensa": 63.97,
-      "Consistencia": 64.01,
-      "Finish Rate": 49.01,
-      "Cardio/Durabilidad": 72.58,
-      "Presión": 64.32
-    },
-    "skill_composite": 63.09
-  },
-  {
     "fighter_id": "cdadae5363b66eef",
     "fighter_name": "Francisco Figueiredo",
     "division": "Flyweight",
@@ -135,21 +1155,6 @@
     "skill_composite": 53.17
   },
   {
-    "fighter_id": "55f446032177b119",
-    "fighter_name": "Chris Beal",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 62.84,
-      "Grappling": 54.45,
-      "Defensa": 59.77,
-      "Consistencia": 57.4,
-      "Finish Rate": 44.28,
-      "Cardio/Durabilidad": 78.8,
-      "Presión": 48.56
-    },
-    "skill_composite": 58.46
-  },
-  {
     "fighter_id": "792be9a24df82ed6",
     "fighter_name": "Brandon Moreno",
     "division": "Flyweight",
@@ -178,21 +1183,6 @@
       "Presión": 42.7
     },
     "skill_composite": 60.85
-  },
-  {
-    "fighter_id": "b2e3aca4cd363477",
-    "fighter_name": "Chris Cariaso",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 67.69,
-      "Grappling": 29.98,
-      "Defensa": 39.17,
-      "Consistencia": 59.27,
-      "Finish Rate": 34.28,
-      "Cardio/Durabilidad": 93.26,
-      "Presión": 34.96
-    },
-    "skill_composite": 51.01
   },
   {
     "fighter_id": "30cad5a751adcb48",
@@ -285,51 +1275,6 @@
     "skill_composite": 52.41
   },
   {
-    "fighter_id": "99506df1af6c8b3b",
-    "fighter_name": "John Dodson",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 70.85,
-      "Grappling": 59.06,
-      "Defensa": 78.13,
-      "Consistencia": 64.15,
-      "Finish Rate": 57.29,
-      "Cardio/Durabilidad": 87.98,
-      "Presión": 34.16
-    },
-    "skill_composite": 66.22
-  },
-  {
-    "fighter_id": "14aa21bc82cac57d",
-    "fighter_name": "Iliarde Santos",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 48.33,
-      "Grappling": 45.86,
-      "Defensa": 59.57,
-      "Consistencia": 49.01,
-      "Finish Rate": 38.28,
-      "Cardio/Durabilidad": 63.76,
-      "Presión": 37.54
-    },
-    "skill_composite": 49.77
-  },
-  {
-    "fighter_id": "c945adc22c2bfe8f",
-    "fighter_name": "Brad Pickett",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 65.08,
-      "Grappling": 47.44,
-      "Defensa": 63.38,
-      "Consistencia": 54.91,
-      "Finish Rate": 37.61,
-      "Cardio/Durabilidad": 88.44,
-      "Presión": 44.72
-    },
-    "skill_composite": 58.12
-  },
-  {
     "fighter_id": "88be62d6c1e6dadb",
     "fighter_name": "Jose Ochoa",
     "division": "Flyweight",
@@ -405,21 +1350,6 @@
     "skill_composite": 51.68
   },
   {
-    "fighter_id": "48812daf291a4e23",
-    "fighter_name": "Mateus Mendonca",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 53.69,
-      "Grappling": 44.56,
-      "Defensa": 52.35,
-      "Consistencia": 47.18,
-      "Finish Rate": 38.54,
-      "Cardio/Durabilidad": 68.48,
-      "Presión": 45.84
-    },
-    "skill_composite": 50.26
-  },
-  {
     "fighter_id": "ba043b03eb799063",
     "fighter_name": "Phil Harris",
     "division": "Flyweight",
@@ -465,21 +1395,6 @@
     "skill_composite": 60.15
   },
   {
-    "fighter_id": "dee294e9717012c2",
-    "fighter_name": "Malcolm Gordon",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 52.46,
-      "Grappling": 51.21,
-      "Defensa": 40.62,
-      "Consistencia": 38.75,
-      "Finish Rate": 38.82,
-      "Cardio/Durabilidad": 70.14,
-      "Presión": 35.08
-    },
-    "skill_composite": 46.51
-  },
-  {
     "fighter_id": "0be6776db31d98ec",
     "fighter_name": "Mitch Raposo",
     "division": "Flyweight",
@@ -493,36 +1408,6 @@
       "Presión": 35.0
     },
     "skill_composite": 54.44
-  },
-  {
-    "fighter_id": "5ea918ea81b7dee2",
-    "fighter_name": "Yao Zhikui",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 40.96,
-      "Grappling": 31.88,
-      "Defensa": 41.97,
-      "Consistencia": 43.76,
-      "Finish Rate": 36.57,
-      "Cardio/Durabilidad": 73.6,
-      "Presión": 32.86
-    },
-    "skill_composite": 42.23
-  },
-  {
-    "fighter_id": "9fa568ad2bf2cb0b",
-    "fighter_name": "Justin Scoggins",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 69.34,
-      "Grappling": 56.55,
-      "Defensa": 63.77,
-      "Consistencia": 64.49,
-      "Finish Rate": 34.77,
-      "Cardio/Durabilidad": 84.85,
-      "Presión": 49.05
-    },
-    "skill_composite": 61.65
   },
   {
     "fighter_id": "a0f0004aadf10b71",
@@ -555,21 +1440,6 @@
     "skill_composite": 57.98
   },
   {
-    "fighter_id": "c268b2cfebccf652",
-    "fighter_name": "John Lineker",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 75.8,
-      "Grappling": 42.0,
-      "Defensa": 68.15,
-      "Consistencia": 52.94,
-      "Finish Rate": 61.54,
-      "Cardio/Durabilidad": 87.79,
-      "Presión": 39.15
-    },
-    "skill_composite": 61.88
-  },
-  {
     "fighter_id": "6e7c758f5cdec01a",
     "fighter_name": "Paddy Holohan",
     "division": "Flyweight",
@@ -583,21 +1453,6 @@
       "Presión": 57.91
     },
     "skill_composite": 61.78
-  },
-  {
-    "fighter_id": "2f43a3e82661fa99",
-    "fighter_name": "Rei Tsuruya",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 66.58,
-      "Grappling": 57.46,
-      "Defensa": 63.31,
-      "Consistencia": 48.46,
-      "Finish Rate": 53.76,
-      "Cardio/Durabilidad": 71.0,
-      "Presión": 59.04
-    },
-    "skill_composite": 60.25
   },
   {
     "fighter_id": "8d3273573b85be09",
@@ -615,36 +1470,6 @@
     "skill_composite": 66.49
   },
   {
-    "fighter_id": "b0f316c60f8d3b47",
-    "fighter_name": "Josh Ferguson",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 51.07,
-      "Grappling": 39.24,
-      "Defensa": 46.65,
-      "Consistencia": 57.27,
-      "Finish Rate": 41.24,
-      "Cardio/Durabilidad": 64.8,
-      "Presión": 43.72
-    },
-    "skill_composite": 49.0
-  },
-  {
-    "fighter_id": "d8c7c61b176e3994",
-    "fighter_name": "Cody Garbrandt",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 57.05,
-      "Grappling": 35.73,
-      "Defensa": 70.7,
-      "Consistencia": 47.29,
-      "Finish Rate": 45.76,
-      "Cardio/Durabilidad": 77.96,
-      "Presión": 22.75
-    },
-    "skill_composite": 52.65
-  },
-  {
     "fighter_id": "e8fe9c15d348e778",
     "fighter_name": "Daniel Barez",
     "division": "Flyweight",
@@ -658,51 +1483,6 @@
       "Presión": 39.85
     },
     "skill_composite": 53.05
-  },
-  {
-    "fighter_id": "edad57b3dddf2168",
-    "fighter_name": "Jared Papazian",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 56.34,
-      "Grappling": 31.59,
-      "Defensa": 41.84,
-      "Consistencia": 54.84,
-      "Finish Rate": 38.78,
-      "Cardio/Durabilidad": 69.12,
-      "Presión": 40.69
-    },
-    "skill_composite": 47.46
-  },
-  {
-    "fighter_id": "ab2b4ff41d6ebe0f",
-    "fighter_name": "Alex Perez",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 68.77,
-      "Grappling": 43.61,
-      "Defensa": 64.05,
-      "Consistencia": 45.43,
-      "Finish Rate": 47.06,
-      "Cardio/Durabilidad": 84.71,
-      "Presión": 39.38
-    },
-    "skill_composite": 57.04
-  },
-  {
-    "fighter_id": "b72a60a0cadff408",
-    "fighter_name": "Louis Gaudinot",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 53.73,
-      "Grappling": 35.29,
-      "Defensa": 50.47,
-      "Consistencia": 46.77,
-      "Finish Rate": 41.88,
-      "Cardio/Durabilidad": 77.01,
-      "Presión": 31.54
-    },
-    "skill_composite": 48.19
   },
   {
     "fighter_id": "c34e5849184b08c3",
@@ -720,21 +1500,6 @@
     "skill_composite": 49.83
   },
   {
-    "fighter_id": "83455a9d17f57dae",
-    "fighter_name": "Rafael Estevam",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 66.0,
-      "Grappling": 56.63,
-      "Defensa": 64.03,
-      "Consistencia": 52.9,
-      "Finish Rate": 40.24,
-      "Cardio/Durabilidad": 74.4,
-      "Presión": 65.65
-    },
-    "skill_composite": 60.46
-  },
-  {
     "fighter_id": "92437c6775b3f7d1",
     "fighter_name": "John Moraga",
     "division": "Flyweight",
@@ -750,21 +1515,6 @@
     "skill_composite": 54.43
   },
   {
-    "fighter_id": "65cdf4ec31143d86",
-    "fighter_name": "Vinicius Salvador",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 60.91,
-      "Grappling": 43.89,
-      "Defensa": 58.82,
-      "Consistencia": 57.27,
-      "Finish Rate": 41.72,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 44.58
-    },
-    "skill_composite": 54.55
-  },
-  {
     "fighter_id": "199eb7cf6ae90294",
     "fighter_name": "Naoki Inoue",
     "division": "Flyweight",
@@ -778,21 +1528,6 @@
       "Presión": 53.64
     },
     "skill_composite": 53.58
-  },
-  {
-    "fighter_id": "102a8fdf8cbf7467",
-    "fighter_name": "Kleydson Rodrigues",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 66.4,
-      "Grappling": 47.12,
-      "Defensa": 63.98,
-      "Consistencia": 61.15,
-      "Finish Rate": 56.32,
-      "Cardio/Durabilidad": 64.6,
-      "Presión": 44.72
-    },
-    "skill_composite": 58.88
   },
   {
     "fighter_id": "6ad8e4296f7522d9",
@@ -825,21 +1560,6 @@
     "skill_composite": 49.42
   },
   {
-    "fighter_id": "07a2bdaa0afdd831",
-    "fighter_name": "Rogerio Bontorin",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 60.9,
-      "Grappling": 58.95,
-      "Defensa": 62.11,
-      "Consistencia": 61.13,
-      "Finish Rate": 42.02,
-      "Cardio/Durabilidad": 75.95,
-      "Presión": 45.0
-    },
-    "skill_composite": 58.91
-  },
-  {
     "fighter_id": "e0d3d9b564f95635",
     "fighter_name": "Lucas Rocha",
     "division": "Flyweight",
@@ -855,21 +1575,6 @@
     "skill_composite": 54.37
   },
   {
-    "fighter_id": "c96d9178c9ed9e62",
-    "fighter_name": "Tim Elliott",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 83.74,
-      "Grappling": 56.67,
-      "Defensa": 52.87,
-      "Consistencia": 56.91,
-      "Finish Rate": 39.5,
-      "Cardio/Durabilidad": 93.39,
-      "Presión": 52.01
-    },
-    "skill_composite": 62.85
-  },
-  {
     "fighter_id": "296a120cb880477b",
     "fighter_name": "Kiru Sahota",
     "division": "Flyweight",
@@ -883,21 +1588,6 @@
       "Presión": 41.5
     },
     "skill_composite": 46.78
-  },
-  {
-    "fighter_id": "056c493bbd76a918",
-    "fighter_name": "Henry Cejudo",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 80.62,
-      "Grappling": 59.23,
-      "Defensa": 81.41,
-      "Consistencia": 66.11,
-      "Finish Rate": 53.68,
-      "Cardio/Durabilidad": 89.16,
-      "Presión": 45.11
-    },
-    "skill_composite": 70.0
   },
   {
     "fighter_id": "57887765f831e228",
@@ -945,21 +1635,6 @@
     "skill_composite": 45.43
   },
   {
-    "fighter_id": "6546af7ab545b90c",
-    "fighter_name": "Darren Uyenoyama",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 53.18,
-      "Grappling": 33.74,
-      "Defensa": 37.53,
-      "Consistencia": 54.7,
-      "Finish Rate": 45.83,
-      "Cardio/Durabilidad": 73.9,
-      "Presión": 37.43
-    },
-    "skill_composite": 47.12
-  },
-  {
     "fighter_id": "55fa6ce3e522c8bb",
     "fighter_name": "Zhalgas Zhumagulov",
     "division": "Flyweight",
@@ -973,21 +1648,6 @@
       "Presión": 44.54
     },
     "skill_composite": 59.95
-  },
-  {
-    "fighter_id": "de75d1c45a39e221",
-    "fighter_name": "Sergio Pettis",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 75.81,
-      "Grappling": 34.35,
-      "Defensa": 65.8,
-      "Consistencia": 59.97,
-      "Finish Rate": 30.06,
-      "Cardio/Durabilidad": 95.92,
-      "Presión": 37.31
-    },
-    "skill_composite": 58.8
   },
   {
     "fighter_id": "077e3ace32b72be9",
@@ -1095,36 +1755,6 @@
     "skill_composite": 60.46
   },
   {
-    "fighter_id": "84f727cf0166d6f2",
-    "fighter_name": "Jose Johnson",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 62.75,
-      "Grappling": 50.42,
-      "Defensa": 52.22,
-      "Consistencia": 55.1,
-      "Finish Rate": 45.77,
-      "Cardio/Durabilidad": 69.54,
-      "Presión": 40.54
-    },
-    "skill_composite": 54.41
-  },
-  {
-    "fighter_id": "c9587d81e1d33925",
-    "fighter_name": "Jerome Rivera",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 50.9,
-      "Grappling": 36.62,
-      "Defensa": 54.88,
-      "Consistencia": 43.74,
-      "Finish Rate": 38.58,
-      "Cardio/Durabilidad": 64.02,
-      "Presión": 36.7
-    },
-    "skill_composite": 47.14
-  },
-  {
     "fighter_id": "2bd98ab77a8daa75",
     "fighter_name": "Stewart Nicoll",
     "division": "Flyweight",
@@ -1185,21 +1815,6 @@
     "skill_composite": 48.35
   },
   {
-    "fighter_id": "7f6ed67d3ed3c036",
-    "fighter_name": "Cody Durden",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 61.59,
-      "Grappling": 46.11,
-      "Defensa": 59.26,
-      "Consistencia": 57.78,
-      "Finish Rate": 30.1,
-      "Cardio/Durabilidad": 83.35,
-      "Presión": 38.08
-    },
-    "skill_composite": 54.91
-  },
-  {
     "fighter_id": "6ded9184b2284645",
     "fighter_name": "Willie Gates",
     "division": "Flyweight",
@@ -1228,21 +1843,6 @@
       "Presión": 50.77
     },
     "skill_composite": 57.16
-  },
-  {
-    "fighter_id": "3cf18e01cb6cbde3",
-    "fighter_name": "Sumudaerji",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 80.1,
-      "Grappling": 42.56,
-      "Defensa": 68.78,
-      "Consistencia": 64.47,
-      "Finish Rate": 33.41,
-      "Cardio/Durabilidad": 90.97,
-      "Presión": 36.97
-    },
-    "skill_composite": 61.97
   },
   {
     "fighter_id": "c051c2e12d692b8a",
@@ -1320,66 +1920,6 @@
     "skill_composite": 59.36
   },
   {
-    "fighter_id": "f57dd0bfa8c17813",
-    "fighter_name": "Mark De La Rosa",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 54.04,
-      "Grappling": 40.72,
-      "Defensa": 48.71,
-      "Consistencia": 47.74,
-      "Finish Rate": 45.47,
-      "Cardio/Durabilidad": 70.16,
-      "Presión": 35.14
-    },
-    "skill_composite": 48.9
-  },
-  {
-    "fighter_id": "6d35bf94f7d30241",
-    "fighter_name": "Amir Albazi",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 58.89,
-      "Grappling": 48.31,
-      "Defensa": 66.95,
-      "Consistencia": 56.51,
-      "Finish Rate": 49.69,
-      "Cardio/Durabilidad": 87.23,
-      "Presión": 41.09
-    },
-    "skill_composite": 58.69
-  },
-  {
-    "fighter_id": "6e00cfffd54653c4",
-    "fighter_name": "Tyson Nam",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 57.6,
-      "Grappling": 34.7,
-      "Defensa": 72.62,
-      "Consistencia": 58.34,
-      "Finish Rate": 42.38,
-      "Cardio/Durabilidad": 80.72,
-      "Presión": 30.91
-    },
-    "skill_composite": 55.4
-  },
-  {
-    "fighter_id": "294aa73dbf37d281",
-    "fighter_name": "Bruno Silva",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 73.19,
-      "Grappling": 40.64,
-      "Defensa": 70.04,
-      "Consistencia": 64.17,
-      "Finish Rate": 51.24,
-      "Cardio/Durabilidad": 83.5,
-      "Presión": 34.91
-    },
-    "skill_composite": 61.33
-  },
-  {
     "fighter_id": "6e15f63b6c2e2c15",
     "fighter_name": "Brandon Royval",
     "division": "Flyweight",
@@ -1393,51 +1933,6 @@
       "Presión": 52.69
     },
     "skill_composite": 64.28
-  },
-  {
-    "fighter_id": "65adf3856c4d9256",
-    "fighter_name": "Jafel Filho",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 72.22,
-      "Grappling": 67.82,
-      "Defensa": 71.21,
-      "Consistencia": 47.32,
-      "Finish Rate": 65.71,
-      "Cardio/Durabilidad": 74.66,
-      "Presión": 56.51
-    },
-    "skill_composite": 65.64
-  },
-  {
-    "fighter_id": "2a4200ead401a9ce",
-    "fighter_name": "Carls John De Tomas",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 52.84,
-      "Grappling": 52.87,
-      "Defensa": 55.62,
-      "Consistencia": 48.98,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 45.38
-    },
-    "skill_composite": 52.05
-  },
-  {
-    "fighter_id": "60a42bf82447c919",
-    "fighter_name": "Jake Hadley",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 61.1,
-      "Grappling": 30.04,
-      "Defensa": 55.66,
-      "Consistencia": 58.72,
-      "Finish Rate": 51.36,
-      "Cardio/Durabilidad": 80.72,
-      "Presión": 38.43
-    },
-    "skill_composite": 53.72
   },
   {
     "fighter_id": "4461d7e47375a895",
@@ -1498,51 +1993,6 @@
       "Presión": 35.09
     },
     "skill_composite": 42.32
-  },
-  {
-    "fighter_id": "9eb069062a0cfc13",
-    "fighter_name": "Nolan Ticman",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 52.48,
-      "Grappling": 39.06,
-      "Defensa": 53.65,
-      "Consistencia": 56.96,
-      "Finish Rate": 41.72,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 39.81
-    },
-    "skill_composite": 50.58
-  },
-  {
-    "fighter_id": "8a304bfd6bf04a57",
-    "fighter_name": "Demetrious Johnson",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 95.32,
-      "Grappling": 68.77,
-      "Defensa": 65.4,
-      "Consistencia": 74.32,
-      "Finish Rate": 67.38,
-      "Cardio/Durabilidad": 97.56,
-      "Presión": 62.56
-    },
-    "skill_composite": 76.36
-  },
-  {
-    "fighter_id": "32ab52e5de93092d",
-    "fighter_name": "Steve Erceg",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 63.83,
-      "Grappling": 38.45,
-      "Defensa": 68.02,
-      "Consistencia": 51.26,
-      "Finish Rate": 36.28,
-      "Cardio/Durabilidad": 79.97,
-      "Presión": 36.0
-    },
-    "skill_composite": 55.05
   },
   {
     "fighter_id": "54578e5927adea53",
@@ -1620,21 +2070,6 @@
     "skill_composite": 55.46
   },
   {
-    "fighter_id": "a4de54ea806fb525",
-    "fighter_name": "Ray Borg",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 69.59,
-      "Grappling": 56.03,
-      "Defensa": 63.91,
-      "Consistencia": 53.04,
-      "Finish Rate": 38.62,
-      "Cardio/Durabilidad": 90.02,
-      "Presión": 53.7
-    },
-    "skill_composite": 61.29
-  },
-  {
     "fighter_id": "56c9acc4e86046a2",
     "fighter_name": "Chris Kelades",
     "division": "Flyweight",
@@ -1665,36 +2100,6 @@
     "skill_composite": 46.85
   },
   {
-    "fighter_id": "29162be25ebef5f0",
-    "fighter_name": "Luis Gurule",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 63.18,
-      "Grappling": 42.58,
-      "Defensa": 59.52,
-      "Consistencia": 56.82,
-      "Finish Rate": 36.86,
-      "Cardio/Durabilidad": 76.5,
-      "Presión": 50.02
-    },
-    "skill_composite": 55.79
-  },
-  {
-    "fighter_id": "a1b0715c4fd2dbd3",
-    "fighter_name": "Azamat Gashimov",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 46.8,
-      "Grappling": 50.83,
-      "Defensa": 57.38,
-      "Consistencia": 45.52,
-      "Finish Rate": 41.42,
-      "Cardio/Durabilidad": 56.82,
-      "Presión": 40.19
-    },
-    "skill_composite": 49.13
-  },
-  {
     "fighter_id": "5e9ca8dd7d783a75",
     "fighter_name": "Alden Coria",
     "division": "Flyweight",
@@ -1708,21 +2113,6 @@
       "Presión": 39.16
     },
     "skill_composite": 51.84
-  },
-  {
-    "fighter_id": "0fd5f4b838e890cc",
-    "fighter_name": "Said Nurmagomedov",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 60.0,
-      "Grappling": 48.0,
-      "Defensa": 58.53,
-      "Consistencia": 57.21,
-      "Finish Rate": 46.0,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 49.62
-    },
-    "skill_composite": 55.05
   },
   {
     "fighter_id": "75353550928a7921",
@@ -1740,36 +2130,6 @@
     "skill_composite": 63.32
   },
   {
-    "fighter_id": "5aedf14771ca82d2",
-    "fighter_name": "Wilson Reis",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 47.17,
-      "Grappling": 51.07,
-      "Defensa": 66.47,
-      "Consistencia": 46.98,
-      "Finish Rate": 34.59,
-      "Cardio/Durabilidad": 84.17,
-      "Presión": 36.92
-    },
-    "skill_composite": 53.0
-  },
-  {
-    "fighter_id": "215a70f073a7b726",
-    "fighter_name": "Jordan Espinosa",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 47.9,
-      "Grappling": 31.88,
-      "Defensa": 53.26,
-      "Consistencia": 52.91,
-      "Finish Rate": 34.78,
-      "Cardio/Durabilidad": 76.02,
-      "Presión": 25.02
-    },
-    "skill_composite": 46.53
-  },
-  {
     "fighter_id": "f00ac08ab056af5d",
     "fighter_name": "Tagir Ulanbekov",
     "division": "Flyweight",
@@ -1783,36 +2143,6 @@
       "Presión": 50.19
     },
     "skill_composite": 63.41
-  },
-  {
-    "fighter_id": "98aa60cf58071fd6",
-    "fighter_name": "Kyoji Horiguchi",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 80.86,
-      "Grappling": 45.94,
-      "Defensa": 70.05,
-      "Consistencia": 64.43,
-      "Finish Rate": 42.92,
-      "Cardio/Durabilidad": 89.14,
-      "Presión": 51.52
-    },
-    "skill_composite": 65.1
-  },
-  {
-    "fighter_id": "901cddcbfa079097",
-    "fighter_name": "Will Campuzano",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 55.31,
-      "Grappling": 38.33,
-      "Defensa": 46.94,
-      "Consistencia": 51.22,
-      "Finish Rate": 36.11,
-      "Cardio/Durabilidad": 77.47,
-      "Presión": 37.55
-    },
-    "skill_composite": 49.0
   },
   {
     "fighter_id": "5d1b7e3dd9e11074",
@@ -1845,51 +2175,6 @@
     "skill_composite": 57.66
   },
   {
-    "fighter_id": "8a9c6c4301f6d088",
-    "fighter_name": "Danny Martinez",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 56.0,
-      "Grappling": 45.7,
-      "Defensa": 43.51,
-      "Consistencia": 51.48,
-      "Finish Rate": 39.38,
-      "Cardio/Durabilidad": 74.4,
-      "Presión": 51.58
-    },
-    "skill_composite": 51.02
-  },
-  {
-    "fighter_id": "d2bc285ead803db0",
-    "fighter_name": "Louis Smolka",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 64.29,
-      "Grappling": 33.0,
-      "Defensa": 36.29,
-      "Consistencia": 56.33,
-      "Finish Rate": 43.54,
-      "Cardio/Durabilidad": 90.22,
-      "Presión": 39.71
-    },
-    "skill_composite": 50.86
-  },
-  {
-    "fighter_id": "aa72b0f831d0bfe5",
-    "fighter_name": "Deiveson Figueiredo",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 70.18,
-      "Grappling": 52.77,
-      "Defensa": 55.59,
-      "Consistencia": 61.9,
-      "Finish Rate": 51.3,
-      "Cardio/Durabilidad": 88.21,
-      "Presión": 31.58
-    },
-    "skill_composite": 59.46
-  },
-  {
     "fighter_id": "17e97649403ba428",
     "fighter_name": "Joshua Van",
     "division": "Flyweight",
@@ -1903,21 +2188,6 @@
       "Presión": 62.36
     },
     "skill_composite": 72.6
-  },
-  {
-    "fighter_id": "ec71a892fada28c7",
-    "fighter_name": "Marco Beltran",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 55.4,
-      "Grappling": 49.76,
-      "Defensa": 51.97,
-      "Consistencia": 53.79,
-      "Finish Rate": 44.19,
-      "Cardio/Durabilidad": 78.0,
-      "Presión": 33.65
-    },
-    "skill_composite": 52.59
   },
   {
     "fighter_id": "008ea710276c9606",
@@ -1950,51 +2220,6 @@
     "skill_composite": 46.7
   },
   {
-    "fighter_id": "d33da8a3d82bdb62",
-    "fighter_name": "Kai Asakura",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 53.73,
-      "Grappling": 37.9,
-      "Defensa": 46.48,
-      "Consistencia": 51.02,
-      "Finish Rate": 42.36,
-      "Cardio/Durabilidad": 59.64,
-      "Presión": 40.05
-    },
-    "skill_composite": 47.59
-  },
-  {
-    "fighter_id": "79cb2a690b9ba5e8",
-    "fighter_name": "Zarrukh Adashev",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 50.0,
-      "Grappling": 37.95,
-      "Defensa": 67.09,
-      "Consistencia": 54.74,
-      "Finish Rate": 36.44,
-      "Cardio/Durabilidad": 68.33,
-      "Presión": 30.59
-    },
-    "skill_composite": 50.86
-  },
-  {
-    "fighter_id": "e363b21261814830",
-    "fighter_name": "Marcos Vinicius",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 58.31,
-      "Grappling": 33.98,
-      "Defensa": 39.32,
-      "Consistencia": 51.18,
-      "Finish Rate": 52.5,
-      "Cardio/Durabilidad": 63.0,
-      "Presión": 39.53
-    },
-    "skill_composite": 47.8
-  },
-  {
     "fighter_id": "449c890bd90f3374",
     "fighter_name": "Hector Sandoval",
     "division": "Flyweight",
@@ -2008,21 +2233,6 @@
       "Presión": 39.23
     },
     "skill_composite": 49.45
-  },
-  {
-    "fighter_id": "0b64d0fed453ef7f",
-    "fighter_name": "Scott Jorgensen",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 59.08,
-      "Grappling": 40.42,
-      "Defensa": 60.68,
-      "Consistencia": 58.73,
-      "Finish Rate": 36.46,
-      "Cardio/Durabilidad": 79.05,
-      "Presión": 38.98
-    },
-    "skill_composite": 54.27
   },
   {
     "fighter_id": "a78f7a9135eb6249",
@@ -2085,21 +2295,6 @@
     "skill_composite": 52.14
   },
   {
-    "fighter_id": "c849740a3ff51931",
-    "fighter_name": "TJ Dillashaw",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 71.82,
-      "Grappling": 47.71,
-      "Defensa": 82.84,
-      "Consistencia": 55.43,
-      "Finish Rate": 62.51,
-      "Cardio/Durabilidad": 88.72,
-      "Presión": 46.93
-    },
-    "skill_composite": 66.22
-  },
-  {
     "fighter_id": "760a55d5b6098cbe",
     "fighter_name": "Carlos Candelario",
     "division": "Flyweight",
@@ -2113,36 +2308,6 @@
       "Presión": 44.97
     },
     "skill_composite": 52.99
-  },
-  {
-    "fighter_id": "0d0351c20169a499",
-    "fighter_name": "Jon Delos Reyes",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 52.84,
-      "Grappling": 61.54,
-      "Defensa": 53.58,
-      "Consistencia": 52.13,
-      "Finish Rate": 47.91,
-      "Cardio/Durabilidad": 65.29,
-      "Presión": 40.74
-    },
-    "skill_composite": 53.73
-  },
-  {
-    "fighter_id": "3a524c6700addc24",
-    "fighter_name": "Tateki Matsuda",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 55.24,
-      "Grappling": 33.19,
-      "Defensa": 38.95,
-      "Consistencia": 51.18,
-      "Finish Rate": 41.72,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 42.79
-    },
-    "skill_composite": 46.74
   },
   {
     "fighter_id": "31bb0772f21cabd8",
@@ -2160,51 +2325,6 @@
     "skill_composite": 51.65
   },
   {
-    "fighter_id": "7c3c48cf54a2848e",
-    "fighter_name": "Yuta Sasaki",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 62.15,
-      "Grappling": 50.04,
-      "Defensa": 58.96,
-      "Consistencia": 47.13,
-      "Finish Rate": 56.4,
-      "Cardio/Durabilidad": 77.01,
-      "Presión": 36.88
-    },
-    "skill_composite": 55.83
-  },
-  {
-    "fighter_id": "f6e5972c9d16c40e",
-    "fighter_name": "Victor Rodriguez",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 40.02,
-      "Grappling": 41.99,
-      "Defensa": 57.35,
-      "Consistencia": 36.9,
-      "Finish Rate": 41.18,
-      "Cardio/Durabilidad": 54.68,
-      "Presión": 35.89
-    },
-    "skill_composite": 44.48
-  },
-  {
-    "fighter_id": "7d420039bbfe7c1a",
-    "fighter_name": "Aoriqileng",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 61.66,
-      "Grappling": 52.65,
-      "Defensa": 53.78,
-      "Consistencia": 59.46,
-      "Finish Rate": 41.72,
-      "Cardio/Durabilidad": 68.0,
-      "Presión": 48.76
-    },
-    "skill_composite": 55.75
-  },
-  {
     "fighter_id": "51c655162e462ceb",
     "fighter_name": "Shannon Ross",
     "division": "Flyweight",
@@ -2218,51 +2338,6 @@
       "Presión": 32.95
     },
     "skill_composite": 46.98
-  },
-  {
-    "fighter_id": "67c1d46f4ed16f9e",
-    "fighter_name": "Matt Schnell",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 60.47,
-      "Grappling": 40.47,
-      "Defensa": 55.38,
-      "Consistencia": 57.09,
-      "Finish Rate": 37.02,
-      "Cardio/Durabilidad": 77.85,
-      "Presión": 30.97
-    },
-    "skill_composite": 52.39
-  },
-  {
-    "fighter_id": "6d68c1afe954f121",
-    "fighter_name": "Ode Osbourne",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 56.53,
-      "Grappling": 27.42,
-      "Defensa": 56.7,
-      "Consistencia": 45.16,
-      "Finish Rate": 46.72,
-      "Cardio/Durabilidad": 82.43,
-      "Presión": 21.0
-    },
-    "skill_composite": 48.55
-  },
-  {
-    "fighter_id": "1a31ef98efce7a79",
-    "fighter_name": "Matheus Nicolau",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 61.72,
-      "Grappling": 46.6,
-      "Defensa": 76.67,
-      "Consistencia": 57.93,
-      "Finish Rate": 38.3,
-      "Cardio/Durabilidad": 83.98,
-      "Presión": 26.95
-    },
-    "skill_composite": 58.28
   },
   {
     "fighter_id": "7f1bf0c255ec8756",
@@ -2295,36 +2370,6 @@
     "skill_composite": 62.44
   },
   {
-    "fighter_id": "32be4b7f7de1c905",
-    "fighter_name": "Chico Camus",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 66.0,
-      "Grappling": 40.08,
-      "Defensa": 60.61,
-      "Consistencia": 59.34,
-      "Finish Rate": 31.53,
-      "Cardio/Durabilidad": 90.16,
-      "Presión": 38.01
-    },
-    "skill_composite": 56.2
-  },
-  {
-    "fighter_id": "8bb6f4479685bbcc",
-    "fighter_name": "Vaughan Lee",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 74.15,
-      "Grappling": 28.69,
-      "Defensa": 60.94,
-      "Consistencia": 60.71,
-      "Finish Rate": 35.08,
-      "Cardio/Durabilidad": 80.08,
-      "Presión": 37.39
-    },
-    "skill_composite": 55.68
-  },
-  {
     "fighter_id": "49a74b9fb2e45fdf",
     "fighter_name": "Neil Seery",
     "division": "Flyweight",
@@ -2338,51 +2383,6 @@
       "Presión": 37.84
     },
     "skill_composite": 50.78
-  },
-  {
-    "fighter_id": "80eacd4da0617c57",
-    "fighter_name": "Joseph Benavidez",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 74.52,
-      "Grappling": 28.03,
-      "Defensa": 49.55,
-      "Consistencia": 56.29,
-      "Finish Rate": 43.09,
-      "Cardio/Durabilidad": 88.47,
-      "Presión": 38.98
-    },
-    "skill_composite": 54.52
-  },
-  {
-    "fighter_id": "b12fc8a41e82d3a2",
-    "fighter_name": "Joby Sanchez",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 51.66,
-      "Grappling": 35.45,
-      "Defensa": 39.63,
-      "Consistencia": 38.57,
-      "Finish Rate": 36.57,
-      "Cardio/Durabilidad": 68.2,
-      "Presión": 33.44
-    },
-    "skill_composite": 43.18
-  },
-  {
-    "fighter_id": "20999e27ddd94bda",
-    "fighter_name": "Ryan Benoit",
-    "division": "Flyweight",
-    "skill_score": {
-      "Striking": 56.7,
-      "Grappling": 39.39,
-      "Defensa": 67.48,
-      "Consistencia": 51.84,
-      "Finish Rate": 44.28,
-      "Cardio/Durabilidad": 88.03,
-      "Presión": 26.7
-    },
-    "skill_composite": 54.42
   },
   {
     "fighter_id": "1e35aa8955794580",

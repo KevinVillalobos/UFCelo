@@ -134,3 +134,9 @@ def _loop() -> None:
 
 def start_background_refresh() -> None:
     threading.Thread(target=_loop, name="ufc-rankings-refresh", daemon=True).start()
+
+
+if __name__ == "__main__":
+    # python -m backend.ufc_rankings  -> one-off sync of ufc_rankings.json + champions.json
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+    raise SystemExit(0 if refresh() else 1)

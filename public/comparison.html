@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     Plotly.newPlot('prob-bar', [
       { type:'bar', orientation:'h', x:[pa*100], y:[faName], marker:{color:COLOR_A}, text:[`${(pa*100).toFixed(1)}%`], textposition:'inside', textfont:{color:'#fff',size:14}, name:faName },
       { type:'bar', orientation:'h', x:[pb*100], y:[fbName], marker:{color:COLOR_B}, text:[`${(pb*100).toFixed(1)}%`], textposition:'inside', textfont:{color:'#fff',size:14}, name:fbName },
-    ], { ...PLOTLY_LAYOUT, barmode:'stack', height:110, xaxis:{range:[0,100],showticklabels:false,showgrid:false}, yaxis:{showgrid:false,tickfont:{size:13}}, margin:{l:10,r:10,t:8,b:8}, showlegend:false },
+    ], { ...PLOTLY_LAYOUT, barmode:'stack', height:110, xaxis:{range:[0,100],showticklabels:false,showgrid:false}, yaxis:{automargin:true,showgrid:false,tickfont:{size:13}}, margin:{l:10,r:10,t:8,b:8}, showlegend:false },
     { displayModeBar:false, responsive:true });
   }
 
@@ -351,7 +351,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="card">
           <div style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:${COLOR_A};">${faName}</div>
           <div style="color:var(--muted);font-size:0.8rem;">ELO</div>
-          <div style="font-size:1.3rem;font-weight:700;color:var(--red);">${eloA ? eloA.toFixed(1) : '—'}</div>
+          <div style="font-size:1.3rem;font-weight:700;color:var(--red-text);">${eloA ? eloA.toFixed(1) : '—'}</div>
           <div style="margin-top:0.5rem;color:var(--muted);font-size:0.8rem;">Win probability</div>
           <div style="font-size:1.3rem;font-weight:700;color:${COLOR_A};">${(pred.probability_a*100).toFixed(1)}%</div>
           <div style="margin-top:0.5rem;color:var(--muted);font-size:0.8rem;">Skill composite</div>
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="card">
           <div style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:${COLOR_B};">${fbName}</div>
           <div style="color:var(--muted);font-size:0.8rem;">ELO</div>
-          <div style="font-size:1.3rem;font-weight:700;color:var(--red);">${eloB ? eloB.toFixed(1) : '—'}</div>
+          <div style="font-size:1.3rem;font-weight:700;color:var(--red-text);">${eloB ? eloB.toFixed(1) : '—'}</div>
           <div style="margin-top:0.5rem;color:var(--muted);font-size:0.8rem;">Win probability</div>
           <div style="font-size:1.3rem;font-weight:700;color:${COLOR_B};">${(pred.probability_b*100).toFixed(1)}%</div>
           <div style="margin-top:0.5rem;color:var(--muted);font-size:0.8rem;">Skill composite</div>
@@ -445,7 +445,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <div><span style="color:${COLOR_B};font-size:0.8rem;">${fbName}</span><br><strong style="color:${COLOR_B};font-size:1.4rem;">${fsB.sub_attempts_per_fight!=null?fsB.sub_attempts_per_fight.toFixed(2):'—'}</strong></div>
           </div></div>
       </div>`;
-    const bl = t => ({ ...PLOTLY_LAYOUT, barmode:'group', height:200, title:{text:t,font:{color:'#F0F2F6',size:12}}, xaxis:{showgrid:false,showticklabels:false}, yaxis:{showgrid:false}, legend:{orientation:'h',y:-0.18,x:0.5,xanchor:'center',font:{size:10},bgcolor:'rgba(0,0,0,0)'}, margin:{l:10,r:65,t:40,b:30} });
+    const bl = t => ({ ...PLOTLY_LAYOUT, barmode:'group', height:200, title:{text:t,font:{color:'#F0F2F6',size:12}}, xaxis:{showgrid:false,showticklabels:false}, yaxis:{automargin:true,showgrid:false}, legend:{orientation:'h',y:-0.18,x:0.5,xanchor:'center',font:{size:10},bgcolor:'rgba(0,0,0,0)'}, margin:{l:10,r:65,t:40,b:30} });
     const methods = ['KO/TKO','SUB','DEC'];
     const twA = Math.max(Object.values(fsA.wins||{}).reduce((a,b)=>a+b,0),1);
     const twB = Math.max(Object.values(fsB.wins||{}).reduce((a,b)=>a+b,0),1);
@@ -458,7 +458,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         name:n, y:[faName,fbName], x:[(fsA[k]??0)*100,(fsB[k]??0)*100], type:'bar', orientation:'h', marker:{color:c},
         text:[`${((fsA[k]??0)*100).toFixed(0)}%`,`${((fsB[k]??0)*100).toFixed(0)}%`], textposition:'outside', textfont:{size:11},
       })),
-      { ...bl('Strike target (%)'), xaxis:{range:[0,100],showticklabels:false,showgrid:false}, yaxis:{showgrid:false}, margin:{l:10,r:55,t:40,b:30} },
+      { ...bl('Strike target (%)'), xaxis:{range:[0,100],showticklabels:false,showgrid:false}, yaxis:{automargin:true,showgrid:false}, margin:{l:10,r:55,t:40,b:30} },
       { displayModeBar:false, responsive:true }
     );
     const sm = [
@@ -476,7 +476,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       Plotly.newPlot(id, [
         { name:faName, y:metrics.map(m=>m.label), x:metrics.map(m=>m.vA), type:'bar', orientation:'h', marker:{color:COLOR_A}, text:metrics.map(m=>m.fmt(m.vA)), textposition:'outside', textfont:{size:11} },
         { name:fbName, y:metrics.map(m=>m.label), x:metrics.map(m=>m.vB), type:'bar', orientation:'h', marker:{color:COLOR_B}, text:metrics.map(m=>m.fmt(m.vB)), textposition:'outside', textfont:{size:11} },
-      ], { ...bl(title), xaxis:{showgrid:false,showticklabels:false}, yaxis:{showgrid:false} }, { displayModeBar:false, responsive:true });
+      ], { ...bl(title), xaxis:{showgrid:false,showticklabels:false}, yaxis:{automargin:true,showgrid:false} }, { displayModeBar:false, responsive:true });
     }
   }
 
@@ -577,7 +577,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <div><div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;">${wName} ELO</div>
               <div style="font-size:1.15rem;font-weight:700;">${sc.elo_winner_after} <span style="color:var(--green);font-size:0.85rem;">${sc.delta_winner}</span></div></div>
             <div><div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;">${lName} ELO</div>
-              <div style="font-size:1.15rem;font-weight:700;">${sc.elo_loser_after} <span style="color:var(--red);font-size:0.85rem;">${sc.delta_loser}</span></div></div>
+              <div style="font-size:1.15rem;font-weight:700;">${sc.elo_loser_after} <span style="color:var(--red-text);font-size:0.85rem;">${sc.delta_loser}</span></div></div>
           </div>
           <div style="font-size:0.78rem;color:var(--muted);line-height:1.7;">Win prob: <strong>${(exp*100).toFixed(1)}%</strong> &middot; K win: <strong>${sc.k_winner.toFixed(1)}</strong> &middot; K lose: <strong>${sc.k_loser.toFixed(1)}</strong> &middot; Method wt: <strong>${sc.fight_weight.toFixed(3)}</strong>${clmNote}</div>
           ${note ? `<div style="margin-top:0.5rem;font-size:0.8rem;color:var(--muted);font-style:italic;">${note}</div>` : ''}
@@ -657,7 +657,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             container.insertAdjacentHTML('beforeend', `<div class="chart-box"><div id="${divId}" style="height:200px;"></div></div>`);
             const sortedRounds = Object.keys(rndData).sort((a,b)=>+a-+b);
             Plotly.newPlot(divId, [{ x:sortedRounds.map(r=>'R'+r), y:sortedRounds.map(r=>rndData[r]*100), type:'bar', marker:{color:method==='KO/TKO'?COLOR_A:'#44AA88'}, text:sortedRounds.map(r=>`${(rndData[r]*100).toFixed(0)}%`), textposition:'auto' }],
-              { ...PLOTLY_LAYOUT, height:180, title:{text:method,font:{color:'#F0F2F6',size:12}}, yaxis:{showgrid:false,showticklabels:false}, xaxis:{showgrid:false}, margin:{l:10,r:10,t:40,b:30} }, { displayModeBar:false, responsive:true });
+              { ...PLOTLY_LAYOUT, height:180, title:{text:method,font:{color:'#F0F2F6',size:12}}, yaxis:{automargin:true,showgrid:false,showticklabels:false}, xaxis:{showgrid:false}, margin:{l:10,r:10,t:40,b:30} }, { displayModeBar:false, responsive:true });
           });
         }
       } catch(e) {

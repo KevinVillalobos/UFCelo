@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="card">
           <div style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:${COLOR_A};">${faName}</div>
           <div style="color:var(--muted);font-size:0.8rem;">ELO</div>
-          <div style="font-size:1.3rem;font-weight:700;color:var(--red);">${eloA ? eloA.toFixed(1) : '—'}</div>
+          <div style="font-size:1.3rem;font-weight:700;color:var(--red-text);">${eloA ? eloA.toFixed(1) : '—'}</div>
           <div style="margin-top:0.5rem;color:var(--muted);font-size:0.8rem;">Win probability</div>
           <div style="font-size:1.3rem;font-weight:700;color:${COLOR_A};">${(pred.probability_a*100).toFixed(1)}%</div>
           <div style="margin-top:0.5rem;color:var(--muted);font-size:0.8rem;">Skill composite</div>
@@ -417,7 +417,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="card">
           <div style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:${COLOR_B};">${fbName}</div>
           <div style="color:var(--muted);font-size:0.8rem;">ELO</div>
-          <div style="font-size:1.3rem;font-weight:700;color:var(--red);">${eloB ? eloB.toFixed(1) : '—'}</div>
+          <div style="font-size:1.3rem;font-weight:700;color:var(--red-text);">${eloB ? eloB.toFixed(1) : '—'}</div>
           <div style="margin-top:0.5rem;color:var(--muted);font-size:0.8rem;">Win probability</div>
           <div style="font-size:1.3rem;font-weight:700;color:${COLOR_B};">${(pred.probability_b*100).toFixed(1)}%</div>
           <div style="margin-top:0.5rem;color:var(--muted);font-size:0.8rem;">Skill composite</div>
@@ -783,7 +783,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;">${loserName} ELO</div>
                 <div style="font-size:1.15rem;font-weight:700;">
                   ${sc.elo_loser_after}
-                  <span style="color:var(--red);font-size:0.85rem;">${sc.delta_loser}</span>
+                  <span style="color:var(--red-text);font-size:0.85rem;">${sc.delta_loser}</span>
                 </div>
               </div>
             </div>

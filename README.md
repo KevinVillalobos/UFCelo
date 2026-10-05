@@ -21,8 +21,12 @@ Independent ELO-based ranking and prediction system for all 8 UFC men's division
 11. [Data Schemas](#data-schemas)
 12. [Validation Results](#validation-results)
 13. [Champion System](#champion-system)
-14. [Cross-Division Deduplication](#cross-division-deduplication)
-15. [Updating the Data](#updating-the-data)
+14. [One ELO per Fighter](#one-elo-per-fighter)
+15. [Official UFC Rankings](#official-ufc-rankings)
+16. [Docker (local & self-hosted)](#docker-local--self-hosted)
+17. [Design System, Search & Navigation](#design-system-search--navigation)
+18. [Recent Changes](#recent-changes)
+19. [Updating the Data](#updating-the-data)
 
 ---
 
@@ -40,8 +44,8 @@ data/fighters_{division}.json       ← fighter profiles (bio, record, physique)
      │
      ▼
 models/elo_engine.py
-     │  (per division)
-     ├─► data/rankings_{division}.json          ← active ELO rankings
+     │  (ONE pass over all 8 divisions, chronological → one ELO per fighter)
+     ├─► data/rankings_{division}.json          ← active ELO rankings (fighter listed in their current division)
      ├─► data/rankings_{division}_alltime.json  ← all-time by peak ELO
      ├─► data/elo_histories_{division}.json     ← per-fight ELO history + K breakdown
      ├─► data/skill_scores_{division}.json      ← current 7D skill scores
@@ -53,7 +57,8 @@ models/validate.py
      │
      ▼
 backend/                              ← FastAPI application
-  main.py          ← REST API endpoints + visit counter (Vercel KV)
+  main.py          ← REST API endpoints + visit counter (Vercel KV / local file)
+  ufc_rankings.py  ← official UFC top 15 + champions, synced from ufc.com every 6 h
   data_loader.py   ← JSON/CSV file access layer
   services.py      ← rankings, prediction, simulation, matchmaking, per-fight stats
   stats.py         ← career aggregate fight statistics (strikes, TDs, control)
@@ -64,14 +69,16 @@ api/index.py                          ← Vercel serverless entrypoint (ASGI wra
      │
      ▼
 public/                               ← Static HTML/CSS/JS frontend
-  index.html        ← Home: division cards + quick predictor
-  rankings.html     ← Full ELO table per division
+  index.html        ← Home: division cards (top 15) + ELO vs official UFC comparison
+  rankings.html     ← Full ELO table per division + official UFC top 15 view
   fighter.html      ← Fighter profile: ELO history, stats, skill breakdown, per-fight stats
   comparison.html   ← Head-to-head comparison + ELO simulator + Monte Carlo simulation
   matchmaking.html  ← Best matchups by competitiveness + style contrast
   p4p.html          ← Pound-for-pound rankings (current + historical)
-  app.js            ← Shared nav (with mobile hamburger), API helpers, visit counter
-  style.css         ← Global dark theme + fully responsive CSS
+  app.js            ← Shared nav, global fighter search (Fuse.js), trend badges, API helpers, visit counter
+  style.css         ← Design tokens + dark theme + fully responsive CSS
+nginx.conf / nginx/Dockerfile          ← Static hosting + /api proxy for the Docker deployment
+docker-compose.yml / Dockerfile        ← backend + nginx containers
 ```
 
 ---
@@ -84,8 +91,8 @@ public/                               ← Static HTML/CSS/JS frontend
 | Data | Python stdlib (`csv`, `json`) |
 | ELO Engine | Pure Python (no ML frameworks) |
 | Backend | `FastAPI`, `Pydantic v2`, `uvicorn` |
-| Frontend | Vanilla JS + HTML/CSS, `Plotly.js` |
-| Hosting | Vercel (serverless + static) |
+| Frontend | Vanilla JS + HTML/CSS, `Plotly.js`, `Fuse.js` (search), Bebas Neue + Inter (Google Fonts) |
+| Hosting | Docker (nginx + FastAPI) or Vercel (serverless + static) |
 | Visit counter | Vercel KV (Upstash Redis) |
 
 No relational database. All ranking/history state lives in flat JSON/CSV files committed to the repo.
@@ -97,27 +104,31 @@ No relational database. All ranking/history state lives in flat JSON/CSV files c
 ### Install dependencies
 
 ```bash
-pip install fastapi uvicorn python-dateutil requests beautifulsoup4
+pip install -r requirements.txt
 ```
 
-### Run the full pipeline (per division)
+### Run the full pipeline
 
 ```bash
-# 1. Scrape
+# 1. Scrape every division (incremental: uses data/scrape_checkpoint.json)
 python scraper/scraper.py --division heavyweight --output data
 python scraper/scraper.py --division "light heavyweight" --output data
 # ... (all 8 divisions)
 
-# 2. Run ELO engine
-python models/elo_engine.py --division heavyweight --output data
-# ... (all 8 divisions)
+# 2. ELO + skill scores for ALL divisions in one pass (one ELO per fighter)
+python models/elo_engine.py --output data
 
-# 3. Validate (optional)
+# 3. Official UFC top 15 + champions (ufc.com)
+python -m backend.ufc_rankings
+
+# 4. Validate (optional)
 python -m models.validate --division heavyweight
 
-# 4. Run backend locally
+# 5. Run backend locally
 uvicorn backend.main:app --reload
 ```
+
+Steps 1–3 for every division are bundled in `python scraper/run_all.py` (see [Updating the Data](#updating-the-data)).
 
 Scraper logs: `data/scrape_{division}.log` / `data/scrape_{division}_err.log`.
 
@@ -211,9 +222,9 @@ Detected from the individual fight detail page via CSS selector `.b-fight-detail
 ## ELO Engine
 
 **File:** `models/elo_engine.py`
-**Run:** `python models/elo_engine.py --division <div> --output data`
+**Run:** `python models/elo_engine.py --output data`
 
-The engine processes all fights in chronological order and maintains a live ELO rating per fighter. Core formula:
+The engine reads the fight CSVs of **all 8 divisions**, merges them (deduplicated by `fight_id`), sorts them chronologically and maintains **one live ELO rating per fighter**. A fighter's rating follows them across weight classes (see [One ELO per Fighter](#one-elo-per-fighter)). The `--division` flag is obsolete and ignored. Core formula:
 
 ```
 new_elo = old_elo + K × W × (S - E)
@@ -340,16 +351,6 @@ Floor: 0.70.
 | > 80% of scheduled time | 0.90 | 0.85 |
 | 30–80% | 1.00 | 1.00 |
 
-#### 7. Division Change Penalty (`D_division`)
-
-When a fighter competes in a new division, their effective ELO for win probability calculation is discounted:
-
-```python
-effective_elo = raw_elo - (raw_elo - 1500) * 0.15
-```
-
-Stored ELO is unchanged; this only adjusts the expected score for that fight.
-
 ### Peak ELO Degradation Penalty
 
 If a fighter is on a loss streak ≤ -3 AND their current ELO has fallen below 85% of their career peak:
@@ -410,7 +411,7 @@ This powers the per-fight expandable K-factor breakdown in the Fighter Profile p
 
 ### Engine Output
 
-Per division, 5 JSON files:
+The engine computes everything once, then writes the same 5 JSON files **per division** (each fighter appears in the division of their most recent fight; histories are split by the division each fight was fought in):
 
 - **`rankings_{division}.json`** — active fighters (fought within 2 years), sorted by displayed ELO
 - **`rankings_{division}_alltime.json`** — all fighters ever, sorted by peak ELO
@@ -543,6 +544,8 @@ Report breaks accuracy down by ELO difference band (clear favorite / competitive
 
 Output: `data/validation_report_{division}.json` + Unicode box display to stdout.
 
+> `validate.py` still runs one division at a time and initialises ELO from the fighter career record, which includes results from after the test window, so its figures are optimistic. A leak-free comparison over all divisions (80/20 chronological, no record initialisation) gave **53.2%** with one unified ELO vs **52.2%** with per-division ELOs (54.1% vs 52.0% when both fighters have 3+ prior fights).
+
 ---
 
 ## Backend API
@@ -566,8 +569,11 @@ All endpoints are prefixed `/api/` in production (e.g., `/api/rankings/heavyweig
 | `GET` | `/simulator-data` | Raw K-factor state for both fighters (for frontend ELO simulator) |
 | `GET` | `/simulate` | Monte Carlo simulation (`?fighter_a=&fighter_b=&simulations=1000`) |
 | `PATCH` | `/fighter/{fighter_id}/retire` | Toggle retired status |
-| `GET` | `/visits` | Get global visit count |
-| `POST` | `/visits` | Increment and return global visit count (atomic via Vercel KV) |
+| `GET` | `/ufc-rankings` | Official UFC top 15 for every division (+ `updated_at`) |
+| `GET` | `/ufc-rankings/{division}` | Official champion + top 15 for one division |
+| `GET` | `/fighter/{fighter_id}/tags` | Career tags (Iron Chin, Glass Jaw, ...), computed over the whole career |
+| `GET` | `/visits` | Get global visit count (read-only) |
+| `POST` | `/visits` | Increment and return global visit count. **Only the Home page calls this.** |
 
 ### `backend/data_loader.py`
 
@@ -669,13 +675,13 @@ The `head_pct`, `body_pct`, `leg_pct` fields power the SVG body heatmap in the F
 
 ### Visit Counter
 
-The global visit counter uses Vercel KV (Upstash Redis) when the `KV_REST_API_URL` and `KV_REST_API_TOKEN` environment variables are set. Falls back to a local file for development. The `POST /visits` endpoint uses an atomic `INCR` so concurrent requests don't cause race conditions.
+Only landing on **Home** counts as a visit (`public/app.js` sends `POST` on Home and `GET` everywhere else; the Docker healthcheck also uses `GET`). The global visit counter uses Vercel KV (Upstash Redis) when the `KV_REST_API_URL` and `KV_REST_API_TOKEN` environment variables are set. Falls back to a local file for development. The `POST /visits` endpoint uses an atomic `INCR` so concurrent requests don't cause race conditions.
 
 ### `backend/schemas.py`
 
 Pydantic v2 models define the exact shape of every API response. Key models:
 
-- **`RankingEntry`** — `fighter_id`, `fighter_name`, `elo`, `peak_elo`, `peak_elo_date`, `peak_elo_opponent`, `record`, `fight_count`, `last_fight_date`, `streak`, `is_champion`
+- **`RankingEntry`** — `fighter_id`, `fighter_name`, `elo`, `peak_elo`, `peak_elo_date`, `peak_elo_opponent`, `record`, `fight_count`, `last_fight_date`, `streak`, `is_champion`, `ufc_rank` (official UFC rank: `0` = champion, `1–15`, or `null`)
 - **`FighterProfile`** — full profile including `elo_history`, `skill_score`, `fight_stats` (career aggregate), physical attributes (`height_inches`, `reach_inches`, `weight_lbs`)
 - **`EloHistoryPoint`** — `date`, `opponent_name`, `result`, `elo`, `elo_change`, `method`, `round`, `is_title_fight`, `event`, `breakdown`, **`fight_stats` (per-fight `PerFightStats`)**
 - **`EloBreakdown`** — all 18 K-factor fields
@@ -691,27 +697,30 @@ Pydantic v2 models define the exact shape of every API response. Key models:
 ## Frontend Pages
 
 The frontend is plain HTML/CSS/JS with no framework. All pages share:
-- `app.js` — navbar injection (with mobile hamburger toggle), API helpers, visit counter
-- `style.css` — global dark theme, fully responsive
+- `app.js` — navbar injection (mobile hamburger, global search), trend badges, API helpers, visit counter
+- `style.css` — design tokens, dark theme, fully responsive
 - `Plotly.js` (CDN) — all charts
 
 ### Home (`index.html`)
 
-- Grid of 8 division cards showing top 15 fighters per division (ELO, streak badge, champion crown)
-- Global visit counter displayed in nav and on page (backed by Vercel KV)
-- Quick predictor: select division + two fighters → live horizontal probability bar + predicted method
+- Grid of 8 division cards (top 15 each). Cards use the display font, an accent underline, a gold **#1**, a lighter band for the top 5 and a separator before #6
+- Streak shown as an arrow icon + number + letter (`▲ 5W`, `▼ 3L`) with a keyboard-focusable tooltip; meaning never depends on colour alone
+- **UFC Official Rankings vs ELO**: pick a division and see our ELO top 15 next to the official UFC top 15, each name tagged with where the other ranking places the fighter
+- Global visit counter (counts Home visits only)
 - Expandable ELO explanation section
 
 ### Rankings (`rankings.html`)
 
-- Full division ELO table: Rank, Fighter, ELO, Peak ELO, Peak Opponent, Record, Fights, Last Fight, Streak
-- Active / All-Time toggle:
+- Full division ELO table: Rank, **UFC** (official UFC rank), Fighter, ELO, Peak ELO, Peak Opponent, Record, Fights, Last Fight, Streak
+- Active / All-Time / **UFC Top 15** toggle:
+  - **UFC Top 15**: the official ufc.com champion + top 15 for the division (synced automatically)
   - **Active** — fighters who have competed within 2 years, sorted by current ELO
   - **All-Time** — every fighter who ever competed in the division, sorted by peak ELO
 - Division stats sidebar: mean ELO, median, std dev, spread
 
 ### Fighter Profile (`fighter.html`)
 
+- Deep links: `/peleador/<slug>?id=<fighter_id>` (served by nginx as `fighter.html`) preselects division and fighter; reached from the global search
 - Fighter selector with division picker
 - **Active / Retired toggle** — when "Show retired" is on, loads the alltime endpoint (316+ fighters including retired legends) and marks retired fighters with a RETIRED badge
 - Current ELO, peak ELO, career record, division rank, current streak
@@ -902,16 +911,27 @@ The counter is globally shared across all users, persists indefinitely, and uses
 
 ### `champions.json`
 
+Auto-generated from ufc.com (do not edit by hand). An empty `fighter_id` means the champion is not in our fighter data.
+
 ```json
 {
-  "heavyweight":       { "fighter_id": "...", "fighter_name": "Tom Aspinall" },
-  "lightweight":       { "fighter_id": "...", "fighter_name": "Islam Makhachev" },
-  "welterweight":      { "fighter_id": "...", "fighter_name": "Jack Della Maddalena" },
-  "featherweight":     { "fighter_id": "...", "fighter_name": "Ilia Topuria" },
-  "middleweight":      { "fighter_id": "...", "fighter_name": "Dricus du Plessis" },
-  "flyweight":         { "fighter_id": "...", "fighter_name": "Alexandre Pantoja" },
-  "light heavyweight": { "fighter_id": "...", "fighter_name": "Aleksandar Rakic" },
-  "bantamweight":      { "fighter_id": "...", "fighter_name": "Merab Dvalishvili" }
+  "_comment": "Auto-synced from ufc.com/rankings by backend/ufc_rankings.py. Do not edit by hand.",
+  "heavyweight": { "fighter_id": "...", "fighter_name": "..." },
+  "light heavyweight": { "fighter_id": "...", "fighter_name": "..." }
+}
+```
+
+### `ufc_rankings.json`
+
+```json
+{
+  "updated_at": "2026-10-05T00:41:14+00:00",
+  "divisions": {
+    "heavyweight": {
+      "champion": { "rank": 0, "fighter_name": "...", "fighter_id": "..." },
+      "ranked":   [ { "rank": 1, "fighter_name": "...", "fighter_id": "..." } ]
+    }
+  }
 }
 ```
 
@@ -940,26 +960,79 @@ The "accuracy drops when filtering to ≥3 fights" pattern is expected — debut
 
 ## Champion System
 
-Champions are stored in `data/champions.json` (manually maintained). The champion is always displayed at rank #1 regardless of their numerical ELO. This decouples belt ownership from the algorithmic ranking.
+Champions are stored in `data/champions.json` and are **synced automatically from ufc.com/rankings** (see [Official UFC Rankings](#official-ufc-rankings)). Do not edit the file by hand: it is overwritten on every sync. The champion is always displayed at rank #1 regardless of their numerical ELO. This decouples belt ownership from the algorithmic ranking.
 
-When a belt changes hands:
-
-1. Find the new champion's `fighter_id` in `data/rankings_{division}.json`
-2. Update **both** `fighter_id` and `fighter_name` in `data/champions.json`
-3. Redeploy (or run the backend locally and reload)
+When a belt changes hands nothing needs to be done: the next sync (backend start, then every 6 hours, or `python -m backend.ufc_rankings`) picks up the new champion. A champion whose name is not found in our fighter data gets an empty `fighter_id` and is simply not pinned.
 
 ---
 
-## Cross-Division Deduplication
+## One ELO per Fighter
 
-A fighter who has competed in multiple divisions appears in **only one division** — the one where their current ELO is highest. Champions are always locked to their designated division.
+The rating belongs to the **fighter**, not to a division. Earlier versions ran the engine once per division and only copied a fighter's exit ELO when they first entered a new division. Fighters who moved back and forth (e.g. McGregor: featherweight, welterweight, lightweight, welterweight) ended up with parallel, diverging ratings: his 2026 loss to Holloway started from a welterweight rating (1856) that never saw his lightweight losses (1742).
 
-**ELO carry-over:** A fighter moving to a new division uses their best ELO across all prior divisions as their displayed rating, preventing an artificially deflated ranking due to few fights at the new weight.
+Now:
 
-Implementation in `build_ranking_response`:
-1. Build `{fighter_id: (max_elo, primary_division)}` by scanning all 8 division files.
-2. For each division, filter out fighters whose primary division is elsewhere.
-3. Inject the fighter's max ELO into the displayed record.
+1. `load_all_fights()` reads all 8 `fights_{division}.csv`, dedupes by `fight_id` and sorts chronologically.
+2. A single `EloEngine` pass rates every fight. Each fight still uses its own division K multiplier (`_DIVISION_K_MULT`), taken from the fight record `division`.
+3. Each fighter's **current division** is the division of their most recent fight. Rankings are written per division containing only the fighters currently there; `elo_histories_{division}.json` and `skill_*_{division}.json` contain only the fights fought in that division (the backend merges them for profiles).
+4. `skill_scores.json` is also written with one global entry per fighter.
+
+The old post-processing scripts are no longer part of the pipeline (`models/unify_rankings.py`, `models/merge_skill_scores.py`; kept for reference).
+
+**Career tags** (`models/tag_engine.py`) follow the same principle: they aggregate the whole career across divisions. Only the comparison percentiles (e.g. *Octopus*) stay per division. This fixed, for example, Alex Pereira being tagged *Iron Chin* despite two KO losses (MW and HW).
+
+---
+
+## Official UFC Rankings
+
+`backend/ufc_rankings.py` reads the official rankings from `https://www.ufc.com/rankings`:
+
+- Divisions are taken **by position** (the page always lists P4P first, then men's flyweight to heavyweight) because ufc.com localises the division headings by IP.
+- Names are matched to our fighter IDs (accent and punctuation insensitive) using the rankings and fighters files.
+- Writes `data/ufc_rankings.json` (`{updated_at, divisions: {division: {champion, ranked[15]}}}`) and rewrites `data/champions.json`.
+- Runs on backend startup and every 6 hours in a background thread. If the request fails or the page layout changes, the previous files are kept. On a read-only filesystem (Vercel) it cannot persist, so commit the files instead.
+- One-off sync: `python -m backend.ufc_rankings`
+
+`ufc_rank` is added to every ranking entry returned by `/rankings/{division}` (`0` = champion, `1–15`, `null` = unranked).
+
+---
+
+## Docker (local & self-hosted)
+
+```bash
+docker compose up --build -d      # http://localhost
+docker compose logs -f backend    # backend logs (UFC sync, errors)
+docker compose down
+```
+
+- **backend**: FastAPI (`uvicorn`). `./data` is mounted as a volume, so regenerated data files are served immediately without rebuilding. Healthcheck on `GET /visits`.
+- **nginx**: built from `nginx/Dockerfile` (copies `public/` and `nginx.conf` into the image). Serves the static site, proxies `/api/` to the backend, routes `/peleador/<slug>` to `fighter.html`, gzips text assets. JS/CSS/HTML are served `no-cache` (revalidated on every load, same filenames across deploys); images and fonts are cached 7 days.
+- Code changes in `backend/`, `models/`, `public/` or `nginx.conf` need `docker compose up --build -d`. Data-only changes do not.
+- Optional visit counter in Redis: copy `.env.example` to `.env` and fill `KV_REST_API_URL` / `KV_REST_API_TOKEN`; otherwise it falls back to `data/visits.json`.
+
+---
+
+## Design System, Search & Navigation
+
+**Tokens** (CSS variables in `public/style.css`): background `#0a0a0a`, card `#141414`, hover `#1e1e1e`, accent red `#d20a0a` (fills) and `#ff5a52` (red text, 4.5:1 or better), up `#22c55e`, down `#ef4444`, gold `#fbbf24` (#1), text `#f5f5f5` / `#a3a3a3`. Spacing scale 4/8/12/16/24/32/48. Fonts: **Bebas Neue** for display (titles, divisions) and **Inter** for data; tabular numerals on ELO, ranks and tables.
+
+**Applied site-wide:** headings with a red accent underline, tables (dark header, gold #1 row, lighter top 5, hover), metric cards, custom select chevron, segmented toggles, dark scrollbar, consistent alerts and Plotly font.
+
+**Global search** (navbar, press `/` to focus): fuzzy match with Fuse.js over a fighter index built from existing API endpoints (active rankings by default; **Include retired** loads the all-time rankings). Accent-insensitive, ARIA combobox with arrow-key, Enter and Esc navigation, collapses to an icon on mobile. Results show name, division badge, record and ELO and link to `/peleador/<slug>?id=<fighter_id>`. There are no fighter photos yet (the data has none).
+
+**Streak indicator:** arrow icon + count + W/L (`▲ 5W`), never colour alone; tooltip like *Racha: 5 victorias seguidas*. Rank movement ("puestos movidos") is not implemented: it needs the previous ranking stored by the backend.
+
+---
+
+## Recent Changes
+
+- **One ELO per fighter** across all divisions (unified engine, `--division` obsolete). McGregor pre-Holloway rating went from 1856 / 1742 (two parallel histories) to a continuous 1799.
+- **Career-wide tags**: the tag engine uses every division fights (fixes false *Iron Chin*).
+- **Official UFC rankings and champions** auto-synced from ufc.com; `ufc_rank` column in rankings; **UFC Top 15** view; ELO-vs-UFC comparison on Home.
+- **Visit counter** counts only Home visits.
+- **UI/UX**: design system applied everywhere, global fuzzy search, trend badges, division-card hierarchy, deep links `/peleador/<slug>`, chart axis labels no longer clipped.
+- **Docker**: nginx image with the static site, healthchecks, gzip and correct cache headers; backend dependencies (`requests`, `beautifulsoup4`, `lxml`) added to `requirements.txt`.
+- `scraper/run_all.py` now does: scrape 8 divisions, unified ELO, UFC rankings sync.
 
 ---
 
@@ -977,24 +1050,43 @@ Retired fighters are excluded from active rankings and matchmaking. The Fighter 
 
 ## Updating the Data
 
-To refresh a single division after new UFC events:
+### Everything, one command
 
 ```bash
-# Re-scrape (adds new fights)
+python scraper/run_all.py
+```
+
+It runs, in order: the incremental scraper for the 8 divisions (`data/scrape_checkpoint.json` skips events already scraped), the unified ELO + skill engine, and the official UFC rankings/champions sync. It takes a while because of the scraping.
+
+Then, depending on how you deploy:
+
+```bash
+# Docker: data/ is a mounted volume, so the new files are served right away.
+# Rebuild only if you also changed code (backend/, models/, public/, nginx.conf):
+docker compose up --build -d
+
+# Vercel: commit the regenerated data and push (auto-deploys)
+git add data/ && git commit -m "Update data" && git push
+```
+
+### Pieces, when you only need one
+
+```bash
+# Re-scrape one division (adds new fights)
 python scraper/scraper.py --division heavyweight --output data
 
-# Re-run ELO engine
-python models/elo_engine.py --division heavyweight --output data
+# Force a full scrape of a division, ignoring the checkpoint
+python scraper/scraper.py --division heavyweight --output data --deep
+
+# Re-fetch fight stats for existing records (title fight fix, method correction)
+python scraper/scraper.py --division heavyweight --output data --refresh-stats
+
+# Recompute ELO + skills for all divisions (after any scrape or engine change)
+python models/elo_engine.py --output data
+
+# Re-sync official UFC rankings + champions
+python -m backend.ufc_rankings
 
 # Validate (optional)
 python -m models.validate --division heavyweight
-
-# Commit and push — Vercel auto-deploys
-git add data/ && git commit -m "Update heavyweight data" && git push
-```
-
-To update only fight stats for existing records (title fight fix, method correction):
-
-```bash
-python scraper/scraper.py --division heavyweight --output data --refresh-stats
 ```

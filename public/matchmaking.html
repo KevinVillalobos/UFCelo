@@ -118,8 +118,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         <td style="color:var(--muted);width:36px;">${i+1}</td>
         <td><strong>${m.fighter_a_name ?? '—'}</strong></td>
         <td><strong>${m.fighter_b_name ?? '—'}</strong></td>
-        <td style="color:var(--red);font-weight:700;">${m.elo_a ? m.elo_a.toFixed(0) : '—'}</td>
-        <td style="color:var(--red);font-weight:700;">${m.elo_b ? m.elo_b.toFixed(0) : '—'}</td>
+        <td style="color:var(--red-text);font-weight:700;">${m.elo_a ? m.elo_a.toFixed(0) : '—'}</td>
+        <td style="color:var(--red-text);font-weight:700;">${m.elo_b ? m.elo_b.toFixed(0) : '—'}</td>
         <td style="color:var(--muted);">${eloDiff.toFixed(0)}</td>
         <td style="min-width:90px;">
           <div style="font-size:0.78rem;font-weight:700;">${compPct}%</div>
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }], {
       ...PLOTLY_LAYOUT, height:120,
       xaxis:{range:[0,100],showticklabels:false,showgrid:false},
-      yaxis:{showgrid:false},
+      yaxis:{automargin:true,showgrid:false},
       margin:{l:10,r:10,t:10,b:10},
     }, {displayModeBar:false,responsive:true});
 

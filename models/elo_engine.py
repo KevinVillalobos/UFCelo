@@ -80,6 +80,7 @@ class FightRecord:
     is_title_fight: bool
     fighter_a_stats: Optional[FightStats] = None
     fighter_b_stats: Optional[FightStats] = None
+    division: str = ""  # division of the CSV the fight came from; drives the K multiplier
 
 
 @dataclass
@@ -176,8 +177,9 @@ class EloEngine:
             streak_a = self._streak_multiplier(streaks[fight.fighter_a_id])
             streak_b = self._streak_multiplier(streaks[fight.fighter_b_id])
 
-            k_var_a = self._variable_k(fight_counts[fight.fighter_a_id])
-            k_var_b = self._variable_k(fight_counts[fight.fighter_b_id])
+            fight_div = (fight.division or self.division).lower()
+            k_var_a = self._variable_k(fight_counts[fight.fighter_a_id], fight_div)
+            k_var_b = self._variable_k(fight_counts[fight.fighter_b_id], fight_div)
 
             # Rematch multiplier
             pair_key = frozenset([fight.fighter_a_id, fight.fighter_b_id])
@@ -312,7 +314,7 @@ class EloEngine:
             result_b = "Win" if score_b == 1.0 else "Loss" if score_b == 0.0 else "Draw"
 
             # ── Per-fight ELO breakdown ───────────────────────────────────────
-            div_m = _DIVISION_K_MULT.get(self.division, 0.90)
+            div_m = _DIVISION_K_MULT.get(fight_div, 0.90)
             breakdown_a: Dict[str, Any] = {
                 "elo_before":      round(elo_a, 2),
                 "elo_after":       round(new_a, 2),
@@ -525,14 +527,14 @@ class EloEngine:
             return current_streak - 1 if current_streak <= 0 else -1
         return 0
 
-    def _variable_k(self, fight_count: int) -> float:
+    def _variable_k(self, fight_count: int, division: Optional[str] = None) -> float:
         if fight_count < 5:
             base = 2.0
         elif fight_count < 15:
             base = 1.0
         else:
             base = 0.625
-        return base * _DIVISION_K_MULT.get(self.division, 0.90)
+        return base * _DIVISION_K_MULT.get(division or self.division, 0.90)
 
     def _time_pct_mult(self, fight: "FightRecord", score: float) -> float:
         try:
@@ -813,7 +815,7 @@ def parse_event_date(value: str) -> Optional[datetime]:
     return None
 
 
-def read_fights(csv_path: Path) -> List[FightRecord]:
+def read_fights(csv_path: Path, division: str = "") -> List[FightRecord]:
     fights: List[FightRecord] = []
     with csv_path.open("r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -881,6 +883,7 @@ def read_fights(csv_path: Path) -> List[FightRecord]:
                 is_title_fight=row.get("is_title_fight", "False").strip().lower() == "true",
                 fighter_a_stats=fighter_a_stats,
                 fighter_b_stats=fighter_b_stats,
+                division=division.lower(),
             ))
     fights.sort(key=lambda item: item.event_date)
     return fights
@@ -930,180 +933,122 @@ def write_json(path: Path, data: object) -> None:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def _load_prior_division_elos(
-    current_division: str,
-    fights: List[FightRecord],
-    output_dir: Path,
-) -> Dict[str, float]:
-    """For fighters who competed in another division before this one,
-    return their exit ELO from that division as their starting point here.
+def _slug(division: str) -> str:
+    return division.lower().replace(" ", "_")
 
-    Only uses fights from the other division that occurred BEFORE the
-    fighter's first appearance in the current division.
-    """
-    current_slug = current_division.lower().replace(" ", "_")
 
-    # Earliest fight date per fighter in the current division
-    earliest_here: Dict[str, datetime] = {}
+def load_all_fights(data_dir: Path) -> List[FightRecord]:
+    """Every fight from every division CSV, deduped by fight_id, in chronological order."""
+    fights: List[FightRecord] = []
+    seen: set = set()
+    for division in _DIVISIONS_ALL:
+        path = data_dir / f"fights_{_slug(division)}.csv"
+        if not path.exists():
+            log.warning("[%s] no existe %s — se omite.", division, path)
+            continue
+        for fight in read_fights(path, division=division):
+            if fight.fight_id and fight.fight_id in seen:
+                continue
+            seen.add(fight.fight_id)
+            fights.append(fight)
+    fights.sort(key=lambda item: item.event_date)  # stable: keeps CSV order within a date
+    return fights
+
+
+def load_all_fighters(data_dir: Path) -> Dict[str, Dict[str, Optional[str]]]:
+    fighters: Dict[str, Dict[str, Optional[str]]] = {}
+    for division in _DIVISIONS_ALL:
+        path = data_dir / f"fighters_{_slug(division)}.json"
+        for fid, info in load_fighters(path, division=division).items():
+            fighters.setdefault(fid, info)
+    return fighters
+
+
+def current_divisions(fights: List[FightRecord]) -> Dict[str, str]:
+    """fighter_id -> division of their most recent fight (fights must be chronological)."""
+    current: Dict[str, str] = {}
     for fight in fights:
         for fid in (fight.fighter_a_id, fight.fighter_b_id):
-            if fid not in earliest_here or fight.event_date < earliest_here[fid]:
-                earliest_here[fid] = fight.event_date
-
-    prior_elos: Dict[str, float] = {}
-    for other_div in _DIVISIONS_ALL:
-        other_slug = other_div.replace(" ", "_")
-        if other_slug == current_slug:
-            continue
-        hist_path = output_dir / f"elo_histories_{other_slug}.json"
-        if not hist_path.exists():
-            continue
-        try:
-            with hist_path.open("r", encoding="utf-8") as f:
-                histories = json.load(f)
-        except Exception:
-            continue
-
-        for fid, hist in histories.items():
-            if not hist or fid not in earliest_here:
-                continue
-            cutoff = earliest_here[fid].strftime("%Y-%m-%d")
-            prior_fights = [h for h in hist if h.get("date", "") < cutoff]
-            if not prior_fights:
-                continue
-            last_prior = max(prior_fights, key=lambda h: h.get("date", ""))
-            prior_elo = float(last_prior["elo"])
-            # Keep the highest prior ELO if multiple divisions qualify
-            if fid not in prior_elos or prior_elo > prior_elos[fid]:
-                prior_elos[fid] = prior_elo
-
-    if prior_elos:
-        log.info("[%s] Cross-division ELO carry-over: %d fighters", current_division, len(prior_elos))
-    return prior_elos
-
-
-def _load_prior_division_skills(
-    current_division: str,
-    fights: List[FightRecord],
-    output_dir: Path,
-) -> Dict[str, Dict[str, float]]:
-    """For fighters entering this division from another, return their final skill
-    scores from their previous division as the starting point for EMA here.
-    Same logic as ELO carry-over: skills belong to the FIGHTER, not the division.
-    """
-    current_slug = current_division.lower().replace(" ", "_")
-
-    earliest_here: Dict[str, datetime] = {}
-    for fight in fights:
-        for fid in (fight.fighter_a_id, fight.fighter_b_id):
-            if fid not in earliest_here or fight.event_date < earliest_here[fid]:
-                earliest_here[fid] = fight.event_date
-
-    prior_skills: Dict[str, Dict[str, float]] = {}
-    for other_div in _DIVISIONS_ALL:
-        other_slug = other_div.replace(" ", "_")
-        if other_slug == current_slug:
-            continue
-        hist_path = output_dir / f"skill_histories_{other_slug}.json"
-        if not hist_path.exists():
-            continue
-        try:
-            with hist_path.open("r", encoding="utf-8") as f:
-                skill_histories = json.load(f)
-        except Exception:
-            continue
-
-        for fid, hist in skill_histories.items():
-            if not hist or fid not in earliest_here or fid in prior_skills:
-                continue
-            cutoff = earliest_here[fid].strftime("%Y-%m-%d")
-            prior_entries = [h for h in hist if h.get("date", "") < cutoff]
-            if not prior_entries:
-                continue
-            last_prior = max(prior_entries, key=lambda h: h.get("date", ""))
-            skill = last_prior.get("skill_score")
-            if skill:
-                prior_skills[fid] = skill
-
-    if prior_skills:
-        log.info("[%s] Skill score carry-over: %d fighters", current_division, len(prior_skills))
-    return prior_skills
+            current[fid] = fight.division
+    return current
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Elo engine para UFC")
-    parser.add_argument("--division", default="heavyweight",
-                        help="División a procesar (ej: heavyweight, lightweight)")
-    parser.add_argument("--fights", default=None,
-                        help="Ruta al CSV de peleas (default: data/fights_{division}.csv)")
-    parser.add_argument("--fighters", default=None,
-                        help="Ruta al JSON de peleadores (default: data/fighters_{division}.json)")
-    parser.add_argument("--output", default="data", help="Directorio de salida")
+    parser = argparse.ArgumentParser(
+        description="Elo engine para UFC: un solo ELO por peleador con todas las divisiones en orden cronologico."
+    )
+    parser.add_argument("--division", default=None,
+                        help="OBSOLETO: se ignora. El ELO es del peleador, no de la division.")
+    parser.add_argument("--output", default="data", help="Directorio de datos (entrada y salida)")
     parser.add_argument("--debug", action="store_true",
                         help="Imprime cálculo detallado de cada pelea a stdout")
     args = parser.parse_args()
+    if args.division:
+        log.warning("--division ya no aplica: se procesan todas las divisiones juntas.")
 
-    division_slug = args.division.lower().replace(" ", "_")
-    if args.fights is None:
-        args.fights = f"data/fights_{division_slug}.csv"
-    if args.fighters is None:
-        fighters_path_candidate = Path(f"data/fighters_{division_slug}.json")
-        # Fall back to global fighters.json if the division file is missing or empty
-        if fighters_path_candidate.exists() and fighters_path_candidate.stat().st_size > 4:
-            args.fighters = str(fighters_path_candidate)
-        else:
-            args.fighters = "data/fighters.json"
+    data_dir = Path(args.output)
+    data_dir.mkdir(parents=True, exist_ok=True)
 
-    fights_path = Path(args.fights)
-    fighters_path = Path(args.fighters)
-    output_dir = Path(args.output)
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    fights = read_fights(fights_path)
-    fighters = load_fighters(fighters_path, division=args.division)
-
+    fights = load_all_fights(data_dir)
     if not fights:
         log.error("No se encontraron peleas para procesar.")
         return
-    if not fighters:
-        log.warning("[%s] fighters JSON vacío — se usarán nombres del CSV.", args.division)
+    participants = {fid for f in fights for fid in (f.fighter_a_id, f.fighter_b_id)}
+    fighters = {fid: info for fid, info in load_all_fighters(data_dir).items() if fid in participants}
 
-    # Load cross-division carry-overs for fighters who moved divisions
-    prior_elos = _load_prior_division_elos(args.division, fights, output_dir)
-    prior_skills = _load_prior_division_skills(args.division, fights, output_dir)
+    current_div = current_divisions(fights)
+    for fid, info in fighters.items():
+        info["division"] = current_div[fid].title()
 
-    elo_engine = EloEngine(division=args.division, prior_elos=prior_elos, debug=args.debug)
-    skill_engine = SkillScoreEngine()
+    ranking, elo_histories = EloEngine(debug=args.debug).process(fights, fighters)
+    skill_scores, skill_histories = SkillScoreEngine().process(fights, fighters)
 
-    ranking, elo_histories = elo_engine.process(fights, fighters)
-    skill_scores, skill_histories = skill_engine.process(fights, fighters, prior_skills=prior_skills)
-
-    # All-time ranking: same data re-sorted by peak_elo instead of current elo
-    alltime_ranking = sorted(ranking, key=lambda x: x["peak_elo"], reverse=True)
-    for i, entry in enumerate(alltime_ranking, 1):
-        entry["alltime_rank"] = i
-
-    retired_path = output_dir / "retired_overrides.json"
+    retired_path = data_dir / "retired_overrides.json"
     retired_overrides: Dict[str, bool] = {}
     if retired_path.exists():
         with retired_path.open("r", encoding="utf-8") as _f:
             retired_overrides = json.load(_f)
 
-    active_ranking = [
-        entry for entry in ranking
-        if entry.get("active") and not retired_overrides.get(str(entry["fighter_id"]), False)
-    ]
-    write_json(output_dir / f"rankings_{division_slug}.json", active_ranking)
-    write_json(output_dir / f"rankings_{division_slug}_alltime.json", alltime_ranking)
-    write_json(output_dir / f"elo_histories_{division_slug}.json", elo_histories)
-    write_json(output_dir / f"skill_scores_{division_slug}.json", skill_scores)
-    write_json(output_dir / f"skill_histories_{division_slug}.json", skill_histories)
+    fight_division = {f.fight_id: f.division for f in fights}
+    for division in _DIVISIONS_ALL:
+        slug = _slug(division)
+        here = [e for e in ranking if current_div.get(str(e["fighter_id"])) == division]
 
-    log.info(
-        "[%s] Generados %s rankings activos (%s all-time, %s total), %s historiales Elo, %s skill scores, %s skill historiales.",
-        args.division, len(active_ranking), len(alltime_ranking), len(ranking),
-        len(elo_histories), len(skill_scores), len(skill_histories),
-    )
+        active_ranking = [
+            e for e in here
+            if e.get("active") and not retired_overrides.get(str(e["fighter_id"]), False)
+        ]
+        for i, entry in enumerate(active_ranking, 1):
+            entry["rank"] = i
+        alltime_ranking = sorted(here, key=lambda x: x["peak_elo"], reverse=True)
+        for i, entry in enumerate(alltime_ranking, 1):
+            entry["alltime_rank"] = i
+
+        def _split(histories):
+            return {
+                fid: [h for h in hist if fight_division.get(h["fight_id"]) == division]
+                for fid, hist in histories.items()
+                if any(fight_division.get(h["fight_id"]) == division for h in hist)
+            }
+
+        div_elo_histories = _split(elo_histories)
+        div_skill_histories = _split(skill_histories)
+        div_skill_scores = [s for s in skill_scores if s["fighter_id"] in div_skill_histories]
+
+        write_json(data_dir / f"rankings_{slug}.json", active_ranking)
+        write_json(data_dir / f"rankings_{slug}_alltime.json", alltime_ranking)
+        write_json(data_dir / f"elo_histories_{slug}.json", div_elo_histories)
+        write_json(data_dir / f"skill_scores_{slug}.json", div_skill_scores)
+        write_json(data_dir / f"skill_histories_{slug}.json", div_skill_histories)
+        log.info(
+            "[%s] %d rankings activos, %d all-time, %d historiales Elo",
+            division, len(active_ranking), len(alltime_ranking), len(div_elo_histories),
+        )
+
+    for entry in skill_scores:
+        entry["division"] = current_div.get(entry["fighter_id"], "unknown").title()
+    write_json(data_dir / "skill_scores.json", skill_scores)
+    log.info("ELO unificado: %d peleas, %d peleadores.", len(fights), len(fighters))
 
 
 if __name__ == "__main__":

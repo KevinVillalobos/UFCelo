@@ -27,23 +27,16 @@
   </div>
 
   <hr class="divider">
-  <h2 style="margin-bottom:1rem;">Quick Prediction</h2>
+  <h2 style="margin-bottom:0.25rem;">UFC Official Rankings vs ELO</h2>
+  <p style="color:var(--muted);font-size:0.85rem;margin-bottom:1rem;">Official UFC top 15 (ufc.com) next to our ELO top 15. The small number beside each name is where the other ranking places that fighter.</p>
   <div class="form-row">
-    <div class="form-group">
+    <div class="form-group" style="max-width:280px;">
       <label>Division</label>
-      <select id="pred-div"></select>
-    </div>
-    <div class="form-group">
-      <label>Fighter A</label>
-      <select id="pred-fa"></select>
-    </div>
-    <div class="form-group">
-      <label>Fighter B</label>
-      <select id="pred-fb"></select>
+      <select id="cmp-div"></select>
     </div>
   </div>
-  <div id="pred-chart"></div>
-  <div id="pred-result"></div>
+  <div id="cmp-wrap" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:1rem;"></div>
+  <p id="cmp-note" style="color:var(--muted);font-size:0.75rem;"></p>
 
   <hr class="divider">
   <details style="margin-bottom:2rem;">
@@ -79,7 +72,6 @@
   </details>
 </main>
 
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="/app.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
@@ -95,77 +87,81 @@ document.addEventListener('DOMContentLoaded', async () => {
     const top = rankings.slice(0, 15);
     const rows = top.map((f, i) => {
       const champ = f.is_champion ? champBadge() : '';
-      const streak = streakBadge(f.streak || 0);
-      return `<div class="fighter-row">
+      const cls = ['fighter-row', i < 5 ? 'is-top5' : '', i === 0 ? 'is-first' : ''].filter(Boolean).join(' ');
+      // separator between the top 5 and the rest
+      const sep = i === 5 ? '<div class="row-sep" role="separator"></div>' : '';
+      return `${sep}<div class="${cls}">
         <span class="rank">${i + 1}</span>
-        <span class="name">${champ}${f.fighter_name} ${streak}</span>
+        <span class="name">${champ}${escapeHtml(f.fighter_name)}</span>
+        ${streakBadge(f.streak || 0, { tip: true })}
         <span class="elo">${f.elo.toFixed(0)}</span>
       </div>`;
     }).join('');
     const more = rankings.length > 15 ? `<div style="color:var(--muted);font-size:0.75rem;margin-top:0.4rem;">+${rankings.length - 15} more</div>` : '';
+    const [divName, divLbs] = DIV_LABELS[div].split(/ (?=\d+ lbs$)/);
     grid.insertAdjacentHTML('beforeend', `
       <div class="div-card">
-        <div class="div-card-title">${DIV_LABELS[div]}</div>
+        <h3 class="div-card-title"><span>${divName}</span><small>${divLbs || ''}</small></h3>
         ${rows}${more}
       </div>`);
   });
 
-  // ── Quick predictor ──────────────────────────────────────────────────────
-  let rankingsCache = {};
-  const divSel = document.getElementById('pred-div');
-  const faSel  = document.getElementById('pred-fa');
-  const fbSel  = document.getElementById('pred-fb');
-  populateDivSelect(divSel);
+  // ── ELO vs official UFC comparison ───────────────────────────────────────
+  const eloByDiv = {};
+  results.forEach(res => { if (res.status === 'fulfilled') eloByDiv[res.value.div] = res.value.rankings; });
+  const cmpSel = document.getElementById('cmp-div');
+  populateDivSelect(cmpSel);
 
-  async function loadDivFighters() {
-    const div = divSel.value;
-    if (!rankingsCache[div]) rankingsCache[div] = await apiFetch(`/rankings/${divSlug(div)}`);
-    populateFighterSelect(faSel, rankingsCache[div]);
-    populateFighterSelect(fbSel, rankingsCache[div]);
-    if (fbSel.options.length > 1) fbSel.selectedIndex = 1;
-    await runPrediction();
+  function badge(text, title) {
+    return `<span title="${title}" style="color:var(--muted);font-size:0.7rem;margin-left:0.35rem;">${text}</span>`;
   }
 
-  async function runPrediction() {
-    const fa = faSel.value, fb = fbSel.value, div = divSel.value;
-    if (!fa || !fb || fa === fb) {
-      document.getElementById('pred-chart').innerHTML = '';
-      document.getElementById('pred-result').innerHTML = '';
+  async function renderComparison() {
+    const div = cmpSel.value;
+    const wrap = document.getElementById('cmp-wrap');
+    const elo = eloByDiv[div] || [];
+    let ufc;
+    try {
+      ufc = await apiFetch(`/ufc-rankings/${divSlug(div)}`);
+    } catch (e) {
+      wrap.innerHTML = '<div class="alert-error">Official UFC rankings unavailable.</div>';
       return;
     }
-    try {
-      const pred = await apiFetch(`/predict?fighter_a=${fa}&fighter_b=${fb}&division=${divSlug(div)}`);
-      const pa = pred.probability_a, pb = pred.probability_b;
-      const faName = faSel.options[faSel.selectedIndex].text.replace(/ \(\d+\)$/, '');
-      const fbName = fbSel.options[fbSel.selectedIndex].text.replace(/ \(\d+\)$/, '');
-      Plotly.react('pred-chart', [{
-        x: [pa * 100, pb * 100],
-        y: [faName, fbName],
-        type: 'bar', orientation: 'h',
-        marker: { color: [pa >= pb ? '#E8281E' : '#555', pb > pa ? '#E8281E' : '#555'] },
-        text: [`${(pa*100).toFixed(1)}%`, `${(pb*100).toFixed(1)}%`],
-        textposition: 'inside', textfont: { color: '#fff', size: 13 },
-      }], {
-        ...PLOTLY_LAYOUT,
-        height: 120,
-        xaxis: { range: [0,100], showticklabels: false, showgrid: false },
-        yaxis: { showgrid: false },
-        margin: { l: 0, r: 0, t: 10, b: 0 },
-      }, { displayModeBar: false, responsive: true });
-      const winner = pa >= pb ? faName : fbName;
-      const prob   = Math.max(pa, pb);
-      const method = pred.method_prediction || '—';
-      document.getElementById('pred-result').innerHTML =
-        `<div class="alert-success"><strong>${winner}</strong> wins with <strong>${(prob*100).toFixed(1)}%</strong> probability — predicted method: ${method}</div>`;
-    } catch(e) {
-      document.getElementById('pred-result').innerHTML = `<div class="alert-error">Prediction unavailable.</div>`;
-    }
+    const eloRank = new Map(elo.map((f, i) => [f.fighter_id, i + 1]));
+    const ufcRank = new Map([ufc.champion, ...ufc.ranked].filter(e => e.fighter_id).map(e => [e.fighter_id, e.rank]));
+    const ufcLabel = r => (r === 0 ? 'C' : `#${r}`);
+
+    const eloRows = elo.slice(0, 15).map((f, i) => {
+      const u = ufcRank.get(f.fighter_id);
+      const tag = u === undefined ? badge('UFC —', 'Not in the official UFC top 15') : badge(`UFC ${ufcLabel(u)}`, 'Official UFC rank');
+      return `<div class="fighter-row">
+        <span class="rank">${i + 1}</span>
+        <span class="name">${f.is_champion ? champBadge() : ''}${f.fighter_name}${tag}</span>
+        <span class="elo">${f.elo.toFixed(0)}</span>
+      </div>`;
+    }).join('');
+
+    const eloById = new Map(elo.map(f => [f.fighter_id, f]));
+    const ufcRows = [ufc.champion, ...ufc.ranked].map(e => {
+      const r = eloRank.get(e.fighter_id);
+      const tag = r === undefined ? badge('ELO —', 'Not ranked by ELO in this division') : badge(`ELO #${r}`, 'Our ELO rank');
+      const f = eloById.get(e.fighter_id);
+      return `<div class="fighter-row">
+        <span class="rank">${e.rank === 0 ? 'C' : e.rank}</span>
+        <span class="name">${e.fighter_name}${tag}</span>
+        <span class="elo">${f ? f.elo.toFixed(0) : '—'}</span>
+      </div>`;
+    }).join('');
+
+    wrap.innerHTML = `
+      <div class="div-card"><div class="div-card-title">UFCelo — ELO top 15</div>${eloRows}</div>
+      <div class="div-card"><div class="div-card-title">Official UFC — top 15</div>${ufcRows}</div>`;
+    document.getElementById('cmp-note').textContent =
+      ufc.updated_at ? `Official rankings synced ${new Date(ufc.updated_at).toLocaleString()}` : '';
   }
 
-  divSel.addEventListener('change', loadDivFighters);
-  faSel.addEventListener('change', runPrediction);
-  fbSel.addEventListener('change', runPrediction);
-  await loadDivFighters();
+  cmpSel.addEventListener('change', renderComparison);
+  await renderComparison();
 
   document.querySelector('details summary').addEventListener('click', function() {
     const span = document.getElementById('elo-toggle');

@@ -157,6 +157,43 @@ def _load_skill_history(division: str) -> Dict[str, List[Dict[str, Any]]]:
     return _skill_cache[slug]
 
 
+def _all_elo_history(fighter_id: str) -> List[Dict[str, Any]]:
+    """The fighter's whole UFC career: fights from every division, deduped, oldest first.
+    Tags describe the fighter, not one weight class (a KO loss at MW still counts at HW)."""
+    seen: Set[str] = set()
+    points: List[Dict[str, Any]] = []
+    for div in ALL_DIVISIONS:
+        for point in _load_elo_history(div).get(fighter_id, []):
+            fid = point.get("fight_id", "")
+            if fid and fid in seen:
+                continue
+            seen.add(fid)
+            points.append(point)
+    points.sort(key=lambda p: p.get("date", ""))
+    return points
+
+
+def _all_skill_history(fighter_id: str) -> List[Dict[str, Any]]:
+    points: List[Dict[str, Any]] = []
+    seen: Set[str] = set()
+    for div in ALL_DIVISIONS:
+        for point in _load_skill_history(div).get(fighter_id, []):
+            fid = point.get("fight_id", "")
+            if fid and fid in seen:
+                continue
+            seen.add(fid)
+            points.append(point)
+    points.sort(key=lambda p: p.get("date", ""))
+    return points
+
+
+def _all_csv_rows() -> Dict[str, Dict[str, Any]]:
+    rows: Dict[str, Dict[str, Any]] = {}
+    for div in ALL_DIVISIONS:
+        rows.update(_load_csv(div))
+    return rows
+
+
 def _load_rankings(division: str) -> List[Dict[str, Any]]:
     slug = _division_slug(division)
     path = DATA_DIR / f"rankings_{slug}.json"
@@ -276,8 +313,8 @@ def _collect_fighter_stats(
     division: str,
 ) -> Dict[str, Any]:
     """Aggregate all fight statistics for a fighter, deduplicating across divisions."""
-    elo_hist = _load_elo_history(division).get(fighter_id, [])
-    csv_rows = _load_csv(division)
+    elo_hist = _all_elo_history(fighter_id)
+    csv_rows = _all_csv_rows()
 
     seen_fight_ids: Set[str] = set()
 
@@ -535,7 +572,7 @@ def _collect_fighter_stats(
 
 
 def _compute_skill_stdev(fighter_id: str, division: str) -> Optional[float]:
-    skill_hist = _load_skill_history(division).get(fighter_id, [])
+    skill_hist = _all_skill_history(fighter_id)
     if not skill_hist:
         return None
 
@@ -560,7 +597,7 @@ def _compute_skill_stdev(fighter_id: str, division: str) -> Optional[float]:
 # ── Achievement tag helpers ────────────────────────────────────────────────────
 
 def _compute_giant_slayer(fighter_id: str, division: str) -> int:
-    elo_hist = _load_elo_history(division).get(fighter_id, [])
+    elo_hist = _all_elo_history(fighter_id)
     count = 0
     for point in elo_hist:
         if point.get("result") != "Win":
@@ -607,7 +644,7 @@ def _opponent_had_win_streak(opponent_id: str, fight_date: str, min_streak: int 
 
 
 def _compute_streak_killer(fighter_id: str, division: str) -> int:
-    elo_hist = _load_elo_history(division).get(fighter_id, [])
+    elo_hist = _all_elo_history(fighter_id)
     count = 0
     for point in elo_hist:
         if point.get("result") != "Win":

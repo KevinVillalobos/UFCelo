@@ -26,7 +26,7 @@
     .proj-table td:first-child { text-align: left; color: var(--text); }
     .proj-table td:nth-child(2) { color: var(--muted); }
     .g { color: var(--green) !important; font-weight: 600; }
-    .r { color: var(--red)   !important; font-weight: 600; }
+    .r { color:var(--red-text)   !important; font-weight: 600; }
     /* Skill breakdown */
     .skill-breakdown-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
     .skill-breakdown-row:last-child { border-bottom: none; }
@@ -339,7 +339,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   populateDivSelect(divSel);
 
-  async function loadDiv() {
+  // Deep link: /peleador/<slug>?id=<fighter_id> (or just the slug) preselects division + fighter.
+  async function resolveDeepLink() {
+    const id = new URLSearchParams(location.search).get('id');
+    const m = location.pathname.match(/^\/peleador\/([^/]+)/);
+    const slug = m ? decodeURIComponent(m[1]) : '';
+    if (!id && !slug) return null;
+    let all;
+    try { all = await UFCelo.FighterIndex.get(true); } catch (e) { return null; }
+    const entry = id ? all.find(f => f.id === id) : all.find(f => UFCelo.slugify(f.name) === slug);
+    if (!entry) return null;
+    divSel.value = entry.division;
+    retiredToggle.checked = !entry.active;
+    document.title = `${entry.name} — UFCelo.gg`;
+    return entry.id;
+  }
+
+  async function loadDiv(selectId) {
     const div      = divSel.value;
     const retired  = retiredToggle.checked;
     const endpoint = retired
@@ -353,6 +369,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       catch(e) { rankingsCache[cacheKey] = []; }
     }
     populateFighterSelect(fighterSel, rankingsCache[cacheKey]);
+    // addEventListener passes an Event here; only a string id means "preselect this fighter"
+    if (typeof selectId === 'string') fighterSel.value = selectId;
     await loadFighter();
   }
 
@@ -406,7 +424,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     document.getElementById('profile').innerHTML = `
       <div style="margin-bottom:0.5rem;">
-        <span style="font-size:1.6rem;font-weight:800;color:var(--text);">${p.fighter_name || '—'}</span>
+        <span style="font-family:var(--font-display);font-size:2.3rem;font-weight:400;letter-spacing:0.05em;text-transform:uppercase;color:var(--text);">${p.fighter_name || '—'}</span>
         ${isChamp ? '&nbsp;' + champBadge() : ''}
         ${streak >= 3 ? '&nbsp;' + streakBadge(streak) : ''}
         ${streak <= -3 ? '&nbsp;' + streakBadge(streak) : ''}
@@ -416,7 +434,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       <div class="metrics-row" style="margin-bottom:0.75rem;">
         <div class="metric">
           <div class="metric-label">Current ELO</div>
-          <div class="metric-value" style="color:var(--red);">${p.elo != null ? p.elo.toFixed(1) : '—'}</div>
+          <div class="metric-value" style="color:var(--red-text);">${p.elo != null ? p.elo.toFixed(1) : '—'}</div>
         </div>
         <div class="metric">
           <div class="metric-label">Peak ELO</div>
@@ -593,16 +611,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         const rows = [...history].reverse().map((h, idx) => {
           const result   = h.result || '—';
           const resultCl = result === 'Win'  ? 'color:var(--green);'
-                         : result === 'Loss' ? 'color:var(--red);'
+                         : result === 'Loss' ? 'color:var(--red-text);'
                          : 'color:var(--muted);';
           const eloCl    = h.elo_change > 0 ? 'color:var(--green);'
-                         : h.elo_change < 0 ? 'color:var(--red);'
+                         : h.elo_change < 0 ? 'color:var(--red-text);'
                          : 'color:var(--muted);';
           const delta    = h.elo_change != null
-            ? `<span style="${h.elo_change >= 0 ? 'color:var(--green)' : 'color:var(--red)'};">${h.elo_change >= 0 ? '+' : ''}${h.elo_change.toFixed(1)}</span>`
+            ? `<span style="${h.elo_change >= 0 ? 'color:var(--green)' : 'color:var(--red-text)'};">${h.elo_change >= 0 ? '+' : ''}${h.elo_change.toFixed(1)}</span>`
             : '—';
           const tBadge   = h.is_title_fight
-            ? ' <span style="color:var(--red);font-size:0.7rem;font-weight:700;">[T]</span>' : '';
+            ? ' <span style="color:var(--red-text);font-size:0.7rem;font-weight:700;">[T]</span>' : '';
           const expandId = `exp-${idx}`;
           const expandHtml = buildExpandHtml(h, p.elo, kVarF, streak, div, rivals5, p.fighter_name);
 
@@ -831,9 +849,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           <td>${rival.fighter_name || rival.fighter_id}</td>
           <td>${rival.elo.toFixed(0)}</td>
           <td class="g">${ko.winAfter} <span style="font-weight:400;font-size:0.7rem;color:var(--green);">(+${ko.dWin})</span></td>
-          <td class="r">${ko.loseAfter} <span style="font-weight:400;font-size:0.7rem;color:var(--red);">(${ko.dLose})</span></td>
+          <td class="r">${ko.loseAfter} <span style="font-weight:400;font-size:0.7rem;color:var(--red-text);">(${ko.dLose})</span></td>
           <td class="g">${dec.winAfter} <span style="font-weight:400;font-size:0.7rem;color:var(--green);">(+${dec.dWin})</span></td>
-          <td class="r">${dec.loseAfter} <span style="font-weight:400;font-size:0.7rem;color:var(--red);">(${dec.dLose})</span></td>
+          <td class="r">${dec.loseAfter} <span style="font-weight:400;font-size:0.7rem;color:var(--red-text);">(${dec.dLose})</span></td>
         </tr>`;
       }).join('');
       html += `
@@ -872,7 +890,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   divSel.addEventListener('change', loadDiv);
   fighterSel.addEventListener('change', loadFighter);
   retiredToggle.addEventListener('change', loadDiv);
-  await loadDiv();
+  const deepId = await resolveDeepLink();
+  await loadDiv(deepId || undefined);
 });
 </script>
 </body>

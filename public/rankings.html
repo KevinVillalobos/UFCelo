@@ -86,11 +86,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       const streak = streakBadge(f.streak || 0);
       const peakElo = f.peak_elo ? f.peak_elo.toFixed(1) : '—';
       const peakOpp = f.peak_elo_opponent || '—';
-      return `<tr>
-        <td style="color:var(--muted);width:40px;">${rank}</td>
+      const rowCls = (i === 0 ? 'is-first ' : '') + (i < 5 ? 'is-top5 ' : '') + (i === 4 ? 'is-top5-last' : '');
+      const rankCell = i === 0 ? `<span class="rank-pill">${rank}</span>` : rank;
+      return `<tr class="${rowCls.trim()}">
+        <td style="color:var(--muted);width:40px;">${rankCell}</td>
         <td style="width:40px;font-weight:700;">${ufcRank}</td>
         <td>${champ}${f.fighter_name}${visitor} ${streak}</td>
-        <td style="color:var(--red);font-weight:700;">${f.elo.toFixed(1)}</td>
+        <td style="color:var(--red-text);font-weight:700;">${f.elo.toFixed(1)}</td>
         <td>${peakElo}</td>
         <td style="color:var(--muted);font-size:0.8rem;">${peakOpp}</td>
         <td>${f.record || '—'}</td>
