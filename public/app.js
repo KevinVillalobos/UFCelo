@@ -29,7 +29,34 @@ const PLOTLY_LAYOUT = {
   plot_bgcolor:  'rgba(0,0,0,0)',
   font: { color: '#f5f5f5', family: 'Inter, system-ui, sans-serif' },
   margin: { l: 50, r: 20, t: 40, b: 50 },
+  hoverlabel: {
+    bgcolor: '#14172b',
+    bordercolor: '#5a6088',
+    font: { color: '#ffffff', size: 13, family: 'Inter, system-ui, sans-serif' },
+    align: 'left',
+    namelength: -1,
+  },
 };
+
+// Readable hover for bar charts: "<b>category</b><br>series: value" instead of Plotly's raw "x, y".
+// Applies only to bar traces that carry a formatted `text` array and no custom hovertemplate.
+(function patchPlotlyHover() {
+  if (!window.Plotly || Plotly.__hoverPatched) return;
+  const orig = Plotly.newPlot.bind(Plotly);
+  Plotly.newPlot = function (gd, data, layout, config) {
+    (data || []).forEach(t => {
+      if (t.type === 'scatterpolar' && !t.hovertemplate) {
+        t.hovertemplate = `<b>%{theta}</b><br>${t.name ? t.name + ': ' : ''}<b>%{r:.1f}</b><extra></extra>`;
+        return;
+      }
+      if (t.type !== 'bar' || !t.text || t.hovertemplate) return;
+      const cat = t.orientation === 'h' ? '%{y}' : '%{x}';
+      t.hovertemplate = `<b>${cat}</b><br>${t.name ? t.name + ': ' : ''}<b>%{text}</b><extra></extra>`;
+    });
+    return orig(gd, data, layout, config);
+  };
+  Plotly.__hoverPatched = true;
+})();
 
 (function loadFonts() {
   const l = document.createElement('link');

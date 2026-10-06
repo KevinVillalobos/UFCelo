@@ -531,13 +531,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       <h2 style="margin-bottom:0.75rem;">Fight Statistics Comparison</h2>
 
       <div class="grid-2" style="margin-bottom:1rem;">
-        <div class="chart-box"><div id="method-chart" style="height:220px;"></div></div>
-        <div class="chart-box"><div id="target-chart" style="height:220px;"></div></div>
+        <div class="chart-box"><div id="method-chart" style="height:300px;"></div></div>
+        <div class="chart-box"><div id="target-chart" style="height:300px;"></div></div>
       </div>
 
       <div class="grid-2" style="margin-bottom:1rem;">
-        <div class="chart-box"><div id="striking-chart" style="height:220px;"></div></div>
-        <div class="chart-box"><div id="grappling-chart" style="height:220px;"></div></div>
+        <div class="chart-box"><div id="striking-chart" style="height:300px;"></div></div>
+        <div class="chart-box"><div id="grappling-chart" style="height:300px;"></div></div>
       </div>
 
       <div class="grid-2" style="margin-bottom:1rem;">
@@ -574,15 +574,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const baseLayout = (title) => ({
       ...PLOTLY_LAYOUT,
       barmode: 'group',
-      height: 200,
+      height: 300,
+      bargap: 0.25, bargroupgap: 0.08,
       title: { text: title, font: { color: '#F0F2F6', size: 12 } },
       xaxis: { showgrid: false, showticklabels: false },
       yaxis: { showgrid: false },
       legend: {
-        orientation: 'h', y: -0.18, x: 0.5, xanchor: 'center',
+        orientation: 'h', y: -0.12, x: 0.5, xanchor: 'center',
         font: { size: 10 }, bgcolor: 'rgba(0,0,0,0)',
       },
-      margin: { l: 10, r: 65, t: 40, b: 30 },
+      margin: { l: 10, r: 65, t: 40, b: 50 },
     });
 
     // Win methods (% of wins)
@@ -598,7 +599,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         marker: { color: COLOR_A },
         text: methods.map(m => `${((fsA.wins?.[m] ?? 0) / twA * 100).toFixed(0)}%`),
         textposition: 'outside',
-        textfont: { size: 11 },
+        textfont: { size: 11 }, cliponaxis: false,
       },
       {
         name: fbName,
@@ -608,7 +609,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         marker: { color: COLOR_B },
         text: methods.map(m => `${((fsB.wins?.[m] ?? 0) / twB * 100).toFixed(0)}%`),
         textposition: 'outside',
-        textfont: { size: 11 },
+        textfont: { size: 11 }, cliponaxis: false,
       },
     ], baseLayout('Win methods (%)'), { displayModeBar: false, responsive: true });
 
@@ -630,14 +631,14 @@ document.addEventListener('DOMContentLoaded', async () => {
           `${((fsB[t.keyA] ?? 0) * 100).toFixed(0)}%`,
         ],
         textposition: 'outside',
-        textfont: { size: 11 },
+        textfont: { size: 11 }, cliponaxis: false,
       })),
       {
         ...baseLayout('Strike target breakdown (%)'),
         barmode: 'group',
-        xaxis: { range: [0, 100], showticklabels: false, showgrid: false },
-        yaxis: { showgrid: false },
-        margin: { l: 10, r: 55, t: 40, b: 30 },
+        xaxis: { range: [0, 115], showticklabels: false, showgrid: false },
+        yaxis: { showgrid: false, automargin: true, autorange: 'reversed' },
+        margin: { l: 10, r: 55, t: 40, b: 50 },
       },
       { displayModeBar: false, responsive: true }
     );
@@ -656,7 +657,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         type: 'bar', orientation: 'h',
         marker: { color: COLOR_A },
         text: strikingMetrics.map(m => m.fmt(m.valA)),
-        textposition: 'outside', textfont: { size: 11 },
+        textposition: 'outside', textfont: { size: 11 }, cliponaxis: false,
       },
       {
         name: fbName,
@@ -665,9 +666,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         type: 'bar', orientation: 'h',
         marker: { color: COLOR_B },
         text: strikingMetrics.map(m => m.fmt(m.valB)),
-        textposition: 'outside', textfont: { size: 11 },
+        textposition: 'outside', textfont: { size: 11 }, cliponaxis: false,
       },
-    ], { ...baseLayout('Striking'), xaxis: { showgrid: false, showticklabels: false }, yaxis: { showgrid: false } },
+    ], { ...baseLayout('Striking'), xaxis: { showgrid: false, showticklabels: false, range: [0, Math.max(...strikingMetrics.flatMap(m => [m.valA, m.valB]), 0.01) * 1.3] }, yaxis: { showgrid: false, automargin: true, autorange: 'reversed' } },
     { displayModeBar: false, responsive: true });
 
     // Grappling comparison (horizontal)
@@ -685,7 +686,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         type: 'bar', orientation: 'h',
         marker: { color: COLOR_A },
         text: grapplingMetrics.map(m => m.fmt(m.valA)),
-        textposition: 'outside', textfont: { size: 11 },
+        textposition: 'outside', textfont: { size: 11 }, cliponaxis: false,
       },
       {
         name: fbName,
@@ -694,9 +695,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         type: 'bar', orientation: 'h',
         marker: { color: COLOR_B },
         text: grapplingMetrics.map(m => m.fmt(m.valB)),
-        textposition: 'outside', textfont: { size: 11 },
+        textposition: 'outside', textfont: { size: 11 }, cliponaxis: false,
       },
-    ], { ...baseLayout('Grappling'), xaxis: { showgrid: false, showticklabels: false }, yaxis: { showgrid: false } },
+    ], { ...baseLayout('Grappling'), xaxis: { showgrid: false, showticklabels: false, range: [0, Math.max(...grapplingMetrics.flatMap(m => [m.valA, m.valB]), 0.01) * 1.3] }, yaxis: { showgrid: false, automargin: true, autorange: 'reversed' } },
     { displayModeBar: false, responsive: true });
   }
 

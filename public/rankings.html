@@ -48,9 +48,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('table-wrap').innerHTML = '<div class="loading">Loading…</div>';
     try {
       if (mode === 'ufc') {
-        const data = await apiFetch(`/ufc-rankings/${divSlug(div)}`);
+        const [data, divisionList, byId, everyone] = await Promise.all([
+          apiFetch(`/ufc-rankings/${divSlug(div)}`),
+          apiFetch(`/rankings/${divSlug(div)}`),
+          allFighters(),
+          apiFetch(`/rankings/${divSlug(div)}/alltime`).catch(() => []),   // ranked fighters who are inactive in our data
+        ]);
+        everyone.forEach(f => { if (!byId.has(f.fighter_id)) byId.set(f.fighter_id, f); });
         document.getElementById('stats-row').style.display = 'none';
-        renderUfc(data);
+        renderUfc(data, divisionList, byId);
         return;
       }
       const path = alltime() ? `/rankings/${divSlug(div)}/alltime` : `/rankings/${divSlug(div)}`;
@@ -77,6 +83,28 @@ document.addEventListener('DOMContentLoaded', async () => {
       <div class="metric"><div class="metric-label">ELO Spread</div><div class="metric-value">${spread.toFixed(0)}</div></div>`;
   }
 
+  // Every active fighter of every division by id (the official top 15 can include fighters we list elsewhere)
+  let _byId = null;
+  async function allFighters() {
+    if (!_byId) {
+      const lists = await Promise.allSettled(DIVISIONS.map(d => apiFetch(`/rankings/${divSlug(d)}`)));
+      _byId = new Map();
+      lists.forEach(r => { if (r.status === 'fulfilled') r.value.forEach(f => _byId.set(f.fighter_id, f)); });
+    }
+    return _byId;
+  }
+
+  // ELO, Peak ELO, Peak vs, Record, Fights, Last Fight: the same cells in the ELO table and the UFC view
+  function detailCells(f) {
+    if (!f) return '<td colspan="6" style="color:var(--muted);">Not in our fighter data</td>';
+    return `<td style="color:var(--red-text);font-weight:700;">${f.elo.toFixed(1)}</td>
+        <td>${f.peak_elo ? f.peak_elo.toFixed(1) : '—'}</td>
+        <td style="color:var(--muted);font-size:0.8rem;">${f.peak_elo_opponent || '—'}</td>
+        <td>${f.record || '—'}</td>
+        <td style="color:var(--muted);">${f.fight_count ?? '—'}</td>
+        <td style="color:var(--muted);font-size:0.8rem;">${f.last_fight_date || '—'}</td>`;
+  }
+
   function renderTable(data) {
     const rows = data.map((f, i) => {
       const rank = alltime() ? (f.rank ?? i+1) : i+1;
@@ -84,20 +112,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       const champ = f.is_champion ? champBadge() : '';
       const visitor = f.visitor_label ? ` <span style="color:var(--muted);font-size:0.75rem;">[${f.visitor_label}]</span>` : '';
       const streak = streakBadge(f.streak || 0);
-      const peakElo = f.peak_elo ? f.peak_elo.toFixed(1) : '—';
-      const peakOpp = f.peak_elo_opponent || '—';
       const rowCls = (i === 0 ? 'is-first ' : '') + (i < 5 ? 'is-top5 ' : '') + (i === 4 ? 'is-top5-last' : '');
       const rankCell = i === 0 ? `<span class="rank-pill">${rank}</span>` : rank;
       return `<tr class="${rowCls.trim()}">
         <td style="color:var(--muted);width:40px;">${rankCell}</td>
         <td style="width:40px;font-weight:700;">${ufcRank}</td>
         <td>${champ}${f.fighter_name}${visitor} ${streak}</td>
-        <td style="color:var(--red-text);font-weight:700;">${f.elo.toFixed(1)}</td>
-        <td>${peakElo}</td>
-        <td style="color:var(--muted);font-size:0.8rem;">${peakOpp}</td>
-        <td>${f.record || '—'}</td>
-        <td style="color:var(--muted);">${f.fight_count ?? '—'}</td>
-        <td style="color:var(--muted);font-size:0.8rem;">${f.last_fight_date || '—'}</td>
+        ${detailCells(f)}
       </tr>`;
     }).join('');
     document.getElementById('table-wrap').innerHTML = `
@@ -112,22 +133,38 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>`;
   }
 
-  function renderUfc(data) {
+  function renderUfc(data, divisionList, byId) {
+    const eloRank = new Map(divisionList.map((f, k) => [f.fighter_id, k + 1]));
     const entries = [data.champion, ...data.ranked];
-    const rows = entries.map(e => {
-      const label = e.rank === 0 ? champBadge() : e.rank;
-      const name = e.fighter_name;
-      return `<tr><td style="color:var(--muted);width:40px;">${label}</td><td>${name}</td></tr>`;
+    let missing = 0;
+    const rows = entries.map((e, i) => {
+      const f = e.fighter_id ? byId.get(e.fighter_id) : null;
+      if (!f) missing++;
+      const ours = eloRank.get(e.fighter_id);
+      const rowCls = (i === 0 ? 'is-first is-top5 ' : '') + (i >= 1 && i <= 5 ? 'is-top5 ' : '') + (i === 5 ? 'is-top5-last' : '');
+      const label = e.rank === 0 ? '<span class="rank-pill">C</span>' : e.rank;
+      const champ = f && f.is_champion ? champBadge() : '';
+      const streak = f ? streakBadge(f.streak || 0) : '';
+      const inactive = f && f.active === false ? ' <span style="color:var(--muted);font-size:0.72rem;" title="No fight in the last 2 years">[inactive]</span>' : '';
+      return `<tr class="${rowCls.trim()}">
+        <td style="color:var(--muted);width:40px;">${label}</td>
+        <td style="width:60px;font-weight:700;" title="Our ELO rank in this division">${ours ?? '—'}</td>
+        <td>${champ}${f ? f.fighter_name : e.fighter_name}${inactive} ${streak}</td>
+        ${detailCells(f)}
+      </tr>`;
     }).join('');
     const upd = data.updated_at ? new Date(data.updated_at).toLocaleString() : '—';
     document.getElementById('table-wrap').innerHTML = `
       <div class="table-wrap">
         <table>
-          <thead><tr><th>#</th><th>Fighter</th></tr></thead>
+          <thead><tr>
+            <th title="Official UFC ranking">UFC</th><th title="Our ELO rank in this division">ELO #</th><th>Fighter</th><th>ELO</th><th>Peak ELO</th>
+            <th>Peak vs</th><th>Record</th><th>Fights</th><th>Last Fight</th>
+          </tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
-      <p style="color:var(--muted);font-size:0.78rem;">Official UFC rankings (ufc.com) · updated ${upd}</p>`;
+      <p style="color:var(--muted);font-size:0.78rem;">Official UFC rankings (ufc.com) · updated ${upd}${missing ? ` · ${missing} fighter${missing > 1 ? 's' : ''} not in our data` : ''}</p>`;
   }
 
   function setMode(m) {

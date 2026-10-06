@@ -25,7 +25,7 @@
       <label>Ranking method</label>
       <div class="toggle-row">
         <button class="toggle-btn active" id="btn-raw">Raw ELO</button>
-        <button class="toggle-btn"        id="btn-norm">Normalized (z-score)</button>
+        <button class="toggle-btn"        id="btn-norm" title="Rank by how far a fighter is above the average of their own division (see the explanation below)">Normalized (z-score)</button>
       </div>
     </div>
     <div class="form-group" style="max-width:160px;">
@@ -33,6 +33,22 @@
       <input type="range" id="topn-range" min="10" max="150" step="5" value="50">
     </div>
   </div>
+
+  <details class="how" id="z-explain" style="margin-bottom:1.25rem;">
+    <summary>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+      What is the Z-score?
+    </summary>
+    <div class="how-body">
+      <div class="tech-body" style="margin-top:0;">
+        <p><strong>The idea.</strong> Each division has its own ELO scale: a lightweight at 1800 and a heavyweight at 1800 are not equally dominant if one division is much more spread out than the other. The z-score removes that difference by measuring how far a fighter sits above the <em>typical fighter of their own division</em>, in units of that division spread.</p>
+        <p><strong>The formula.</strong> <code>z = (fighter ELO − division mean ELO) ÷ division standard deviation</code>. The mean and standard deviation are computed over the active ranked fighters of each division (see the Divisional ELO Stats table below).</p>
+        <p><strong>How to read it.</strong> <strong>0</strong> = exactly average for the division. <strong>+1</strong> = better than roughly 84% of active fighters, <strong>+2</strong> = roughly the top 2%, <strong>+3</strong> = roughly the top 0.1% (assuming a bell-shaped spread). Negative values are below the division average.</p>
+        <p id="z-example"></p>
+        <p style="margin-bottom:0;"><strong>Limits.</strong> It is relative to a division, not absolute: a thin division makes it easier to stand out. It is only available in the Current Rankings view; Historical Peak ELO always uses raw ELO. <strong>Raw ELO</strong> stays the default because it is the rating the predictions use.</p>
+      </div>
+    </div>
+  </details>
 
   <div id="loading" class="loading">Loading all divisions…</div>
   <div id="bar-chart"   style="margin-bottom:1rem;"></div>
@@ -98,6 +114,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   render();
   renderBoxPlot();
   renderDivStats();
+  renderZExample();
+
+  // Worked example with the fighter who currently has the highest z-score
+  function renderZExample() {
+    const el = document.getElementById('z-example');
+    const top = [...allFighters].sort((a, b) => b.z_score - a.z_score)[0];
+    if (!el || !top) return;
+    const st = divStats[top.division];
+    const divName = DIV_LABELS[top.division].replace(/ \d+ lbs$/, '');
+    el.innerHTML = `<strong>Example right now.</strong> ${escapeHtml(top.fighter_name)} has ELO ${top.elo.toFixed(0)} in ${divName}, where the average active fighter has ${st.mean.toFixed(0)} and the standard deviation is ${st.std.toFixed(0)}. So z = (${top.elo.toFixed(0)} − ${st.mean.toFixed(0)}) ÷ ${st.std.toFixed(0)} = <strong>${top.z_score.toFixed(2)}</strong>.`;
+  }
 
   // ── Load historical (alltime) rankings ─────────────────────────────────────
   // Load in background; doesn't block initial render
@@ -152,7 +179,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('table-wrap').innerHTML = `
       <div class="table-wrap">
         <table>
-          <thead><tr><th>P4P</th><th>Fighter</th><th>Division</th><th>ELO</th><th>Z-score</th><th>Peak ELO</th><th>Record</th></tr></thead>
+          <thead><tr><th>P4P</th><th>Fighter</th><th>Division</th><th>ELO</th><th title="Standard deviations above the division average ELO. 0 = average, +2 = roughly top 2%">Z-score</th><th>Peak ELO</th><th>Record</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>`;
