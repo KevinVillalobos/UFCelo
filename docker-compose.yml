@@ -12,6 +12,8 @@ services:
     environment:
       - KV_REST_API_URL=${KV_REST_API_URL:-}
       - KV_REST_API_TOKEN=${KV_REST_API_TOKEN:-}
+      - ADMIN_TOKEN=${ADMIN_TOKEN:-}
+      - CORS_ORIGINS=${CORS_ORIGINS:-https://ufcelo.gg,https://www.ufcelo.gg}
     expose:
       - "8000"
     healthcheck:

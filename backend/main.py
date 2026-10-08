@@ -3,7 +3,9 @@ import os
 import urllib.request
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Query
+import hmac
+
+from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 from .data_loader import set_fighter_retired
@@ -81,6 +83,22 @@ from .services import (
     get_fighter_tags,
 )
 
+# Comma-separated list; the site itself talks to the API same-origin through nginx (/api/).
+_CORS_ORIGINS = [
+    o.strip()
+    for o in os.environ.get("CORS_ORIGINS", "https://ufcelo.gg,https://www.ufcelo.gg").split(",")
+    if o.strip()
+]
+_ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN", "")
+
+
+def require_admin(x_admin_token: str = Header(default="")) -> None:
+    if not _ADMIN_TOKEN:
+        raise HTTPException(status_code=503, detail="Admin endpoints are disabled (ADMIN_TOKEN not set).")
+    if not hmac.compare_digest(x_admin_token.encode(), _ADMIN_TOKEN.encode()):
+        raise HTTPException(status_code=401, detail="Invalid admin token.")
+
+
 app = FastAPI(
     title="UFCelo.gg API",
     description="Backend API para rankings Elo de peleadores de UFC/MMA.",
@@ -97,9 +115,9 @@ def _sync_ufc_rankings() -> None:
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=_CORS_ORIGINS,
+    allow_methods=["GET", "POST", "PATCH"],
+    allow_headers=["Content-Type", "X-Admin-Token"],
 )
 
 
@@ -175,7 +193,7 @@ def get_matchmaking(division: str, top_n: int = Query(default=15, ge=1, le=200))
     return matchups
 
 
-@app.patch("/fighter/{fighter_id}/retire")
+@app.patch("/fighter/{fighter_id}/retire", dependencies=[Depends(require_admin)])
 def retire_fighter(
     fighter_id: str,
     body: RetireBody,
