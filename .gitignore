@@ -47,3 +47,11 @@ Thumbs.db
 
 # External data snapshots used as backtest baselines (never in the repo or the image)
 data_baseline/
+
+# Runtime state (written by the API / background syncs, never commit)
+data/visits.json
+data/ufc_rankings.json
+data/upcoming_events.json
+
+# Process logs
+logs/
