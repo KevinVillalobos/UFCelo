@@ -4204,15 +4204,15 @@
     "fighter_name": "Niko Price",
     "division": "Welterweight",
     "skill_score": {
-      "Striking": 59.45,
-      "Grappling": 36.72,
-      "Defensa": 43.93,
-      "Consistencia": 46.48,
-      "Finish Rate": 30.33,
-      "Cardio/Durabilidad": 77.86,
-      "Presión": 29.39
+      "Striking": 67.56,
+      "Grappling": 36.58,
+      "Defensa": 55.14,
+      "Consistencia": 49.01,
+      "Finish Rate": 44.26,
+      "Cardio/Durabilidad": 78.89,
+      "Presión": 42.93
     },
-    "skill_composite": 46.91
+    "skill_composite": 53.99
   },
   {
     "fighter_id": "3f1d23b01c552a13",
@@ -5642,17 +5642,17 @@
   {
     "fighter_id": "3920d0cc288f9b0d",
     "fighter_name": "Francisco Prado",
-    "division": "Welterweight",
+    "division": "Lightweight",
     "skill_score": {
-      "Striking": 64.57,
-      "Grappling": 32.55,
-      "Defensa": 53.91,
-      "Consistencia": 59.45,
-      "Finish Rate": 39.02,
-      "Cardio/Durabilidad": 85.5,
-      "Presión": 41.78
+      "Striking": 71.66,
+      "Grappling": 46.04,
+      "Defensa": 61.73,
+      "Consistencia": 58.95,
+      "Finish Rate": 51.22,
+      "Cardio/Durabilidad": 85.0,
+      "Presión": 48.53
     },
-    "skill_composite": 54.13
+    "skill_composite": 60.9
   },
   {
     "fighter_id": "d9a56ecb6e94f02e",
@@ -8374,15 +8374,15 @@
     "fighter_name": "Leon Shahbazyan",
     "division": "Welterweight",
     "skill_score": {
-      "Striking": 40.6,
-      "Grappling": 45.55,
-      "Defensa": 53.96,
-      "Consistencia": 40.6,
-      "Finish Rate": 45.1,
-      "Cardio/Durabilidad": 52.6,
-      "Presión": 40.6
+      "Striking": 33.08,
+      "Grappling": 41.99,
+      "Defensa": 56.54,
+      "Consistencia": 33.08,
+      "Finish Rate": 41.18,
+      "Cardio/Durabilidad": 54.68,
+      "Presión": 33.08
     },
-    "skill_composite": 45.66
+    "skill_composite": 42.08
   },
   {
     "fighter_id": "5a229cbd9cdd28ca",

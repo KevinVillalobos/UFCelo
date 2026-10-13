@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insights — UFCelo.gg</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .ins-tabs { display: flex; gap: var(--sp-2); margin-bottom: var(--sp-5); border-bottom: 1px solid var(--border); }
+    .ins-tab { background: none; border: 0; border-bottom: 2px solid transparent; color: var(--muted); font: inherit; font-weight: 600; padding: var(--sp-2) var(--sp-4); cursor: pointer; margin-bottom: -1px; }
+    .ins-tab:hover { color: var(--text); }
+    .ins-tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--red); }
+    .ins-note { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--sp-3) var(--sp-4); color: var(--muted); font-size: 0.85rem; line-height: 1.55; margin-bottom: var(--sp-5); }
+    .week-label { color: var(--muted); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin: var(--sp-5) 0 var(--sp-2); }
+    .ev { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: var(--sp-3); }
+    .ev > summary { cursor: pointer; list-style: none; padding: var(--sp-3) var(--sp-4); display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; }
+    .ev > summary::-webkit-details-marker { display: none; }
+    .ev > summary::before { content: '▶'; color: var(--muted); font-size: 0.7rem; }
+    .ev[open] > summary::before { content: '▼'; }
+    .ev-name { font-weight: 700; flex: 1 1 260px; }
+    .ev-date { color: var(--muted); font-size: 0.8rem; }
+    .ev-score { font-weight: 800; font-variant-numeric: tabular-nums; }
+    .ev-meta { color: var(--muted); font-size: 0.78rem; font-variant-numeric: tabular-nums; }
+    .ev-body { padding: 0 var(--sp-4) var(--sp-4); }
+    .fight { display: grid; grid-template-columns: 5.5rem 1fr; gap: var(--sp-2) var(--sp-4); padding: var(--sp-3) 0; border-top: 1px solid var(--border); }
+    .verdict { font-weight: 800; font-size: 0.8rem; letter-spacing: 0.04em; }
+    .verdict.ok { color: var(--green); }
+    .verdict.miss { color: var(--down); }
+    .fight-head { font-weight: 600; }
+    .fight-head a { color: inherit; text-decoration: none; }
+    .fight-head a:hover { text-decoration: underline; }
+    .fight-sub { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
+    .fight-why { font-size: 0.84rem; line-height: 1.55; margin-top: var(--sp-2); }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--sp-2); }
+    .chip { background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 2px 10px; font-size: 0.74rem; color: var(--muted); }
+    .chip.for { color: var(--text); }
+    .chip.against { border-color: #5a2a28; color: var(--red-text); }
+    .chip.tag { border-style: dashed; }
+    .bar { background: var(--surface2); border-radius: 3px; height: 6px; min-width: 90px; }
+    .bar > i { display: block; height: 6px; border-radius: 3px; background: var(--blue); }
+    @media (max-width: 640px) { .fight { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<main class="container">
+  <div class="page-header">
+    <h1>Insights</h1>
+    <p>Prediction vs result after every event, and why the model was right or wrong.</p>
+  </div>
+
+  <div class="ins-tabs" role="tablist" aria-label="Insights sections">
+    <button class="ins-tab" role="tab" id="tab-reviews" aria-selected="true" aria-controls="panel-reviews">Weekly review</button>
+    <button class="ins-tab" role="tab" id="tab-factors" aria-selected="false" aria-controls="panel-factors">Factor scorecard</button>
+  </div>
+
+  <div id="panel-reviews" role="tabpanel" aria-labelledby="tab-reviews"><div class="loading">Loading reviews…</div></div>
+  <div id="panel-factors" role="tabpanel" aria-labelledby="tab-factors" hidden></div>
+</main>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="/app.js"></script>
+<script>
+// Engine strings carry Spanish skill keys; the UI is English only.
+function tr(text) {
+  let out = String(text == null ? '' : text);
+  Object.keys(SKILL_NAME_EN).forEach(k => { if (k !== SKILL_NAME_EN[k]) out = out.split(k).join(SKILL_NAME_EN[k]); });
+  return out;
+}
+const pct = (x, d = 0) => (x * 100).toFixed(d) + '%';
+const fmtDate = iso => new Date(iso + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+function fighterLink(f) {
+  return `<a href="${escapeHtml(UFCelo.fighterUrl({ id: f.id, name: f.name }))}">${escapeHtml(f.name)}</a>`;
+}
+
+function fightHTML(f) {
+  const fav = f.favourite, dog = f.fighter_a.id === fav.id ? f.fighter_b : f.fighter_a;
+  const mOk = f.method_predicted === f.method_actual;
+  const chips = [
+    ...f.signals_for_favourite.map(s => `<span class="chip for" title="Signal backing the pick">${escapeHtml(tr(s))}</span>`),
+    ...(f.correct ? [] : f.signals_against_favourite.map(s => `<span class="chip against" title="Signal pointing to the winner">${escapeHtml(tr(s))}</span>`)),
+    ...f.tags.map(t => `<span class="chip tag">${escapeHtml(t)}</span>`),
+  ].join('');
+  return `<div class="fight">
+    <div class="verdict ${f.correct ? 'ok' : 'miss'}">${f.correct ? '✓ HIT' : '✗ MISS'}</div>
+    <div>
+      <div class="fight-head">Pick: ${fighterLink(fav)} <span style="color:var(--muted);font-weight:500;">(${pct(f.favourite_probability)}) vs ${fighterLink(dog)}</span></div>
+      <div class="fight-sub">Result: ${fighterLink(f.winner)} by ${escapeHtml(f.result_method)} R${escapeHtml(f.result_round)} ·
+        Method: predicted ${escapeHtml(f.method_predicted)}, actual ${escapeHtml(f.method_actual)} (${mOk ? 'match' : 'no match'}) ·
+        ${escapeHtml(f.division)}${f.title ? ' · title fight' : ''}</div>
+      <div class="fight-why">${escapeHtml(tr(f.explanation))}</div>
+      <div class="chips">${chips}</div>
+    </div>
+  </div>`;
+}
+
+function eventHTML(e, open) {
+  const s = e.summary;
+  const fights = [...e.fights].sort((a, b) => b.favourite_probability - a.favourite_probability).map(fightHTML).join('');
+  return `<details class="ev"${open ? ' open' : ''}>
+    <summary>
+      <span class="ev-name">${escapeHtml(e.event)}</span>
+      <span class="ev-date">${fmtDate(e.date)}</span>
+      <span class="ev-score">${s.correct}/${s.fights} · ${pct(s.accuracy)}</span>
+      <span class="ev-meta">methods ${s.method_correct}/${s.fights} · Brier ${s.brier}</span>
+    </summary>
+    <div class="ev-body">${fights}</div>
+  </details>`;
+}
+
+function renderReviews(data) {
+  const events = data.events || [];
+  const tot = events.reduce((a, e) => ({ n: a.n + e.summary.fights, ok: a.ok + e.summary.correct, m: a.m + e.summary.method_correct,
+    b: a.b + (e.summary.brier || 0) * e.summary.fights }), { n: 0, ok: 0, m: 0, b: 0 });
+  const baseline = data.factor_scorecard && data.factor_scorecard.overall_favourite.rate;
+
+  const weeks = new Map();
+  events.forEach(e => { const k = e.week_start || e.date; if (!weeks.has(k)) weeks.set(k, []); weeks.get(k).push(e); });
+  let first = true;
+  const list = [...weeks.entries()].map(([wk, evs]) => `<div class="week-label">Week of ${fmtDate(wk)}</div>` +
+    evs.map(e => { const h = eventHTML(e, first); first = false; return h; }).join('')).join('');
+
+  document.getElementById('panel-reviews').innerHTML = `
+    <div class="ins-note">Each prediction is rebuilt from information available <em>before</em> the fight (ELO with inactivity decay, skill scores
+      after the previous fight) and compared with the real result. Reviews are generated after each event; this page never changes the model.
+      A hit means the favourite (probability above 50%) won. Many picks are near coin flips, so judge the trend over many events, not a single night.</div>
+    <div class="metrics-row">
+      <div class="metric"><div class="metric-label">Events reviewed</div><div class="metric-value">${events.length}</div></div>
+      <div class="metric"><div class="metric-label">Fights</div><div class="metric-value">${tot.n}</div></div>
+      <div class="metric"><div class="metric-label">Winner accuracy</div><div class="metric-value">${tot.n ? pct(tot.ok / tot.n, 1) : '—'}</div>
+        ${baseline != null ? `<div class="metric-delta" style="color:var(--muted);">all-time model: ${pct(baseline, 1)}</div>` : ''}</div>
+      <div class="metric"><div class="metric-label">Method accuracy</div><div class="metric-value">${tot.n ? pct(tot.m / tot.n, 1) : '—'}</div></div>
+      <div class="metric"><div class="metric-label">Brier score</div><div class="metric-value">${tot.n ? (tot.b / tot.n).toFixed(3) : '—'}</div>
+        <div class="metric-delta" style="color:var(--muted);">lower is better · 0.25 = coin flip</div></div>
+    </div>
+    <div class="chart-box"><div id="acc-chart" style="height:260px;"></div></div>
+    ${list || '<div class="loading">No reviews yet.</div>'}`;
+
+  const chrono = [...events].sort((a, b) => a.date.localeCompare(b.date));
+  Plotly.newPlot('acc-chart', [{
+    x: chrono.map(e => e.event), y: chrono.map(e => e.summary.accuracy * 100), type: 'bar',
+    marker: { color: chrono.map(e => e.summary.accuracy >= 0.5 ? '#378ADD' : '#D85A30') },
+    text: chrono.map(e => `${e.summary.correct}/${e.summary.fights} (${pct(e.summary.accuracy)})`),
+    customdata: chrono.map(e => fmtDate(e.date)),
+    hovertemplate: '<b>%{x}</b><br>%{customdata}<br>%{text}<extra></extra>',
+  }], {
+    ...PLOTLY_LAYOUT, height: 260, margin: { l: 45, r: 10, t: 30, b: 30 },
+    title: { text: 'Winner accuracy per event (%)', font: { size: 13 }, x: 0.01 },
+    xaxis: { showticklabels: false }, yaxis: { range: [0, 100], gridcolor: '#222' },
+    shapes: baseline != null ? [{ type: 'line', xref: 'paper', x0: 0, x1: 1, y0: baseline * 100, y1: baseline * 100,
+      line: { color: '#a3a3a3', width: 1, dash: 'dot' } }] : [],
+  }, { displayModeBar: false, responsive: true });
+}
+
+function renderFactors(data) {
+  const sc = data.factor_scorecard;
+  if (!sc) { document.getElementById('panel-factors').innerHTML = '<div class="loading">No scorecard yet.</div>'; return; }
+  const row = (label, r) => `<tr><td>${escapeHtml(label)}</td>
+    <td style="min-width:140px;"><div class="bar"><i style="width:${(r.rate * 100).toFixed(1)}%"></i></div></td>
+    <td style="font-weight:700;font-variant-numeric:tabular-nums;">${pct(r.rate, 1)}</td>
+    <td style="color:var(--muted);font-variant-numeric:tabular-nums;">${r.n.toLocaleString()}</td></tr>`;
+  const head = t => `<thead><tr><th>${t}</th><th></th><th>Pointed to winner</th><th>Fights</th></tr></thead>`;
+  const dims = Object.entries(sc.skill_edge_ge_10).sort((a, b) => b[1].rate - a[1].rate)
+    .map(([d, r]) => row(skillLabel(d) + ' edge ≥ 10 pts', r)).join('');
+  const buckets = Object.entries(sc.elo_gap_bucket).map(([b, r]) => row(`Higher ELO wins, gap ${b} pts`, r)).join('');
+  const low = sc.favourite_when_sample_lt_3;
+  document.getElementById('panel-factors').innerHTML = `
+    <div class="ins-note">How often each signal pointed to the eventual winner across every decided fight in the data
+      (${sc.overall_favourite.n.toLocaleString()} fights, favourite hit rate ${pct(sc.overall_favourite.rate, 1)}).
+      Use it to judge a miss: a signal that is right 55% of the time will be wrong almost half the time.</div>
+    <h2 style="margin-bottom:0.5rem;">Skill dimensions</h2>
+    <div class="table-wrap" style="margin-bottom:1.5rem;"><table>${head('Signal')}<tbody>${dims}</tbody></table></div>
+    <h2 style="margin-bottom:0.5rem;">ELO gap</h2>
+    <div class="table-wrap" style="margin-bottom:1.5rem;"><table>${head('Signal')}<tbody>${buckets}</tbody></table></div>
+    <h2 style="margin-bottom:0.5rem;">Sample size</h2>
+    <div class="table-wrap"><table>${head('Signal')}<tbody>${row('Favourite hit rate when a fighter has fewer than 3 prior UFC fights', low)}</tbody></table></div>`;
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const tabs = [['tab-reviews', 'panel-reviews'], ['tab-factors', 'panel-factors']];
+  tabs.forEach(([t, p]) => document.getElementById(t).addEventListener('click', () => {
+    tabs.forEach(([t2, p2]) => {
+      document.getElementById(t2).setAttribute('aria-selected', String(t2 === t));
+      document.getElementById(p2).hidden = p2 !== p;
+    });
+    if (p === 'panel-reviews') Plotly.Plots.resize('acc-chart');
+  }));
+  try {
+    const data = await apiFetch('/insights/reviews');
+    renderReviews(data);
+    renderFactors(data);
+  } catch (e) {
+    document.getElementById('panel-reviews').innerHTML = `<div class="alert-error">Failed to load reviews: ${escapeHtml(e.message)}</div>`;
+  }
+});
+</script>
+</body>
+</html>

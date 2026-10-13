@@ -424,15 +424,15 @@
     "fighter_name": "RJ Harris",
     "division": "Heavyweight",
     "skill_score": {
-      "Striking": 60.0,
-      "Grappling": 47.2,
-      "Defensa": 58.84,
-      "Consistencia": 50.74,
-      "Finish Rate": 60.0,
-      "Cardio/Durabilidad": 56.6,
-      "Presión": 45.15
+      "Striking": 58.22,
+      "Grappling": 43.31,
+      "Defensa": 60.57,
+      "Consistencia": 49.74,
+      "Finish Rate": 53.1,
+      "Cardio/Durabilidad": 57.88,
+      "Presión": 40.36
     },
-    "skill_composite": 54.63
+    "skill_composite": 52.85
   },
   {
     "fighter_id": "a67f5afa8d6a1b80",
@@ -478,6 +478,21 @@
       "Presión": 30.98
     },
     "skill_composite": 63.88
+  },
+  {
+    "fighter_id": "73a78713bd899f4c",
+    "fighter_name": "Allen Frye Jr.",
+    "division": "Heavyweight",
+    "skill_score": {
+      "Striking": 64.46,
+      "Grappling": 43.95,
+      "Defensa": 63.65,
+      "Consistencia": 55.42,
+      "Finish Rate": 56.32,
+      "Cardio/Durabilidad": 64.6,
+      "Presión": 52.91
+    },
+    "skill_composite": 57.91
   },
   {
     "fighter_id": "d967f0128c323de6",
@@ -1429,15 +1444,15 @@
     "fighter_name": "Felipe Franco",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 63.75,
-      "Grappling": 50.97,
-      "Defensa": 60.98,
-      "Consistencia": 56.14,
-      "Finish Rate": 56.32,
-      "Cardio/Durabilidad": 66.6,
-      "Presión": 48.03
+      "Striking": 54.21,
+      "Grappling": 52.82,
+      "Defensa": 63.64,
+      "Consistencia": 46.58,
+      "Finish Rate": 50.46,
+      "Cardio/Durabilidad": 66.68,
+      "Presión": 39.33
     },
-    "skill_composite": 58.11
+    "skill_composite": 54.13
   },
   {
     "fighter_id": "e06fd1260ac865a7",
@@ -4873,21 +4888,6 @@
       "Presión": 42.89
     },
     "skill_composite": 49.74
-  },
-  {
-    "fighter_id": "73a78713bd899f4c",
-    "fighter_name": "Unknown",
-    "division": "Unknown",
-    "skill_score": {
-      "Striking": 55.58,
-      "Grappling": 45.94,
-      "Defensa": 55.6,
-      "Consistencia": 52.28,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 53.1
-    },
-    "skill_composite": 52.82
   },
   {
     "fighter_id": "1a97a3ef4c758fae",

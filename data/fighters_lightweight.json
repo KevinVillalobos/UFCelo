@@ -782,5 +782,33 @@
     "losses": 1,
     "draws": 1,
     "url": "http://ufcstats.com/fighter-details/e2be0c1a9b886d92"
+  },
+  {
+    "fighter_id": "4c88a1db5a46c6a4",
+    "name": "Jai Herbert",
+    "nickname": "",
+    "height": "6' 1\"",
+    "weight": "155 lbs.",
+    "reach": "77\"",
+    "stance": "Orthodox",
+    "dob": "May 13, 1988",
+    "wins": 15,
+    "losses": 6,
+    "draws": 1,
+    "url": "http://ufcstats.com/fighter-details/4c88a1db5a46c6a4"
+  },
+  {
+    "fighter_id": "3920d0cc288f9b0d",
+    "name": "Francisco Prado",
+    "nickname": "",
+    "height": "5' 10\"",
+    "weight": "155 lbs.",
+    "reach": "69\"",
+    "stance": "Orthodox",
+    "dob": "Jun 16, 2002",
+    "wins": 13,
+    "losses": 5,
+    "draws": 0,
+    "url": "http://ufcstats.com/fighter-details/3920d0cc288f9b0d"
   }
 ]

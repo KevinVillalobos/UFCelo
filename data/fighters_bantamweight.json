@@ -4870,5 +4870,19 @@
     "losses": 12,
     "draws": 0,
     "url": "http://ufcstats.com/fighter-details/82a5152216251682"
+  },
+  {
+    "fighter_id": "b9124c308671e303",
+    "name": "Otari Tanzilovi",
+    "nickname": "",
+    "height": "5' 9\"",
+    "weight": "135 lbs.",
+    "reach": "70\"",
+    "stance": "Orthodox",
+    "dob": "Apr 09, 1998",
+    "wins": 11,
+    "losses": 2,
+    "draws": 0,
+    "url": "http://ufcstats.com/fighter-details/b9124c308671e303"
   }
 ]

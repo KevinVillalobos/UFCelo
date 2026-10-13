@@ -48,6 +48,11 @@ rc = run([sys.executable, "-m", "backend.ufc_rankings"], "UFC: rankings oficiale
 if rc != 0:
     failed.append("ufc-rankings")
 
+# Post-event review of the latest event (read-only analysis -> data/post_mortem.json, data/post_mortem_log.md)
+rc = run([sys.executable, "-m", "models.post_mortem", "--new"], "POST-MORTEM: eventos nuevos")
+if rc != 0:
+    failed.append("post-mortem")
+
 print("\n" + "="*60)
 if failed:
     print(f"TERMINADO con errores en: {', '.join(failed)}")

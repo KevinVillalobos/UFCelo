@@ -1729,15 +1729,15 @@
     "fighter_name": "Malcolm Wellmaker",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 61.09,
-      "Grappling": 33.25,
-      "Defensa": 55.24,
-      "Consistencia": 54.69,
-      "Finish Rate": 53.24,
-      "Cardio/Durabilidad": 70.6,
-      "Presión": 34.13
+      "Striking": 61.41,
+      "Grappling": 29.68,
+      "Defensa": 51.98,
+      "Consistencia": 47.99,
+      "Finish Rate": 47.69,
+      "Cardio/Durabilidad": 70.58,
+      "Presión": 32.53
     },
-    "skill_composite": 52.25
+    "skill_composite": 49.41
   },
   {
     "fighter_id": "b6c4451cb13c9303",
@@ -2869,15 +2869,15 @@
     "fighter_name": "Andre Fili",
     "division": "Featherweight",
     "skill_score": {
-      "Striking": 61.3,
-      "Grappling": 51.49,
-      "Defensa": 71.27,
-      "Consistencia": 52.46,
-      "Finish Rate": 32.09,
-      "Cardio/Durabilidad": 85.69,
-      "Presión": 30.06
+      "Striking": 69.04,
+      "Grappling": 48.39,
+      "Defensa": 75.8,
+      "Consistencia": 57.4,
+      "Finish Rate": 45.67,
+      "Cardio/Durabilidad": 87.15,
+      "Presión": 30.69
     },
-    "skill_composite": 56.89
+    "skill_composite": 61.19
   },
   {
     "fighter_id": "cbd3e590a85b18c5",
@@ -5059,15 +5059,15 @@
     "fighter_name": "Kai Kamaka III",
     "division": "Featherweight",
     "skill_score": {
-      "Striking": 74.71,
-      "Grappling": 42.79,
-      "Defensa": 58.11,
-      "Consistencia": 65.87,
-      "Finish Rate": 33.28,
-      "Cardio/Durabilidad": 77.07,
-      "Presión": 48.53
+      "Striking": 70.16,
+      "Grappling": 39.78,
+      "Defensa": 60.7,
+      "Consistencia": 63.22,
+      "Finish Rate": 31.72,
+      "Cardio/Durabilidad": 75.76,
+      "Presión": 42.62
     },
-    "skill_composite": 58.75
+    "skill_composite": 56.63
   },
   {
     "fighter_id": "4a574b8512fc1b30",
@@ -5852,17 +5852,17 @@
   {
     "fighter_id": "b9124c308671e303",
     "fighter_name": "Otari Tanzilovi",
-    "division": "Featherweight",
+    "division": "Bantamweight",
     "skill_score": {
-      "Striking": 57.66,
-      "Grappling": 53.64,
-      "Defensa": 55.72,
-      "Consistencia": 56.5,
-      "Finish Rate": 45.4,
-      "Cardio/Durabilidad": 60.0,
-      "Presión": 49.77
+      "Striking": 66.13,
+      "Grappling": 57.81,
+      "Defensa": 63.15,
+      "Consistencia": 61.39,
+      "Finish Rate": 56.32,
+      "Cardio/Durabilidad": 66.6,
+      "Presión": 46.89
     },
-    "skill_composite": 54.71
+    "skill_composite": 60.72
   },
   {
     "fighter_id": "70fc8214822b5a85",

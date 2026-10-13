@@ -33581,6 +33581,28 @@
       "time": "1:03",
       "weight_class": "Welterweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "e5496bb07c76d010",
+      "opponent_id": "9eed2bcc9e0b92af",
+      "opponent_name": "Leon Shahbazyan",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 67.56,
+        "Grappling": 36.58,
+        "Defensa": 55.14,
+        "Consistencia": 49.01,
+        "Finish Rate": 44.26,
+        "Cardio/Durabilidad": 78.89,
+        "Presión": 42.93
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "1:58",
+      "weight_class": "Welterweight",
+      "is_title_fight": false
     }
   ],
   "3f1d23b01c552a13": [
@@ -63219,6 +63241,28 @@
       "method": "KO/TKO",
       "round": 1,
       "time": "0:23",
+      "weight_class": "Welterweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "e5496bb07c76d010",
+      "opponent_id": "d8da10db80131bec",
+      "opponent_name": "Niko Price",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 33.08,
+        "Grappling": 41.99,
+        "Defensa": 56.54,
+        "Consistencia": 33.08,
+        "Finish Rate": 41.18,
+        "Cardio/Durabilidad": 54.68,
+        "Presión": 33.08
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "1:58",
       "weight_class": "Welterweight",
       "is_title_fight": false
     }

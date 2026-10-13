@@ -110,6 +110,15 @@ def load_rows(data_dir: Path) -> List[dict]:
             "skill_a": pre_skill.get(key_a, NEUTRAL),
             "skill_b": pre_skill.get(key_b, NEUTRAL),
             "title": bool(fight.is_title_fight),
+            "fight_id": fight.fight_id,
+            "event_id": fight.event_id,
+            "event": fight.event_name,
+            "a_id": fight.fighter_a_id,
+            "b_id": fight.fighter_b_id,
+            "a_name": fight.fighter_a_name,
+            "b_name": fight.fighter_b_name,
+            "method": fight.method,
+            "round": fight.round,
         })
     rows.sort(key=lambda row: row["date"])
     return rows

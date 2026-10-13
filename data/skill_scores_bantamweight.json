@@ -514,15 +514,15 @@
     "fighter_name": "Malcolm Wellmaker",
     "division": "Bantamweight",
     "skill_score": {
-      "Striking": 61.09,
-      "Grappling": 33.25,
-      "Defensa": 55.24,
-      "Consistencia": 54.69,
-      "Finish Rate": 53.24,
-      "Cardio/Durabilidad": 70.6,
-      "Presión": 34.13
+      "Striking": 61.41,
+      "Grappling": 29.68,
+      "Defensa": 51.98,
+      "Consistencia": 47.99,
+      "Finish Rate": 47.69,
+      "Cardio/Durabilidad": 70.58,
+      "Presión": 32.53
     },
-    "skill_composite": 52.25
+    "skill_composite": 49.41
   },
   {
     "fighter_id": "b4537562f88ac582",
@@ -1573,6 +1573,21 @@
       "Presión": 47.79
     },
     "skill_composite": 58.13
+  },
+  {
+    "fighter_id": "b9124c308671e303",
+    "fighter_name": "Otari Tanzilovi",
+    "division": "Bantamweight",
+    "skill_score": {
+      "Striking": 66.13,
+      "Grappling": 57.81,
+      "Defensa": 63.15,
+      "Consistencia": 61.39,
+      "Finish Rate": 56.32,
+      "Cardio/Durabilidad": 66.6,
+      "Presión": 46.89
+    },
+    "skill_composite": 60.72
   },
   {
     "fighter_id": "18d01f7f8338ae72",

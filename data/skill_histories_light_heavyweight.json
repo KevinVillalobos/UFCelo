@@ -16615,6 +16615,28 @@
       "time": "0:08",
       "weight_class": "Light Heavyweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "eda03e3ddf74d1cd",
+      "opponent_id": "6ac9bc2953c47345",
+      "opponent_name": "Gerald Meerschaert",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 59.15,
+        "Grappling": 58.72,
+        "Defensa": 68.99,
+        "Consistencia": 52.94,
+        "Finish Rate": 49.02,
+        "Cardio/Durabilidad": 72.52,
+        "Presión": 55.83
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "3:35",
+      "weight_class": "Light Heavyweight",
+      "is_title_fight": false
     }
   ],
   "4b4fc3ddc307bc73": [
@@ -26405,6 +26427,28 @@
       "time": "5:00",
       "weight_class": "Light Heavyweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "ab17995c72396061",
+      "opponent_id": "e564146b9cf6dbef",
+      "opponent_name": "Felipe Franco",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 50.01,
+        "Grappling": 23.31,
+        "Defensa": 46.7,
+        "Consistencia": 56.12,
+        "Finish Rate": 49.3,
+        "Cardio/Durabilidad": 77.14,
+        "Presión": 20.05
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "SUB",
+      "round": 1,
+      "time": "1:49",
+      "weight_class": "Light Heavyweight",
+      "is_title_fight": false
     }
   ],
   "12458872d6afae1b": [
@@ -34373,6 +34417,28 @@
       "time": "1:40",
       "weight_class": "Light Heavyweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "ab17995c72396061",
+      "opponent_id": "49edd0d90f60fb7d",
+      "opponent_name": "Brendson Ribeiro",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 54.21,
+        "Grappling": 52.82,
+        "Defensa": 63.64,
+        "Consistencia": 46.58,
+        "Finish Rate": 50.46,
+        "Cardio/Durabilidad": 66.68,
+        "Presión": 39.33
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "SUB",
+      "round": 1,
+      "time": "1:49",
+      "weight_class": "Light Heavyweight",
+      "is_title_fight": false
     }
   ],
   "b01a5e0dcd9f231d": [
@@ -34395,6 +34461,30 @@
       "method": "KO/TKO",
       "round": 2,
       "time": "4:49",
+      "weight_class": "Light Heavyweight",
+      "is_title_fight": false
+    }
+  ],
+  "6ac9bc2953c47345": [
+    {
+      "date": "2026-10-10",
+      "fight_id": "eda03e3ddf74d1cd",
+      "opponent_id": "6add18754930182b",
+      "opponent_name": "Julius Walker",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 52.69,
+        "Grappling": 25.11,
+        "Defensa": 46.09,
+        "Consistencia": 52.7,
+        "Finish Rate": 38.08,
+        "Cardio/Durabilidad": 82.18,
+        "Presión": 24.21
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "3:35",
       "weight_class": "Light Heavyweight",
       "is_title_fight": false
     }

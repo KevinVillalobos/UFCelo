@@ -1057,7 +1057,17 @@ Retired fighters are excluded from active rankings and matchmaking. The Fighter 
 python scraper/run_all.py
 ```
 
-It runs, in order: the incremental scraper for the 8 divisions (`data/scrape_checkpoint.json` skips events already scraped), the unified ELO + skill engine, and the official UFC rankings/champions sync. It takes a while because of the scraping.
+It runs, in order: the incremental scraper for the 8 divisions (`data/scrape_checkpoint.json` skips events already scraped), the unified ELO + skill engine, the official UFC rankings/champions sync, and the post-event review. It takes a while because of the scraping.
+
+### Post-event review (what we got right and wrong, and why)
+
+```bash
+python -m models.post_mortem                      # latest event
+python -m models.post_mortem --event "Allen vs"   # a specific event
+python -m models.post_mortem --all-events         # backfill the whole history
+```
+
+For each fight it rebuilds the prediction from pre-fight information only, marks hit/miss, and lists the signals that backed the favourite (ELO gap, skill-dimension edges) and the ones that pointed to the winner, plus method and tags (coin-flip, big-upset, low-sample). A factor scorecard over all history shows how reliable each signal is. Output: `data/post_mortem.json` and `data/post_mortem_log.md`. `run_all.py` calls it with `--new`, so each weekly update appends the events not yet logged and the history keeps growing (`--since 2026-01-01` backfills). The API serves it at `GET /insights/reviews` and the site shows it in the **Insights** tab (`public/insights.html`): a weekly review per event (pick, result, method, why) and a factor scorecard. It is read-only: it never changes model parameters. Tuning stays a manual, backtested decision logged in `data/improvement_log.md`.
 
 Then:
 

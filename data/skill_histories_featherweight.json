@@ -20423,6 +20423,28 @@
       "time": "4:56",
       "weight_class": "Featherweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "e8710a6236db464e",
+      "opponent_id": "eee0ef3e2b14816b",
+      "opponent_name": "Kai Kamaka III",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 69.04,
+        "Grappling": 48.39,
+        "Defensa": 75.8,
+        "Consistencia": 57.4,
+        "Finish Rate": 45.67,
+        "Cardio/Durabilidad": 87.15,
+        "Presión": 30.69
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "0:22",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
     }
   ],
   "cbd3e590a85b18c5": [
@@ -34705,6 +34727,28 @@
       "method": "KO/TKO",
       "round": 1,
       "time": "3:03",
+      "weight_class": "Featherweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "e8710a6236db464e",
+      "opponent_id": "8fd808923cffff82",
+      "opponent_name": "Andre Fili",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 70.16,
+        "Grappling": 39.78,
+        "Defensa": 60.7,
+        "Consistencia": 63.22,
+        "Finish Rate": 31.72,
+        "Cardio/Durabilidad": 75.76,
+        "Presión": 42.62
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "0:22",
       "weight_class": "Featherweight",
       "is_title_fight": false
     }

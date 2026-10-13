@@ -233,6 +233,7 @@ function searchFieldHTML(p, opts) {
     ['comparison.html', 'Comparison',  '/comparison.html'],
     ['matchmaking.html','Matchmaking', '/matchmaking.html'],
     ['p4p.html',        'P4P',         '/p4p.html'],
+    ['insights.html',   'Insights',    '/insights.html'],
   ];
   const bare = f => f.replace(/\.html$/, '');
   const isActive = f => bare(page) === bare(f);

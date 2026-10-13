@@ -4379,6 +4379,28 @@
       "time": "4:08",
       "weight_class": "Bantamweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "c56bbc28d155f846",
+      "opponent_id": "b9124c308671e303",
+      "opponent_name": "Otari Tanzilovi",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 61.41,
+        "Grappling": 29.68,
+        "Defensa": 51.98,
+        "Consistencia": 47.99,
+        "Finish Rate": 47.69,
+        "Cardio/Durabilidad": 70.58,
+        "Presión": 32.53
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "2:39",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
     }
   ],
   "b4537562f88ac582": [
@@ -12965,6 +12987,30 @@
       "method": "DEC S",
       "round": 3,
       "time": "5:00",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false
+    }
+  ],
+  "b9124c308671e303": [
+    {
+      "date": "2026-10-10",
+      "fight_id": "c56bbc28d155f846",
+      "opponent_id": "2e45d08b3f2f02c8",
+      "opponent_name": "Malcolm Wellmaker",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 66.13,
+        "Grappling": 57.81,
+        "Defensa": 63.15,
+        "Consistencia": 61.39,
+        "Finish Rate": 56.32,
+        "Cardio/Durabilidad": 66.6,
+        "Presión": 46.89
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "2:39",
       "weight_class": "Bantamweight",
       "is_title_fight": false
     }

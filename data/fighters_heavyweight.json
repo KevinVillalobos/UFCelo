@@ -446,5 +446,19 @@
     "losses": 4,
     "draws": 0,
     "url": "http://ufcstats.com/fighter-details/fc08099550072fe4"
+  },
+  {
+    "fighter_id": "73a78713bd899f4c",
+    "name": "Allen Frye Jr.",
+    "nickname": "",
+    "height": "6' 5\"",
+    "weight": "255 lbs.",
+    "reach": "80\"",
+    "stance": "Orthodox",
+    "dob": "Apr 15, 1998",
+    "wins": 7,
+    "losses": 1,
+    "draws": 0,
+    "url": "http://ufcstats.com/fighter-details/73a78713bd899f4c"
   }
 ]

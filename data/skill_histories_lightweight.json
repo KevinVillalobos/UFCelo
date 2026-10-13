@@ -13211,6 +13211,28 @@
       "time": "5:00",
       "weight_class": "Lightweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "254ace2091125fc6",
+      "opponent_id": "eb393afdbe3293d5",
+      "opponent_name": "Ismael Bonfim",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 71.66,
+        "Grappling": 46.04,
+        "Defensa": 61.73,
+        "Consistencia": 58.95,
+        "Finish Rate": 51.22,
+        "Cardio/Durabilidad": 85.0,
+        "Presión": 48.53
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "4:23",
+      "weight_class": "Lightweight",
+      "is_title_fight": false
     }
   ],
   "d9a56ecb6e94f02e": [
@@ -22557,6 +22579,28 @@
       "time": "4:44",
       "weight_class": "Lightweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "254ace2091125fc6",
+      "opponent_id": "3920d0cc288f9b0d",
+      "opponent_name": "Francisco Prado",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 57.2,
+        "Grappling": 36.77,
+        "Defensa": 52.74,
+        "Consistencia": 55.17,
+        "Finish Rate": 35.25,
+        "Cardio/Durabilidad": 66.74,
+        "Presión": 30.85
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "4:23",
+      "weight_class": "Lightweight",
+      "is_title_fight": false
     }
   ],
   "b3cb9dfccff3be76": [
@@ -27007,6 +27051,28 @@
       "time": "1:31",
       "weight_class": "Lightweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "295339c08c80a3cf",
+      "opponent_id": "4c88a1db5a46c6a4",
+      "opponent_name": "Jai Herbert",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 56.59,
+        "Grappling": 55.48,
+        "Defensa": 72.27,
+        "Consistencia": 53.8,
+        "Finish Rate": 48.49,
+        "Cardio/Durabilidad": 74.24,
+        "Presión": 36.64
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Lightweight",
+      "is_title_fight": false
     }
   ],
   "b7b84ccd221be298": [
@@ -29425,6 +29491,250 @@
       "method": "KO/TKO",
       "round": 2,
       "time": "2:07",
+      "weight_class": "Lightweight",
+      "is_title_fight": false
+    }
+  ],
+  "4c88a1db5a46c6a4": [
+    {
+      "date": "2020-07-25",
+      "fight_id": "3b209a2aee014ac2",
+      "opponent_id": "a8283a4f415e1eb9",
+      "opponent_name": "Francisco Trinaldo",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 47.99,
+        "Grappling": 41.65,
+        "Defensa": 45.32,
+        "Consistencia": 50.19,
+        "Finish Rate": 44.5,
+        "Cardio/Durabilidad": 55.0,
+        "Presión": 44.55
+      },
+      "event": "UFC Fight Night: Whittaker vs. Till",
+      "method": "KO/TKO",
+      "round": 3,
+      "time": "1:30",
+      "weight_class": "Lightweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2021-06-26",
+      "fight_id": "4341ebb5a56e6943",
+      "opponent_id": "b6452706b373eea1",
+      "opponent_name": "Renato Moicano",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 47.21,
+        "Grappling": 35.43,
+        "Defensa": 41.36,
+        "Consistencia": 47.1,
+        "Finish Rate": 41.0,
+        "Cardio/Durabilidad": 59.0,
+        "Presión": 38.12
+      },
+      "event": "UFC Fight Night: Gane vs. Volkov",
+      "method": "SUB",
+      "round": 2,
+      "time": "4:34",
+      "weight_class": "Lightweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2021-10-23",
+      "fight_id": "6d7eecf4acecda2a",
+      "opponent_id": "78e501478a36a018",
+      "opponent_name": "Khama Worthy",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 57.77,
+        "Grappling": 35.54,
+        "Defensa": 51.59,
+        "Consistencia": 51.11,
+        "Finish Rate": 52.8,
+        "Cardio/Durabilidad": 63.8,
+        "Presión": 37.33
+      },
+      "event": "UFC Fight Night: Costa vs. Vettori",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "2:47",
+      "weight_class": "Lightweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2022-03-19",
+      "fight_id": "a200b5dcbdd2506e",
+      "opponent_id": "54f64b5e283b0ce7",
+      "opponent_name": "Ilia Topuria",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 59.76,
+        "Grappling": 32.74,
+        "Defensa": 52.18,
+        "Consistencia": 50.65,
+        "Finish Rate": 47.34,
+        "Cardio/Durabilidad": 65.14,
+        "Presión": 35.09
+      },
+      "event": "UFC Fight Night: Volkov vs. Aspinall",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "1:07",
+      "weight_class": "Lightweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2022-07-23",
+      "fight_id": "a1029686c3f1bead",
+      "opponent_id": "31f8081c7600da93",
+      "opponent_name": "Kyle Nelson",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 67.81,
+        "Grappling": 32.79,
+        "Defensa": 58.89,
+        "Consistencia": 59.05,
+        "Finish Rate": 43.87,
+        "Cardio/Durabilidad": 72.11,
+        "Presión": 41.57
+      },
+      "event": "UFC Fight Night: Blaydes vs. Aspinall",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Lightweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2023-03-18",
+      "fight_id": "938c2c71b84e56ff",
+      "opponent_id": "5b86d491d63890c5",
+      "opponent_name": "Ludovit Klein",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 74.25,
+        "Grappling": 33.57,
+        "Defensa": 54.08,
+        "Consistencia": 63.77,
+        "Finish Rate": 41.1,
+        "Cardio/Durabilidad": 77.69,
+        "Presión": 44.68
+      },
+      "event": "UFC 286: Edwards vs. Usman 3",
+      "method": "DEC M",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Lightweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2023-07-22",
+      "fight_id": "c4caa8a4f32a0eed",
+      "opponent_id": "1e4f273069fb9e85",
+      "opponent_name": "Fares Ziam",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 71.09,
+        "Grappling": 31.61,
+        "Defensa": 56.13,
+        "Consistencia": 62.7,
+        "Finish Rate": 38.28,
+        "Cardio/Durabilidad": 82.15,
+        "Presión": 44.22
+      },
+      "event": "UFC Fight Night: Aspinall vs. Tybura",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Lightweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2024-08-03",
+      "fight_id": "d038ff5ac21094f3",
+      "opponent_id": "40a456a25d52ee65",
+      "opponent_name": "Rolando Bedoya",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 75.19,
+        "Grappling": 42.15,
+        "Defensa": 63.53,
+        "Consistencia": 65.41,
+        "Finish Rate": 36.62,
+        "Cardio/Durabilidad": 85.72,
+        "Presión": 43.77
+      },
+      "event": "UFC Fight Night: Sandhagen vs. Nurmagomedov",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Lightweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2025-03-22",
+      "fight_id": "2a1071689c3af9df",
+      "opponent_id": "06626b6287e1ae1e",
+      "opponent_name": "Chris Padilla",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 72.3,
+        "Grappling": 39.66,
+        "Defensa": 66.67,
+        "Consistencia": 63.5,
+        "Finish Rate": 34.7,
+        "Cardio/Durabilidad": 88.58,
+        "Presión": 39.7
+      },
+      "event": "UFC Fight Night: Edwards vs. Brady",
+      "method": "DEC S",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Lightweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-04-18",
+      "fight_id": "e644218737c1a778",
+      "opponent_id": "8f4528c10bd34fab",
+      "opponent_name": "Mandel Nallo",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 77.84,
+        "Grappling": 38.93,
+        "Defensa": 71.87,
+        "Consistencia": 62.51,
+        "Finish Rate": 47.76,
+        "Cardio/Durabilidad": 87.46,
+        "Presión": 40.82
+      },
+      "event": "UFC Fight Night: Burns vs. Malott",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "2:05",
+      "weight_class": "Lightweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "295339c08c80a3cf",
+      "opponent_id": "72f890c5d421e705",
+      "opponent_name": "Matheus Camilo",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 78.45,
+        "Grappling": 34.44,
+        "Defensa": 67.33,
+        "Consistencia": 63.31,
+        "Finish Rate": 44.21,
+        "Cardio/Durabilidad": 89.97,
+        "Presión": 42.69
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
       "weight_class": "Lightweight",
       "is_title_fight": false
     }
@@ -63755,228 +64065,6 @@
       "method": "DEC U",
       "round": 3,
       "time": "5:00",
-      "weight_class": "Lightweight",
-      "is_title_fight": false
-    }
-  ],
-  "4c88a1db5a46c6a4": [
-    {
-      "date": "2020-07-25",
-      "fight_id": "3b209a2aee014ac2",
-      "opponent_id": "a8283a4f415e1eb9",
-      "opponent_name": "Francisco Trinaldo",
-      "result": "Loss",
-      "skill_score": {
-        "Striking": 47.99,
-        "Grappling": 41.65,
-        "Defensa": 45.32,
-        "Consistencia": 50.19,
-        "Finish Rate": 44.5,
-        "Cardio/Durabilidad": 55.0,
-        "Presión": 44.55
-      },
-      "event": "UFC Fight Night: Whittaker vs. Till",
-      "method": "KO/TKO",
-      "round": 3,
-      "time": "1:30",
-      "weight_class": "Lightweight",
-      "is_title_fight": false
-    },
-    {
-      "date": "2021-06-26",
-      "fight_id": "4341ebb5a56e6943",
-      "opponent_id": "b6452706b373eea1",
-      "opponent_name": "Renato Moicano",
-      "result": "Loss",
-      "skill_score": {
-        "Striking": 47.21,
-        "Grappling": 35.43,
-        "Defensa": 41.36,
-        "Consistencia": 47.1,
-        "Finish Rate": 41.0,
-        "Cardio/Durabilidad": 59.0,
-        "Presión": 38.12
-      },
-      "event": "UFC Fight Night: Gane vs. Volkov",
-      "method": "SUB",
-      "round": 2,
-      "time": "4:34",
-      "weight_class": "Lightweight",
-      "is_title_fight": false
-    },
-    {
-      "date": "2021-10-23",
-      "fight_id": "6d7eecf4acecda2a",
-      "opponent_id": "78e501478a36a018",
-      "opponent_name": "Khama Worthy",
-      "result": "Win",
-      "skill_score": {
-        "Striking": 57.77,
-        "Grappling": 35.54,
-        "Defensa": 51.59,
-        "Consistencia": 51.11,
-        "Finish Rate": 52.8,
-        "Cardio/Durabilidad": 63.8,
-        "Presión": 37.33
-      },
-      "event": "UFC Fight Night: Costa vs. Vettori",
-      "method": "KO/TKO",
-      "round": 1,
-      "time": "2:47",
-      "weight_class": "Lightweight",
-      "is_title_fight": false
-    },
-    {
-      "date": "2022-03-19",
-      "fight_id": "a200b5dcbdd2506e",
-      "opponent_id": "54f64b5e283b0ce7",
-      "opponent_name": "Ilia Topuria",
-      "result": "Loss",
-      "skill_score": {
-        "Striking": 59.76,
-        "Grappling": 32.74,
-        "Defensa": 52.18,
-        "Consistencia": 50.65,
-        "Finish Rate": 47.34,
-        "Cardio/Durabilidad": 65.14,
-        "Presión": 35.09
-      },
-      "event": "UFC Fight Night: Volkov vs. Aspinall",
-      "method": "KO/TKO",
-      "round": 2,
-      "time": "1:07",
-      "weight_class": "Lightweight",
-      "is_title_fight": false
-    },
-    {
-      "date": "2022-07-23",
-      "fight_id": "a1029686c3f1bead",
-      "opponent_id": "31f8081c7600da93",
-      "opponent_name": "Kyle Nelson",
-      "result": "Win",
-      "skill_score": {
-        "Striking": 67.81,
-        "Grappling": 32.79,
-        "Defensa": 58.89,
-        "Consistencia": 59.05,
-        "Finish Rate": 43.87,
-        "Cardio/Durabilidad": 72.11,
-        "Presión": 41.57
-      },
-      "event": "UFC Fight Night: Blaydes vs. Aspinall",
-      "method": "DEC U",
-      "round": 3,
-      "time": "5:00",
-      "weight_class": "Lightweight",
-      "is_title_fight": false
-    },
-    {
-      "date": "2023-03-18",
-      "fight_id": "938c2c71b84e56ff",
-      "opponent_id": "5b86d491d63890c5",
-      "opponent_name": "Ludovit Klein",
-      "result": "Win",
-      "skill_score": {
-        "Striking": 74.25,
-        "Grappling": 33.57,
-        "Defensa": 54.08,
-        "Consistencia": 63.77,
-        "Finish Rate": 41.1,
-        "Cardio/Durabilidad": 77.69,
-        "Presión": 44.68
-      },
-      "event": "UFC 286: Edwards vs. Usman 3",
-      "method": "DEC M",
-      "round": 3,
-      "time": "5:00",
-      "weight_class": "Lightweight",
-      "is_title_fight": false
-    },
-    {
-      "date": "2023-07-22",
-      "fight_id": "c4caa8a4f32a0eed",
-      "opponent_id": "1e4f273069fb9e85",
-      "opponent_name": "Fares Ziam",
-      "result": "Loss",
-      "skill_score": {
-        "Striking": 71.09,
-        "Grappling": 31.61,
-        "Defensa": 56.13,
-        "Consistencia": 62.7,
-        "Finish Rate": 38.28,
-        "Cardio/Durabilidad": 82.15,
-        "Presión": 44.22
-      },
-      "event": "UFC Fight Night: Aspinall vs. Tybura",
-      "method": "DEC U",
-      "round": 3,
-      "time": "5:00",
-      "weight_class": "Lightweight",
-      "is_title_fight": false
-    },
-    {
-      "date": "2024-08-03",
-      "fight_id": "d038ff5ac21094f3",
-      "opponent_id": "40a456a25d52ee65",
-      "opponent_name": "Rolando Bedoya",
-      "result": "Win",
-      "skill_score": {
-        "Striking": 75.19,
-        "Grappling": 42.15,
-        "Defensa": 63.53,
-        "Consistencia": 65.41,
-        "Finish Rate": 36.62,
-        "Cardio/Durabilidad": 85.72,
-        "Presión": 43.77
-      },
-      "event": "UFC Fight Night: Sandhagen vs. Nurmagomedov",
-      "method": "DEC U",
-      "round": 3,
-      "time": "5:00",
-      "weight_class": "Lightweight",
-      "is_title_fight": false
-    },
-    {
-      "date": "2025-03-22",
-      "fight_id": "2a1071689c3af9df",
-      "opponent_id": "06626b6287e1ae1e",
-      "opponent_name": "Chris Padilla",
-      "result": "Loss",
-      "skill_score": {
-        "Striking": 72.3,
-        "Grappling": 39.66,
-        "Defensa": 66.67,
-        "Consistencia": 63.5,
-        "Finish Rate": 34.7,
-        "Cardio/Durabilidad": 88.58,
-        "Presión": 39.7
-      },
-      "event": "UFC Fight Night: Edwards vs. Brady",
-      "method": "DEC S",
-      "round": 3,
-      "time": "5:00",
-      "weight_class": "Lightweight",
-      "is_title_fight": false
-    },
-    {
-      "date": "2026-04-18",
-      "fight_id": "e644218737c1a778",
-      "opponent_id": "8f4528c10bd34fab",
-      "opponent_name": "Mandel Nallo",
-      "result": "Win",
-      "skill_score": {
-        "Striking": 77.84,
-        "Grappling": 38.93,
-        "Defensa": 71.87,
-        "Consistencia": 62.51,
-        "Finish Rate": 47.76,
-        "Cardio/Durabilidad": 87.46,
-        "Presión": 40.82
-      },
-      "event": "UFC Fight Night: Burns vs. Malott",
-      "method": "KO/TKO",
-      "round": 1,
-      "time": "2:05",
       "weight_class": "Lightweight",
       "is_title_fight": false
     }

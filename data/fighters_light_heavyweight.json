@@ -4254,5 +4254,19 @@
     "losses": 0,
     "draws": 0,
     "url": "http://ufcstats.com/fighter-details/b01a5e0dcd9f231d"
+  },
+  {
+    "fighter_id": "6ac9bc2953c47345",
+    "name": "Gerald Meerschaert",
+    "nickname": "",
+    "height": "6' 1\"",
+    "weight": "205 lbs.",
+    "reach": "77\"",
+    "stance": "Southpaw",
+    "dob": "Dec 18, 1987",
+    "wins": 37,
+    "losses": 23,
+    "draws": 0,
+    "url": "http://ufcstats.com/fighter-details/6ac9bc2953c47345"
   }
 ]

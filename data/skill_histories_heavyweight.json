@@ -3399,6 +3399,28 @@
       "time": "1:40",
       "weight_class": "Heavyweight",
       "is_title_fight": false
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "e997bc8caf59cf03",
+      "opponent_id": "73a78713bd899f4c",
+      "opponent_name": "Allen Frye Jr.",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 58.22,
+        "Grappling": 43.31,
+        "Defensa": 60.57,
+        "Consistencia": 49.74,
+        "Finish Rate": 53.1,
+        "Cardio/Durabilidad": 57.88,
+        "Presión": 40.36
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "2:59",
+      "weight_class": "Heavyweight",
+      "is_title_fight": false
     }
   ],
   "a67f5afa8d6a1b80": [
@@ -3953,6 +3975,52 @@
       "method": "DEC U",
       "round": 3,
       "time": "5:00",
+      "weight_class": "Heavyweight",
+      "is_title_fight": false
+    }
+  ],
+  "73a78713bd899f4c": [
+    {
+      "date": "2025-12-13",
+      "fight_id": "ac56a1052c4c8f63",
+      "opponent_id": "ba15006c804a8de0",
+      "opponent_name": "Guilherme Pat",
+      "result": "Loss",
+      "skill_score": {
+        "Striking": 55.58,
+        "Grappling": 45.94,
+        "Defensa": 55.6,
+        "Consistencia": 52.28,
+        "Finish Rate": 45.4,
+        "Cardio/Durabilidad": 60.0,
+        "Presión": 53.1
+      },
+      "event": "UFC Fight Night: Royval vs. Kape",
+      "method": "DEC U",
+      "round": 3,
+      "time": "5:00",
+      "weight_class": "Heavyweight",
+      "is_title_fight": false
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "e997bc8caf59cf03",
+      "opponent_id": "e03187ec8b5b6abc",
+      "opponent_name": "RJ Harris",
+      "result": "Win",
+      "skill_score": {
+        "Striking": 64.46,
+        "Grappling": 43.95,
+        "Defensa": 63.65,
+        "Consistencia": 55.42,
+        "Finish Rate": 56.32,
+        "Cardio/Durabilidad": 64.6,
+        "Presión": 52.91
+      },
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "KO/TKO",
+      "round": 1,
+      "time": "2:59",
       "weight_class": "Heavyweight",
       "is_title_fight": false
     }
@@ -35490,30 +35558,6 @@
         "Presión": 42.89
       },
       "event": "UFC Fight Night: Tsarukyan vs. Hooker",
-      "method": "DEC U",
-      "round": 3,
-      "time": "5:00",
-      "weight_class": "Heavyweight",
-      "is_title_fight": false
-    }
-  ],
-  "73a78713bd899f4c": [
-    {
-      "date": "2025-12-13",
-      "fight_id": "ac56a1052c4c8f63",
-      "opponent_id": "ba15006c804a8de0",
-      "opponent_name": "Guilherme Pat",
-      "result": "Loss",
-      "skill_score": {
-        "Striking": 55.58,
-        "Grappling": 45.94,
-        "Defensa": 55.6,
-        "Consistencia": 52.28,
-        "Finish Rate": 45.4,
-        "Cardio/Durabilidad": 60.0,
-        "Presión": 53.1
-      },
-      "event": "UFC Fight Night: Royval vs. Kape",
       "method": "DEC U",
       "round": 3,
       "time": "5:00",

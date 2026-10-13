@@ -1412,17 +1412,17 @@
   {
     "fighter_id": "3920d0cc288f9b0d",
     "fighter_name": "Francisco Prado",
-    "division": "Welterweight",
+    "division": "Lightweight",
     "skill_score": {
-      "Striking": 64.57,
-      "Grappling": 32.55,
-      "Defensa": 53.91,
-      "Consistencia": 59.45,
-      "Finish Rate": 39.02,
-      "Cardio/Durabilidad": 85.5,
-      "Presión": 41.78
+      "Striking": 71.66,
+      "Grappling": 46.04,
+      "Defensa": 61.73,
+      "Consistencia": 58.95,
+      "Finish Rate": 51.22,
+      "Cardio/Durabilidad": 85.0,
+      "Presión": 48.53
     },
-    "skill_composite": 54.13
+    "skill_composite": 60.9
   },
   {
     "fighter_id": "d9a56ecb6e94f02e",
@@ -2374,15 +2374,15 @@
     "fighter_name": "Ismael Bonfim",
     "division": "Lightweight",
     "skill_score": {
-      "Striking": 59.32,
-      "Grappling": 45.21,
-      "Defensa": 63.51,
-      "Consistencia": 53.52,
-      "Finish Rate": 37.69,
-      "Cardio/Durabilidad": 67.67,
-      "Presión": 34.89
+      "Striking": 57.2,
+      "Grappling": 36.77,
+      "Defensa": 52.74,
+      "Consistencia": 55.17,
+      "Finish Rate": 35.25,
+      "Cardio/Durabilidad": 66.74,
+      "Presión": 30.85
     },
-    "skill_composite": 53.4
+    "skill_composite": 49.06
   },
   {
     "fighter_id": "b3cb9dfccff3be76",
@@ -2749,15 +2749,15 @@
     "fighter_name": "Matheus Camilo",
     "division": "Lightweight",
     "skill_score": {
-      "Striking": 54.61,
-      "Grappling": 53.26,
-      "Defensa": 69.69,
-      "Consistencia": 51.41,
-      "Finish Rate": 53.86,
-      "Cardio/Durabilidad": 67.8,
-      "Presión": 37.65
+      "Striking": 56.59,
+      "Grappling": 55.48,
+      "Defensa": 72.27,
+      "Consistencia": 53.8,
+      "Finish Rate": 48.49,
+      "Cardio/Durabilidad": 74.24,
+      "Presión": 36.64
     },
-    "skill_composite": 56.49
+    "skill_composite": 58.1
   },
   {
     "fighter_id": "b7b84ccd221be298",
@@ -2923,6 +2923,21 @@
       "Presión": 50.4
     },
     "skill_composite": 59.9
+  },
+  {
+    "fighter_id": "4c88a1db5a46c6a4",
+    "fighter_name": "Jai Herbert",
+    "division": "Lightweight",
+    "skill_score": {
+      "Striking": 78.45,
+      "Grappling": 34.44,
+      "Defensa": 67.33,
+      "Consistencia": 63.31,
+      "Finish Rate": 44.21,
+      "Cardio/Durabilidad": 89.97,
+      "Presión": 42.69
+    },
+    "skill_composite": 61.51
   },
   {
     "fighter_id": "7d96bc577e5178b2",
@@ -4294,15 +4309,15 @@
     "fighter_name": "Kai Kamaka III",
     "division": "Featherweight",
     "skill_score": {
-      "Striking": 74.71,
-      "Grappling": 42.79,
-      "Defensa": 58.11,
-      "Consistencia": 65.87,
-      "Finish Rate": 33.28,
-      "Cardio/Durabilidad": 77.07,
-      "Presión": 48.53
+      "Striking": 70.16,
+      "Grappling": 39.78,
+      "Defensa": 60.7,
+      "Consistencia": 63.22,
+      "Finish Rate": 31.72,
+      "Cardio/Durabilidad": 75.76,
+      "Presión": 42.62
     },
-    "skill_composite": 58.75
+    "skill_composite": 56.63
   },
   {
     "fighter_id": "ed209f6618c82e41",
@@ -8278,21 +8293,6 @@
       "Presión": 52.07
     },
     "skill_composite": 51.44
-  },
-  {
-    "fighter_id": "4c88a1db5a46c6a4",
-    "fighter_name": "Unknown",
-    "division": "Unknown",
-    "skill_score": {
-      "Striking": 77.84,
-      "Grappling": 38.93,
-      "Defensa": 71.87,
-      "Consistencia": 62.51,
-      "Finish Rate": 47.76,
-      "Cardio/Durabilidad": 87.46,
-      "Presión": 40.82
-    },
-    "skill_composite": 62.76
   },
   {
     "fighter_id": "f8f1ec513bcfef43",

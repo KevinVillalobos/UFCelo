@@ -8,7 +8,7 @@ import hmac
 from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from .data_loader import set_fighter_retired
+from .data_loader import load_json_file, set_fighter_retired
 
 # ── Visit counter ─────────────────────────────────────────────────────────────
 # Uses Upstash Redis when env vars are present; falls back to a local file.
@@ -183,6 +183,18 @@ def get_upcoming_events(
 @app.get("/accuracy", response_model=AccuracyResponse)
 def get_accuracy():
     return build_accuracy()
+
+
+@app.get("/insights/reviews")
+def get_insight_reviews():
+    """Post-event reviews (prediction vs result vs why), newest first, plus the all-history factor scorecard.
+
+    Produced by `python -m models.post_mortem`; the pre-fight state is reconstructed from earlier data only.
+    """
+    data = load_json_file("post_mortem.json")
+    if not data:
+        raise HTTPException(status_code=404, detail="No post-event reviews yet.")
+    return data
 
 
 @app.get("/matchmaking/{division}", response_model=list[MatchupEntry])

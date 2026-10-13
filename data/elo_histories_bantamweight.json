@@ -6927,6 +6927,41 @@
         "cap_applied": false,
         "peak_penalty": false
       }
+    },
+    {
+      "date": "2026-10-10",
+      "fight_id": "c56bbc28d155f846",
+      "opponent_id": "b9124c308671e303",
+      "opponent_name": "Otari Tanzilovi",
+      "result": "Loss",
+      "elo": 1613.39,
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "2:39",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false,
+      "breakdown": {
+        "elo_before": 1658.43,
+        "elo_after": 1613.39,
+        "delta": -45.04,
+        "k_base": 32.0,
+        "k_var": 1.8,
+        "div_mult": 0.9,
+        "streak_before": -2,
+        "streak_mult": 1.0,
+        "method_weight": 1.75,
+        "consec_loss_mult": 1.4,
+        "quality_mult": 0.8,
+        "rematch_mult": 1.0,
+        "opp_mom_mult": 1.0,
+        "time_mult": 1.0,
+        "k_effective": 80.64,
+        "expected_prob": 0.5585,
+        "surprise": -0.5585,
+        "cap_applied": false,
+        "peak_penalty": false
+      }
     }
   ],
   "b4537562f88ac582": [
@@ -7193,7 +7228,7 @@
       "weight_class": "Bantamweight",
       "is_title_fight": false,
       "breakdown": {
-        "elo_before": 1669.6,
+        "elo_before": 1669.61,
         "elo_after": 1659.46,
         "delta": -10.14,
         "k_base": 32.0,
@@ -7222,7 +7257,7 @@
       "opponent_id": "0fd5f4b838e890cc",
       "opponent_name": "Said Nurmagomedov",
       "result": "Win",
-      "elo": 1716.82,
+      "elo": 1716.97,
       "event": "UFC Fight Night: Whittaker vs. De Ridder",
       "method": "DEC U",
       "round": 3,
@@ -7230,9 +7265,9 @@
       "weight_class": "Bantamweight",
       "is_title_fight": false,
       "breakdown": {
-        "elo_before": 1704.58,
-        "elo_after": 1716.82,
-        "delta": 12.24,
+        "elo_before": 1704.74,
+        "elo_after": 1716.97,
+        "delta": 12.23,
         "k_base": 32.0,
         "k_var": 0.9,
         "div_mult": 0.9,
@@ -7245,8 +7280,8 @@
         "opp_mom_mult": 1.0,
         "time_mult": 0.9,
         "k_effective": 23.134,
-        "expected_prob": 0.471,
-        "surprise": 0.529,
+        "expected_prob": 0.4712,
+        "surprise": 0.5288,
         "cap_applied": false,
         "peak_penalty": false
       }
@@ -7257,7 +7292,7 @@
       "opponent_id": "faf317c665546a36",
       "opponent_name": "Santiago Luna",
       "result": "Win",
-      "elo": 1729.58,
+      "elo": 1729.73,
       "event": "UFC Fight Night: Muhammad vs. Bonfim",
       "method": "SUB",
       "round": 3,
@@ -7265,8 +7300,8 @@
       "weight_class": "Bantamweight",
       "is_title_fight": false,
       "breakdown": {
-        "elo_before": 1716.82,
-        "elo_after": 1729.58,
+        "elo_before": 1716.97,
+        "elo_after": 1729.73,
         "delta": 12.76,
         "k_base": 32.0,
         "k_var": 0.9,
@@ -7280,8 +7315,8 @@
         "opp_mom_mult": 1.0,
         "time_mult": 0.9,
         "k_effective": 24.235,
-        "expected_prob": 0.4734,
-        "surprise": 0.5266,
+        "expected_prob": 0.4737,
+        "surprise": 0.5263,
         "cap_applied": false,
         "peak_penalty": false
       }
@@ -20509,6 +20544,43 @@
       }
     }
   ],
+  "b9124c308671e303": [
+    {
+      "date": "2026-10-10",
+      "fight_id": "c56bbc28d155f846",
+      "opponent_id": "2e45d08b3f2f02c8",
+      "opponent_name": "Malcolm Wellmaker",
+      "result": "Win",
+      "elo": 1651.77,
+      "event": "UFC Fight Night: Allen vs. Duncan",
+      "method": "KO/TKO",
+      "round": 2,
+      "time": "2:39",
+      "weight_class": "Bantamweight",
+      "is_title_fight": false,
+      "breakdown": {
+        "elo_before": 1617.59,
+        "elo_after": 1651.77,
+        "delta": 34.18,
+        "k_base": 32.0,
+        "k_var": 1.8,
+        "div_mult": 0.9,
+        "streak_before": -1,
+        "streak_mult": 1.0,
+        "method_weight": 1.25,
+        "consec_loss_mult": 1.0,
+        "quality_mult": 0.85,
+        "rematch_mult": 1.0,
+        "opp_mom_mult": 1.0,
+        "time_mult": 1.0,
+        "k_effective": 61.2,
+        "expected_prob": 0.4415,
+        "surprise": 0.5585,
+        "cap_applied": false,
+        "peak_penalty": false
+      }
+    }
+  ],
   "18d01f7f8338ae72": [
     {
       "date": "2024-03-02",
@@ -27707,7 +27779,7 @@
       "opponent_id": "a474aade8eb3a8f0",
       "opponent_name": "SuYoung You",
       "result": "Loss",
-      "elo": 1534.96,
+      "elo": 1535.05,
       "event": "UFC Fight Night: Vettori vs. Dolidze 2",
       "method": "DEC U",
       "round": 3,
@@ -27715,9 +27787,9 @@
       "weight_class": "Bantamweight",
       "is_title_fight": false,
       "breakdown": {
-        "elo_before": 1553.56,
-        "elo_after": 1534.96,
-        "delta": -18.59,
+        "elo_before": 1553.65,
+        "elo_after": 1535.05,
+        "delta": -18.6,
         "k_base": 32.0,
         "k_var": 1.8,
         "div_mult": 0.9,
@@ -27730,8 +27802,8 @@
         "opp_mom_mult": 1.0,
         "time_mult": 0.85,
         "k_effective": 49.352,
-        "expected_prob": 0.3767,
-        "surprise": -0.3767,
+        "expected_prob": 0.3769,
+        "surprise": -0.3769,
         "cap_applied": false,
         "peak_penalty": false
       }
@@ -30127,7 +30199,7 @@
       "opponent_id": "d9c6f19f958643e9",
       "opponent_name": "Bryce Mitchell",
       "result": "Loss",
-      "elo": 1711.69,
+      "elo": 1711.7,
       "event": "UFC Fight Night: Whittaker vs. De Ridder",
       "method": "DEC U",
       "round": 3,
@@ -30136,7 +30208,7 @@
       "is_title_fight": false,
       "breakdown": {
         "elo_before": 1724.75,
-        "elo_after": 1711.69,
+        "elo_after": 1711.7,
         "delta": -13.05,
         "k_base": 32.0,
         "k_var": 0.9,
@@ -30150,8 +30222,8 @@
         "opp_mom_mult": 1.0,
         "time_mult": 0.85,
         "k_effective": 24.676,
-        "expected_prob": 0.529,
-        "surprise": -0.529,
+        "expected_prob": 0.5288,
+        "surprise": -0.5288,
         "cap_applied": false,
         "peak_penalty": false
       }
@@ -32506,7 +32578,7 @@
       "opponent_id": "d1053e55f00e53fe",
       "opponent_name": "AJ Cunningham",
       "result": "Win",
-      "elo": 1658.44,
+      "elo": 1658.45,
       "event": "UFC Fight Night: Vettori vs. Dolidze 2",
       "method": "DEC U",
       "round": 3,
@@ -32515,8 +32587,8 @@
       "is_title_fight": false,
       "breakdown": {
         "elo_before": 1641.01,
-        "elo_after": 1658.44,
-        "delta": 17.43,
+        "elo_after": 1658.45,
+        "delta": 17.44,
         "k_base": 32.0,
         "k_var": 1.8,
         "div_mult": 0.9,
@@ -32529,8 +32601,8 @@
         "opp_mom_mult": 1.0,
         "time_mult": 0.9,
         "k_effective": 46.267,
-        "expected_prob": 0.6233,
-        "surprise": 0.3767,
+        "expected_prob": 0.6231,
+        "surprise": 0.3769,
         "cap_applied": false,
         "peak_penalty": false
       }
@@ -32549,7 +32621,7 @@
       "weight_class": "Bantamweight",
       "is_title_fight": false,
       "breakdown": {
-        "elo_before": 1658.44,
+        "elo_before": 1658.45,
         "elo_after": 1677.66,
         "delta": 19.22,
         "k_base": 32.0,
@@ -41360,7 +41432,7 @@
       "opponent_id": "d8c7c61b176e3994",
       "opponent_name": "Cody Garbrandt",
       "result": "Loss",
-      "elo": 1564.9,
+      "elo": 1564.91,
       "event": "UFC 326: Holloway vs. Oliveira 2",
       "method": "DEC U",
       "round": 3,
@@ -41369,7 +41441,7 @@
       "is_title_fight": false,
       "breakdown": {
         "elo_before": 1581.94,
-        "elo_after": 1564.9,
+        "elo_after": 1564.91,
         "delta": -17.04,
         "k_base": 32.0,
         "k_var": 1.8,
@@ -41403,7 +41475,7 @@
       "weight_class": "Bantamweight",
       "is_title_fight": false,
       "breakdown": {
-        "elo_before": 1564.9,
+        "elo_before": 1564.91,
         "elo_after": 1533.23,
         "delta": -31.67,
         "k_base": 32.0,
@@ -41835,7 +41907,7 @@
       "breakdown": {
         "elo_before": 1742.87,
         "elo_after": 1763.95,
-        "delta": 21.07,
+        "delta": 21.08,
         "k_base": 32.0,
         "k_var": 1.8,
         "div_mult": 0.9,
@@ -52033,7 +52105,7 @@
       "opponent_id": "d9c6f19f958643e9",
       "opponent_name": "Bryce Mitchell",
       "result": "Loss",
-      "elo": 1710.55,
+      "elo": 1710.56,
       "event": "UFC Fight Night: Muhammad vs. Bonfim",
       "method": "SUB",
       "round": 3,
@@ -52042,8 +52114,8 @@
       "is_title_fight": false,
       "breakdown": {
         "elo_before": 1735.3,
-        "elo_after": 1710.55,
-        "delta": -24.75,
+        "elo_after": 1710.56,
+        "delta": -24.74,
         "k_base": 32.0,
         "k_var": 1.8,
         "div_mult": 0.9,
@@ -52056,8 +52128,8 @@
         "opp_mom_mult": 1.0,
         "time_mult": 0.85,
         "k_effective": 47.002,
-        "expected_prob": 0.5266,
-        "surprise": -0.5266,
+        "expected_prob": 0.5263,
+        "surprise": -0.5263,
         "cap_applied": false,
         "peak_penalty": false
       }

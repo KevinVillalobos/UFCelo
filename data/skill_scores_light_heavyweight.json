@@ -2194,15 +2194,15 @@
     "fighter_name": "Julius Walker",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 48.94,
-      "Grappling": 48.4,
-      "Defensa": 64.31,
-      "Consistencia": 50.8,
-      "Finish Rate": 36.27,
-      "Cardio/Durabilidad": 67.4,
-      "Presión": 44.79
+      "Striking": 59.15,
+      "Grappling": 58.72,
+      "Defensa": 68.99,
+      "Consistencia": 52.94,
+      "Finish Rate": 49.02,
+      "Cardio/Durabilidad": 72.52,
+      "Presión": 55.83
     },
-    "skill_composite": 52.38
+    "skill_composite": 60.11
   },
   {
     "fighter_id": "4b4fc3ddc307bc73",
@@ -2314,15 +2314,15 @@
     "fighter_name": "Brendan Allen",
     "division": "Middleweight",
     "skill_score": {
-      "Striking": 89.67,
-      "Grappling": 65.55,
-      "Defensa": 74.65,
-      "Consistencia": 74.95,
-      "Finish Rate": 54.3,
-      "Cardio/Durabilidad": 97.12,
-      "Presión": 53.14
+      "Striking": 87.46,
+      "Grappling": 68.3,
+      "Defensa": 77.34,
+      "Consistencia": 73.18,
+      "Finish Rate": 63.44,
+      "Cardio/Durabilidad": 97.7,
+      "Presión": 51.72
     },
-    "skill_composite": 74.4
+    "skill_composite": 75.47
   },
   {
     "fighter_id": "7acbb0972e75281a",
@@ -3514,15 +3514,15 @@
     "fighter_name": "Brendson Ribeiro",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 49.07,
-      "Grappling": 23.02,
-      "Defensa": 43.62,
-      "Consistencia": 49.61,
-      "Finish Rate": 36.62,
-      "Cardio/Durabilidad": 75.68,
-      "Presión": 21.81
+      "Striking": 50.01,
+      "Grappling": 23.31,
+      "Defensa": 46.7,
+      "Consistencia": 56.12,
+      "Finish Rate": 49.3,
+      "Cardio/Durabilidad": 77.14,
+      "Presión": 20.05
     },
-    "skill_composite": 42.84
+    "skill_composite": 45.91
   },
   {
     "fighter_id": "12458872d6afae1b",
@@ -4534,15 +4534,15 @@
     "fighter_name": "Felipe Franco",
     "division": "Light Heavyweight",
     "skill_score": {
-      "Striking": 63.75,
-      "Grappling": 50.97,
-      "Defensa": 60.98,
-      "Consistencia": 56.14,
-      "Finish Rate": 56.32,
-      "Cardio/Durabilidad": 66.6,
-      "Presión": 48.03
+      "Striking": 54.21,
+      "Grappling": 52.82,
+      "Defensa": 63.64,
+      "Consistencia": 46.58,
+      "Finish Rate": 50.46,
+      "Cardio/Durabilidad": 66.68,
+      "Presión": 39.33
     },
-    "skill_composite": 58.11
+    "skill_composite": 54.13
   },
   {
     "fighter_id": "b01a5e0dcd9f231d",
@@ -4558,5 +4558,20 @@
       "Presión": 47.85
     },
     "skill_composite": 55.43
+  },
+  {
+    "fighter_id": "6ac9bc2953c47345",
+    "fighter_name": "Gerald Meerschaert",
+    "division": "Light Heavyweight",
+    "skill_score": {
+      "Striking": 52.69,
+      "Grappling": 25.11,
+      "Defensa": 46.09,
+      "Consistencia": 52.7,
+      "Finish Rate": 38.08,
+      "Cardio/Durabilidad": 82.18,
+      "Presión": 24.21
+    },
+    "skill_composite": 45.87
   }
 ]
