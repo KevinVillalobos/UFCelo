@@ -6,6 +6,7 @@
   <title>Insights — UFCelo.gg</title>
   <link rel="stylesheet" href="/style.css">
   <style>
+    .ins-tabs { overflow-x: auto; }
     .ins-tabs { display: flex; gap: var(--sp-2); margin-bottom: var(--sp-5); border-bottom: 1px solid var(--border); }
     .ins-tab { background: none; border: 0; border-bottom: 2px solid transparent; color: var(--muted); font: inherit; font-weight: 600; padding: var(--sp-2) var(--sp-4); cursor: pointer; margin-bottom: -1px; }
     .ins-tab:hover { color: var(--text); }
@@ -26,6 +27,20 @@
     .verdict { font-weight: 800; font-size: 0.8rem; letter-spacing: 0.04em; }
     .verdict.ok { color: var(--green); }
     .verdict.miss { color: var(--down); }
+    .verdict.tie { color: var(--muted); }
+    .watch-row { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-2) var(--sp-4); padding: var(--sp-3) 0; border-top: 1px solid var(--border); align-items: center; }
+    .watch-row a { color: inherit; text-decoration: none; }
+    .watch-row a:hover { text-decoration: underline; }
+    .watch-meta { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
+    .wh-filters { display: flex; gap: var(--sp-3); flex-wrap: wrap; margin: var(--sp-3) 0; }
+    .wh-filters label { display: flex; flex-direction: column; gap: 4px; font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+    .wh-filters select { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font: inherit; font-size: 0.85rem; text-transform: none; letter-spacing: 0; }
+    .wh-row { display: grid; grid-template-columns: 6.5rem 1fr auto; gap: var(--sp-2) var(--sp-4); padding: var(--sp-3) 0; border-top: 1px solid var(--border); align-items: start; }
+    .wh-date { color: var(--muted); font-size: 0.78rem; font-variant-numeric: tabular-nums; }
+    .wh-out { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.03em; white-space: nowrap; }
+    .wh-out.ok { color: var(--green); }
+    .wh-out.up { color: var(--down); }
+    .watch-pct { font-weight: 800; font-variant-numeric: tabular-nums; font-size: 1.1rem; }
     .fight-head { font-weight: 600; }
     .fight-head a { color: inherit; text-decoration: none; }
     .fight-head a:hover { text-decoration: underline; }
@@ -38,7 +53,7 @@
     .chip.tag { border-style: dashed; }
     .bar { background: var(--surface2); border-radius: 3px; height: 6px; min-width: 90px; }
     .bar > i { display: block; height: 6px; border-radius: 3px; background: var(--blue); }
-    @media (max-width: 640px) { .fight { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) { .fight { grid-template-columns: 1fr; } .wh-row { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -50,10 +65,17 @@
 
   <div class="ins-tabs" role="tablist" aria-label="Insights sections">
     <button class="ins-tab" role="tab" id="tab-reviews" aria-selected="true" aria-controls="panel-reviews">Weekly review</button>
+    <button class="ins-tab" role="tab" id="tab-confidence" aria-selected="false" aria-controls="panel-confidence">Confidence levels</button>
+    <button class="ins-tab" role="tab" id="tab-watch" aria-selected="false" aria-controls="panel-watch">Watchlist</button>
     <button class="ins-tab" role="tab" id="tab-factors" aria-selected="false" aria-controls="panel-factors">Factor scorecard</button>
   </div>
 
   <div id="panel-reviews" role="tabpanel" aria-labelledby="tab-reviews"><div class="loading">Loading reviews…</div></div>
+  <div id="panel-confidence" role="tabpanel" aria-labelledby="tab-confidence" hidden></div>
+  <div id="panel-watch" role="tabpanel" aria-labelledby="tab-watch" hidden>
+    <div id="watch-upcoming"><div class="loading">Loading upcoming fights…</div></div>
+    <div id="watch-history"><div class="loading">Loading history…</div></div>
+  </div>
   <div id="panel-factors" role="tabpanel" aria-labelledby="tab-factors" hidden></div>
 </main>
 
@@ -76,15 +98,17 @@ function fighterLink(f) {
 function fightHTML(f) {
   const fav = f.favourite, dog = f.fighter_a.id === fav.id ? f.fighter_b : f.fighter_a;
   const mOk = f.method_predicted === f.method_actual;
+  const heavyId = f.heavy_favourite ? fav.id : null;
+  const verdict = f.correct === null ? ['tie', '– TOSS-UP'] : f.correct ? ['ok', '✓ HIT'] : ['miss', '✗ MISS'];
   const chips = [
     ...f.signals_for_favourite.map(s => `<span class="chip for" title="Signal backing the pick">${escapeHtml(tr(s))}</span>`),
-    ...(f.correct ? [] : f.signals_against_favourite.map(s => `<span class="chip against" title="Signal pointing to the winner">${escapeHtml(tr(s))}</span>`)),
+    ...(f.correct !== false ? [] : f.signals_against_favourite.map(s => `<span class="chip against" title="Signal pointing to the winner">${escapeHtml(tr(s))}</span>`)),
     ...f.tags.map(t => `<span class="chip tag">${escapeHtml(t)}</span>`),
   ].join('');
   return `<div class="fight">
-    <div class="verdict ${f.correct ? 'ok' : 'miss'}">${f.correct ? '✓ HIT' : '✗ MISS'}</div>
+    <div class="verdict ${verdict[0]}">${verdict[1]}</div>
     <div>
-      <div class="fight-head">Pick: ${fighterLink(fav)} <span style="color:var(--muted);font-weight:500;">(${pct(f.favourite_probability)}) vs ${fighterLink(dog)}</span></div>
+      <div class="fight-head">Pick: ${fighterLink(fav)}${fightFlag(heavyId, fav.id)} <span style="color:var(--muted);font-weight:500;">(${pct(f.favourite_probability)}) vs ${fighterLink(dog)}${fightFlag(heavyId, dog.id)}</span></div>
       <div class="fight-sub">Result: ${fighterLink(f.winner)} by ${escapeHtml(f.result_method)} R${escapeHtml(f.result_round)} ·
         Method: predicted ${escapeHtml(f.method_predicted)}, actual ${escapeHtml(f.method_actual)} (${mOk ? 'match' : 'no match'}) ·
         ${escapeHtml(f.division)}${f.title ? ' · title fight' : ''}</div>
@@ -113,6 +137,8 @@ function renderReviews(data) {
   const tot = events.reduce((a, e) => ({ n: a.n + e.summary.fights, ok: a.ok + e.summary.correct, m: a.m + e.summary.method_correct,
     b: a.b + (e.summary.brier || 0) * e.summary.fights }), { n: 0, ok: 0, m: 0, b: 0 });
   const baseline = data.factor_scorecard && data.factor_scorecard.overall_favourite.rate;
+  const flagged = events.flatMap(e => e.fights).filter(f => f.heavy_favourite && f.correct !== null);
+  const flag = { n: flagged.length, held: flagged.filter(f => f.correct).length };
 
   const weeks = new Map();
   events.forEach(e => { const k = e.week_start || e.date; if (!weeks.has(k)) weeks.set(k, []); weeks.get(k).push(e); });
@@ -130,6 +156,8 @@ function renderReviews(data) {
       <div class="metric"><div class="metric-label">Winner accuracy</div><div class="metric-value">${tot.n ? pct(tot.ok / tot.n, 1) : '—'}</div>
         ${baseline != null ? `<div class="metric-delta" style="color:var(--muted);">all-time model: ${pct(baseline, 1)}</div>` : ''}</div>
       <div class="metric"><div class="metric-label">Method accuracy</div><div class="metric-value">${tot.n ? pct(tot.m / tot.n, 1) : '—'}</div></div>
+      <div class="metric"><div class="metric-label">👑 held / 💀 upsets</div><div class="metric-value">${flag.n ? `${flag.held} / ${flag.n - flag.held}` : '—'}</div>
+        <div class="metric-delta" style="color:var(--muted);">${flag.n ? `${pct(flag.held / flag.n)} of ${flag.n} flagged fights (${FLAG_THRESHOLD_PCT}%+)` : `no flagged fights yet (${FLAG_THRESHOLD_PCT}%+)`}</div></div>
       <div class="metric"><div class="metric-label">Brier score</div><div class="metric-value">${tot.n ? (tot.b / tot.n).toFixed(3) : '—'}</div>
         <div class="metric-delta" style="color:var(--muted);">lower is better · 0.25 = coin flip</div></div>
     </div>
@@ -150,6 +178,177 @@ function renderReviews(data) {
     shapes: baseline != null ? [{ type: 'line', xref: 'paper', x0: 0, x1: 1, y0: baseline * 100, y1: baseline * 100,
       line: { color: '#a3a3a3', width: 1, dash: 'dot' } }] : [],
   }, { displayModeBar: false, responsive: true });
+}
+
+const cmpUrl = (a, b) => `/comparar/${slugify(a.name)}-vs-${slugify(b.name)}?a=${encodeURIComponent(a.id)}&b=${encodeURIComponent(b.id)}`;
+
+function confTable(level, label) {
+  const bar = r => `<div class="bar"><i style="width:${(r * 100).toFixed(1)}%"></i></div>`;
+  const rows = level.thresholds.map(t => `<tr>
+      <td>Favourite at ${(t.min * 100).toFixed(0)}%${t.min >= 0.7 ? '+' : ' or more'}</td>
+      <td style="font-variant-numeric:tabular-nums;">${t.n.toLocaleString()}</td>
+      <td style="min-width:140px;">${t.rate != null ? bar(t.rate) : ''}</td>
+      <td style="font-weight:700;font-variant-numeric:tabular-nums;">${t.rate != null ? pct(t.rate, 1) : '—'}</td>
+      <td style="color:var(--muted);font-variant-numeric:tabular-nums;">${t.avg_predicted != null ? pct(t.avg_predicted, 1) : '—'}</td>
+      <td style="color:var(--muted);font-variant-numeric:tabular-nums;">${t.n ? `${(t.n - t.hits).toLocaleString()} (${pct(1 - t.rate, 1)})` : '—'}</td></tr>`).join('');
+  return `<h2 style="margin:1.25rem 0 0.5rem;">${escapeHtml(label)}</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Model confidence</th><th>Fights</th><th></th><th>Favourite won</th><th>Model said</th><th>💀 Upsets</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>`;
+}
+
+function renderConfidence(data) {
+  const c = data.factor_scorecard && data.factor_scorecard.confidence;
+  const el = document.getElementById('panel-confidence');
+  if (!c) { el.innerHTML = '<div class="loading">Run <code>python -m models.post_mortem</code> to generate this.</div>'; return; }
+  const bandRows = c.all.bands.map(b => `<tr><td>${(b.lo * 100).toFixed(0)}–${b.hi >= 1 ? '100' : (b.hi * 100).toFixed(0)}%</td>
+      <td style="font-variant-numeric:tabular-nums;">${b.n.toLocaleString()}</td>
+      <td style="font-weight:700;font-variant-numeric:tabular-nums;">${b.rate != null ? pct(b.rate, 1) : '—'}</td>
+      <td style="color:var(--muted);font-variant-numeric:tabular-nums;">${b.avg_predicted != null ? pct(b.avg_predicted, 1) : '—'}</td></tr>`).join('');
+  el.innerHTML = `
+    <div class="ins-note">When the model gave the favourite at least X%, how often did that fighter win? “Model said” is the average probability
+      the model displayed in that group. When the favourite wins more often than the model said, its probabilities are too cautious.
+      Fights flagged ${FLAG_THRESHOLD_PCT}%+ get a 👑 (favourite) and 💀 (rival). All figures are rebuilt from pre-fight data and are in-sample
+      (the model was tuned on these fights), so real-world rates are likely a bit lower.</div>
+    ${confTable(c.all, 'All history')}
+    ${confTable(c.last_12m, `Last 12 months (since ${fmtDate(c.since)})`)}
+    <h2 style="margin:1.5rem 0 0.5rem;">By probability band (all history)</h2>
+    <div class="chart-box"><div id="band-chart" style="height:280px;"></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Favourite probability</th><th>Fights</th><th>Favourite won</th><th>Model said</th></tr></thead>
+      <tbody>${bandRows}</tbody></table></div>`;
+  const labels = c.all.bands.map(b => `${(b.lo * 100).toFixed(0)}–${b.hi >= 1 ? '100' : (b.hi * 100).toFixed(0)}%`);
+  Plotly.newPlot('band-chart', [
+    { type: 'bar', name: 'Model said', x: labels, y: c.all.bands.map(b => (b.avg_predicted || 0) * 100), marker: { color: '#a3a3a3' } },
+    { type: 'bar', name: 'Favourite won', x: labels, y: c.all.bands.map(b => (b.rate || 0) * 100), marker: { color: '#378ADD' } },
+  ], { ...PLOTLY_LAYOUT, barmode: 'group', height: 280, margin: { l: 45, r: 10, t: 10, b: 40 },
+       yaxis: { range: [40, 100], gridcolor: '#222', ticksuffix: '%' }, legend: { orientation: 'h', y: 1.12 } },
+     { displayModeBar: false, responsive: true });
+}
+
+async function renderWatchlist() {
+  const el = document.getElementById('watch-upcoming');
+  let events = [];
+  try { events = await apiFetch('/events/upcoming'); } catch (e) { /* no card announced */ }
+  const blocks = events.map(ev => {
+    const flagged = ev.fights.filter(f => f.prediction && f.prediction.heavy_favorite_id);
+    if (!flagged.length) return '';
+    const rows = flagged.sort((x, y) => Math.max(y.prediction.probability_a, y.prediction.probability_b) - Math.max(x.prediction.probability_a, x.prediction.probability_b))
+      .map(f => {
+        const p = f.prediction, hid = p.heavy_favorite_id;
+        const a = { id: f.fighter_a_id, name: f.fighter_a_name }, b = { id: f.fighter_b_id, name: f.fighter_b_name };
+        const fav = String(a.id) === String(hid) ? a : b, dog = fav === a ? b : a;
+        const adv = p.key_advantage ? skillLabel(p.key_advantage) : null;
+        return `<div class="watch-row">
+          <div>
+            <div class="fight-head"><a href="${escapeHtml(cmpUrl(a, b))}">${escapeHtml(fav.name)}</a>${fightFlag(hid, fav.id)}
+              <span style="color:var(--muted);font-weight:500;">vs ${escapeHtml(dog.name)}</span>${fightFlag(hid, dog.id)}</div>
+            <div class="watch-meta">${escapeHtml(f.weight_class || f.division || '')}${f.is_main_event ? ' · main event' : ''} ·
+              predicted ${escapeHtml(p.method_prediction)}${adv ? ` · key advantage: ${escapeHtml(adv)}` : ''} · ELO ${Math.abs(Math.round(p.elo_difference))} pts apart</div>
+          </div>
+          <div class="watch-pct">${pct(Math.max(p.probability_a, p.probability_b))}</div>
+        </div>`;
+      }).join('');
+    return `<h2 style="margin:1.25rem 0 0.25rem;">${escapeHtml(ev.name)}</h2>
+      <div style="color:var(--muted);font-size:0.8rem;margin-bottom:0.25rem;">${ev.date ? fmtDate(ev.date) : ''}</div>${rows}`;
+  }).join('');
+  el.innerHTML = `
+    <div class="ins-note">Upcoming fights where the favourite has ${FLAG_THRESHOLD_PCT}%+ win probability: 👑 favourite, 💀 rival.
+      These are the ones to look at in depth. After the event they show up in the Weekly review with the result, so you can see whether the crown held.</div>
+    ${blocks || '<div class="loading">No flagged fights on the announced cards.</div>'}`;
+}
+
+function rateTable(title, groups, order) {
+  const keys = order || Object.keys(groups);
+  const rows = keys.filter(k => groups[k]).map(k => { const g = groups[k]; return `<tr>
+      <td>${escapeHtml(k)}</td><td style="font-variant-numeric:tabular-nums;">${g.n}</td>
+      <td style="min-width:120px;"><div class="bar"><i style="width:${(g.rate * 100).toFixed(1)}%"></i></div></td>
+      <td style="font-weight:700;font-variant-numeric:tabular-nums;">${pct(g.rate, 1)}</td>
+      <td style="color:var(--muted);font-variant-numeric:tabular-nums;">${pct(g.avg_predicted, 1)}</td>
+      <td style="color:var(--muted);font-variant-numeric:tabular-nums;">${g.upsets}</td></tr>`; }).join('');
+  return `<h3 style="margin:1.25rem 0 0.5rem;font-size:1rem;">${escapeHtml(title)}</h3>
+    <div class="table-wrap"><table><thead><tr><th></th><th>Flagged</th><th></th><th>👑 held</th><th>Model said</th><th>💀 hit</th></tr></thead>
+    <tbody>${rows}</tbody></table></div>`;
+}
+
+function renderWatchHistory(h) {
+  const el = document.getElementById('watch-history');
+  const o = h.overall;
+  const years = Object.keys(h.by_year).sort();
+  const thisYear = years[years.length - 1];
+  const divisions = Object.keys(h.by_division).sort();
+  const PAGE = 25;
+  const state = { year: 'all', division: 'all', outcome: 'all', shown: PAGE };
+
+  el.innerHTML = `
+    <hr class="divider" style="margin:2rem 0 1rem;">
+    <h2 style="margin-bottom:0.5rem;">Watchlist history</h2>
+    <div class="ins-note">Every past fight where the favourite had ${(h.threshold * 100).toFixed(0)}%+ (the 👑 / 💀 fights), with how it turned out.
+      ${escapeHtml(h.note)} The current run counts consecutive 👑 that held, newest first.</div>
+    <div class="metrics-row">
+      <div class="metric"><div class="metric-label">Flagged fights</div><div class="metric-value">${o.n.toLocaleString()}</div></div>
+      <div class="metric"><div class="metric-label">👑 held</div><div class="metric-value">${pct(o.rate, 1)}</div>
+        <div class="metric-delta" style="color:var(--muted);">${o.held.toLocaleString()} fights · model said ${pct(o.avg_predicted, 1)}</div></div>
+      <div class="metric"><div class="metric-label">💀 hit (upsets)</div><div class="metric-value">${o.upsets.toLocaleString()}</div>
+        <div class="metric-delta" style="color:var(--muted);">${pct(1 - o.rate, 1)} of flagged fights</div></div>
+      <div class="metric"><div class="metric-label">${thisYear} so far</div><div class="metric-value">${h.by_year[thisYear] ? pct(h.by_year[thisYear].rate, 1) : '—'}</div>
+        <div class="metric-delta" style="color:var(--muted);">${h.by_year[thisYear] ? `${h.by_year[thisYear].held}/${h.by_year[thisYear].n} held` : ''}</div></div>
+      <div class="metric"><div class="metric-label">Current run</div><div class="metric-value">${h.current_crown_streak}</div>
+        <div class="metric-delta" style="color:var(--muted);">👑 in a row</div></div>
+    </div>
+    <div class="chart-box"><div id="wh-chart" style="height:260px;"></div></div>
+    <div class="grid-2">
+      <div>${rateTable('By probability band', h.by_band, ['65-70', '70-75', '75+'])}</div>
+      <div>${rateTable('Title vs non-title', h.by_title)}</div>
+    </div>
+    ${rateTable('By division', h.by_division, divisions)}
+    <h3 style="margin:1.75rem 0 0;font-size:1rem;">Every flagged fight</h3>
+    <div class="wh-filters">
+      <label>Year<select id="wh-year"><option value="all">All years</option>${[...years].reverse().map(y => `<option>${y}</option>`).join('')}</select></label>
+      <label>Division<select id="wh-div"><option value="all">All divisions</option>${divisions.map(d => `<option value="${escapeHtml(d)}">${escapeHtml(DIV_LABELS[d] ? d.replace(/\b\w/g, c => c.toUpperCase()) : d)}</option>`).join('')}</select></label>
+      <label>Outcome<select id="wh-out"><option value="all">All</option><option value="held">👑 held</option><option value="upset">💀 upset</option></select></label>
+    </div>
+    <div id="wh-count" style="color:var(--muted);font-size:0.82rem;"></div>
+    <div id="wh-list"></div>
+    <button class="btn-primary" id="wh-more" style="margin-top:1rem;" hidden>Show more</button>`;
+
+  Plotly.newPlot('wh-chart', [
+    { type: 'bar', name: '👑 held', x: years, y: years.map(y => h.by_year[y].rate * 100), marker: { color: '#378ADD' },
+      customdata: years.map(y => `${h.by_year[y].held}/${h.by_year[y].n}`),
+      hovertemplate: '<b>%{x}</b><br>held %{y:.1f}% (%{customdata})<extra></extra>' },
+    { type: 'scatter', mode: 'lines', name: 'Model said', x: years, y: years.map(y => h.by_year[y].avg_predicted * 100),
+      line: { color: '#a3a3a3', dash: 'dot', width: 2 }, hovertemplate: '<b>%{x}</b><br>model said %{y:.1f}%<extra></extra>' },
+  ], { ...PLOTLY_LAYOUT, height: 260, margin: { l: 45, r: 10, t: 30, b: 35 },
+       title: { text: 'How often the 👑 held, by year', font: { size: 13 }, x: 0.01 },
+       yaxis: { range: [40, 100], gridcolor: '#222', ticksuffix: '%' }, legend: { orientation: 'h', y: 1.2, x: 1, xanchor: 'right' } },
+     { displayModeBar: false, responsive: true });
+
+  function matches(f) {
+    return (state.year === 'all' || f.date.startsWith(state.year))
+      && (state.division === 'all' || f.division === state.division)
+      && (state.outcome === 'all' || (state.outcome === 'held') === f.held);
+  }
+  function draw() {
+    const list = h.fights.filter(matches);
+    document.getElementById('wh-count').textContent = `${list.length.toLocaleString()} fights` +
+      (list.length ? ` · 👑 held ${pct(list.filter(f => f.held).length / list.length, 1)}` : '');
+    document.getElementById('wh-list').innerHTML = list.slice(0, state.shown).map(f => `
+      <div class="wh-row">
+        <div class="wh-date">${fmtDate(f.date)}</div>
+        <div>
+          <div class="fight-head"><a href="${escapeHtml(UFCelo.fighterUrl(f.favourite))}">${escapeHtml(f.favourite.name)}</a>${fightFlag(f.favourite.id, f.favourite.id)}
+            <span style="color:var(--muted);font-weight:500;">(${pct(f.probability)}) vs <a href="${escapeHtml(UFCelo.fighterUrl(f.rival))}">${escapeHtml(f.rival.name)}</a></span>${fightFlag(f.favourite.id, f.rival.id)}</div>
+          <div class="watch-meta">${escapeHtml(f.event)} · ${escapeHtml(f.division)}${f.title ? ' · title fight' : ''} ·
+            ${escapeHtml(f.winner)} by ${escapeHtml(f.method)} R${escapeHtml(f.round)} · method: predicted ${escapeHtml(f.method_predicted)}, actual ${escapeHtml(f.method_actual)}</div>
+        </div>
+        <div class="wh-out ${f.held ? 'ok' : 'up'}">${f.held ? '👑 HELD' : '💀 UPSET'}</div>
+      </div>`).join('') || '<div class="loading">No fights match these filters.</div>';
+    document.getElementById('wh-more').hidden = list.length <= state.shown;
+  }
+  [['wh-year', 'year'], ['wh-div', 'division'], ['wh-out', 'outcome']].forEach(([id, key]) =>
+    document.getElementById(id).addEventListener('change', e => { state[key] = e.target.value; state.shown = PAGE; draw(); }));
+  document.getElementById('wh-more').addEventListener('click', () => { state.shown += PAGE; draw(); });
+  draw();
 }
 
 function renderFactors(data) {
@@ -177,17 +376,23 @@ function renderFactors(data) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const tabs = [['tab-reviews', 'panel-reviews'], ['tab-factors', 'panel-factors']];
+  renderWatchlist();
+  apiFetch('/insights/watchlist-history').then(renderWatchHistory).catch(e => {
+    document.getElementById('watch-history').innerHTML = `<div class="alert-error">Failed to load history: ${escapeHtml(e.message)}</div>`;
+  });
+  const tabs = [['tab-reviews', 'panel-reviews'], ['tab-confidence', 'panel-confidence'], ['tab-watch', 'panel-watch'], ['tab-factors', 'panel-factors']];
   tabs.forEach(([t, p]) => document.getElementById(t).addEventListener('click', () => {
     tabs.forEach(([t2, p2]) => {
       document.getElementById(t2).setAttribute('aria-selected', String(t2 === t));
       document.getElementById(p2).hidden = p2 !== p;
     });
-    if (p === 'panel-reviews') Plotly.Plots.resize('acc-chart');
+    const chart = { 'panel-reviews': 'acc-chart', 'panel-confidence': 'band-chart', 'panel-watch': 'wh-chart' }[p];
+    if (chart && document.getElementById(chart)) Plotly.Plots.resize(chart);
   }));
   try {
     const data = await apiFetch('/insights/reviews');
     renderReviews(data);
+    renderConfidence(data);
     renderFactors(data);
   } catch (e) {
     document.getElementById('panel-reviews').innerHTML = `<div class="alert-error">Failed to load reviews: ${escapeHtml(e.message)}</div>`;

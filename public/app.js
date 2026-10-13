@@ -202,7 +202,17 @@ function fighterUrl(f) {
   return `/peleador/${slugify(f.name)}?id=${encodeURIComponent(f.id)}`;
 }
 
-window.UFCelo = { FighterIndex, slugify, fighterUrl };
+// Heavy-favourite markers: when the favourite has 65%+ the fight is flagged for review, crown on the favourite and
+// skull on the rival (the server decides: prediction.heavy_favorite_id). The Insights page tracks how they play out.
+const FLAG_THRESHOLD_PCT = 65;
+function fightFlag(heavyFavId, fighterId) {
+  if (!heavyFavId) return '';
+  return String(fighterId) === String(heavyFavId)
+    ? `<span class="fight-flag" role="img" aria-label="Heavy favorite (${FLAG_THRESHOLD_PCT}%+)" title="Heavy favorite (${FLAG_THRESHOLD_PCT}%+ win probability)">👑</span>`
+    : `<span class="fight-flag" role="img" aria-label="Heavy underdog" title="Heavy underdog (rival has ${FLAG_THRESHOLD_PCT}%+ win probability)">💀</span>`;
+}
+
+window.UFCelo = { FighterIndex, slugify, fighterUrl, fightFlag };
 
 // Markup of one search field. p = id prefix, so several instances (navbar, hero) can coexist.
 function searchFieldHTML(p, opts) {

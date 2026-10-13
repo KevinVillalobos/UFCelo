@@ -574,6 +574,9 @@ STYLE_CLAMP = 0.10
 # Backtest verdict (data/improvement_log.md): the adjustment is statistically neutral, so it is NOT added to the
 # win probability. The matchup notes are still computed and returned (style_reasons) as explanatory context.
 STYLE_AFFECTS_PROBABILITY = False
+# A fight whose favourite has at least this win probability is flagged (crown on the favourite, skull on the
+# underdog) so it can be reviewed in depth after the event (see models/post_mortem.py, the Insights page).
+HEAVY_FAVORITE_PROB = 0.65
 ELO_DIFF_CLAMP = 250.0   # an ELO gap beyond this never claims more than ~81% on ELO alone
 
 
@@ -742,6 +745,7 @@ def build_prediction(
         "key_advantage": key_advantage,
         "style_adjustment": round(blend["style_adjustment"], 4),
         "style_reasons": blend["style_reasons"],
+        "heavy_favorite_id": str(favored_id) if max(prob_a, prob_b) >= HEAVY_FAVORITE_PROB else None,
     }
 
 

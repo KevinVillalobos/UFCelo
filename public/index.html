@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const a = { id: f.fighter_a_id, name: f.fighter_a_name, elo: p.elo_a, p: p.probability_a };
     const b = { id: f.fighter_b_id, name: f.fighter_b_name, elo: p.elo_b, p: p.probability_b };
     return { a, b, method: p.method_prediction, key: keyAdvantage(p, a, b), eloDiff: p.elo_difference,
-             mainEvent: f.is_main_event, card: f.card, style: p.style_reasons || [] };
+             mainEvent: f.is_main_event, card: f.card, style: p.style_reasons || [], heavy: p.heavy_favorite_id };
   }
   function fromMatchup(m) {
     const a = { id: m.fighter_a_id, name: m.fighter_a_name, elo: m.elo_a, p: m.probability_a };
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const side = (f, cls, fav) => `
       <div class="mu-side ${cls} ${fav ? 'fav' : ''}">
         <div class="mu-who">
-          <div class="mu-name">${escapeHtml(f.name)}${fav ? '<span class="mu-fav-tag">Favorite</span>' : ''}</div>
+          <div class="mu-name">${escapeHtml(f.name)}${fightFlag(fx.heavy, f.id)}${fav ? '<span class="mu-fav-tag">Favorite</span>' : ''}</div>
           <div class="mu-elo">ELO ${Math.round(f.elo)}</div>
         </div>
         <div class="mu-pct" aria-label="Win probability ${pct(f.p)}">${pct(f.p)}</div>
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function predCard(fx, tag) {
     const favA = fx.a.p >= fx.b.p;
     const row = (f, fav) => `<div class="pc-row ${fav ? 'fav' : ''}">
-        <span class="pc-name">${escapeHtml(f.name)}<span class="pc-elo">ELO ${Math.round(f.elo)}</span></span>
+        <span class="pc-name">${escapeHtml(f.name)}${fightFlag(fx.heavy, f.id)}<span class="pc-elo">ELO ${Math.round(f.elo)}</span></span>
         <span class="pc-pct">${pct(f.p)}</span></div>`;
     return `<a class="pred-card" href="${cmpUrl(fx)}">
       ${tag ? `<div class="pc-card-tag">${escapeHtml(tag)}</div>` : ''}

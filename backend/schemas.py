@@ -171,6 +171,7 @@ class PredictionResult(BaseModel):
     key_advantage:     Optional[str] = None
     style_adjustment:  float = 0.0                      # applied to probability_a; 0.0 while Style Clash is context-only
     style_reasons:     List[str] = Field(default_factory=list)  # matchup notes shown as context (+ favours A, - favours B)
+    heavy_favorite_id: Optional[str] = None             # set when the favourite has >= 65%: crown on them, skull on the rival
 
 
 class MatchupEntry(BaseModel):

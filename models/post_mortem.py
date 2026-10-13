@@ -31,13 +31,14 @@ from typing import Dict, List, Optional
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from backend.services import _compute_blended_probability, _predict_method  # noqa: E402
+from backend.services import HEAVY_FAVORITE_PROB, _compute_blended_probability, _predict_method  # noqa: E402
 from models.backtest_style_clash import load_rows  # noqa: E402
 
 EDGE = 10.0          # skill-point gap that counts as a real edge on a dimension
 LOW_SAMPLE = 3       # UFC fights before this one; below it a fighter's ELO/skills are mostly priors
 COIN_FLIP = 0.55     # favourite probability below this = near coin flip
-HEAVY_FAVORITE = 0.70
+CONF_THRESHOLDS = [0.55, 0.60, 0.65, 0.70]            # "favourite had at least this probability"
+CONF_BANDS = [(0.50, 0.55), (0.55, 0.60), (0.60, 0.65), (0.65, 0.70), (0.70, 1.01)]
 ELO_BUCKETS = [(0, 25), (25, 75), (75, 150), (150, 10_000)]
 
 
@@ -75,11 +76,12 @@ def analyse_fight(row: dict, wins_by_fighter: Dict[str, List[tuple]]) -> dict:
     blend = _compute_blended_probability(
         row["elo_a"], row["elo_b"], row["skill_a"], row["skill_b"], is_title_fight=row["title"])
     prob_a = blend["prob_a"]
+    toss_up = abs(prob_a - 0.5) < 1e-9     # the data lists the winner as fighter A, so a tie must not count as a hit
     fav_is_a = prob_a >= 0.5
     side = "a" if fav_is_a else "b"
     other = "b" if fav_is_a else "a"
     fav_prob = prob_a if fav_is_a else 1.0 - prob_a
-    fav_won = bool(row["y"]) == fav_is_a
+    fav_won = None if toss_up else (bool(row["y"]) == fav_is_a)
 
     fav = {"id": row[f"{side}_id"], "name": row[f"{side}_name"]}
     dog = {"id": row[f"{other}_id"], "name": row[f"{other}_name"]}
@@ -110,18 +112,23 @@ def analyse_fight(row: dict, wins_by_fighter: Dict[str, List[tuple]]) -> dict:
     tags = []
     if fav_prob < COIN_FLIP:
         tags.append("coin-flip")
-    if fav_prob >= HEAVY_FAVORITE:
+    if toss_up:
+        tags.append("toss-up")
+    if fav_prob >= HEAVY_FAVORITE_PROB:
         tags.append("heavy-favourite")
     if sample < LOW_SAMPLE:
         tags.append("low-sample")
-    if not fav_won and fav_prob >= HEAVY_FAVORITE:
+    if fav_won is False and fav_prob >= HEAVY_FAVORITE_PROB:
         tags.append("big-upset")
     if row["title"]:
         tags.append("title-fight")
 
     # Plain-language verdict.
     pct = f"{fav_prob:.0%}"
-    if fav_won:
+    if toss_up:
+        why = (f"Toss-up: the model had no edge (50/50) and {winner['name']} won by {row['method']} R{row['round']}. "
+               "Not counted as a hit or a miss.")
+    elif fav_won:
         why = (f"Hit: {fav['name']} was the {pct} favourite and won by {row['method']} R{row['round']}. "
                f"Backed by: {', '.join(for_fav) or 'a small blend of ELO and skill (no single clear edge)'}.")
         if for_dog:
@@ -148,7 +155,8 @@ def analyse_fight(row: dict, wins_by_fighter: Dict[str, List[tuple]]) -> dict:
         "winner": winner, "result_method": row["method"], "result_round": row["round"],
         "correct": fav_won,
         "method_predicted": method_pred, "method_actual": method_actual,
-        "method_correct": method_pred == method_actual and fav_won,
+        "method_correct": bool(fav_won) and method_pred == method_actual,
+        "heavy_favourite": fav_prob >= HEAVY_FAVORITE_PROB,     # crown on the favourite, skull on the rival
         "signals_for_favourite": for_fav, "signals_against_favourite": for_dog,
         "tags": tags, "explanation": why,
     }
@@ -160,11 +168,21 @@ def factor_scorecard(rows: List[dict]) -> dict:
     buckets = {b: [0, 0] for b in ELO_BUCKETS}  # |ELO gap| bucket -> [higher ELO won, fights]
     low = [0, 0]                                # favourite hit rate when a fighter has a thin sample
     overall = [0, 0]
+    latest = max(r["date"] for r in rows)
+    cutoff = (datetime.strptime(latest, "%Y-%m-%d") - timedelta(days=365)).strftime("%Y-%m-%d")
+    conf = {"all": [], "last_12m": []}      # (favourite probability, hit) per decided, non-toss-up fight
     for row in rows:
         blend = _compute_blended_probability(
             row["elo_a"], row["elo_b"], row["skill_a"], row["skill_b"], is_title_fight=row["title"])
+        if abs(blend["prob_a"] - 0.5) < 1e-9:
+            continue                       # toss-up: no favourite, skip every counter
         overall[1] += 1
         overall[0] += (blend["prob_a"] > 0.5) == bool(row["y"])
+        fav_p = max(blend["prob_a"], 1.0 - blend["prob_a"])
+        hit = (blend["prob_a"] > 0.5) == bool(row["y"])
+        conf["all"].append((fav_p, hit))
+        if row["date"] >= cutoff:
+            conf["last_12m"].append((fav_p, hit))
         for dim in set(row["skill_a"]) | set(row["skill_b"]):
             edge = row["skill_a"].get(dim, 50.0) - row["skill_b"].get(dim, 50.0)
             if abs(edge) >= EDGE:
@@ -182,7 +200,19 @@ def factor_scorecard(rows: List[dict]) -> dict:
     def rate(pair):
         return {"hit": pair[0], "n": pair[1], "rate": round(pair[0] / pair[1], 4) if pair[1] else None}
 
+    def level(items):
+        def agg(sel):
+            n, hits = len(sel), sum(h for _, h in sel)
+            return {"n": n, "hits": hits, "rate": round(hits / n, 4) if n else None,
+                    "avg_predicted": round(sum(p for p, _ in sel) / n, 4) if n else None}
+        return {
+            "thresholds": [{"min": t, **agg([x for x in items if x[0] >= t])} for t in CONF_THRESHOLDS],
+            "bands": [{"lo": lo, "hi": min(hi, 1.0), **agg([x for x in items if lo <= x[0] < hi])} for lo, hi in CONF_BANDS],
+        }
+
     return {
+        "confidence": {"all": level(conf["all"]), "last_12m": level(conf["last_12m"]), "since": cutoff,
+                       "flag_threshold": HEAVY_FAVORITE_PROB},
         "overall_favourite": rate(overall),
         f"skill_edge_ge_{int(EDGE)}": {d: rate(p) for d, p in sorted(dims.items())},
         "elo_gap_bucket": {f"{lo}-{hi if hi < 10_000 else '+'}": rate(p) for (lo, hi), p in buckets.items()},
@@ -191,12 +221,14 @@ def factor_scorecard(rows: List[dict]) -> dict:
 
 
 def summarize(fights: List[dict]) -> dict:
+    toss_ups = sum(1 for f in fights if f["correct"] is None)
+    fights = [f for f in fights if f["correct"] is not None]      # toss-ups are neither hit nor miss
     n = len(fights)
     hits = sum(f["correct"] for f in fights)
     method_hits = sum(f["method_correct"] for f in fights)
     brier = sum((f["favourite_probability"] - (1.0 if f["correct"] else 0.0)) ** 2 for f in fights) / n if n else None
     return {"fights": n, "correct": hits, "accuracy": round(hits / n, 4) if n else None,
-            "method_correct": method_hits, "brier": round(brier, 4) if brier is not None else None}
+            "method_correct": method_hits, "toss_ups": toss_ups, "brier": round(brier, 4) if brier is not None else None}
 
 
 def build_event(event_rows: List[dict], wins: Dict[str, List[tuple]]) -> dict:
@@ -230,12 +262,67 @@ def render_markdown(events: List[dict], scorecard: dict) -> str:
         out += [f"## {e['event']} — {e['date']}", "",
                 f"{s['correct']}/{s['fights']} correct ({s['accuracy']:.0%}) · methods right: {s['method_correct']} · Brier {s['brier']}", ""]
         for f in sorted(e["fights"], key=lambda x: -x["favourite_probability"]):
-            mark = "✅" if f["correct"] else "❌"
+            mark = "➖" if f["correct"] is None else ("✅" if f["correct"] else "❌")
+            mark += " 👑" if f["heavy_favourite"] else ""
             out.append(f"- {mark} **{f['favourite']['name']}** vs {f['fighter_a']['name'] if f['favourite']['id'] != f['fighter_a']['id'] else f['fighter_b']['name']} "
                        f"({f['favourite_probability']:.0%}; predicted {f['method_predicted']}, actual {f['method_actual']})  ")
             out.append(f"  {f['explanation']}" + (f" _[{', '.join(f['tags'])}]_" if f["tags"] else ""))
         out.append("")
     return "\n".join(out)
+
+
+def _rate(items: List[dict]) -> dict:
+    n = len(items)
+    held = sum(1 for i in items if i["held"])
+    return {"n": n, "held": held, "upsets": n - held, "rate": round(held / n, 4) if n else None,
+            "avg_predicted": round(sum(i["probability"] for i in items) / n, 4) if n else None}
+
+
+def build_watchlist_history(rows: List[dict], wins: Dict[str, List[tuple]]) -> dict:
+    """Every past fight that would have been flagged (favourite >= HEAVY_FAVORITE_PROB), crown held or skull hit.
+
+    Pre-fight state is reconstructed from earlier information only (not a frozen live prediction), and the model
+    parameters were tuned on these same fights, so the rates are optimistic.
+    """
+    items = []
+    for row in rows:
+        f = analyse_fight(row, wins)
+        if not f["heavy_favourite"] or f["correct"] is None:
+            continue
+        fav = f["favourite"]
+        rival = f["fighter_b"] if f["fighter_a"]["id"] == fav["id"] else f["fighter_a"]
+        items.append({
+            "fight_id": f["fight_id"], "date": row["date"], "event": row["event"], "division": f["division"],
+            "title": f["title"], "favourite": fav, "rival": rival, "probability": f["favourite_probability"],
+            "held": f["correct"], "winner": f["winner"]["name"], "method": f["result_method"], "round": f["result_round"],
+            "method_predicted": f["method_predicted"], "method_actual": f["method_actual"],
+        })
+    items.sort(key=lambda i: i["date"], reverse=True)
+
+    def group(key):
+        buckets: Dict[str, List[dict]] = defaultdict(list)
+        for i in items:
+            buckets[key(i)].append(i)
+        return {k: _rate(v) for k, v in sorted(buckets.items())}
+
+    def band(i):
+        p = i["probability"]
+        return "65-70" if p < 0.70 else "70-75" if p < 0.75 else "75+"
+
+    streak = 0                       # current run of crowns that held (newest first)
+    for i in items:
+        if not i["held"]:
+            break
+        streak += 1
+    return {
+        "generated": datetime.now().isoformat(timespec="seconds"),
+        "threshold": HEAVY_FAVORITE_PROB,
+        "note": "Reconstructed from pre-fight data (not frozen live predictions); in-sample, so likely optimistic.",
+        "overall": _rate(items), "current_crown_streak": streak,
+        "by_year": group(lambda i: i["date"][:4]), "by_division": group(lambda i: i["division"]),
+        "by_band": group(band), "by_title": group(lambda i: "title fight" if i["title"] else "non-title"),
+        "fights": items,
+    }
 
 
 def main() -> None:
@@ -253,6 +340,12 @@ def main() -> None:
     data_dir = Path(args.data)
     rows = load_rows(data_dir)
     wins = _method_dists(data_dir)
+
+    # The watchlist history depends only on the data, so it is refreshed on every run (even with no new event).
+    history = build_watchlist_history(rows, wins)
+    (data_dir / "watchlist_history.json").write_text(json.dumps(history, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    o = history["overall"]
+    print(f"Watchlist history: {o['n']} flagged fights, crown held {o['held']} ({o['rate']:.1%}) -> {data_dir / 'watchlist_history.json'}")
 
     by_event: Dict[str, List[dict]] = defaultdict(list)
     for r in rows:
@@ -294,7 +387,7 @@ def main() -> None:
         s = e["summary"]
         print(f"\n{e['event']} ({e['date']}): {s['correct']}/{s['fights']} correct, methods {s['method_correct']}, Brier {s['brier']}")
         for f in e["fights"]:
-            print(("  OK  " if f["correct"] else "  MISS"), f["explanation"])
+            print(("  --  " if f["correct"] is None else "  OK  " if f["correct"] else "  MISS"), f["explanation"])
     print(f"\nSaved {path} and {data_dir / 'post_mortem_log.md'}")
 
 

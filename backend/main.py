@@ -197,6 +197,15 @@ def get_insight_reviews():
     return data
 
 
+@app.get("/insights/watchlist-history")
+def get_watchlist_history():
+    """Past fights flagged as heavy favourite (crown / skull) with how they turned out, newest first."""
+    data = load_json_file("watchlist_history.json")
+    if not data:
+        raise HTTPException(status_code=404, detail="No watchlist history yet.")
+    return data
+
+
 @app.get("/matchmaking/{division}", response_model=list[MatchupEntry])
 def get_matchmaking(division: str, top_n: int = Query(default=15, ge=1, le=200)):
     matchups = build_matchmaking(division, top_n=top_n)
