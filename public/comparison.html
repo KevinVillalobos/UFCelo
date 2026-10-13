@@ -364,6 +364,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>
       ${pred.heavy_favorite_id ? `<div style="margin-bottom:0.75rem;font-size:0.85rem;color:var(--muted);">
         Flagged for review (favorite at ${FLAG_THRESHOLD_PCT}%+): ${escapeHtml(faName)}${flagA} vs ${escapeHtml(fbName)}${flagB}</div>` : ''}
+      ${pred.against_ufc_ranking ? `<div style="margin-bottom:0.75rem;font-size:0.85rem;color:var(--muted);">${againstRankBadge(true)}
+        ${escapeHtml(win)} (${ufcRankLabel(pa >= pb ? pred.ufc_rank_a : pred.ufc_rank_b)}) is picked over
+        ${escapeHtml(pa >= pb ? fbName : faName)} (${ufcRankLabel(pa >= pb ? pred.ufc_rank_b : pred.ufc_rank_a)}) in the official UFC rankings.</div>` : ''}
       <div class="alert-success" style="font-size:1rem;margin-bottom:0.75rem;">
         <strong>${win}</strong> wins with <strong>${(winP*100).toFixed(1)}%</strong> probability
         &mdash; predicted method: <strong>${pred.method_prediction || '—'}</strong>

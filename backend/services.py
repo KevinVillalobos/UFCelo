@@ -24,7 +24,7 @@ from .data_loader import (
     load_skill_scores,
 )
 from .stats import compute_fighter_stats, parse_physical
-from .ufc_rankings import ufc_rank_map
+from .ufc_rankings import against_ufc_ranking, ufc_rank_map, ufc_standing
 
 _K_BASE = 32.0
 _DIVISION_K_MULT: Dict[str, float] = {
@@ -718,6 +718,7 @@ def build_prediction(
         for dim in dims
     }
 
+    standing_a, standing_b = ufc_standing(fighter_a_id), ufc_standing(fighter_b_id)
     favored_id    = fighter_a_id if prob_a >= 0.5 else fighter_b_id
     favored_skill = skill_a      if prob_a >= 0.5 else skill_b
     method_dist   = _fighter_method_distribution(favored_id)
@@ -746,6 +747,9 @@ def build_prediction(
         "style_adjustment": round(blend["style_adjustment"], 4),
         "style_reasons": blend["style_reasons"],
         "heavy_favorite_id": str(favored_id) if max(prob_a, prob_b) >= HEAVY_FAVORITE_PROB else None,
+        "ufc_rank_a": standing_a[1] if standing_a else None,
+        "ufc_rank_b": standing_b[1] if standing_b else None,
+        "against_ufc_ranking": against_ufc_ranking(*((standing_a, standing_b) if prob_a >= 0.5 else (standing_b, standing_a))),
     }
 
 

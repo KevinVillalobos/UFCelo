@@ -74,6 +74,7 @@
   <div id="panel-confidence" role="tabpanel" aria-labelledby="tab-confidence" hidden></div>
   <div id="panel-watch" role="tabpanel" aria-labelledby="tab-watch" hidden>
     <div id="watch-upcoming"><div class="loading">Loading upcoming fights…</div></div>
+    <div id="watch-rank"></div>
     <div id="watch-history"><div class="loading">Loading history…</div></div>
   </div>
   <div id="panel-factors" role="tabpanel" aria-labelledby="tab-factors" hidden></div>
@@ -252,10 +253,28 @@ async function renderWatchlist() {
     return `<h2 style="margin:1.25rem 0 0.25rem;">${escapeHtml(ev.name)}</h2>
       <div style="color:var(--muted);font-size:0.8rem;margin-bottom:0.25rem;">${ev.date ? fmtDate(ev.date) : ''}</div>${rows}`;
   }).join('');
+  const againstRows = events.flatMap(ev => ev.fights.filter(f => f.prediction && f.prediction.against_ufc_ranking).map(f => ({ ev, f })))
+    .map(({ ev, f }) => {
+      const p = f.prediction, pickA = p.probability_a >= p.probability_b;
+      const pick = pickA ? { id: f.fighter_a_id, name: f.fighter_a_name, r: p.ufc_rank_a } : { id: f.fighter_b_id, name: f.fighter_b_name, r: p.ufc_rank_b };
+      const rival = pickA ? { id: f.fighter_b_id, name: f.fighter_b_name, r: p.ufc_rank_b } : { id: f.fighter_a_id, name: f.fighter_a_name, r: p.ufc_rank_a };
+      return `<div class="watch-row">
+        <div>
+          <div class="fight-head"><a href="${escapeHtml(cmpUrl({ id: f.fighter_a_id, name: f.fighter_a_name }, { id: f.fighter_b_id, name: f.fighter_b_name }))}">${escapeHtml(pick.name)}</a>
+            <span style="color:var(--muted);font-weight:500;">(${ufcRankLabel(pick.r)}) over ${escapeHtml(rival.name)} (${ufcRankLabel(rival.r)})</span>${fightFlag(p.heavy_favorite_id, pick.id)}</div>
+          <div class="watch-meta">${escapeHtml(ev.name)} · ${escapeHtml(f.weight_class || f.division || '')} · predicted ${escapeHtml(p.method_prediction)}</div>
+        </div>
+        <div class="watch-pct">${pct(Math.max(p.probability_a, p.probability_b))}</div>
+      </div>`;
+    }).join('');
   el.innerHTML = `
     <div class="ins-note">Upcoming fights where the favourite has ${FLAG_THRESHOLD_PCT}%+ win probability: 👑 favourite, 💀 rival.
       These are the ones to look at in depth. After the event they show up in the Weekly review with the result, so you can see whether the crown held.</div>
-    ${blocks || '<div class="loading">No flagged fights on the announced cards.</div>'}`;
+    ${blocks || '<div class="loading">No flagged fights on the announced cards.</div>'}
+    <h2 style="margin:2rem 0 0.25rem;">Against the official UFC ranking</h2>
+    <div class="ins-note" style="margin-top:0.5rem;">Upcoming picks where the model backs the fighter ranked <em>below</em> the rival on ufc.com
+      (a ranked fighter counts as above an unranked one; rival ranks are only compared inside the same division). Any probability counts here, not just 65%+.</div>
+    ${againstRows || '<div class="loading">No picks against the official ranking on the announced cards.</div>'}`;
 }
 
 function rateTable(title, groups, order) {
@@ -269,6 +288,25 @@ function rateTable(title, groups, order) {
   return `<h3 style="margin:1.25rem 0 0.5rem;font-size:1rem;">${escapeHtml(title)}</h3>
     <div class="table-wrap"><table><thead><tr><th></th><th>Flagged</th><th></th><th>👑 held</th><th>Model said</th><th>💀 hit</th></tr></thead>
     <tbody>${rows}</tbody></table></div>`;
+}
+
+function renderRankTracking(data) {
+  const t = data.ufc_rank_tracking, el = document.getElementById('watch-rank');
+  if (!t || !t.since) { el.innerHTML = ''; return; }
+  const a = t.against, b = t.aligned;
+  const cell = g => g.n ? `${pct(g.rate, 1)} <span style="color:var(--muted);font-weight:500;">(${g.hits}/${g.n})</span>` : '—';
+  el.innerHTML = `
+    <hr class="divider" style="margin:2rem 0 1rem;">
+    <h2 style="margin-bottom:0.5rem;">Picks vs the official UFC ranking</h2>
+    <div class="ins-note">The official rankings are recorded whenever they change (since ${fmtDate(t.since)}), so each fight is judged against the ranking in force
+      on its date. There is no earlier history, so this sample starts small and grows with every event.</div>
+    <div class="metrics-row">
+      <div class="metric"><div class="metric-label">Pick went against the ranking</div><div class="metric-value">${cell(a)}</div>
+        <div class="metric-delta" style="color:var(--muted);">picked the lower-ranked fighter and won</div></div>
+      <div class="metric"><div class="metric-label">Pick agreed with the ranking</div><div class="metric-value">${cell(b)}</div>
+        <div class="metric-delta" style="color:var(--muted);">picked the higher-ranked (or neither ranked)</div></div>
+    </div>
+    ${a.n + b.n === 0 ? '<div class="loading" style="padding:1rem;">No completed fights since tracking began. The first results appear after the next event.</div>' : ''}`;
 }
 
 function renderWatchHistory(h) {
@@ -393,6 +431,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const data = await apiFetch('/insights/reviews');
     renderReviews(data);
     renderConfidence(data);
+    renderRankTracking(data);
     renderFactors(data);
   } catch (e) {
     document.getElementById('panel-reviews').innerHTML = `<div class="alert-error">Failed to load reviews: ${escapeHtml(e.message)}</div>`;

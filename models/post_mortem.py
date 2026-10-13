@@ -32,6 +32,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from backend.services import HEAVY_FAVORITE_PROB, _compute_blended_probability, _predict_method  # noqa: E402
+from backend.ufc_rankings import against_ufc_ranking, load_history, standing_in  # noqa: E402
 from models.backtest_style_clash import load_rows  # noqa: E402
 
 EDGE = 10.0          # skill-point gap that counts as a real edge on a dimension
@@ -72,7 +73,18 @@ def _dist_before(wins: List[tuple], date: str) -> Dict[str, float]:
     return {m: c / total for m, c in counts.items()}
 
 
-def analyse_fight(row: dict, wins_by_fighter: Dict[str, List[tuple]]) -> dict:
+def _snapshot_at(snaps: List[dict], date: str) -> Optional[dict]:
+    """Official rankings in force on `date`: the latest snapshot taken on or before it (None before tracking began)."""
+    current = None
+    for snap in snaps:
+        if snap["date"] <= date:
+            current = snap["divisions"]
+        else:
+            break
+    return current
+
+
+def analyse_fight(row: dict, wins_by_fighter: Dict[str, List[tuple]], snaps: Optional[List[dict]] = None) -> dict:
     blend = _compute_blended_probability(
         row["elo_a"], row["elo_b"], row["skill_a"], row["skill_b"], is_title_fight=row["title"])
     prob_a = blend["prob_a"]
@@ -123,6 +135,17 @@ def analyse_fight(row: dict, wins_by_fighter: Dict[str, List[tuple]]) -> dict:
     if row["title"]:
         tags.append("title-fight")
 
+    # Official UFC ranking in force on the fight date (only known since snapshots started being recorded).
+    snap = _snapshot_at(snaps or [], row["date"])
+    if snap is None:
+        ufc_fav = ufc_rival = against_ufc = None
+    else:
+        st_fav, st_rival = standing_in(snap, fav["id"]), standing_in(snap, dog["id"])
+        ufc_fav, ufc_rival = (st_fav[1] if st_fav else None), (st_rival[1] if st_rival else None)
+        against_ufc = against_ufc_ranking(st_fav, st_rival)
+        if against_ufc:
+            tags.append("against-ufc-ranking")
+
     # Plain-language verdict.
     pct = f"{fav_prob:.0%}"
     if toss_up:
@@ -143,6 +166,10 @@ def analyse_fight(row: dict, wins_by_fighter: Dict[str, List[tuple]]) -> dict:
         if fav_prob < COIN_FLIP:
             why += " Near coin flip: not a real model failure."
 
+    if against_ufc:
+        rk = lambda r: "unranked" if r is None else ("champion" if r == 0 else f"#{r}")
+        why += f" The pick went against the official UFC ranking ({rk(ufc_fav)} over {rk(ufc_rival)})."
+
     return {
         "fight_id": row["fight_id"], "division": row["division"], "title": row["title"],
         "fighter_a": {"id": row["a_id"], "name": row["a_name"]},
@@ -158,6 +185,7 @@ def analyse_fight(row: dict, wins_by_fighter: Dict[str, List[tuple]]) -> dict:
         "method_correct": bool(fav_won) and method_pred == method_actual,
         "heavy_favourite": fav_prob >= HEAVY_FAVORITE_PROB,     # crown on the favourite, skull on the rival
         "signals_for_favourite": for_fav, "signals_against_favourite": for_dog,
+        "ufc_rank_favourite": ufc_fav, "ufc_rank_rival": ufc_rival, "against_ufc_ranking": against_ufc,
         "tags": tags, "explanation": why,
     }
 
@@ -231,8 +259,8 @@ def summarize(fights: List[dict]) -> dict:
             "method_correct": method_hits, "toss_ups": toss_ups, "brier": round(brier, 4) if brier is not None else None}
 
 
-def build_event(event_rows: List[dict], wins: Dict[str, List[tuple]]) -> dict:
-    fights = [analyse_fight(r, wins) for r in event_rows]
+def build_event(event_rows: List[dict], wins: Dict[str, List[tuple]], snaps: Optional[List[dict]] = None) -> dict:
+    fights = [analyse_fight(r, wins, snaps) for r in event_rows]
     first = event_rows[0]
     day = datetime.strptime(first["date"], "%Y-%m-%d")
     week_start = (day - timedelta(days=day.weekday())).strftime("%Y-%m-%d")   # Monday of the event's week
@@ -269,6 +297,25 @@ def render_markdown(events: List[dict], scorecard: dict) -> str:
             out.append(f"  {f['explanation']}" + (f" _[{', '.join(f['tags'])}]_" if f["tags"] else ""))
         out.append("")
     return "\n".join(out)
+
+
+def ufc_rank_tracking(rows: List[dict], wins: Dict[str, List[tuple]], snaps: List[dict]) -> dict:
+    """How picks that went against the official UFC ranking fared, for fights since the snapshots began."""
+    if not snaps:
+        return {"since": None, "against": {"n": 0, "hits": 0, "rate": None}, "aligned": {"n": 0, "hits": 0, "rate": None}}
+    since = snaps[0]["date"]
+    groups = {"against": [], "aligned": []}
+    for row in rows:
+        if row["date"] < since:
+            continue
+        f = analyse_fight(row, wins, snaps)
+        if f["correct"] is None or f["against_ufc_ranking"] is None:
+            continue
+        groups["against" if f["against_ufc_ranking"] else "aligned"].append(f["correct"])
+
+    def agg(vals):
+        return {"n": len(vals), "hits": sum(vals), "rate": round(sum(vals) / len(vals), 4) if vals else None}
+    return {"since": since, **{k: agg(v) for k, v in groups.items()}}
 
 
 def _rate(items: List[dict]) -> dict:
@@ -372,13 +419,15 @@ def main() -> None:
         print("Nothing new to review.")
         return
 
+    snaps = load_history()
     for rs in selected:
-        existing[rs[0]["event_id"]] = build_event(rs, wins)      # upsert: re-running an event refreshes it
+        existing[rs[0]["event_id"]] = build_event(rs, wins, snaps)      # upsert: re-running an event refreshes it
 
     events = sorted(existing.values(), key=lambda e: e["date"], reverse=True)
     scorecard = factor_scorecard(rows)
     path.write_text(json.dumps({"generated": datetime.now().isoformat(timespec="seconds"),
-                                "factor_scorecard": scorecard, "events": events},
+                                "factor_scorecard": scorecard, "ufc_rank_tracking": ufc_rank_tracking(rows, wins, snaps),
+                                "events": events},
                                indent=2, ensure_ascii=False), encoding="utf-8")
     (data_dir / "post_mortem_log.md").write_text(render_markdown(events, scorecard), encoding="utf-8")
 

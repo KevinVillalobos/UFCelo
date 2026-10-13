@@ -642,3 +642,4 @@ label { font-weight: 700; letter-spacing: 0.07em; }
 
 /* Heavy-favourite markers (crown / skull) */
 .fight-flag { margin-left: 0.35em; font-size: 0.9em; cursor: help; }
+.chip-rank { display: inline-block; border: 1px solid var(--orange); color: var(--orange); border-radius: 20px; padding: 1px 9px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.02em; white-space: nowrap; cursor: help; }

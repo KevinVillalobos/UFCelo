@@ -59,7 +59,7 @@ Overall favourite hit rate: 62.6% on 7623 fights.
 - ❌ 👑 **Ateba Gautier** vs Roman Kopylov (65%; predicted KO/TKO, actual KO/TKO)  
   Miss: Ateba Gautier was the 65% favourite but Roman Kopylov won by KO/TKO R1. The pick leaned on: ELO +114, Finish Rate +24.3. Signals that pointed to the winner: Cardio/Durabilidad -16.8, Grappling -15, Striking -14.3, Consistencia -12.2. _[heavy-favourite, big-upset]_
 - ✅ **Anthony Wint** vs Lucas Armand (62%; predicted SUB, actual KO/TKO)  
-  Hit: Anthony Wint was the 62% favourite and won by KO/TKO R1. Backed by: ELO +81, Finish Rate +10, Striking +10. Warning signs that did not matter: thin sample (0 prior UFC fights for one fighter). _[low-sample]_
+  Hit: Anthony Wint was the 62% favourite and won by KO/TKO R1. Backed by: ELO +81, Striking +10, Finish Rate +10. Warning signs that did not matter: thin sample (0 prior UFC fights for one fighter). _[low-sample]_
 - ❌ **Khaos Williams** vs Roberto Soldic (57%; predicted KO/TKO, actual DEC)  
   Miss: Khaos Williams was the 57% favourite but Roberto Soldic won by DEC U R3. The pick leaned on: ELO +44, Cardio/Durabilidad +36.5, Striking +30.2, Defensa +15.9. Signals that pointed to the winner: Grappling -22.2. Low-sample fighter: ratings were mostly priors. _[low-sample]_
 - ❌ **Court McGee** vs Eric Nolan (56%; predicted DEC, actual KO/TKO)  
@@ -169,7 +169,7 @@ Overall favourite hit rate: 62.6% on 7623 fights.
 - ❌ **Nathaniel Wood** vs Pavel Andrusca (55%; predicted DEC, actual DEC)  
   Miss: Nathaniel Wood was the 55% favourite but Pavel Andrusca won by DEC U R3. The pick leaned on: ELO +25, Cardio/Durabilidad +46.3, Striking +38.1, Defensa +25.4, Consistencia +23.6. Signals that pointed to the winner: Finish Rate -15.7. Low-sample fighter: ratings were mostly priors. _[low-sample]_
 - ❌ **Luis Felipe Dias** vs Matthieu Duclos (55%; predicted KO/TKO, actual KO/TKO)  
-  Miss: Luis Felipe Dias was the 55% favourite but Matthieu Duclos won by KO/TKO R1. The pick leaned on: ELO +34, Finish Rate +10, Striking +10. Signals that pointed to the winner: none (the model saw nothing). Low-sample fighter: ratings were mostly priors. _[low-sample]_
+  Miss: Luis Felipe Dias was the 55% favourite but Matthieu Duclos won by KO/TKO R1. The pick leaned on: ELO +34, Striking +10, Finish Rate +10. Signals that pointed to the winner: none (the model saw nothing). Low-sample fighter: ratings were mostly priors. _[low-sample]_
 - ✅ **Salahdine Parnasse** vs Dan Hooker (55%; predicted DEC, actual KO/TKO)  
   Hit: Salahdine Parnasse was the 55% favourite and won by KO/TKO R1. Backed by: ELO +41, Grappling +23.5, Finish Rate +13.1, Presión +11.3. Warning signs that did not matter: Cardio/Durabilidad -33, Striking -25.1, Defensa -10.4, thin sample (0 prior UFC fights for one fighter). _[low-sample]_
 - ❌ **Muhammad Naimov** vs Losene Keita (55%; predicted DEC, actual KO/TKO)  
@@ -275,7 +275,7 @@ Overall favourite hit rate: 62.6% on 7623 fights.
 - ✅ **Miles Johns** vs Gianni Vazquez (57%; predicted DEC, actual KO/TKO)  
   Hit: Miles Johns was the 57% favourite and won by KO/TKO R1. Backed by: ELO +42, Cardio/Durabilidad +29.8, Consistencia +17.6, Defensa +15, Striking +14.6. Warning signs that did not matter: Finish Rate -11.7, thin sample (1 prior UFC fights for one fighter). _[low-sample]_
 - ✅ **Manoel Sousa** vs Richie Miranda (56%; predicted KO/TKO, actual DEC)  
-  Hit: Manoel Sousa was the 56% favourite and won by DEC U R3. Backed by: ELO +41, Finish Rate +10, Striking +10, Cardio/Durabilidad +10. Warning signs that did not matter: thin sample (0 prior UFC fights for one fighter). _[low-sample]_
+  Hit: Manoel Sousa was the 56% favourite and won by DEC U R3. Backed by: ELO +41, Cardio/Durabilidad +10, Striking +10, Finish Rate +10. Warning signs that did not matter: thin sample (0 prior UFC fights for one fighter). _[low-sample]_
 - ✅ **Quillan Salkilld** vs Mateusz Gamrot (54%; predicted KO/TKO, actual SUB)  
   Hit: Quillan Salkilld was the 54% favourite and won by SUB R1. Backed by: ELO +32, Finish Rate +23.1. Warning signs that did not matter: Grappling -24.6, Presión -17.8, Cardio/Durabilidad -16.8, Defensa -15.5. _[coin-flip]_
 - ✅ **Steven Asplund** vs Guilherme Pat (52%; predicted KO/TKO, actual DEC)  
@@ -346,7 +346,7 @@ Overall favourite hit rate: 62.6% on 7623 fights.
 9/10 correct (90%) · methods right: 3 · Brier 0.1838
 
 - ✅ 👑 **Alden Coria** vs Stewart Nicoll (71%; predicted KO/TKO, actual DEC)  
-  Hit: Alden Coria was the 71% favourite and won by DEC U R3. Backed by: ELO +147, Finish Rate +15.5, Grappling +15.5, Striking +14.5, Defensa +11.9. Warning signs that did not matter: thin sample (2 prior UFC fights for one fighter). _[heavy-favourite, low-sample]_
+  Hit: Alden Coria was the 71% favourite and won by DEC U R3. Backed by: ELO +147, Grappling +15.5, Finish Rate +15.5, Striking +14.5, Defensa +11.9. Warning signs that did not matter: thin sample (2 prior UFC fights for one fighter). _[heavy-favourite, low-sample]_
 - ✅ 👑 **RJ Harris** vs Alvin Hines (66%; predicted DEC, actual KO/TKO)  
   Hit: RJ Harris was the 66% favourite and won by KO/TKO R1. Backed by: ELO +116. Warning signs that did not matter: Cardio/Durabilidad -10, thin sample (0 prior UFC fights for one fighter). _[heavy-favourite, low-sample]_
 - ✅ 👑 **Chase Hooper** vs Mitch Ramirez (66%; predicted SUB, actual SUB)  
@@ -393,7 +393,7 @@ Overall favourite hit rate: 62.6% on 7623 fights.
 - ❌ **Cory Sandhagen** vs Mario Bautista (52%; predicted KO/TKO, actual DEC)  
   Miss: Cory Sandhagen was the 52% favourite but Mario Bautista won by DEC U R3. The pick leaned on: ELO +18. Signals that pointed to the winner: Defensa -12.8, Grappling -12.1. Near coin flip: not a real model failure. _[coin-flip]_
 - ✅ **Paddy Pimblett** vs Benoit Saint Denis (51%; predicted SUB, actual SUB)  
-  Hit: Paddy Pimblett was the 51% favourite and won by SUB R1. Backed by: ELO +14, Consistencia +12.2. Warning signs that did not matter: Defensa -36.8, Finish Rate -19.4, Grappling -19.4. _[coin-flip]_
+  Hit: Paddy Pimblett was the 51% favourite and won by SUB R1. Backed by: ELO +14, Consistencia +12.2. Warning signs that did not matter: Defensa -36.8, Grappling -19.4, Finish Rate -19.4. _[coin-flip]_
 - ✅ **King Green** vs Terrance McKinney (50%; predicted DEC, actual KO/TKO)  
   Hit: King Green was the 50% favourite and won by KO/TKO R1. Backed by: Grappling +26.5, Consistencia +23, Presión +21.1, Defensa +12.3. Warning signs that did not matter: Finish Rate -10.6. _[coin-flip]_
 
@@ -577,7 +577,7 @@ Overall favourite hit rate: 62.6% on 7623 fights.
 7/13 correct (54%) · methods right: 5 · Brier 0.2168
 
 - ✅ 👑 **Marwan Rahiki** vs Ollie Schmid (75%; predicted KO/TKO, actual KO/TKO)  
-  Hit: Marwan Rahiki was the 75% favourite and won by KO/TKO R1. Backed by: ELO +188, Finish Rate +10, Striking +10. Warning signs that did not matter: thin sample (0 prior UFC fights for one fighter). _[heavy-favourite, low-sample]_
+  Hit: Marwan Rahiki was the 75% favourite and won by KO/TKO R1. Backed by: ELO +188, Striking +10, Finish Rate +10. Warning signs that did not matter: thin sample (0 prior UFC fights for one fighter). _[heavy-favourite, low-sample]_
 - ✅ 👑 **Colby Thicknesse** vs Vince Morales (70%; predicted DEC, actual DEC)  
   Hit: Colby Thicknesse was the 70% favourite and won by DEC U R3. Backed by: ELO +151, Presión +23.8. Warning signs that did not matter: Cardio/Durabilidad -25.4, thin sample (2 prior UFC fights for one fighter). _[heavy-favourite, low-sample]_
 - ✅ **Quillan Salkilld** vs Beneil Dariush (64%; predicted KO/TKO, actual KO/TKO)  
@@ -639,7 +639,7 @@ Overall favourite hit rate: 62.6% on 7623 fights.
 - ❌ **Tanner Boser** vs Gokhan Saricam (64%; predicted KO/TKO, actual KO/TKO)  
   Miss: Tanner Boser was the 64% favourite but Gokhan Saricam won by KO/TKO R2. The pick leaned on: ELO +96, Cardio/Durabilidad +36.9, Striking +25.4, Consistencia +13, Defensa +10.6. Signals that pointed to the winner: Grappling -24.3. Low-sample fighter: ratings were mostly priors. _[low-sample]_
 - ✅ **Jai Herbert** vs Mandel Nallo (63%; predicted DEC, actual KO/TKO)  
-  Hit: Jai Herbert was the 63% favourite and won by KO/TKO R1. Backed by: ELO +83, Cardio/Durabilidad +38.6, Striking +22.3, Defensa +16.7, Consistencia +13.5. Warning signs that did not matter: Finish Rate -15.3, Presión -10.3, Grappling -10.3, thin sample (0 prior UFC fights for one fighter). _[low-sample]_
+  Hit: Jai Herbert was the 63% favourite and won by KO/TKO R1. Backed by: ELO +83, Cardio/Durabilidad +38.6, Striking +22.3, Defensa +16.7, Consistencia +13.5. Warning signs that did not matter: Finish Rate -15.3, Grappling -10.3, Presión -10.3, thin sample (0 prior UFC fights for one fighter). _[low-sample]_
 - ✅ **Mike Malott** vs Gilbert Burns (58%; predicted KO/TKO, actual KO/TKO)  
   Hit: Mike Malott was the 58% favourite and won by KO/TKO R3. Backed by: ELO +54, Finish Rate +23.5, Striking +10.9. Warning signs that did not matter: Defensa -10.6.
 - ❌ **Jamie Siraj** vs John Yannis (57%; predicted DEC, actual KO/TKO)  

@@ -172,6 +172,9 @@ class PredictionResult(BaseModel):
     style_adjustment:  float = 0.0                      # applied to probability_a; 0.0 while Style Clash is context-only
     style_reasons:     List[str] = Field(default_factory=list)  # matchup notes shown as context (+ favours A, - favours B)
     heavy_favorite_id: Optional[str] = None             # set when the favourite has >= 65%: crown on them, skull on the rival
+    ufc_rank_a:        Optional[int] = None             # official UFC rank (0 = champion), None when unranked
+    ufc_rank_b:        Optional[int] = None
+    against_ufc_ranking: bool = False                   # the model's pick is ranked below the rival in the official UFC rankings
 
 
 class MatchupEntry(BaseModel):

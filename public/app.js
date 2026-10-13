@@ -212,6 +212,12 @@ function fightFlag(heavyFavId, fighterId) {
     : `<span class="fight-flag" role="img" aria-label="Heavy underdog" title="Heavy underdog (rival has ${FLAG_THRESHOLD_PCT}%+ win probability)">💀</span>`;
 }
 
+// "Against the UFC ranking": the model's pick is ranked below the rival in the official rankings (server: prediction.against_ufc_ranking).
+function againstRankBadge(on) {
+  return on ? '<span class="chip-rank" title="The model picked the fighter ranked lower in the official UFC rankings">Against UFC ranking</span>' : '';
+}
+function ufcRankLabel(r) { return r == null ? 'Unranked' : r === 0 ? 'Champion' : `#${r}`; }
+
 window.UFCelo = { FighterIndex, slugify, fighterUrl, fightFlag };
 
 // Markup of one search field. p = id prefix, so several instances (navbar, hero) can coexist.

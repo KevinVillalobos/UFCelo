@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const a = { id: f.fighter_a_id, name: f.fighter_a_name, elo: p.elo_a, p: p.probability_a };
     const b = { id: f.fighter_b_id, name: f.fighter_b_name, elo: p.elo_b, p: p.probability_b };
     return { a, b, method: p.method_prediction, key: keyAdvantage(p, a, b), eloDiff: p.elo_difference,
-             mainEvent: f.is_main_event, card: f.card, style: p.style_reasons || [], heavy: p.heavy_favorite_id };
+             mainEvent: f.is_main_event, card: f.card, style: p.style_reasons || [], heavy: p.heavy_favorite_id, against: p.against_ufc_ranking };
   }
   function fromMatchup(m) {
     const a = { id: m.fighter_a_id, name: m.fighter_a_name, elo: m.elo_a, p: m.probability_a };
@@ -154,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <article class="featured">
         <div class="featured-meta">
           <span class="tag-live">${escapeHtml(meta.tag)}</span>
+          ${againstRankBadge(fx.against)}
           ${meta.event ? `<span class="featured-event">${escapeHtml(meta.event)}</span>` : ''}
           ${meta.date ? `<span>${escapeHtml(meta.date)}</span>` : ''}
           ${meta.venue ? `<span>${escapeHtml(meta.venue)}</span>` : ''}
@@ -181,6 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="pc-pct">${pct(f.p)}</span></div>`;
     return `<a class="pred-card" href="${cmpUrl(fx)}">
       ${tag ? `<div class="pc-card-tag">${escapeHtml(tag)}</div>` : ''}
+      ${fx.against ? `<div style="margin-bottom:6px;">${againstRankBadge(true)}</div>` : ''}
       ${row(fx.a, favA)}${row(fx.b, !favA)}
       <div class="pbar" style="height:6px;margin-top:8px;" aria-hidden="true">
         <div class="pbar-a" style="width:${(fx.a.p * 100).toFixed(1)}%"></div>

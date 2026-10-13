@@ -31,6 +31,7 @@ _PAGE_ORDER = [
 
 _RANKINGS_FILE = DATA_DIR / "ufc_rankings.json"
 _CHAMPIONS_FILE = DATA_DIR / "champions.json"
+_HISTORY_FILE = DATA_DIR / "ufc_rankings_history.json"   # dated snapshots, appended only when the rankings change
 _lock = threading.Lock()
 
 
@@ -109,7 +110,80 @@ def refresh() -> Optional[dict]:
     except OSError as exc:  # data/ not writable
         log.warning("Could not persist UFC rankings: %s", exc)
         return None
+    append_history(divisions)
     return payload
+
+
+def _compact(divisions: Dict[str, dict]) -> Dict[str, dict]:
+    """Snapshot form: per division, the champion and the 15 ranked as {id, name} (name kept for unresolved ids)."""
+    def entry(e: dict) -> dict:
+        return {"id": e.get("fighter_id", ""), "name": e.get("fighter_name", "")}
+    return {d: {"champion": entry(info["champion"]), "ranked": [entry(e) for e in info["ranked"]]}
+            for d, info in divisions.items()}
+
+
+def load_history() -> List[dict]:
+    """Dated snapshots of the official rankings, oldest first."""
+    try:
+        data = json.loads(_HISTORY_FILE.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    snaps = data.get("snapshots") if isinstance(data, dict) else None
+    return sorted(snaps, key=lambda x: x["date"]) if isinstance(snaps, list) else []
+
+
+def append_history(divisions: Dict[str, dict]) -> bool:
+    """Record today's official rankings if they differ from the latest snapshot. True when a snapshot was added.
+
+    The site has no way to rebuild what the rankings were on a past date, so this history is what lets
+    the post-event review judge a pick against the ranking that was in force at the time.
+    """
+    snapshot = _compact(divisions)
+    try:
+        with _lock:
+            snaps = load_history()
+            if snaps and snaps[-1]["divisions"] == snapshot:
+                return False
+            today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+            snaps = [x for x in snaps if x["date"] != today] + [{"date": today, "divisions": snapshot}]
+            _HISTORY_FILE.write_text(
+                json.dumps({"_comment": "Official UFC rankings, one snapshot per change. Written by backend/ufc_rankings.py.",
+                            "snapshots": snaps}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+        return True
+    except OSError as exc:
+        log.warning("Could not persist UFC rankings history: %s", exc)
+        return False
+
+
+def standing_in(divisions: Dict[str, dict], fighter_id: str) -> Optional[tuple]:
+    """(division, rank) of a fighter in a rankings payload, rank 0 = champion; None when unranked."""
+    fid = str(fighter_id or "")
+    if not fid:
+        return None
+    for division, info in divisions.items():
+        entries = [info["champion"], *info["ranked"]]
+        for i, e in enumerate(entries):
+            if str(e.get("fighter_id") or e.get("id") or "") == fid:
+                return division, i if "rank" not in e else e["rank"]
+    return None
+
+
+def ufc_standing(fighter_id: str) -> Optional[tuple]:
+    """Current official standing: (division, rank) or None when unranked."""
+    return standing_in(load_ufc_rankings().get("divisions", {}), fighter_id)
+
+
+def against_ufc_ranking(pick: Optional[tuple], rival: Optional[tuple]) -> bool:
+    """True when the picked fighter sits BELOW the rival in the official rankings.
+
+    A ranked fighter is above an unranked one; two ranked fighters are only compared inside the same
+    division (rank 0 = champion). Anything else, including two unranked fighters, is not "against".
+    """
+    if pick is None:
+        return rival is not None
+    if rival is None:
+        return False
+    return pick[0] == rival[0] and pick[1] > rival[1]
 
 
 def load_ufc_rankings() -> dict:
